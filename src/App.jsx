@@ -7,6 +7,7 @@ const DashboardPage = lazy(() => import("./pages/DashboardPage"))
 const PolyclinicsPage = lazy(() => import("./pages/PolyclinicsPage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const HistoryPage = lazy(() => import("./pages/HistoryPage"))
+const LoginPage = lazy(() => import("./pages/LoginPage"))
 
 
 const App = () => {
@@ -15,8 +16,8 @@ const App = () => {
       { path: "/dashboard", role: "user", element: <DashboardPage /> },
       { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
       { path: "/profile", role: "user", element: <ProfilePage /> },
-      { path: "/profile/history", role: "user", element: <HistoryPage /> }
-      
+      { path: "/profile/history", role: "user", element: <HistoryPage /> },
+      { path: "/login", role: "user", element: <LoginPage /> }
     ]
 
   return (
