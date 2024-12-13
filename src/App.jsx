@@ -4,6 +4,7 @@ import Middleware from "@/hoc/Middleware"
 import Loader from "./components/Loader"
 
 const DashboardPage = lazy(() => import("./pages/DashboardPage"))
+const DoctorsPage = lazy(() => import("./pages/DoctorsPage"))
 const PolyclinicsPage = lazy(() => import("./pages/PolyclinicsPage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const HistoryPage = lazy(() => import("./pages/HistoryPage"))
@@ -13,6 +14,7 @@ const App = () => {
   const allRoutes =
     [
       { path: "/dashboard", role: "user", element: <DashboardPage /> },
+      { path: "/doctors", role: "user", element: <DoctorsPage /> },
       { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
       { path: "/profile", role: "user", element: <ProfilePage /> },
       { path: "/profile/history", role: "user", element: <HistoryPage /> }
