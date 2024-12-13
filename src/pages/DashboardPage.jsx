@@ -9,7 +9,7 @@ const DashboardPage = () => {
 
     return (
         <div className="mx-auto">
-            <section className=" flex justify-around items-center py-4 ">
+            <section className=" flex justify-between items-center p-6 ">
                 <div className="flex gap-3">
                     <div className="rounded-full w-11 h-11 border-2 border-black" />
                     <div>
@@ -23,7 +23,7 @@ const DashboardPage = () => {
             </section>
 
             <section className="mb-5">
-                <div className="w-full px-7">
+                <div className="w-full px-6">
                     <input type="text" placeholder="Search Anything" className="w-full p-2 rounded-lg border-2 shadow text-xs" />
                 </div>
             </section>
@@ -65,7 +65,9 @@ const DashboardPage = () => {
                     <div className="flex items-end gap-1">
                         <h1 className="font-semibold text-lg tracking-wider my-2 ms-2">Doctors</h1>
                     </div>
+                    <Link to={"/doctors"}>
                     <Button variant="link" className=" rounded-lg">View All</Button>
+                    </Link>
                 </div>
                 <CarouselBlock size={44} />
             </section>
