@@ -26,7 +26,7 @@ const App = () => {
       { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
       { path: "/profile", role: "user", element: <ProfilePage /> },
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
-      { path: "/booking", role: "user", element: <BookingPage /> }
+      { path: "/booking", role: "user", element: <BookingPage /> },
       
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
       { path: "/login", role: "user", element: <LoginPage /> },
