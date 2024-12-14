@@ -1,5 +1,8 @@
+
+import UserChart from '@/components/charts/UserCharts'
 import { TableComponent } from '@/components/table/TableComponent'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { getAllUsers } from '@/data/users'
 import { failedToast } from '@/lib/toaster'
 import { ChevronLeft } from 'lucide-react'
@@ -23,20 +26,42 @@ const UserPage = () => {
     }, [])
 
     const navigate = useNavigate()
-    console.log(data);
+
+    const [filterData, setFilterData] = useState("");
+
+    const filteredInput = data?.filter((value) =>
+        value.name.toLowerCase().includes(filterData.toLowerCase())
+    );
+
     return (
-        <>
-            <Button onClick={() => navigate(-1)}><ChevronLeft size={20} /></Button>
+        <div className='p-8 flex flex-col gap-4 mb-52'>
+            <section className='flex gap-5 items-center'>
+                <Button onClick={() => navigate(-1)}><ChevronLeft size={20} /></Button>
+                <h1>DAFTAR USER</h1>
+            </section>
+
+            <section>
+                <UserChart />
+            </section>
+            <section>
+                <Input
+                    className="h-10 w-full border border-gray-300 rounded-md px-3 mb-3"
+                    value={filterData}
+                    onChange={(e) => setFilterData(e.target.value)}
+                    placeholder="Cari User"
+                />
+
+            </section>
+
             {
                 data ?
-                    <div className='p-6'>
-                        <div>ListUser</div>
-                        <TableComponent data={data} />
-                    </div>
+                    <TableComponent data={filteredInput} />
                     :
-                    <p className='table-loader'></p>
+                    <div className="flex justify-center items-center mt-3">
+                        <p className='table-loader'></p>
+                    </div>
             }
-        </>
+        </div>
     )
 }
 
