@@ -16,8 +16,6 @@ import {
 } from "@/components/ui/collapsible";
 import { useEffect, useState } from "react";
 import { getUserById } from "@/data/users";
-import { failedToast } from "@/lib/toaster";
-import Loader from "@/components/Loader";
 
 const ProfilePage = () => {
     const navigate = useNavigate();
@@ -33,16 +31,12 @@ const ProfilePage = () => {
 
     const fetchUserById = async () => {
         const response = await getUserById(id);
-        if (response.status == 404) {
-            failedToast(response.message);
-        } else {
-            setData(response.data);
-        }
+        setData(response.data);
     };
 
     useEffect(() => {
         fetchUserById();
-    }, []);
+    });
 
     return (
         <div className="h-screen flex flex-col p-8">
@@ -79,7 +73,9 @@ const ProfilePage = () => {
                                 <h1>Domisili : {data?.location}</h1>
                             </>
                         ) : (
-                            <Loader />
+                            <div className='flex w-full justify-center items-center p-2'>
+                                <p className='page-loader' />
+                            </div>
                         )}
                     </CollapsibleContent>
                     <CollapsibleTrigger>

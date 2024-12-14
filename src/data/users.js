@@ -5,6 +5,14 @@ export const getUserById = async (id) => {
         const response = await userInstance.get(`/users/${id}`)
         return response
     } catch (error) {
-        return { status: 404, message: "ID tidak ditemukan" }
+        return { status: 404, message: "ID tidak ditemukan", error }
+    }
+}
+export const getAllUsers = async () => {
+    try {
+        const response = await userInstance.get(`/users`)
+        return response
+    } catch (error) {
+        return { status: 404, message: "Gagal Mendapatkan User", error }
     }
 }

@@ -1,39 +1,33 @@
-import React from 'react'
-import { Button } from '@/components/ui/button'
-import { Calendar, House, User } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
+import { Calendar, House, User } from "lucide-react";
+import { jwtDecode } from "jwt-decode";
+import DrawerMenu from "./DrawerMenu";
+import NavbarButton from "./NavbarButton";
+
 
 const Navbar = () => {
-    const location = useLocation()
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
+    const { role } = jwtDecode(token);
     return (
         <div className={`w-full bg-transparent ${!token ? "hidden" : "fixed"} bottom-3 px-4`}>
-            <div className='bg-primary w-full py-2 rounded-2xl'>
-                <div className='flex justify-evenly items-center'>
-                    <Link to={"/dashboard"}>
-                        <Button variant="navbar">
-                            <House size={20} />
-                            <p className=' text-xs'>HOME</p>
-                        </Button>
-                    </Link>
-                    <Link to={"/booking"}>
-                        <Button variant="navbar">
+            <div className="bg-primary w-full py-2 rounded-2xl">
+                <div className="flex justify-evenly items-center">
+                    <NavbarButton text="HOME" path="/dashboard">
+                        <House size={20} />
+                    </NavbarButton>
+                    {role == "user" ? (
+                        <NavbarButton text="BOOKING" path="/booking">
                             <Calendar size={20} />
-                            <p className=' text-xs'>BOOKING</p>
-                        </Button>
-                    </Link>
-                    <Link to={"/profile"}>
-                        <Button variant="navbar">
-                            <User size={20} />
-                            <p className=' text-xs'>PROFILE</p>
-                        </Button>
-                    </Link>
+                        </NavbarButton>
+                    ) : (
+                        <DrawerMenu />
+                    )}
+                    <NavbarButton text="PROFILE" path="/profile">
+                        <User size={20} />
+                    </NavbarButton>
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
