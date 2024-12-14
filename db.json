@@ -1,0 +1,197 @@
+{
+  "users": [
+    {
+      "id": "1234",
+      "name": "Klinigma",
+      "email": "klinigma@gmail.com",
+      "password": "Password123@",
+      "location": "Goldnerbury",
+      "phoneNumber": "(502) 581-6149",
+      "gender": "pria",
+      "role": "superadmin",
+      "birthDate": "22112002",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "updatedAt": null
+    },
+    {
+      "id": "d5tg",
+      "name": "Admin Klinik",
+      "email": "admin@enigma.com",
+      "password": "Password123@",
+      "location": "Janesville",
+      "phoneNumber": "(499) 270-9654",
+      "gender": "wanita",
+      "role": "admin",
+      "birthDate": "22112002",
+      "createdAt": "2024-12-12T13:36:25.296Z",
+      "updatedAt": null
+    },
+    {
+      "id": "53a1",
+      "name": "User Klinik",
+      "email": "user@enigma.com",
+      "password": "Password123@",
+      "location": "Medan",
+      "phoneNumber": "0567567567",
+      "gender": "pria",
+      "role": "user",
+      "birthDate": "08052024",
+      "createdAt": "2024-12-13T12:59:23.745Z",
+      "updatedAt": null
+    },
+    {
+      "id": "26a2",
+      "name": "Ryan Nagara",
+      "email": "ryan@gmail.com",
+      "password": "qweQWE123@",
+      "location": "sdfs",
+      "phoneNumber": "0345464564",
+      "gender": "pria",
+      "role": "user",
+      "birthDate": "12122009",
+      "createdAt": "2024-12-14T00:09:21.886Z",
+      "updatedAt": null
+    }
+  ],
+  "polyclinics": [
+    {
+      "id": "hzha",
+      "polyName": "Poli Jantung",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "descriptions": "oVgSSrrnIxiLScHHhsYJrSiRoiZBfNCjciGelYzE",
+      "image": "https://avatars.githubusercontent.com/u/10128738"
+    },
+    {
+      "id": "xpxw",
+      "polyName": "Poli Penyakit Dalam",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "descriptions": "dsYxCoRNQHDzQGyVjmziUendMDSAODbuzKfRAVDB",
+      "image": "https://avatars.githubusercontent.com/u/72609122"
+    },
+    {
+      "id": "e9uu",
+      "polyName": "Poli Jantung",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "descriptions": "HPSCnhKVGwyZHROUShWZaysgUksIhCkZUKHpLIdf",
+      "image": "https://avatars.githubusercontent.com/u/63576769"
+    },
+    {
+      "id": "xcv3",
+      "polyName": "Poli Paru",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "descriptions": "HpMnWvjfKxBoZKvtvdJOkWEkezLmDbabGMvGLcmj",
+      "image": "https://avatars.githubusercontent.com/u/16646631"
+    },
+    {
+      "id": "rn23",
+      "polyName": "Poli Paru",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "descriptions": "cKqyKalNTfpkYQClHsGWAGigIExDrNOBheJQQqNB",
+      "image": "https://avatars.githubusercontent.com/u/37820435"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "gyg9",
+      "polyName": "Poli Jantung",
+      "name": "Wallace",
+      "email": "Wallace82@google.com",
+      "gender": "wanita",
+      "descriptions": "drcUczEGbQivHyvRgVYzHEkwOrOoWIkMuTwXLiyh",
+      "invitedAt": "2016-01-26T03:29:45.616Z",
+      "location": "Lake Margarita",
+      "image": "https://avatars.githubusercontent.com/u/6091428"
+    },
+    {
+      "id": "tqjt",
+      "polyName": "Poli Penyakit Dalam",
+      "name": "Joann",
+      "email": "Joann_Hirthe@google.com",
+      "gender": "pria",
+      "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
+      "invitedAt": "2008-12-20T15:52:05.252Z",
+      "location": "Westland",
+      "image": "https://avatars.githubusercontent.com/u/26891770"
+    },
+    {
+      "id": "do11",
+      "polyName": "Poli Jantung",
+      "name": "David",
+      "email": "David_Koepp@google.com",
+      "gender": "wanita",
+      "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
+      "invitedAt": "2007-12-14T11:23:25.259Z",
+      "location": "Napa",
+      "image": "https://avatars.githubusercontent.com/u/81562255"
+    },
+    {
+      "id": "26ky",
+      "polyName": "Poli Paru",
+      "name": "Merle",
+      "email": "Merle_Corwin@google.com",
+      "gender": "wanita",
+      "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
+      "invitedAt": "2008-06-20T14:28:32.691Z",
+      "location": "West Alexisfield",
+      "image": "https://avatars.githubusercontent.com/u/76868199"
+    },
+    {
+      "id": "250z",
+      "polyName": "Poli Paru",
+      "name": "Lorraine",
+      "email": "Lorraine.Parker@google.com",
+      "gender": "wanita",
+      "descriptions": "SyQxXRbNkhrHeTFYytNJedOZRbvSOxRecrovmqZV",
+      "invitedAt": "2015-04-10T12:21:25.176Z",
+      "location": "Hollisfield",
+      "image": "https://avatars.githubusercontent.com/u/57949354"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "43e2",
+      "polyName": "Poli Jantung",
+      "name": "Christian",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "doneAt": "2024-12-15T14:16:53.130Z",
+      "status": "Done"
+    },
+    {
+      "id": "idnf",
+      "polyName": "Poli Penyakit Dalam",
+      "name": "Lucia",
+      "createdAt": "2024-12-12T13:36:25.296Z",
+      "doneAt": "2024-12-13T20:29:00.577Z",
+      "status": "Done"
+    },
+    {
+      "id": "ttv6",
+      "polyName": "Poli Jantung",
+      "name": "Kelvin",
+      "createdAt": "2024-12-12T20:46:31.966Z",
+      "doneAt": "2024-12-16T14:53:42.014Z",
+      "status": "Approve"
+    },
+    {
+      "id": "p2ke",
+      "polyName": "Poli Paru",
+      "name": "Alfredo",
+      "createdAt": "2024-12-12T16:31:21.664Z",
+      "doneAt": "2024-12-17T23:46:09.855Z",
+      "status": "Done"
+    },
+    {
+      "id": "hesg",
+      "polyName": "Poli Paru",
+      "name": "Christy",
+      "createdAt": "2024-12-12T21:41:48.520Z",
+      "doneAt": "2024-12-17T03:35:37.046Z",
+      "status": "Approve"
+    }
+  ]
+}

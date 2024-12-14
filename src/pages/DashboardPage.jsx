@@ -1,12 +1,9 @@
 import CarouselBlock from "@/components/CarouselBlock"
 import { Button } from "@/components/ui/button"
 import { Bell, MapPin } from "lucide-react"
-import { fetchDataUsers } from "@/data/users"
 import { Link } from 'react-router-dom'
 
 const DashboardPage = () => {
-    const { data } = fetchDataUsers()
-
     return (
         <div className="mx-auto">
             <section className=" flex justify-around items-center py-4 ">
@@ -54,7 +51,7 @@ const DashboardPage = () => {
                         <h1 className="font-semibold text-lg tracking-wider my-2 ms-2">Polyclinic</h1>
                     </div>
                     <Link to={"/polyclinic-items"}>
-                    <Button variant="link" className=" rounded-lg">Show All</Button>
+                        <Button variant="link" className=" rounded-lg">Show All</Button>
                     </Link>
                 </div>
                 <CarouselBlock size={40} />

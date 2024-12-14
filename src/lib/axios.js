@@ -1,10 +1,13 @@
 import axios from "axios";
 
-export const userInstance = axios.create(
+export const loginInstance = axios.create(
     {
-        baseURL: import.meta.env.VITE_API_USER_URL,
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        baseURL: import.meta.env.VITE_API_SUPERADMIN_URL,
     }
 )
+export const userInstance = axios.create(
+    {
+        baseURL: import.meta.env.VITE_API_USERS_URL,
+    }
+)
+
