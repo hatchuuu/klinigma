@@ -7,6 +7,7 @@ import {
     InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { Label } from '../ui/label';
+import PropTypes from 'prop-types';
 
 const FieldBirthDate = ({ control, name, label }) => {
 
@@ -52,4 +53,11 @@ const FieldBirthDate = ({ control, name, label }) => {
         />
     );
 };
+
+FieldBirthDate.propTypes = {
+    label: PropTypes.string,
+    name: PropTypes.string,
+    control: PropTypes.object
+}
+
 export default FieldBirthDate

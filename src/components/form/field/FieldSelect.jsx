@@ -12,6 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import PropTypes from "prop-types"
 
 const FieldSelect = ({ control, name, label, list }) => {
     return (
@@ -42,6 +43,13 @@ const FieldSelect = ({ control, name, label, list }) => {
             )}
         />
     )
+}
+
+FieldSelect.propTypes = {
+    label: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    list: PropTypes.array,
+    control: PropTypes.object
 }
 
 export default FieldSelect

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Eye, EyeClosed, EyeOff, EyeOffIcon } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
+import PropTypes from 'prop-types'
 
 
 const FieldInput = ({ control, name, label, canHide }) => {
@@ -27,7 +28,6 @@ const FieldInput = ({ control, name, label, canHide }) => {
                                 {visible ? <Eye /> : <EyeOff />}
                             </div>
                         </div>
-                        {/* <Input type="text" placeholder={label} {...field} /> */}
                     </FormControl>
                     <FormMessage />
                 </FormItem>
@@ -35,5 +35,10 @@ const FieldInput = ({ control, name, label, canHide }) => {
         />
     )
 }
-
+FieldInput.propTypes = {
+    label: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    canHide: PropTypes.bool,
+    control: PropTypes.object
+}
 export default FieldInput

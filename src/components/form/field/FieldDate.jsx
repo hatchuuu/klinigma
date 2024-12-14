@@ -15,6 +15,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import PropTypes from "prop-types"
 
 
 const FieldDate = ({ control, name }) => {
@@ -61,6 +62,11 @@ const FieldDate = ({ control, name }) => {
             )}
         />
     )
+}
+
+FieldDate.propTypes = {
+    name: PropTypes.string,
+    control: PropTypes.object
 }
 
 export default FieldDate
