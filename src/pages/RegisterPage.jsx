@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerSchema } from "@/lib/zodSchema";
 import FieldInput from "@/components/form/FieldInput";
 import FieldSelect from "@/components/form/FieldSelect";
-import FieldDate from "@/components/form/FieldDate";
+import DatePicker from "@/components/form/DatePicker";
 import { createUser } from "@/data/createUser";
 import { failedToast, successToast } from "@/lib/toaster";
 import BirthDatePicker from "@/components/BirthDatePicker";
@@ -64,12 +64,28 @@ const RegisterPage = () => {
     //     </Link>
     // </div>
 
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
-      <div className="w-full max-w-3xl p-6 bg-white shadow-md rounded-lg">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
+        {/* Logo */}
+        <div className="flex justify-center mb-4">
+          <img
+            src="/klinigma.png"
+            alt="Klinigma"
+            width={70}
+            height={70}
+            className="object-contain"
+          />
+        </div>
+
+        {/* Title */}
+        <h3 className="text-3xl font-semibold text-center text-black-800 mb-4">
+          Register
+        </h3>
+
         <Form {...form}>
           <form
             onSubmit={onSubmit}
-            className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2"
           >
             <FieldInput control={control} name="name" label="Nama" />
             <FieldInput control={control} name="email" label="Email" />
@@ -96,8 +112,9 @@ const RegisterPage = () => {
               name="gender"
               label="Jenis Kelamin"
               list={list}
+              className="mt-[-1]"
             />
-            <FieldInput
+            <DatePicker
               type="date"
               control={control}
               name="birthDate"
@@ -106,18 +123,21 @@ const RegisterPage = () => {
             <div className="col-span-1 sm:col-span-2">
               <Button
                 type="submit"
-                className="w-full py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                className="w-full py-3 text-white bg-purple-600 rounded-md shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 Register
               </Button>
             </div>
           </form>
         </Form>
-        <Link to="/login" className="block mt-4 text-center">
-          <Button variant="link" className="text-blue-600 hover:underline">
-            Kembali ke Login
-          </Button>
-        </Link>
+
+        <div className="text-center mt-6">
+          <Link to="/login" className="text-purple-600 hover:underline">
+            <Button variant="link" className="text-purple-600 hover:underline">
+              Kembali ke Login
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
