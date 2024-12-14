@@ -4,7 +4,6 @@ import { Bell, MapPin } from "lucide-react"
 import { Link } from 'react-router-dom'
 
 const DashboardPage = () => {
-
     return (
         <div className="mx-auto">
             <section className=" flex justify-around items-center py-4 ">

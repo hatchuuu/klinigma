@@ -4,10 +4,12 @@ import './index.css'
 import App from '@/App.jsx'
 import Navbar from '@/components/Navbar'
 import { BrowserRouter as Router } from "react-router-dom"
+import { Toaster } from '@/components/ui/toaster'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
+      <Toaster />
       <div className='font-roboto min-h-screen w-full mb-10'>
         <App />
       </div>

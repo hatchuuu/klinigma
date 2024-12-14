@@ -8,6 +8,7 @@ const PolyclinicsPage = lazy(() => import("./pages/PolyclinicsPage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const HistoryPage = lazy(() => import("./pages/HistoryPage"))
 const LoginPage = lazy(() => import("./pages/LoginPage"))
+const RegisterPage = lazy(() => import("./pages/RegisterPage"))
 
 
 const App = () => {
@@ -17,7 +18,8 @@ const App = () => {
       { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
       { path: "/profile", role: "user", element: <ProfilePage /> },
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
-      { path: "/login", role: "user", element: <LoginPage /> }
+      { path: "/login", role: "user", element: <LoginPage /> },
+      { path: "/register", role: "user", element: <RegisterPage /> }
     ]
 
   return (
