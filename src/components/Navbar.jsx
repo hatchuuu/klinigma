@@ -15,6 +15,7 @@ const Navbar = () => {
     } catch (error) {
       console.error("Invalid token:", error);
       localStorage.removeItem("token");
+      role = null;
       window.location.href = "/login";
     }
   }
