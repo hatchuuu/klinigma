@@ -3,6 +3,7 @@ import { OTPInput, OTPInputContext } from "input-otp"
 import { Minus } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import PropTypes from "prop-types"
 
 const InputOTP = React.forwardRef(({ className, containerClassName, ...props }, ref) => (
   <OTPInput
@@ -51,3 +52,15 @@ const InputOTPSeparator = React.forwardRef(({ ...props }, ref) => (
 InputOTPSeparator.displayName = "InputOTPSeparator"
 
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+
+InputOTP.propTypes = {
+  className: PropTypes.string,
+  containerClassName: PropTypes.string
+}
+InputOTPGroup.propTypes = {
+  className: PropTypes.string
+}
+InputOTPSlot.propTypes = {
+  className: PropTypes.string,
+  index: PropTypes.number
+}
