@@ -87,7 +87,7 @@ function BookingSchedule() {
   return (
     <div className="mx-auto p-6">
       <div className="flex items-center mb-6">
-        <BackButton path="/dashboard" />
+        <BackButton path="/booking" />
         <h1 className="font-bold font-sans text-2xl ml-4">
           Pilih Jadwal & Dokter
         </h1>
@@ -183,7 +183,7 @@ function BookingSchedule() {
                 </div>
                 <DrawerFooter>
                   <Button onClick={handleConfirmBooking}>
-                    Konfirmasi Booking
+                    Lanjut
                   </Button>
                 </DrawerFooter>
               </DrawerContent>

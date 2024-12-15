@@ -56,49 +56,44 @@
   "polyclinics": [
     {
       "id": "hzha",
-      "polyName": "Poli Jantung",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "oVgSSrrnIxiLScHHhsYJrSiRoiZBfNCjciGelYzE",
-      "image": "https://avatars.githubusercontent.com/u/10128738"
+      "polyName": "Poli Umum",
+      "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan",
+      "image": "https://avatars.githubusercontent.com/u/10128738",
+      "schedule": "Buka Setiap Hari 24/7"
     },
     {
       "id": "xpxw",
       "polyName": "Poli Penyakit Dalam",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "dsYxCoRNQHDzQGyVjmziUendMDSAODbuzKfRAVDB",
-      "image": "https://avatars.githubusercontent.com/u/72609122"
+      "descriptions": "Menangani penyakit yang menyerang organ dalam tubuh, seperti jantung, paru-paru, ginjal, hati, dan saluran pencernaan.",
+      "image": "https://avatars.githubusercontent.com/u/72609122",
+      "schedule": "Jadwal dapat berubah sewaktu-waktu"
     },
     {
       "id": "e9uu",
       "polyName": "Poli Jantung",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "HPSCnhKVGwyZHROUShWZaysgUksIhCkZUKHpLIdf",
-      "image": "https://avatars.githubusercontent.com/u/63576769"
+      "descriptions": "Berfokus pada diagnosis dan pengobatan penyakit jantung dan pembuluh darah.",
+      "image": "https://avatars.githubusercontent.com/u/63576769",
+      "schedule": "Jadwal dapat berubah sewaktu-waktu"
     },
     {
       "id": "xcv3",
       "polyName": "Poli Paru",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "HpMnWvjfKxBoZKvtvdJOkWEkezLmDbabGMvGLcmj",
-      "image": "https://avatars.githubusercontent.com/u/16646631"
+      "descriptions": "Menangani masalah kesehatan yang berhubungan dengan paru-paru dan saluran pernapasan.",
+      "image": "https://avatars.githubusercontent.com/u/16646631",
+      "schedule": "Jadwal dapat berubah sewaktu-waktu"
     },
     {
       "id": "rn23",
-      "polyName": "Poli Paru",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "cKqyKalNTfpkYQClHsGWAGigIExDrNOBheJQQqNB",
-      "image": "https://avatars.githubusercontent.com/u/37820435"
+      "polyName": "Poli Gigi",
+      "descriptions": "Memberikan pelayanan kesehatan gigi dan mulut, seperti pemeriksaan gigi, penambalan gigi, dan pencabutan gigi.",
+      "image": "https://avatars.githubusercontent.com/u/37820435",
+      "schedule": "Jadwal dapat berubah sewaktu-waktu"
     }
   ],
   "doctors": [
     {
       "id": "gyg9",
-      "polyName": "Poli Jantung",
+      "polyName": "Poli Umum",
       "name": "Wallace",
       "email": "Wallace82@google.com",
       "gender": "wanita",
@@ -109,7 +104,7 @@
     },
     {
       "id": "tqjt",
-      "polyName": "Poli Penyakit Dalam",
+      "polyName": "Poli Umum",
       "name": "Joann",
       "email": "Joann_Hirthe@google.com",
       "gender": "pria",
