@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 // import { Input } from "@/components/ui/input";
 import { ArrowLeft, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { BackButton } from "@/components/button/NavigationButton";
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -56,24 +57,19 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="mx-auto px-6">
-      <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
-        <Link to={"/dashboard"}>
-          <div className="p-3 rounded-sm bg-purple-900">
-            <ArrowLeft className="text-white" />
-          </div>
-        </Link>
-        <div>
-          <h2 className="font-semibold text-[18px] sm:text-[20px] lg:text-[22px]">
-            Daftar Poliklinik
-          </h2>
+    <div className="mx-auto p-6">
+      <div className="flex items-center">
+        <BackButton path="/dashboard" />
+        <h1 className="font-bold font-sans text-2xl ml-4">Pilih Poli</h1>
+        <div className="ml-auto">
+          <img src="/klinigma.png" alt="Klinigma" width={90} />
         </div>
-      </section>
+      </div>
 
-      <section className="p-4">
+      <section className="mt-10">
         <div className="relative mb-4">
           <Input
-            placeholder="Searching Poliklinik..."
+            placeholder="Cari nama ..."
             className="pl-10 h-12 text-lg"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -105,7 +101,7 @@ export default function BookingPage() {
                   </div>
                 </div>
 
-                <Separator/>
+                <Separator />
 
                 {/* Jadwal */}
                 <div className="flex flex-wrap gap-2 items-center text-sm">
