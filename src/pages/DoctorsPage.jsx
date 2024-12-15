@@ -1,8 +1,8 @@
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
-import { MoveLeft, Search } from "lucide-react";
 import React, { useState, useMemo } from "react";
 import { Activity, Heart, Baby, FlaskConical } from "lucide-react";
-import { Link } from "react-router-dom";
+import SearchInput from "@/components/SearchInput";
+import { BackButton } from "@/components/button/NavigationButton";
 
 const DoctorsPage = () => {
   const doctors = useMemo(
@@ -73,13 +73,6 @@ const DoctorsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const term = event.target.elements["doctors-search"].value.toLowerCase();
-    setSearchTerm(term);
-    filterDoctors(term);
-  };
-
   const handleInputChange = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
@@ -101,31 +94,14 @@ const DoctorsPage = () => {
     <>
       <div className="w-full p-6 flex flex-col gap-6">
         <div className="flex items-center">
-          <Link to={"/dashboard"} className="rounded-md bg-purple-900 py-2 px-4">
-            <MoveLeft size={30} className="text-white" />
-          </Link>
+          <BackButton path="/dashboard" />
           <h1 className="font-bold font-sans text-2xl ml-4">Daftar Dokter</h1>
           <div className="ml-auto">
             <img src="/klinigma.png" alt="Klinigma" width={90} />
           </div>
         </div>
 
-        <form onSubmit={handleSearch}>
-          <div className="relative">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <Search />
-            </div>
-            <input
-              type="text"
-              id="doctors-search"
-              className="block w-full p-4 ps-12 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Cari Nama Dokter, Spesialis Poliklinik ..."
-              required
-              value={searchTerm}
-              onChange={handleInputChange}
-            />
-          </div>
-        </form>
+        <SearchInput handleChange={handleInputChange} defaultValue={searchTerm} placeHolder="Cari Nama Dokter, Spesialis Poliklinik ..." />
 
         {/* Apply grid view for larger screens */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12">

@@ -12,12 +12,13 @@ const buttonVariants = cva(
         default:
           "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",  //tebal-ungu
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-accent shadow-sm hover:bg-accent hover:text-accent-foreground",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "text-primary",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-accent underline-offset-4 hover:underline",
         navbar: "hover:shadow flex flex-col text-white rounded-xl hover:bg-purple-700",
+        auth: "w-full text-sm tracking-wide text-white bg-purple-700 hover:bg-purple-600 disabled:bg-gray-300"
       },
       size: {
         default: "px-4 py-2",
@@ -25,7 +26,8 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
         ghost: "h-0 w-0",
-        rounded: "rounded-full p-2"
+        rounded: "rounded-full p-2",
+        auth: "py-3 px-4"
       },
     },
     defaultVariants: {
