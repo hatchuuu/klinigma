@@ -14,9 +14,9 @@
       "updatedAt": null
     },
     {
-      "id": "d5tg",
-      "name": "Admin Klinik",
-      "email": "admin@enigma.com",
+      "id": "2345",
+      "name": "Klinigma Admin",
+      "email": "admin@klinigma.com",
       "password": "Password123@",
       "location": "Janesville",
       "phoneNumber": "(499) 270-9654",
@@ -27,9 +27,9 @@
       "updatedAt": null
     },
     {
-      "id": "53a1",
-      "name": "User Klinik",
-      "email": "user@enigma.com",
+      "id": "3456",
+      "name": "Klinigma User",
+      "email": "user@klinigma.com",
       "password": "Password123@",
       "location": "Medan",
       "phoneNumber": "0567567567",

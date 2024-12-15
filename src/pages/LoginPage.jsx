@@ -1,22 +1,18 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { loginInstance } from "@/lib/axios";
+import { loginAdminInstance, loginSuperInstance, loginUserInstance } from "@/lib/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "@/lib/zodSchema";
-import FormComponents from "@/components/form/FieldInput";
+import FieldInput from "@/components/form/field/FieldInput";
+import { useState } from "react";
 
 const LoginPage = () => {
+  const [err, setErr] = useState("")
   const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
@@ -28,82 +24,64 @@ const LoginPage = () => {
   const { control, handleSubmit } = form;
 
   const onSubmit = handleSubmit(async (value) => {
-    const { email, password } = value;
+    const { email } = value;
+    console.log(value);
     try {
-      const response = await loginInstance("", {
-        email,
-        password,
-      });
-      localStorage.setItem("token", response.data.data.token);
-      navigate("/dashboard");
+      let response;
+      if (email == "klinigma@enigma.com") {
+        response = await loginSuperInstance.post("", value)
+      } else if (email == "admin@klinigma.com") {
+        response = await loginAdminInstance.post("", value)
+      } else if (email == "user@klinigma.com") {
+        response = await loginUserInstance.post("", value)
+      } else {
+        throw new Error("Email atau Password salah")
+      }
+      console.log("halo");
+      if (response.status == 200) {
+        localStorage.setItem("token", response.data.data.token);
+        navigate("/dashboard");
+      } else {
+        throw new Error(response.message)
+      }
     } catch (error) {
-      console.log(error);
+      setErr(error.message)
     }
   });
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center mx-5 min-h-screen bg-gray-100">
       <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <img src="/klinigma.png" alt="Klinigma" width={90} />
         </div>
-
+        {
+          err.length > 0 &&
+          <div className="my-2 p-4 bg-destructive rounded-lg text-white">
+            <p>{err}</p>
+          </div>
+        }
         <Form {...form}>
           <form onSubmit={onSubmit}>
-            <FormField
-              control={control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="mb-4">
-                  <FormLabel className="text-md font-semibold text-gray-700">
-                    Email
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      {...field}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-sm text-red-500" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="mb-4">
-                  <FormLabel className="text-md font-semibold text-gray-700">
-                    Password
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-sm text-red-500" />
-                </FormItem>
-              )}
-            />
+            {/* Update Ryan */}
+            <FieldInput control={control} name="email" canHide={false} label="Email" />
+            <FieldInput control={control} name="password" canHide={true} label="Password" />
+
             {/* Link Lupa Password */}
-            <div className="flex justify-end mb-6">
+            <div className="flex justify-end mb-4">
               <Link
                 to="/reset-password"
-                className="text-sm text-purple-500 hover:underline"
               >
-                Forgot Password?
+                <Button variant="link">
+                  Lupa Password?
+                </Button>
               </Link>
             </div>
             <Button
-              type="submit"
-              className="w-full py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-300"
-            >
+              variant="auth"
+              size="auth"
+              type="submit">
               Login
             </Button>
           </form>
@@ -111,9 +89,9 @@ const LoginPage = () => {
         {/* Register Link */}
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
-            Don't have an account?{" "}
-            <Link to="/register" className="text-purple-500 hover:underline">
-              Register here
+            Belum memiliki akun?{" "}
+            <Link to="/register" className="text-accent hover:underline">
+              Daftar disini
             </Link>
           </p>
         </div>

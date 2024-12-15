@@ -20,11 +20,11 @@ const FieldSelect = ({ control, name, label, list }) => {
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem>
-                    <FormLabel>{label}</FormLabel>
+                <FormItem className="mb-4 mt-1">
+                    <FormLabel className="text-md font-semibold text-gray-700"> {label} </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger className="border border-gray-400 focus:outline-none" >
                                 <SelectValue placeholder={`Pilih ${label}`} />
                             </SelectTrigger>
                         </FormControl>

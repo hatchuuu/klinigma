@@ -29,7 +29,7 @@ const DrawerMenu = () => {
                     <DrawerTitle>Lakukan Perubahan pada</DrawerTitle>
                     <DrawerDescription>Pilih salah satu</DrawerDescription>
                 </DrawerHeader>
-                <DrawerFooter>
+                <DrawerFooter className="mb-6">
                     <div className="flex flex-row justify-center items-center gap-6 mb-6">
                         <div onClick={() => setOpen(false)} >
                             <NavbarButton path="/doctors" text="DOKTER" className="bg-purple-950 rounded-xl h-32 aspect-square">
@@ -45,7 +45,7 @@ const DrawerMenu = () => {
                     </div>
 
                     <DrawerClose asChild>
-                        <Button variant="outline">Tutup</Button>
+                        <Button variant="outline" className="bg-white">Tutup</Button>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>

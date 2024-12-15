@@ -1,63 +1,33 @@
-
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
-import {
-    InputOTP,
-    InputOTPGroup,
-    InputOTPSeparator,
-    InputOTPSlot,
-} from "@/components/ui/input-otp"
-import { Label } from '../ui/label';
-import PropTypes from 'prop-types';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import PropTypes from 'prop-types'
 
 const FieldBirthDate = ({ control, name, label }) => {
-
     return (
         <FormField
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem>
-                    <FormLabel>{label}</FormLabel>
+                <FormItem className="mb-3">
+                    <FormLabel className="text-md font-semibold text-gray-700"> {label} </FormLabel>
                     <FormControl>
-                        <InputOTP maxLength={8} {...field}>
-                            <div className="flex flex-col">
-                                <Label>Tanggal</Label>
-                                <InputOTPGroup>
-                                    <InputOTPSlot index={0} />
-                                    <InputOTPSlot index={1} />
-                                </InputOTPGroup>
-                            </div>
-                            <InputOTPSeparator />
-                            <div className="flex flex-col">
-                                <Label>Bulan</Label>
-                                <InputOTPGroup>
-                                    <InputOTPSlot index={2} />
-                                    <InputOTPSlot index={3} />
-                                </InputOTPGroup>
-                            </div>
-                            <InputOTPSeparator />
-                            <div className="flex flex-col">
-                                <Label>Tahun</Label>
-                                <InputOTPGroup>
-                                    <InputOTPSlot index={4} />
-                                    <InputOTPSlot index={5} />
-                                    <InputOTPSlot index={6} />
-                                    <InputOTPSlot index={7} />
-                                </InputOTPGroup>
-                            </div>
-                        </InputOTP>
+                        <Input
+                            type="date"
+                            placeholder="MM/DD/YYYY"
+                            className="mt-1 block w-full p-2 border border-black-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            {...field}
+                        />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
             )}
         />
-    );
-};
-
+    )
+}
 FieldBirthDate.propTypes = {
-    label: PropTypes.string,
+    label: PropTypes.string.isRequired,
     name: PropTypes.string,
+    canHide: PropTypes.bool,
     control: PropTypes.object
 }
-
 export default FieldBirthDate

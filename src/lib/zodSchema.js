@@ -2,10 +2,12 @@ import { z } from 'zod'
 export const loginSchema = z.object({
     email: z
         .string({ required_error: "Email dibutuhkan" })
+        .max(30, "Maksimal 30 Karakter")
         .email("Format Email tidak Valid"),
     password: z
         .string({ required_error: "Password dibutuhkan" })
         .min(8, "Minimal 8 Karakter")
+        .max(20, "Maksimal 20 Karakter")
         .regex(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_])/, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol")
 })
 
@@ -13,6 +15,7 @@ export const registerSchema = loginSchema.extend({
     confirmPassword: z
         .string({ required_error: "Konfirmasi password dibutuhkan" })
         .min(8, "Minimal 8 Karakter")
+        .max(20, "Maksimal 20 Karakter")
         .regex(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_])/, "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol"),
     location: z
         .string({ required_error: "Lokasi dibutuhkan" })
@@ -37,7 +40,7 @@ export const registerSchema = loginSchema.extend({
         .string({
             invalid_type_error: "Tanggal Lahir harus berupa angka",
         })
-        .regex(/^\d+$/, { message: "Tanggal Lahir hanya boleh berisi angka" })
+        .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Format Tanggal Lahir Keliru" })
         .min(8, "Tanggal Lahir belum lengkap")
 }).refine((data) => data.password === data.confirmPassword, {
     message: "Password tidak sesuai",

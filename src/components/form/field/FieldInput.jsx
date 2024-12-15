@@ -12,20 +12,20 @@ const FieldInput = ({ control, name, label, canHide }) => {
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem>
-                    <FormLabel> {label} </FormLabel>
+                <FormItem className="mb-3">
+                    <FormLabel className="text-md font-semibold text-gray-700"> {label} </FormLabel>
                     <FormControl>
                         <div className="relative">
                             <Input
-                                className="relative"
+                                className={` ${!visible && "pe-9"} relative border border-gray-400 focus:outline-none`}
                                 type={visible ? "text" : "password"}
                                 {...field}
                             />
                             <div
                                 onClick={() => setVisible((prev) => !prev)}
-                                className={` ${!canHide && "hidden"} absolute z-10 right-2 bottom-1`}
+                                className={` ${!canHide && "hidden"} absolute z-10 right-3 bottom-[8px]`}
                             >
-                                {visible ? <Eye /> : <EyeOff />}
+                                {visible ? <Eye size={12} /> : <EyeOff size={12} />}
                             </div>
                         </div>
                     </FormControl>
