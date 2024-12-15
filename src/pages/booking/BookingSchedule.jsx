@@ -1,4 +1,3 @@
-// BookingSchedule.jsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -6,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/id";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerContent,
@@ -17,7 +16,6 @@ import {
   DrawerDescription,
   DrawerFooter,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
 
 function BookingSchedule() {
   const location = useLocation();
@@ -65,9 +63,6 @@ function BookingSchedule() {
 
   const handlePilihDokter = (dokter) => {
     setDokterTerpilih(dokter);
-  };
-
-  const handleLanjutClick = () => {
     setIsDrawerOpen(true);
   };
 
@@ -89,15 +84,7 @@ function BookingSchedule() {
   };
 
   return (
-    <div className="mx-auto px-6">
-      <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
-        <div>
-          <h2 className="font-semibold text-[18px] sm:text-[20px] lg:text-[22px]">
-            Pilih Jadwal
-          </h2>
-        </div>
-      </section>
-
+    <div className="mx-auto p-10">
       {/* Card Poliklinik */}
       <div className="card-poliklinik p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
@@ -107,6 +94,14 @@ function BookingSchedule() {
           {poliklinik.descriptions}
         </p>
       </div>
+      <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
+        <div>
+          <h2 className="font-semibold text-[18px] sm:text-[20px] lg:text-[22px]">
+            Pilih Jadwal
+          </h2>
+        </div>
+      </section>
+
 
       {/* Pilihan Tanggal */}
       <div className="pilihan-tanggal flex gap-4 mt-4">
@@ -137,69 +132,64 @@ function BookingSchedule() {
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {dokterDiPoli.map((dokter) => (
-            <div
-              key={dokter.id}
-              className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 ${
-                dokter.id === dokterTerpilih?.id
-                  ? "bg-blue-500 text-white"
-                  : "bg-white dark:bg-gray-800"
-              }`}
-              onClick={() => handlePilihDokter(dokter)}
-            >
-              <Avatar>
-                <AvatarImage src={dokter.image} alt={dokter.name} />
-                <AvatarFallback>{dokter.name[0]}</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                  {dokter.name}
-                </h3>
-              </div>
-            </div>
+            // <Drawer>
+            // <DrawerClose/>
+            <Drawer key={dokter.id}>
+              <DrawerTrigger asChild>
+                <div
+                  key={dokter.id}
+                  className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 ${
+                    dokter.id === dokterTerpilih?.id
+                      ? "bg-blue-500 text-white"
+                      : "bg-white dark:bg-gray-800"
+                  }`}
+                  onClick={() => handlePilihDokter(dokter)}
+                >
+                  <Avatar>
+                    <AvatarImage src={dokter.image} alt={dokter.name} />
+                    <AvatarFallback>{dokter.name[0]}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      {dokter.name}
+                    </h3>
+                  </div>
+                </div>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerClose />
+                <DrawerHeader>
+                  <DrawerTitle>Ringkasan Booking</DrawerTitle>
+                  <DrawerDescription>
+                    Berikut adalah ringkasan booking Anda:
+                  </DrawerDescription>
+                </DrawerHeader>
+                <div className="p-4">
+                  <p>
+                    <strong>Poliklinik:</strong> {poliklinik.polyName}
+                  </p>
+                  {dokterTerpilih ? (
+                    <p>
+                      <strong>Dokter:</strong> {dokterTerpilih.name}
+                    </p>
+                  ) : (
+                    <p>Loading data dokter...</p>
+                  )}
+                  <p>
+                    <strong>Tanggal:</strong>{" "}
+                    {tanggalTerpilih.format("dddd, DD MMMM YYYY")}
+                  </p>
+                </div>
+                <DrawerFooter>
+                  <Button onClick={handleConfirmBooking}>
+                    Konfirmasi Booking
+                  </Button>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           ))}
         </div>
       </div>
-
-      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerTrigger asChild>
-          <button
-            onClick={handleLanjutClick}
-            disabled={!dokterTerpilih}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-          >
-            Lanjut
-          </button>
-        </DrawerTrigger>
-        <DrawerContent>
-          <DrawerClose />
-          <DrawerHeader>
-            <DrawerTitle>Ringkasan Booking</DrawerTitle>
-            <DrawerDescription>
-              Berikut adalah ringkasan booking Anda:
-            </DrawerDescription>
-          </DrawerHeader>
-          <div className="p-4">
-            <p>
-              <strong>Poliklinik:</strong> {poliklinik.polyName}
-            </p>
-            {dokterTerpilih ? (
-              <p>
-                <strong>Dokter:</strong> {dokterTerpilih.name}
-              </p>
-            ) : (
-              <p>Loading data dokter...</p>
-            )}
-            <p>
-              <strong>Tanggal:</strong>{" "}
-              {tanggalTerpilih.format("dddd, DD MMMM YYYY")}
-            </p>
-          </div>
-          <DrawerFooter>
-            <Button onClick={handleConfirmBooking}>Konfirmasi Booking</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    {/* </div> */}
     </div>
   );
 }
