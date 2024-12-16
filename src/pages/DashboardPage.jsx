@@ -61,13 +61,13 @@ const DashboardPage = () => {
       <section className="mb-5">
         <div className="w-full px-4">
           {/* <input type="text" placeholder="Search Anything" className="w-full p-2 rounded-lg border-2 shadow text-xs" /> */}
-          <div className="flex items-center justify-between bg-gradient-to-r from-white to-purple-900 p-6 px-10">
-            <img src="/klinigma.png" alt="" width={150} />
-            <h1 className="text-2xl font-light text-end text-white">
+          <div className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-purple-900 to-purple-300 p-6 px-10">
+            <h1 className="text-2xl text-gray-100 font-sans">
               Layanan Kesehatan
               <br /> Dalam Satu <br />
               Genggaman
             </h1>
+            <img src="/klinigma.png" alt="" width={150} />
           </div>
         </div>
       </section>

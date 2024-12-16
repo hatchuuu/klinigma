@@ -57,94 +57,130 @@
     {
       "id": "hzha",
       "polyName": "Poli Umum",
-      "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan",
+      "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
-      "schedule": "Buka Setiap Hari 24/7"
+      "schedule": "Buka setiap hari, 24/7."
     },
     {
       "id": "xpxw",
-      "polyName": "Poli Penyakit Dalam",
-      "descriptions": "Menangani penyakit yang menyerang organ dalam tubuh, seperti jantung, paru-paru, ginjal, hati, dan saluran pencernaan.",
+      "polyName": "Poli Gigi",
+      "descriptions": "Menangani masalah kesehatan gigi dan mulut, mulai dari pemeriksaan rutin, penambalan, pencabutan, hingga perawatan khusus.",
       "image": "https://avatars.githubusercontent.com/u/72609122",
-      "schedule": "Jadwal dapat berubah sewaktu-waktu"
+      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
     },
     {
       "id": "e9uu",
-      "polyName": "Poli Jantung",
-      "descriptions": "Berfokus pada diagnosis dan pengobatan penyakit jantung dan pembuluh darah.",
+      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "descriptions": " Menyediakan layanan kesehatan menyeluruh bagi ibu dan anak, meliputi pemeriksaan kehamilan, imunisasi, pemantauan tumbuh kembang, dan konseling laktasi.",
       "image": "https://avatars.githubusercontent.com/u/63576769",
-      "schedule": "Jadwal dapat berubah sewaktu-waktu"
+      "schedule": "Buka setiap hari, 24/7 kecuali libur nasional."
     },
     {
       "id": "xcv3",
-      "polyName": "Poli Paru",
-      "descriptions": "Menangani masalah kesehatan yang berhubungan dengan paru-paru dan saluran pernapasan.",
+      "polyName": "Poli Keluarga Berencana (KB)",
+      "descriptions": "Berfokus pada pelayanan kontrasepsi, termasuk konseling, pemberian berbagai metode KB (pil, suntik, IUD, implan), dan penanganan efek samping.",
       "image": "https://avatars.githubusercontent.com/u/16646631",
-      "schedule": "Jadwal dapat berubah sewaktu-waktu"
-    },
-    {
-      "id": "rn23",
-      "polyName": "Poli Gigi",
-      "descriptions": "Memberikan pelayanan kesehatan gigi dan mulut, seperti pemeriksaan gigi, penambalan gigi, dan pencabutan gigi.",
-      "image": "https://avatars.githubusercontent.com/u/37820435",
-      "schedule": "Jadwal dapat berubah sewaktu-waktu"
+      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
     }
   ],
   "doctors": [
     {
-      "id": "gyg9",
-      "polyName": "Poli Umum",
-      "name": "Wallace",
-      "email": "Wallace82@google.com",
-      "gender": "wanita",
-      "descriptions": "drcUczEGbQivHyvRgVYzHEkwOrOoWIkMuTwXLiyh",
-      "invitedAt": "2016-01-26T03:29:45.616Z",
-      "location": "Lake Margarita",
-      "image": "https://avatars.githubusercontent.com/u/6091428"
-    },
-    {
-      "id": "tqjt",
-      "polyName": "Poli Umum",
-      "name": "Joann",
-      "email": "Joann_Hirthe@google.com",
-      "gender": "pria",
-      "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
-      "invitedAt": "2008-12-20T15:52:05.252Z",
-      "location": "Westland",
-      "image": "https://avatars.githubusercontent.com/u/26891770"
-    },
-    {
       "id": "do11",
-      "polyName": "Poli Jantung",
-      "name": "David",
+      "polyName": "Poli Umum",
+      "name": "dr. Tony Tony Chopper, M.Kes",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
-      "image": "https://avatars.githubusercontent.com/u/81562255"
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
+      "quota": 20,
+      "schedule": { "open": "01:00", "close": "08:00" }
+    },
+    {
+      "id": "gyg9",
+      "polyName": "Poli Umum",
+      "name": "dr. Satoru Gojou",
+      "email": "Wallace82@google.com",
+      "gender": "pria",
+      "descriptions": "drcUczEGbQivHyvRgVYzHEkwOrOoWIkMuTwXLiyh",
+      "invitedAt": "2016-01-26T03:29:45.616Z",
+      "location": "Lake Margarita",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5equJAH_tetyxlUzVZKikrj0xYIiGfSPStw&s",
+      "quota": 20,
+      "schedule": { "open": "09:00", "close": "16:00" }
+    },
+    {
+      "id": "tqjt",
+      "polyName": "Poli Umum",
+      "name": "dr. Levi Ackerman, Sp.PD",
+      "email": "Joann_Hirthe@google.com",
+      "gender": "pria",
+      "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
+      "invitedAt": "2008-12-20T15:52:05.252Z",
+      "location": "Westland",
+      "image": "https://static.wikia.nocookie.net/shingekinokyojin/images/b/b1/Levi_Ackermann_%28Anime%29_character_image.png"
+      ,
+      "quota": 20,
+      "schedule": { "open": "17:00", "close": "24:00" }
+    },
+    {
+      "id": "do11",
+      "polyName": "Poli Gigi",
+      "name": "drg. Nami, Sp.Ort",
+      "email": "David_Koepp@google.com",
+      "gender": "wanita",
+      "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
+      "invitedAt": "2007-12-14T11:23:25.259Z",
+      "location": "Napa",
+      "image": "https://i.pinimg.com/736x/04/68/26/046826e8c2d4ff9c8e5ef9dc9ea47f70.jpg"
+      ,
+      "quota": 20,
+      "schedule": { "open": "01:00", "close": "06:00" }
+    },
+    {
+      "id": "do11",
+      "polyName": "Poli Gigi",
+      "name": "drg. Forger Yor, Sp.Pros",
+      "email": "David_Koepp@google.com",
+      "gender": "wanita",
+      "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
+      "invitedAt": "2007-12-14T11:23:25.259Z",
+      "location": "Napa",
+      "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg"
     },
     {
       "id": "26ky",
-      "polyName": "Poli Paru",
-      "name": "Merle",
+      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "name": "dr. Makima, Sp.A",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
       "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
-      "image": "https://avatars.githubusercontent.com/u/76868199"
+      "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg"
+    },
+    {
+      "id": "26ky",
+      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "name": "dr. Violet Evergarden, Sp.OG",
+      "email": "Merle_Corwin@google.com",
+      "gender": "wanita",
+      "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
+      "invitedAt": "2008-06-20T14:28:32.691Z",
+      "location": "West Alexisfield",
+      "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg"
     },
     {
       "id": "250z",
-      "polyName": "Poli Paru",
-      "name": "Lorraine",
+      "polyName": "Poli Keluarga Berencana (KB)",
+      "name": "dr. Maki Zenin",
       "email": "Lorraine.Parker@google.com",
       "gender": "wanita",
       "descriptions": "SyQxXRbNkhrHeTFYytNJedOZRbvSOxRecrovmqZV",
       "invitedAt": "2015-04-10T12:21:25.176Z",
       "location": "Hollisfield",
-      "image": "https://avatars.githubusercontent.com/u/57949354"
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd"
     }
   ],
   "bookings": [

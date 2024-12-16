@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 // import { Input } from "@/components/ui/input";
-import { ArrowLeft, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/button/NavigationButton";
 
@@ -96,11 +96,14 @@ export default function BookingPage() {
                       {poli.polyName}
                     </h2>
                     <div className="flex flex-wrap gap-2 items-center text-sm">
-                      <span className="font-semibold">Jadwal Praktik:</span>
+                      {/* <span className="font-semibold">Jadwal Praktik:</span> */}
                       <span>{poli.schedule}</span> {/* Gunakan poli.schedule */}
                     </div>
                   </div>
                 </div>
+                  <div className="ml-auto my-auto">
+                    <ArrowRight/>
+                  </div>
 
                 <Separator />
 

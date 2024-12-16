@@ -131,7 +131,7 @@ function BookingSchedule() {
       {/* Pilih Jadwal Dokter */}
       <div className="my-6">
         <h1 className="my-6 text-lg font-semibold">Pilih Dokter</h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pb-8">
           {dokterDiPoli.map((dokter) => (
             // <Drawer>
             // <DrawerClose/>
@@ -146,7 +146,7 @@ function BookingSchedule() {
                   }`}
                   onClick={() => handlePilihDokter(dokter)}
                 >
-                  <Avatar>
+                  <Avatar className="w-16 h-16">
                     <AvatarImage src={dokter.image} alt={dokter.name} />
                     <AvatarFallback>{dokter.name[0]}</AvatarFallback>
                   </Avatar>
