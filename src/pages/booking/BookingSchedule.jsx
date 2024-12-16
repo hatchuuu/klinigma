@@ -16,6 +16,7 @@ import {
   DrawerDescription,
   DrawerFooter,
 } from "@/components/ui/drawer";
+import { BackButton } from "@/components/button/NavigationButton";
 
 function BookingSchedule() {
   const location = useLocation();
@@ -84,9 +85,18 @@ function BookingSchedule() {
   };
 
   return (
-    <div className="mx-auto p-10">
+    <div className="mx-auto p-6">
+      <div className="flex items-center mb-6">
+        <BackButton path="/booking" />
+        <h1 className="font-bold font-sans text-2xl ml-4">
+          Pilih Jadwal & Dokter
+        </h1>
+        <div className="ml-auto">
+          <img src="/klinigma.png" alt="Klinigma" width={90} />
+        </div>
+      </div>
       {/* Card Poliklinik */}
-      <div className="card-poliklinik p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
+      <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
           {poliklinik.polyName}
         </h3>
@@ -94,17 +104,10 @@ function BookingSchedule() {
           {poliklinik.descriptions}
         </p>
       </div>
-      <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
-        <div>
-          <h2 className="font-semibold text-[18px] sm:text-[20px] lg:text-[22px]">
-            Pilih Jadwal
-          </h2>
-        </div>
-      </section>
-
 
       {/* Pilihan Tanggal */}
-      <div className="pilihan-tanggal flex gap-4 mt-4">
+      <h1 className="my-6 text-lg font-semibold">Pilih Jadwal</h1>
+      <div className="flex gap-4 mt-4">
         {[0, 1, 2].map((hari) => {
           const tanggal = moment().add(hari, "days");
           const isActive = tanggal.isSame(tanggalTerpilih, "day");
@@ -126,11 +129,9 @@ function BookingSchedule() {
       </div>
 
       {/* Pilih Jadwal Dokter */}
-      <div className="pilih-jadwal-dokter mt-4">
-        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-          Pilih Dokter
-        </h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="my-6">
+        <h1 className="my-6 text-lg font-semibold">Pilih Dokter</h1>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pb-8">
           {dokterDiPoli.map((dokter) => (
             // <Drawer>
             // <DrawerClose/>
@@ -145,7 +146,7 @@ function BookingSchedule() {
                   }`}
                   onClick={() => handlePilihDokter(dokter)}
                 >
-                  <Avatar>
+                  <Avatar className="w-16 h-16">
                     <AvatarImage src={dokter.image} alt={dokter.name} />
                     <AvatarFallback>{dokter.name[0]}</AvatarFallback>
                   </Avatar>
@@ -182,7 +183,7 @@ function BookingSchedule() {
                 </div>
                 <DrawerFooter>
                   <Button onClick={handleConfirmBooking}>
-                    Konfirmasi Booking
+                    Lanjut
                   </Button>
                 </DrawerFooter>
               </DrawerContent>

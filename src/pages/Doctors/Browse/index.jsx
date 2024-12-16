@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState}from "react";
 import {
   Table,
   TableBody,
@@ -13,6 +13,18 @@ import { useNavigate } from "react-router-dom";
 
 const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const totalPages = Math.ceil(filteredDoctors.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentDoctors = filteredDoctors.slice(startIndex, startIndex + itemsPerPage);
+
   return (
     <>
       <div className="p-6 bg-gray-50 shadow-lg rounded-lg border border-gray-200">
@@ -49,7 +61,7 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
               {/* <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
                 Status
               </TableHead> */}
-              <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center w-[200]">
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center w-[200] sticky">
                 Aksi
               </TableHead>
             </TableRow>
@@ -75,14 +87,14 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
                   {doctors.email}
                 </TableCell>
 
-                {/* <TableCell>
-                {doctors.schedule.day}, {doctors.schedule.start} -{" "}
-                {doctors.schedule.end}
-              </TableCell> */}
+                <TableCell>
+                  {doctors.schedule.day}, {doctors.schedule.open} -{" "}
+                  {doctors.schedule.close}
+                </TableCell>
                 <TableCell className="py-3 px-4 text-gray-600">
                   {doctors.descriptions}
                 </TableCell>
-                <TableCell className="py-3 px-4 text-center">
+                <TableCell className="py-3 px-4 text-center sticky">
                   <div className="flex justify-center space-x-2">
                     <Button
                       onClick={() =>
@@ -112,6 +124,27 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
             ))}
           </TableBody>
         </Table>
+
+        {/* pagination */}
+        <div className="flex justify-between items-center mt-4">
+          <Button
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50"
+          >
+            Previous
+          </Button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50"
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </>
   );
