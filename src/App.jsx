@@ -11,13 +11,13 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const HistoryPage = lazy(() => import("./pages/HistoryPage"))
 const LoginPage = lazy(() => import("@/pages/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"))
-const UsersPage = lazy(() => import("@/pages/admin/UserPage"))
+const UsersPage = lazy(() => import("@/pages/admin/Users/UserPage"))
 // const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"))
 const AdminPage = lazy(() => import("@/pages/admin/AdminPage"))
 const NotFound = lazy(() => import("@/pages/NotFound"))
 // Doctors Page
-const DoctorsPage = lazy(() => import("./pages/Doctors/DoctorsTeamPage"))
-const FormDoctors = lazy(() => import("@/pages/Doctors/Form/index"))
+const DoctorsPage = lazy(() => import("./pages/admin/Doctors/DoctorsTeamPage"))
+const FormDoctors = lazy(() => import("@/pages/admin/Doctors/Form/index"))
 
 // BOOKING
 const BookingPage = lazy(() => import("./pages/booking/BookingPage"))
