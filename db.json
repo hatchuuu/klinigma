@@ -95,7 +95,8 @@
       "location": "Napa",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
       "quota": 20,
-      "schedule": { "open": "01:00", "close": "08:00" }
+      "schedule": { "open": "01:00", "close": "08:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "gyg9",
@@ -108,7 +109,8 @@
       "location": "Lake Margarita",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5equJAH_tetyxlUzVZKikrj0xYIiGfSPStw&s",
       "quota": 20,
-      "schedule": { "open": "09:00", "close": "16:00" }
+      "schedule": { "open": "09:00", "close": "16:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "tqjt",
@@ -122,10 +124,11 @@
       "image": "https://static.wikia.nocookie.net/shingekinokyojin/images/b/b1/Levi_Ackermann_%28Anime%29_character_image.png"
       ,
       "quota": 20,
-      "schedule": { "open": "17:00", "close": "24:00" }
+      "schedule": { "open": "17:00", "close": "24:00" },
+      "availableDays": [1, 3, 5]
     },
     {
-      "id": "do11",
+      "id": "do14",
       "polyName": "Poli Gigi",
       "name": "drg. Nami, Sp.Ort",
       "email": "David_Koepp@google.com",
@@ -136,10 +139,11 @@
       "image": "https://i.pinimg.com/736x/04/68/26/046826e8c2d4ff9c8e5ef9dc9ea47f70.jpg"
       ,
       "quota": 20,
-      "schedule": { "open": "01:00", "close": "06:00" }
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     },
     {
-      "id": "do11",
+      "id": "do19",
       "polyName": "Poli Gigi",
       "name": "drg. Forger Yor, Sp.Pros",
       "email": "David_Koepp@google.com",
@@ -147,7 +151,9 @@
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
-      "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg"
+      "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",      
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "26ky",
@@ -158,10 +164,12 @@
       "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
-      "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg"
+      "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg",
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     },
     {
-      "id": "26ky",
+      "id": "21ky",
       "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
       "name": "dr. Violet Evergarden, Sp.OG",
       "email": "Merle_Corwin@google.com",
@@ -169,7 +177,9 @@
       "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
-      "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg"
+      "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg",
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "250z",
@@ -180,7 +190,9 @@
       "descriptions": "SyQxXRbNkhrHeTFYytNJedOZRbvSOxRecrovmqZV",
       "invitedAt": "2015-04-10T12:21:25.176Z",
       "location": "Hollisfield",
-      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd"
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd",
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     }
   ],
   "bookings": [
