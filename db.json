@@ -3,7 +3,7 @@
     {
       "id": "1234",
       "name": "Klinigma",
-      "email": "klinigma@gmail.com",
+      "email": "klinigma@enigma.com",
       "password": "Password123@",
       "location": "Goldnerbury",
       "phoneNumber": "(502) 581-6149",
@@ -57,40 +57,70 @@
     {
       "id": "hzha",
       "polyName": "Poli Jantung",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
+      "openDay": [
+        "Senin",
+        "Kamis"
+      ],
+      "openTime": [
+        7,
+        30
+      ],
       "descriptions": "oVgSSrrnIxiLScHHhsYJrSiRoiZBfNCjciGelYzE",
       "image": "https://avatars.githubusercontent.com/u/10128738"
     },
     {
       "id": "xpxw",
       "polyName": "Poli Penyakit Dalam",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
+      "openDay": [
+        "Senin",
+        "Kamis"
+      ],
+      "openTime": [
+        7,
+        30
+      ],
       "descriptions": "dsYxCoRNQHDzQGyVjmziUendMDSAODbuzKfRAVDB",
       "image": "https://avatars.githubusercontent.com/u/72609122"
     },
     {
       "id": "e9uu",
       "polyName": "Poli Jantung",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
+      "openDay": [
+        "Senin",
+        "Kamis"
+      ],
+      "openTime": [
+        7,
+        30
+      ],
       "descriptions": "HPSCnhKVGwyZHROUShWZaysgUksIhCkZUKHpLIdf",
       "image": "https://avatars.githubusercontent.com/u/63576769"
     },
     {
       "id": "xcv3",
       "polyName": "Poli Paru",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
+      "openDay": [
+        "Senin",
+        "Kamis"
+      ],
+      "openTime": [
+        7,
+        30
+      ],
       "descriptions": "HpMnWvjfKxBoZKvtvdJOkWEkezLmDbabGMvGLcmj",
       "image": "https://avatars.githubusercontent.com/u/16646631"
     },
     {
       "id": "rn23",
       "polyName": "Poli Paru",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
+      "openDay": [
+        "Senin",
+        "Kamis"
+      ],
+      "openTime": [
+        7,
+        30
+      ],
       "descriptions": "cKqyKalNTfpkYQClHsGWAGigIExDrNOBheJQQqNB",
       "image": "https://avatars.githubusercontent.com/u/37820435"
     }
@@ -150,6 +180,19 @@
       "invitedAt": "2015-04-10T12:21:25.176Z",
       "location": "Hollisfield",
       "image": "https://avatars.githubusercontent.com/u/57949354"
+    },
+    {
+      "id": "ac11",
+      "name": "nabila",
+      "polyName": "aaaa",
+      "gender": "wanita",
+      "email": "admin8@email.com",
+      "descriptions": "cxvxdv",
+      "location": "sfsfs",
+      "phoneNumber": "087766767678",
+      "startDate": "13:00",
+      "endDate": "12:00",
+      "day": "Jumat"
     }
   ],
   "bookings": [

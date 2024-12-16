@@ -1,0 +1,120 @@
+import React from "react";
+import {
+  Table,
+  TableBody,
+  //   TableHeaderCell,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+
+const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
+  const navigate = useNavigate();
+  return (
+    <>
+      <div className="p-6 bg-gray-50 shadow-lg rounded-lg border border-gray-200">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-xl font-bold text-gray-800">Doctors</h1>
+          <button
+            onClick={() => navigate("/addDoctors")}
+            className="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-400 focus:outline-none transition duration-300"
+          >
+            Add Doctors
+          </button>
+        </div>
+        <Table className="w-full text-left">
+          <TableHeader>
+            <TableRow className="bg-gray-100">
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+                Doctor Name
+              </TableHead>
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+                Poly State
+              </TableHead>
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+                Gender
+              </TableHead>
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+                Email
+              </TableHead>
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+                Jadwal
+              </TableHead>
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+                Deskripsi
+              </TableHead>
+              {/* <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+                Status
+              </TableHead> */}
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center w-[200]">
+                Aksi
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredDoctors.map((doctors, index) => (
+              <TableRow
+                key={index}
+                className={`${
+                  index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                } hover:bg-gray-100 transition duration-200`}
+              >
+                <TableCell className="py-3 px-4 text-gray-600">
+                  {doctors.name}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-600">
+                  {doctors.polyName}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-600">
+                  {doctors.gender}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-600">
+                  {doctors.email}
+                </TableCell>
+
+                {/* <TableCell>
+                {doctors.schedule.day}, {doctors.schedule.start} -{" "}
+                {doctors.schedule.end}
+              </TableCell> */}
+                <TableCell className="py-3 px-4 text-gray-600">
+                  {doctors.descriptions}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-center">
+                  <div className="flex justify-center space-x-2">
+                    <Button
+                      onClick={() =>
+                        navigate(`/addDoctors?id=${doctors.id}&action=detail`)
+                      }
+                      className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 focus:ring-2 focus:ring-green-300 focus:outline-none transition duration-300"
+                    >
+                      Detail
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        navigate(`/addDoctors?id=${doctors.id}&action=edit`)
+                      }
+                      className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300 focus:outline-none transition duration-300"
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => HandleDelete(doctors.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-300 focus:outline-none transition duration-300"
+                    >
+                      Hapus
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
+  );
+};
+
+export default BrowseDoctors;
