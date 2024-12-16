@@ -23,7 +23,7 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentDoctors = filteredDoctors.slice(startIndex, startIndex + itemsPerPage);
+  // const currentDoctors = filteredDoctors.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <>
@@ -52,7 +52,7 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
               <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
                 Email
               </TableHead>
-              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
+              <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[300]">
                 Jadwal
               </TableHead>
               <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200]">
@@ -87,7 +87,7 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
                   {doctors.email}
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="py-3 px-4 text-gray-600">
                   {doctors.schedule.day}, {doctors.schedule.open} -{" "}
                   {doctors.schedule.close}
                 </TableCell>
