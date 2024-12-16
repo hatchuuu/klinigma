@@ -16,3 +16,4 @@ export const getAllUsers = async () => {
         return { status: 404, message: "Gagal Mendapatkan User", error }
     }
 }
+
