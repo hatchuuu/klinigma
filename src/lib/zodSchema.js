@@ -85,11 +85,11 @@ export const doctorsSchema = z.object({
     )
     .min(10, "Nomor Telepon minimal 10 digit")
     .max(15, "Nomor Telepon maksimal 15 digit"),
-  startDate: z
+  open: z
     .string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "Start Time is Invalid")
     .optional(),
-  endDate: z
+  close: z
     .string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "End Time is Invalid")
     .optional(),

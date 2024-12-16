@@ -45,26 +45,26 @@ const DoctorsPage = () => {
 
   useEffect(() => {
     if (searchQuery === "") {
-      setFilteredDoctors(doctors); // jika query kosong maka tampilkan semua data
+      setFilteredDoctors(doctors); // jika query kosong, tampilkan semua data
     } else {
       setFilteredDoctors(
         doctors.filter(
           (doctorsFiltered) =>
-            doctorsFiltered.name
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            doctorsFiltered.polyName
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            doctorsFiltered.email
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            doctorsFiltered.gender
-              .toLowerCase()
-              .includes(searchQuery.toLocaleLowerCase()) ||
-            doctorsFiltered.description
-              .toLowerCase()
-              .includes(searchQuery.toLocaleLowerCase())
+            (doctorsFiltered.name?.toLowerCase() || "").includes(
+              searchQuery.toLowerCase()
+            ) ||
+            (doctorsFiltered.polyName?.toLowerCase() || "").includes(
+              searchQuery.toLowerCase()
+            ) ||
+            (doctorsFiltered.email?.toLowerCase() || "").includes(
+              searchQuery.toLowerCase()
+            ) ||
+            (doctorsFiltered.gender?.toLowerCase() || "").includes(
+              searchQuery.toLowerCase()
+            ) ||
+            (doctorsFiltered.description?.toLowerCase() || "").includes(
+              searchQuery.toLowerCase()
+            )
         )
       );
     }

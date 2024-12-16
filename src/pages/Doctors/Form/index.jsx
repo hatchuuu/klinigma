@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -27,6 +27,8 @@ function FormDoctors() {
   const action = queryParams.get("action");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [poilList, setPoliList] = useState([]);
+  const [selectedPoli, setSelectedPoli] = useState(null);
 
   const list = ["wanita", "pria"];
   const hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
@@ -39,25 +41,39 @@ function FormDoctors() {
       phoneNumber: 0,
       descriptions: "",
       location: "",
-      startDate: "",
-      endDate: "",
+      open: "",
+      close: "",
       day: "",
     },
     resolver: zodResolver(doctorsSchema),
   });
-  const { control, handleSubmit ,reset} = form;
+  const { control, handleSubmit, reset } = form;
 
   const onSubmit = handleSubmit(async (values) => {
+    const schedule = {
+      day: values.day,
+      open: values.open,
+      close: values.close,
+    };
+    const { day, open, close, ...rest } = values;
+    const payload = {
+      // ...values,
+      ...rest,
+      schedule:schedule
+    };
     try {
       console.log(values);
       if (action === "edit" && doctorId) {
-        // Update 
-        const response = await axiosInstance.put(`/doctors/${doctorId}`, values);
+        // Update
+        const response = await axiosInstance.put(
+          `/doctors/${doctorId}`,
+          payload
+        );
         console.log("Doctor updated successfully:", response.data);
         successToast(response.message);
       } else {
-        // Create 
-        const response = await axiosInstance.post("/doctors", values);
+        // Create
+        const response = await axiosInstance.post("/doctors", payload);
         console.log("Doctor created successfully:", response.data);
         successToast(response.message);
       }
@@ -74,8 +90,17 @@ function FormDoctors() {
         console.log(action);
         try {
           const response = await axiosInstance.get(`/doctors/${doctorId}`);
-          reset(response.data);
-          console.log(response.data);
+          const doctorData = response.data;
+          reset({
+            ...doctorData,
+            polyName: doctorData.polyName || "",
+            phoneNumber: doctorData.phoneNumber || "",
+            gender: doctorData.gender || "",
+            day:doctorData.schedule.day || "",
+            open:doctorData.schedule.open || "",
+            close:doctorData.schedule.day || ""
+          });
+          console.log("doctorData", response.data);
         } catch (error) {
           console.error(
             "Error:",
@@ -91,7 +116,27 @@ function FormDoctors() {
     };
 
     fetchData();
-  }, [doctorId, action]);
+  }, [doctorId, action, reset]);
+
+  // dropdown poli
+  const fetchTableData = async () => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.get("/polyclinics");
+      const data = response.data;
+      const mappingOptions = data.map((item) => item.polyName);
+      setPoliList(mappingOptions);
+      console.log(mappingOptions);
+    } catch (error) {
+      setError("Failed to fetch data.");
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchTableData();
+  }, []);
 
   return (
     <>
@@ -132,11 +177,19 @@ function FormDoctors() {
             <Form {...form}>
               <form onSubmit={onSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FieldInput control={control} name="name" label="Nama" disabled={action == 'detail'} />
                   <FieldInput
+                    control={control}
+                    name="name"
+                    label="Nama"
+                    disabled={action == "detail"}
+                  />
+                  <FieldSelect
                     control={control}
                     name="polyName"
                     label="Poly State"
+                    list={poilList}
+                    value={selectedPoli} // Set selected value from state
+                    onChange={(value) => setSelectedPoli(value)}
                   />
                   <FieldInput control={control} name="email" label="Email" />
                   <FieldInput
@@ -159,14 +212,14 @@ function FormDoctors() {
                   />
                   <FieldInput
                     control={control}
-                    name="startDate"
-                    label="Start Date"
+                    name="open"
+                    label="Start Time"
                     type="time"
                   />
                   <FieldInput
                     control={control}
-                    name="endDate"
-                    label="End Date"
+                    name="close"
+                    label="End Time"
                     type="time"
                   />
                   <FieldSelect
@@ -182,11 +235,19 @@ function FormDoctors() {
                   />
                 </div>
                 <div className="mt-6 flex justify-end">
+                  {action !== "detail" && (
+                    <Button
+                      type="submit"
+                      className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600"
+                    >
+                      Submit
+                    </Button>
+                  )}
                   <Button
-                    type="submit"
-                    className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600"
+                    onClick={() => navigate("/doctors")}
+                    className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 ml-4"
                   >
-                    Submit
+                    Kembali
                   </Button>
                 </div>
               </form>
