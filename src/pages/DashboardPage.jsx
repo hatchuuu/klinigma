@@ -21,10 +21,13 @@ import { getUserById } from "@/data/users";
 import { getAllDataBooking } from "@/data/bookings";
 import { calculateAge, formatDate, getLatestToken } from "@/data/service";
 import Loader from "@/components/Loader";
+import { getDataPolyById } from "@/data/poly";
 
 const DashboardPage = () => {
   const [user, setUser] = useState("")
-  const [booking, setBooking] = useState("")
+  const [allBookings, setAllBookings] = useState("")
+  const [latestBooking, setLatestBooking] = useState("")
+  const [dataPoly, setDataPoly] = useState("")
   const token = sessionStorage.getItem("token")
   const { id, role } = jwtDecode(token)
 
@@ -36,20 +39,32 @@ const DashboardPage = () => {
       console.log(error);
     }
   }
+
   const fetchDataBookings = async () => {
     try {
       const response = await getAllDataBooking()
-      setBooking(() => {
-        const filteredBookingById = response?.data?.filter((value) => {
-          return value.userId.includes(id)
-        })
-
-        return filteredBookingById
+      const filteredBookingById = response?.data?.filter((value) => {
+        return value.userId.includes(id)
       })
+      setAllBookings(filteredBookingById)
+
+      const latestBooking = getLatestToken(filteredBookingById)
+      setLatestBooking(latestBooking)
+      fetchDataPolys(latestBooking.polyId)
+
     } catch (error) {
       console.log(error);
     }
   }
+
+  const fetchDataPolys = async (idPoly) => {
+    try {
+      const response = await getDataPolyById(idPoly);
+      setDataPoly(response.data);
+    } catch (error) {
+      console.log("Gagal mendapatkan data poliklinik:", error);
+    }
+  };
 
   useEffect(() => {
     if (role == "user") {
@@ -57,13 +72,6 @@ const DashboardPage = () => {
     }
     fetchIdUser()
   }, [])
-
-  let latestBooking;
-  let latestDate;
-  if (booking) {
-    latestBooking = getLatestToken(booking)
-    latestDate = formatDate(latestBooking.visitedAt)
-  }
 
   const navigate = useNavigate()
   const handleLogout = () => {
@@ -114,11 +122,19 @@ const DashboardPage = () => {
               </div>
             </section>
             {
-              booking &&
+              (latestBooking && dataPoly) &&
               <section>
-                <div className="grid grid-cols-2 gap-4 px-5">
-                  <p className="h-20 rounded-lg bg-secondary border-2 border-primary/30 shadow w-full">{latestDate.fullDate}, {latestDate.time}</p>
-                  <p className="h-20 rounded-lg bg-secondary  border-2 border-primary/30 shadow w-full">{latestBooking.queue}</p>
+                <div className="grid grid-cols-4 gap-4 px-5">
+                  <p className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full"> Jam Mulai {formatDate(latestBooking.visitedAt).fullDate}, {formatDate(latestBooking.visitedAt).time}</p>
+                  <div className="py-10 rounded-lg bg-primary  hover:shadow-xl shadow w-3/4 flex justify-center items-center">
+                    <p className="text-2xl text-white semibold">Antrean Kamu{latestBooking.queue}</p>
+                  </div>
+                  <div className="py-10 rounded-lg bg-primary  hover:shadow-xl shadow w-3/4 flex justify-center items-center">
+                    <p className="text-2xl text-white semibold">Antrean Sekarang{dataPoly.queue}</p>
+                  </div>
+                  <Link to="/all-queue" className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full">
+                    Lihat semua antrean yang akan datang
+                  </Link>
                 </div>
               </section>
             }

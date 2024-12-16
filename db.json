@@ -55,42 +55,47 @@
   ],
   "polyclinics": [
     {
-      "id": "hzha",
+      "id": "4321",
       "polyName": "Poli Jantung",
       "openDay": ["Senin", "Kamis"],
       "openTime": [7, 30],
+      "queue": 2,
       "descriptions": "oVgSSrrnIxiLScHHhsYJrSiRoiZBfNCjciGelYzE",
       "image": "https://avatars.githubusercontent.com/u/10128738"
     },
     {
-      "id": "xpxw",
+      "id": "5432",
       "polyName": "Poli Penyakit Dalam",
       "openDay": ["Senin", "Kamis"],
       "openTime": [7, 30],
+      "queue": 3,
       "descriptions": "dsYxCoRNQHDzQGyVjmziUendMDSAODbuzKfRAVDB",
       "image": "https://avatars.githubusercontent.com/u/72609122"
     },
     {
-      "id": "e9uu",
+      "id": "6543",
       "polyName": "Poli Jantung",
       "openDay": ["Senin", "Kamis"],
       "openTime": [7, 30],
+      "queue": 4,
       "descriptions": "HPSCnhKVGwyZHROUShWZaysgUksIhCkZUKHpLIdf",
       "image": "https://avatars.githubusercontent.com/u/63576769"
     },
     {
-      "id": "xcv3",
+      "id": "7654",
       "polyName": "Poli Paru",
       "openDay": ["Senin", "Kamis"],
       "openTime": [7, 30],
+      "queue": 5,
       "descriptions": "HpMnWvjfKxBoZKvtvdJOkWEkezLmDbabGMvGLcmj",
       "image": "https://avatars.githubusercontent.com/u/16646631"
     },
     {
-      "id": "rn23",
+      "id": "8765",
       "polyName": "Poli Paru",
       "openDay": ["Senin", "Kamis"],
       "openTime": [7, 30],
+      "queue": 6,
       "descriptions": "cKqyKalNTfpkYQClHsGWAGigIExDrNOBheJQQqNB",
       "image": "https://avatars.githubusercontent.com/u/37820435"
     }
@@ -155,7 +160,7 @@
   "bookings": [
     {
       "id": "43e2",
-      "queue": "002",
+      "queue": 2,
       "polyId": "5432",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -165,7 +170,7 @@
     },
     {
       "id": "45r2",
-      "queue": "023",
+      "queue": 23,
       "polyId": "4321",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -175,7 +180,7 @@
     },
     {
       "id": "4we2",
-      "queue": "025",
+      "queue": 25,
       "polyId": "4321",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -185,7 +190,7 @@
     },
     {
       "id": "dwe2",
-      "queue": "125",
+      "queue": 125,
       "polyId": "7654",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -195,7 +200,7 @@
     },
     {
       "id": "dwe6",
-      "queue": "025",
+      "queue": 25,
       "polyId": "8765",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -205,7 +210,7 @@
     },
     {
       "id": "dwe7",
-      "queue": "005",
+      "queue": 5,
       "polyId": "8765",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -215,7 +220,7 @@
     },
     {
       "id": "dwe1",
-      "queue": "045",
+      "queue": 45,
       "polyId": "5432",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -225,7 +230,7 @@
     },
     {
       "id": "d2e1",
-      "queue": "100",
+      "queue": 100,
       "polyId": "5432",
       "userId": "4567",
       "createdAt": "2024-12-12T12:18:26.355Z",
