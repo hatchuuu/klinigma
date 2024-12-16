@@ -9,7 +9,7 @@
       "phoneNumber": "(502) 581-6149",
       "gender": "pria",
       "role": "superadmin",
-      "birthDate": "22112002",
+      "birthDate": "22112001",
       "createdAt": "2024-12-12T12:18:26.355Z",
       "updatedAt": null
     },
@@ -35,7 +35,7 @@
       "phoneNumber": "0567567567",
       "gender": "pria",
       "role": "user",
-      "birthDate": "08052024",
+      "birthDate": "08052003",
       "createdAt": "2024-12-13T12:59:23.745Z",
       "updatedAt": null
     },
@@ -97,7 +97,7 @@
   ],
   "doctors": [
     {
-      "id": "gyg9",
+      "id": "4321",
       "polyName": "Poli Jantung",
       "name": "Wallace",
       "email": "Wallace82@google.com",
@@ -108,7 +108,7 @@
       "image": "https://avatars.githubusercontent.com/u/6091428"
     },
     {
-      "id": "tqjt",
+      "id": "5432",
       "polyName": "Poli Penyakit Dalam",
       "name": "Joann",
       "email": "Joann_Hirthe@google.com",
@@ -119,8 +119,8 @@
       "image": "https://avatars.githubusercontent.com/u/26891770"
     },
     {
-      "id": "do11",
-      "polyName": "Poli Jantung",
+      "id": "6543",
+      "polyName": "Poli THT",
       "name": "David",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -130,8 +130,8 @@
       "image": "https://avatars.githubusercontent.com/u/81562255"
     },
     {
-      "id": "26ky",
-      "polyName": "Poli Paru",
+      "id": "7654",
+      "polyName": "Poli Anak",
       "name": "Merle",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
@@ -141,8 +141,8 @@
       "image": "https://avatars.githubusercontent.com/u/76868199"
     },
     {
-      "id": "250z",
-      "polyName": "Poli Paru",
+      "id": "8765",
+      "polyName": "Poli Mata",
       "name": "Lorraine",
       "email": "Lorraine.Parker@google.com",
       "gender": "wanita",
@@ -155,43 +155,83 @@
   "bookings": [
     {
       "id": "43e2",
-      "polyName": "Poli Jantung",
-      "name": "Christian",
+      "queue": "002",
+      "polyId": "5432",
+      "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
-      "doneAt": "2024-12-15T14:16:53.130Z",
-      "status": "Done"
+      "visitedAt": "2024-12-15T12:13:26.355Z",
+      "doneAt": null,
+      "status": "Created"
     },
     {
-      "id": "idnf",
-      "polyName": "Poli Penyakit Dalam",
-      "name": "Lucia",
-      "createdAt": "2024-12-12T13:36:25.296Z",
-      "doneAt": "2024-12-13T20:29:00.577Z",
-      "status": "Done"
+      "id": "45r2",
+      "queue": "023",
+      "polyId": "4321",
+      "userId": "3456",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "visitedAt": "2024-12-15T12:18:26.355Z",
+      "doneAt": null,
+      "status": "Created"
     },
     {
-      "id": "ttv6",
-      "polyName": "Poli Jantung",
-      "name": "Kelvin",
-      "createdAt": "2024-12-12T20:46:31.966Z",
-      "doneAt": "2024-12-16T14:53:42.014Z",
+      "id": "4we2",
+      "queue": "025",
+      "polyId": "4321",
+      "userId": "3456",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "visitedAt": "2024-12-18T12:18:26.355Z",
+      "doneAt": null,
+      "status": "Created"
+    },
+    {
+      "id": "dwe2",
+      "queue": "125",
+      "polyId": "7654",
+      "userId": "3456",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "visitedAt": "2024-12-17T12:18:26.355Z",
+      "doneAt": null,
+      "status": "Created"
+    },
+    {
+      "id": "dwe6",
+      "queue": "025",
+      "polyId": "8765",
+      "userId": "3456",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "visitedAt": "2024-12-17T12:18:26.355Z",
+      "doneAt": null,
       "status": "Approve"
     },
     {
-      "id": "p2ke",
-      "polyName": "Poli Paru",
-      "name": "Alfredo",
-      "createdAt": "2024-12-12T16:31:21.664Z",
-      "doneAt": "2024-12-17T23:46:09.855Z",
+      "id": "dwe7",
+      "queue": "005",
+      "polyId": "8765",
+      "userId": "3456",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "visitedAt": "2024-12-17T12:18:26.355Z",
+      "doneAt": "2024-12-17T12:25:26.355Z",
       "status": "Done"
     },
     {
-      "id": "hesg",
-      "polyName": "Poli Paru",
-      "name": "Christy",
-      "createdAt": "2024-12-12T21:41:48.520Z",
-      "doneAt": "2024-12-17T03:35:37.046Z",
-      "status": "Approve"
+      "id": "dwe1",
+      "queue": "045",
+      "polyId": "5432",
+      "userId": "3456",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "visitedAt": "2024-12-17T12:18:26.355Z",
+      "doneAt": "2024-12-17T12:25:26.355Z",
+      "status": "Failed"
+    },
+    {
+      "id": "d2e1",
+      "queue": "100",
+      "polyId": "5432",
+      "userId": "4567",
+      "createdAt": "2024-12-12T12:18:26.355Z",
+      "visitedAt": "2024-12-17T12:18:26.355Z",
+      "doneAt": "2024-12-17T12:25:26.355Z",
+      "status": "Failed"
     }
   ]
 }

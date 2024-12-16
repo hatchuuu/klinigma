@@ -25,7 +25,6 @@ const LoginPage = () => {
 
   const onSubmit = handleSubmit(async (value) => {
     const { email } = value;
-    console.log(value);
     try {
       let response;
       if (email == "klinigma@enigma.com") {
@@ -37,9 +36,8 @@ const LoginPage = () => {
       } else {
         throw new Error("Email atau Password salah")
       }
-      console.log("halo");
       if (response.status == 200) {
-        localStorage.setItem("token", response.data.data.token);
+        sessionStorage.setItem("token", response.data.data.token);
         navigate("/dashboard");
       } else {
         throw new Error(response.message)
