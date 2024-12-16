@@ -13,31 +13,34 @@ import { useNavigate } from "react-router-dom";
 
 const BrowseUsers = ({ filteredUsers }) => {
   const navigate = useNavigate();
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-    // Perhitungan total halaman
-    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  // Perhitungan total halaman
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-    // Data yang ditampilkan sesuai halaman saat ini
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentUsers = filteredUsers.slice(
-      startIndex,
-      startIndex + itemsPerPage
-    );
+  // Data yang ditampilkan sesuai halaman saat ini
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentUsers = filteredUsers.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
-    // untuk mengubah halaman
-    const handlePageChange = (page) => {
-      setCurrentPage(page);
-    };
+  // untuk mengubah halaman
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
-    useEffect(() => {
-      // Reset halaman ke 1 jika hasil query berubah
-      setCurrentPage(1);
-    }, [filteredUsers]);
+  useEffect(() => {
+    // Reset halaman ke 1 jika hasil query berubah
+    setCurrentPage(1);
+  }, [filteredUsers]);
 
   return (
     <div className="p-6 bg-gray-50 shadow-lg rounded-lg border border-gray-200">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-xl font-bold text-gray-800">Users</h1>
+      </div>
       <Table className="w-full text-left">
         <TableHeader>
           <TableRow className="bg-gray-100">

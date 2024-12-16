@@ -221,40 +221,19 @@
       }
     },
     {
-      "name": "nabila",
+      "name": "nabila edit",
       "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
       "gender": "wanita",
       "email": "cahyaninabila@gmail.com",
       "descriptions": "cxvxdv",
       "location": "sfsfs",
       "phoneNumber": "087766767678",
-      "open": "12:00",
-      "close": "13:00",
-      "day": "Sabtu",
       "schedule": {
         "day": "Sabtu",
         "open": "12:00",
         "close": "13:00"
       },
       "id": "ce30"
-    },
-    {
-      "id": "d9f8",
-      "name": "nabila",
-      "polyName": "aaaa",
-      "gender": "wanita",
-      "email": "cahyaninabila@gmail.com",
-      "descriptions": "cxvxdv",
-      "location": "sfsfs",
-      "phoneNumber": "087766767678",
-      "open": "12:00",
-      "close": "13:00",
-      "day": "Sabtu",
-      "schedule": {
-        "day": "Sabtu",
-        "open": "12:00",
-        "close": "13:00"
-      }
     },
     {
       "id": "c8d9",
@@ -321,6 +300,21 @@
       "phoneNumber": "087766767678",
       "schedule": {
         "day": "Selasa",
+        "open": "12:00",
+        "close": "13:00"
+      }
+    },
+    {
+      "id": "62e7",
+      "name": "nabila",
+      "polyName": "Poli Gigi",
+      "gender": "wanita",
+      "email": "admin8@email.com",
+      "descriptions": "test",
+      "location": "Lake Margarita",
+      "phoneNumber": "087766767678",
+      "schedule": {
+        "day": "Jumat",
         "open": "12:00",
         "close": "13:00"
       }
