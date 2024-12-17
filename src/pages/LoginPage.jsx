@@ -27,11 +27,11 @@ const LoginPage = () => {
     const { email, password } = value;
     try {
       let response;
-      if (email == "klinigma@enigma.com" || password == "Password123@") {
+      if (email == "klinigma@enigma.com" && password == "Super123@") {
         response = await loginSuperInstance.post("", value)
-      } else if (email == "admin@klinigma.com" || password == "Password123@") {
+      } else if (email == "admin@klinigma.com" && password == "Admin123@") {
         response = await loginAdminInstance.post("", value)
-      } else if (email == "user@klinigma.com" || password == "Password123@") {
+      } else if (email == "user@klinigma.com" && password == "User123@") {
         response = await loginUserInstance.post("", value)
       } else {
         throw new Error("Email atau Password salah")
