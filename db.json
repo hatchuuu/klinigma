@@ -95,8 +95,8 @@
       "location": "Napa",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
       "quota": 20,
-      "schedule": { "open": "01:00", "close": "08:00" },
-      "availableDays": [1, 3, 5]
+      "schedule": { "open": "01:00", "close": "09:00" },
+      "availableDays": [1, 2, 5]
     },
     {
       "id": "gyg9",

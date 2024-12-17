@@ -17,7 +17,7 @@ import {
   DrawerFooter,
 } from "@/components/ui/drawer";
 import { BackButton } from "@/components/button/NavigationButton";
-import { Dock, SquarePen } from "lucide-react";
+import { SquarePen } from "lucide-react";
 
 function BookingSchedule() {
   const location = useLocation();
@@ -28,7 +28,6 @@ function BookingSchedule() {
   const [dokterTerpilih, setDokterTerpilih] = useState(null);
   const [dataDokter, setDataDokter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false); // State to control drawer visibility
 
   useEffect(() => {
     moment.locale("id");
@@ -61,63 +60,56 @@ function BookingSchedule() {
 
   const handlePilihTanggal = (tanggal) => {
     setTanggalTerpilih(tanggal);
+    setDokterTerpilih(null);
   };
 
   const handlePilihDokter = (dokter) => {
-    let isAvailable = true; // Default: tersedia untuk 2 hari ke depan
+    let isAvailable = true;
     let availabilityMessage = "";
 
-    // Cek ketersediaan hanya untuk hari ini
+    const jamBuka = moment(dokter.schedule.open, "HH:mm");
+    const jamTutup = moment(dokter.schedule.close, "HH:mm");
+
+    if (jamTutup.isBefore(jamBuka)) {
+      jamTutup.add(1, "day");
+    }
+
+    const now = moment();
+    const open = moment(tanggalTerpilih).set({
+      hour: jamBuka.hour(),
+      minute: jamBuka.minute(),
+    });
+    const close = moment(tanggalTerpilih).set({
+      hour: jamTutup.hour(),
+      minute: jamTutup.minute(),
+    });
+
     if (tanggalTerpilih.isSame(moment(), "day")) {
-      const jamBuka = moment(dokter.schedule.open, "HH:mm");
-      const jamTutup = moment(dokter.schedule.close, "HH:mm");
-
-      if (jamTutup.isBefore(jamBuka)) {
-        jamTutup.add(1, "day");
-      }
-
-      const now = moment(tanggalTerpilih).set({
-        hour: moment().hour(),
-        minute: moment().minute(),
-      });
-      const open = moment(tanggalTerpilih).set({
-        hour: jamBuka.hour(),
-        minute: jamBuka.minute(),
-      });
-      const close = moment(tanggalTerpilih).set({
-        hour: jamTutup.hour(),
-        minute: jamTutup.minute(),
-      });
-
-      console.log("now:", now.format("YYYY-MM-DD HH:mm"));
-      console.log("open:", open.format("YYYY-MM-DD HH:mm"));
-      console.log("close:", close.format("YYYY-MM-DD HH:mm"));
-      console.log("tanggalTerpilih:", tanggalTerpilih.format("YYYY-MM-DD"));
-      console.log("availableDays:", dokter.availableDays);
-
       isAvailable =
         dokter.availableDays.includes(tanggalTerpilih.day()) &&
         now.isBetween(open, close, undefined, "[]");
 
       if (!isAvailable) {
-        if (dokter.availableDays.includes(tanggalTerpilih.day())) {
-          availabilityMessage = "Tidak tersedia di jam ini";
-        } else {
-          availabilityMessage = "Tidak tersedia di hari ini";
-        }
+        availabilityMessage = dokter.availableDays.includes(tanggalTerpilih.day())
+          ? "Tidak tersedia di jam ini"
+          : "Tidak tersedia di hari ini";
+      }
+    } else {
+      isAvailable = dokter.availableDays.includes(tanggalTerpilih.day());
+      if (!isAvailable) {
+        availabilityMessage = "Tidak tersedia di hari ini";
       }
     }
 
     if (isAvailable) {
       setDokterTerpilih(dokter);
-      setIsDrawerOpen(true);
     } else {
-      console.error("Dokter tidak tersedia pada jam ini.");
+      console.error("Dokter tidak tersedia.", availabilityMessage);
+      // Consider showing an alert or a more prominent error message to the user
     }
   };
 
   const handleConfirmBooking = () => {
-    // Create a simplified booking object
     const bookingData = {
       poliklinik: {
         id: poliklinik.id,
@@ -144,6 +136,7 @@ function BookingSchedule() {
           <img src="/klinigma.png" alt="Klinigma" width={90} />
         </div>
       </div>
+
       {/* Card Poliklinik */}
       <div className="p-4 border flex rounded-lg shadow-md bg-white dark:bg-gray-800">
         <div className="w-[85%]">
@@ -198,36 +191,32 @@ function BookingSchedule() {
               jamTutup.add(1, "day");
             }
 
-            const now = moment(tanggalTerpilih).set({
-              hour: moment().hour(),
-              minute: moment().minute(),
-            });
-            const open = moment(tanggalTerpilih).set({
-              hour: jamBuka.hour(),
-              minute: jamBuka.minute(),
-            });
-            const close = moment(tanggalTerpilih).set({
-              hour: jamTutup.hour(),
-              minute: jamTutup.minute(),
-            });
-
-            let isAvailable = true; // Default: tersedia untuk 2 hari ke depan
+            let isAvailable = dokter.availableDays.includes(tanggalTerpilih.day());
             let availabilityMessage = "";
 
-            // Cek ketersediaan hanya untuk hari ini
             if (tanggalTerpilih.isSame(moment(), "day")) {
+              const now = moment(); 
+              const open = moment(tanggalTerpilih).set({
+                hour: jamBuka.hour(),
+                minute: jamBuka.minute(),
+              });
+              const close = moment(tanggalTerpilih).set({
+                hour: jamTutup.hour(),
+                minute: jamTutup.minute(),
+              });
+
               isAvailable =
-                dokter.availableDays.includes(tanggalTerpilih.day()) &&
-                now.isBetween(open, close, undefined, "[]");
+                isAvailable && now.isBetween(open, close, undefined, "[]");
 
               if (!isAvailable) {
-                if (dokter.availableDays.includes(tanggalTerpilih.day())) {
-                  availabilityMessage = "Tidak tersedia di jam ini";
-                } else {
-                  availabilityMessage = "Tidak tersedia di hari ini";
-                }
+                availabilityMessage = dokter.availableDays.includes(tanggalTerpilih.day())
+                  ? "Tidak tersedia di jam ini"
+                  : "Tidak tersedia di hari ini";
               }
+            } else if (!isAvailable) {
+              availabilityMessage = "Tidak tersedia di hari ini";
             }
+
 
             return (
               <Drawer key={dokter.id}>
@@ -235,16 +224,14 @@ function BookingSchedule() {
                   <div
                     key={dokter.id}
                     className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 
-             ${
-               dokter.id === dokterTerpilih?.id
-                 ? "bg-blue-500 text-white"
-                 : "bg-white dark:bg-gray-800"
-             } 
-             ${
-               isAvailable
-                 ? ""
-                 : "opacity-50 cursor-not-allowed pointer-events-none"
-             }`}
+                      ${
+                        dokter.id === dokterTerpilih?.id
+                          ? "bg-blue-500 text-white"
+                          : "bg-white dark:bg-gray-800"
+                      } 
+                      ${
+                        isAvailable ? "" : "opacity-50 cursor-not-allowed" 
+                      }`}
                     onClick={() => handlePilihDokter(dokter)}
                   >
                     <Avatar className="w-16 h-16">
@@ -255,19 +242,15 @@ function BookingSchedule() {
                       <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                         {dokter.name}
                       </h3>
-                      {isAvailable ? (
-                        <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {jamBuka.format("HH:mm")} -{" "}
-                            {jamTutup.format("HH:mm")}
-                          </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Sisa Kuota: {sisaKuota}
-                          </p>
-                        </div>
-                      ) : (
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {jamBuka.format("HH:mm")} - {jamTutup.format("HH:mm")}
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Sisa Kuota: {sisaKuota}
+                      </p>
+                      {!isAvailable && (
                         <p className="text-sm text-red-500">
-                          {availabilityMessage} {/* <-- Perubahan di sini */}
+                          {availabilityMessage}
                         </p>
                       )}
                     </div>
