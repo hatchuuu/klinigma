@@ -60,7 +60,7 @@
       "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
       "schedule": "Buka setiap hari, 24/7.",
-      "currentQueue": 0 
+      "currentQueue": 0
     },
     {
       "id": "xpxw",
@@ -90,7 +90,7 @@
   "doctors": [
     {
       "id": "do11",
-      "polyclinicId": "hzha", 
+      "polyclinicId": "hzha",
       "name": "dr. Tony Tony Chopper, M.Kes",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -103,15 +103,11 @@
         "open": "01:00",
         "close": "14:00"
       },
-      "availableDays": [
-        1,
-        2,
-        5
-      ]
+      "availableDays": [1, 2, 5]
     },
     {
       "id": "gyg9",
-      "polyclinicId": "hzha", 
+      "polyclinicId": "hzha",
       "name": "dr. Satoru Gojou",
       "email": "Wallace82@google.com",
       "gender": "pria",
@@ -124,15 +120,11 @@
         "open": "09:00",
         "close": "15:00"
       },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "tqjt",
-      "polyclinicId": "hzha", 
+      "polyclinicId": "hzha",
       "name": "dr. Levi Ackerman, Sp.PD",
       "email": "Joann_Hirthe@google.com",
       "gender": "pria",
@@ -145,15 +137,11 @@
         "open": "16:00",
         "close": "23:00"
       },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "do14",
-      "polyclinicId": "xpxw", 
+      "polyclinicId": "xpxw",
       "name": "drg. Nami, Sp.Ort",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -166,15 +154,11 @@
         "open": "01:00",
         "close": "06:00"
       },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "do19",
-      "polyclinicId": "xpxw", 
+      "polyclinicId": "xpxw",
       "name": "drg. Forger Yor, Sp.Pros",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -182,20 +166,16 @@
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
       "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",
-      "quota": 18, 
+      "quota": 18,
       "schedule": {
         "open": "01:00",
         "close": "06:00"
       },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "26ky",
-      "polyclinicId": "e9uu", 
+      "polyclinicId": "e9uu",
       "name": "dr. Makima, Sp.A",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
@@ -208,15 +188,11 @@
         "open": "01:00",
         "close": "06:00"
       },
-      "availableDays": [
-        1,
-        2,
-        5
-      ]
+      "availableDays": [1, 2, 5]
     },
     {
       "id": "21ky",
-      "polyclinicId": "e9uu", 
+      "polyclinicId": "e9uu",
       "name": "dr. Violet Evergarden, Sp.OG",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
@@ -224,20 +200,16 @@
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
       "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg",
-      "quota": 19, 
+      "quota": 19,
       "schedule": {
         "open": "01:00",
         "close": "06:00"
       },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "250z",
-      "polyclinicId": "xcv3", 
+      "polyclinicId": "xcv3",
       "name": "dr. Maki Zenin",
       "email": "Lorraine.Parker@google.com",
       "gender": "wanita",
@@ -250,79 +222,75 @@
         "open": "01:00",
         "close": "06:00"
       },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "availableDays": [1, 3, 5]
     }
   ],
   "bookings": [
     {
       "id": "43e2",
-      "polyclinicId": "hzha", 
-      "doctorId": "do11", 
-      "userId": "1234", 
+      "polyclinicId": "hzha",
+      "doctorId": "do11",
+      "userId": "1234",
       "name": "Christian",
       "createdAt": "2024-12-12T12:18:26.355Z",
       "doneAt": "2024-12-15T14:16:53.130Z",
       "status": "Done",
-      "queueNumber": 1 
+      "queueNumber": 1
     },
     {
       "id": "idnf",
-      "polyclinicId": "xpxw", 
-      "doctorId": "do14", 
-      "userId": "2345", 
+      "polyclinicId": "xpxw",
+      "doctorId": "do14",
+      "userId": "2345",
       "name": "Lucia",
       "createdAt": "2024-12-12T13:36:25.296Z",
       "doneAt": "2024-12-13T20:29:00.577Z",
       "status": "Done",
-      "queueNumber": 1 
+      "queueNumber": 1
     },
     {
       "id": "ttv6",
-      "polyclinicId": "hzha", 
-      "doctorId": "gyg9", 
-      "userId": "1234", 
+      "polyclinicId": "hzha",
+      "doctorId": "gyg9",
+      "userId": "1234",
       "name": "Kelvin",
       "createdAt": "2024-12-12T20:46:31.966Z",
       "doneAt": "2024-12-16T14:53:42.014Z",
       "status": "Approve",
-      "queueNumber": 2 
+      "queueNumber": 2
     },
     {
       "id": "p2ke",
-      "polyclinicId": "e9uu", 
-      "doctorId": "26ky", 
-      "userId": "3456", 
+      "polyclinicId": "e9uu",
+      "doctorId": "26ky",
+      "userId": "3456",
       "name": "Alfredo",
       "createdAt": "2024-12-12T16:31:21.664Z",
       "doneAt": "2024-12-17T23:46:09.855Z",
       "status": "Done",
-      "queueNumber": 1 
+      "queueNumber": 1
     },
     {
       "id": "hesg",
-      "polyclinicId": "xcv3", 
-      "doctorId": "250z", 
-      "userId": "26a2", 
+      "polyclinicId": "xcv3",
+      "doctorId": "250z",
+      "userId": "26a2",
       "name": "Christy",
       "createdAt": "2024-12-12T21:41:48.520Z",
       "doneAt": "2024-12-17T03:35:37.046Z",
       "status": "Approve",
-      "queueNumber": 1 
+      "queueNumber": 1
     },
     {
       "id": "b870",
-      "polyclinicId": "hzha", 
-      "doctorId": "tqjt", 
-      "userId": "3456", 
-      "name": "John Doe", 
-      "createdAt": "2024-12-16T08:00:00.000Z", 
+      "polyclinicId": "hzha",
+      "doctorId": "tqjt",
+      "userId": "3456",
+      "name": "John Doe",
+      "createdAt": "2024-12-16T08:00:00.000Z",
       "doneAt": null,
       "status": "Waiting",
-      "queueNumber": 1 
+      "queueNumber": 1
     }
   ]
 }

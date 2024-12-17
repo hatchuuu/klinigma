@@ -24,6 +24,7 @@ import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
 import SideBarListQueue from "@/components/SideBarListQueue";
 import TokenBoard from "@/components/TokenBoard";
+import useCounterStore from "@/store/counter";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
@@ -95,6 +96,8 @@ const DashboardPage = () => {
   if (user === null) {
     return <Loader />;
   } // Re-run effect if token changes
+
+
   return (
     <div>
       {user ? (
@@ -144,6 +147,7 @@ const DashboardPage = () => {
               </div>
             </div>
           </section>
+
           <div className="flex sm:flex-row flex-col">
             <section className="sm:order-2 order-1">
               {latestBooking && (

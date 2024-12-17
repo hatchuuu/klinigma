@@ -2,7 +2,7 @@ import { Bell, Calendar, House, User } from "lucide-react";
 import { jwtDecode } from "jwt-decode";
 import DrawerMenu from "./DrawerMenu";
 import NavbarButton from "./NavbarButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { SiderBar } from "./SiderBar";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import { getUserById } from "@/data/users";
 import Loader from "./Loader";
 
 const Navbar = () => {
+  const { pathname } = useLocation()
   const navigate = useNavigate()
   const token = sessionStorage.getItem("token");
   const [user, setUser] = useState("")
@@ -40,14 +41,17 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchIdUser()
-  })
+  }, [])
 
+  if (pathname.startsWith("/present")) {
+    return null;
+  }
 
   return (
     <>
       <div
         className={`w-full bg-transparent font-roboto ${!token ? "hidden" : "fixed"
-          } bottom-3 px-4 md:hidden`}
+          } bottom-3 px-4 md:hidden `}
       >
         <div className="bg-primary w-full py-2 rounded-2xl">
           <div className="flex justify-evenly items-center">
