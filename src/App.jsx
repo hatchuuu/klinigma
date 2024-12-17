@@ -10,6 +10,7 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const HistoryPage = lazy(() => import("./pages/HistoryPage"))
 const LoginPage = lazy(() => import("@/pages/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"))
+const HomePage = lazy(() => import("@/pages/HomePage"))
 const UsersPage = lazy(() => import("@/pages/admin/UserPage"))
 const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"))
 const AdminPage = lazy(() => import("@/pages/admin/AdminPage"))
@@ -37,6 +38,7 @@ const App = () => {
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
       { path: "/login", role: "user", element: <LoginPage /> },
       { path: "/register", role: "user", element: <RegisterPage /> },
+      { path: "/", role: "user", element: <HomePage /> },
       //hnya untuk admin & superadmin
       { path: "/users", role: "admin", element: <UsersPage /> },
       { path: "/doctors", role: "admin", element: <DoctorPage /> },
