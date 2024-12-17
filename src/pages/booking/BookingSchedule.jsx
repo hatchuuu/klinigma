@@ -109,20 +109,46 @@ function BookingSchedule() {
     }
   };
 
-  const handleConfirmBooking = () => {
-    const bookingData = {
-      poliklinik: {
-        id: poliklinik.id,
-        polyName: poliklinik.polyName,
-      },
-      tanggalTerpilih: tanggalTerpilih.format("YYYY-MM-DD"),
-      dokterTerpilih: {
-        id: dokterTerpilih.id,
-        name: dokterTerpilih.name,
-      },
-    };
-
-    navigate("/ringkasan-booking", { state: bookingData });
+  const handleConfirmBooking = async () => {
+    setIsLoading(true); // Menampilkan loading indicator
+  
+    try {
+      // 1. Mengurangi kuota dokter di database
+      const response = await fetch(`http://localhost:3002/doctors/${dokterTerpilih.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          quota: dokterTerpilih.quota - 1,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Gagal memperbarui kuota dokter");
+      }
+  
+      // 2. Membuat data booking baru
+      const bookingData = {
+        poliklinik: {
+          id: poliklinik.id,
+          polyName: poliklinik.polyName,
+        },
+        tanggalTerpilih: tanggalTerpilih.format("YYYY-MM-DD"),
+        dokterTerpilih: {
+          id: dokterTerpilih.id,
+          name: dokterTerpilih.name,
+        },
+      };
+  
+      // 3. Navigasi ke halaman BookingDetails
+      navigate("/booking/schedule/details", { state: bookingData });
+    } catch (error) {
+      console.error(error);
+      // Tampilkan pesan error ke user (misalnya, dengan alert)
+    } finally {
+      setIsLoading(false); // Menyembunyikan loading indicator
+    }
   };
 
   return (

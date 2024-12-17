@@ -18,6 +18,7 @@ const NotFound = lazy(() => import("@/pages/NotFound"))
 // BOOKING
 const BookingPage = lazy(() => import("./pages/booking/BookingPage"))
 const BookingSchedule = lazy(() => import("./pages/booking/BookingSchedule"))
+const BookingDetails = lazy(() => import("./pages/booking/BookingDetails"))
 
 const App = () => {
   const allRoutes =
@@ -32,6 +33,7 @@ const App = () => {
       // BOOKING
       { path: "/booking", role: "user", element: <BookingPage /> },
       { path: "/booking/pilih-jadwal", role: "user", element: <BookingSchedule /> },
+      { path: "/booking/schedule/details", role: "user", element: <BookingDetails /> },
 
 
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
