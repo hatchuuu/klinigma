@@ -64,7 +64,7 @@ const LoginPage = () => {
           <form onSubmit={onSubmit}>
             {/* Update Ryan */}
             <FieldInput control={control} name="email" canHide={false} label="Email" />
-            <FieldInput control={control} name="password" canHide={true} label="Password" type="password"/>
+            <FieldInput control={control} name="password" canHide={true} label="Password"/>
 
             {/* Link Lupa Password */}
             <div className="flex justify-end mb-4">

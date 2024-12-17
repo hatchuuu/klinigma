@@ -36,7 +36,7 @@ const FieldMultiSelect = ({ control, name, label, list = [], disabled }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="bg-white hover:bg-white">{label}</Button>
+        <Button variant="outline" className="bg-white w-30 hover:bg-white">{label}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>{label}</DropdownMenuLabel>
@@ -65,13 +65,10 @@ FieldMultiSelect.propTypes = {
   name: PropTypes.string.isRequired,
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired,
     })
   ).isRequired,
-  control: PropTypes.shape({
-    setValue: PropTypes.func, // Optional jika tidak digunakan
-  }),
   disabled: PropTypes.bool,
 };
 

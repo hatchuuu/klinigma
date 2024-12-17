@@ -77,7 +77,7 @@ export const doctorsSchema = z.object({
     .string({ required_error: "Location is Required" })
     .min(3, "Minimal 3 Karakter")
     .max(200, "Maksimal 200 Karakter"),
-    phoneNumber: z
+  phoneNumber: z
     .string()
     .regex(
       /^(?:\+62|62|0)8[1-9]\d{6,12}$/,
@@ -93,11 +93,18 @@ export const doctorsSchema = z.object({
     .string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "End Time is Invalid")
     .optional(),
-    // availableDays: z
-    // .array(z.enum(["1", "2", "3", "4", "5", "6", "7"], {
-    //   message: "Day must be between 1 and 7",
-    // }))
-    // .min(1, "At least one day is required")
-    // .max(7, "Maximum of 7 days can be selected"),
-    quota: z.string().min(1, "Quota Name is required"),
+  availableDays: z
+    .array(
+      z
+        .number()
+        .min(1, "Day must be between 1 and 7")
+        .max(7, "Day must be between 1 and 7"),
+      {
+        message: "Day must be between 1 and 7",
+      }
+    )
+    .min(1, "At least one day is required")
+    .max(7, "Maximum of 7 days can be selected"),
+
+  quota: z.preprocess((val) => Number(val), z.number().positive()),
 });

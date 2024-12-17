@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import FieldInput from "@/components/form/field/FieldInput";
+import FieldInputForm from "@/components/form/field/FieldInputForm";
 import FieldSelect from "@/components/form/field/FieldSelect";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -19,6 +19,7 @@ import { doctorsSchema } from "@/lib/zodSchema";
 import { axiosInstance } from "@/lib/axios";
 import { failedToast, successToast } from "@/lib/toaster";
 import FieldMultiSelect from "@/components/form/field/MultiSelect";
+import { number } from "prop-types";
 
 function FormDoctors() {
   const navigate = useNavigate();
@@ -33,13 +34,13 @@ function FormDoctors() {
 
   const list = ["wanita", "pria"];
   const hari = [
-    { value: "1", label: "Senin" },
-    { value: "2", label: "Selasa" },
-    { value: "3", label: "Rabu" },
-    { value: "4", label: "Kamis" },
-    { value: "5", label: "Jumat" },
-    { value: "6", label: "Sabtu" },
-    { value: "7", label: "Minggu" },
+    { value: 1, label: "Senn" },
+    { value: 2, label: "Selasa" },
+    { value: 3, label: "Rabu" },
+    { value: 4, label: "Kamis" },
+    { value: 5, label: "Jumat" },
+    { value: 6, label: "Sabtu" },
+    { value: 7, label: "Minggu" },
   ];
 
   const form = useForm({
@@ -59,15 +60,16 @@ function FormDoctors() {
     resolver: zodResolver(doctorsSchema),
   });
   const { control, handleSubmit, reset } = form;
-  
+
   const handleSubmitForm = async (values) => {
     console.log("Available days:", values.availableDays);
     console.log("Form values:", values);
     // console.log("availableDays", availableDays)
-    // const availableDaysFormatted = values.availableDays.map((day) =>
-    //   parseInt(day, 10)
-    // );
+    const availableDaysFormatted = values.availableDays.map((day) =>
+      number(day, 10)
+    );
 
+    console.log(values.quota);
     const schedule = {
       open: values.open,
       close: values.close,
@@ -77,7 +79,7 @@ function FormDoctors() {
     const payload = {
       ...rest,
       schedule: schedule,
-      // availableDays: availableDaysFormatted,
+      availableDays: availableDaysFormatted,
     };
 
     console.log("Payload before sending:", payload);
@@ -202,19 +204,19 @@ function FormDoctors() {
             <Form {...form}>
               <form onSubmit={handleSubmit(handleSubmitForm)}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="name"
                     label="Nama"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="email"
                     label="Email"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="phoneNumber"
                     label="Nomor Telepon"
@@ -222,7 +224,7 @@ function FormDoctors() {
                     pattern="[0-9]*"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="location"
                     label="Lokasi"
@@ -256,21 +258,21 @@ function FormDoctors() {
                     disabled={action === "detail"}
                   />
 
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="open"
                     label="Start Time"
                     type="time"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="close"
                     label="End Time"
                     type="time"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="quota"
                     label="Quota"
@@ -281,7 +283,7 @@ function FormDoctors() {
 
                 {/* Descriptions */}
                 <div className="mt-4">
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="descriptions"
                     label="Descriptions"
