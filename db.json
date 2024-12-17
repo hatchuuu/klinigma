@@ -59,34 +59,38 @@
       "polyName": "Poli Umum",
       "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
-      "schedule": "Buka setiap hari, 24/7."
+      "schedule": "Buka setiap hari, 24/7.",
+      "currentQueue": 0 
     },
     {
       "id": "xpxw",
       "polyName": "Poli Gigi",
       "descriptions": "Menangani masalah kesehatan gigi dan mulut, mulai dari pemeriksaan rutin, penambalan, pencabutan, hingga perawatan khusus.",
       "image": "https://avatars.githubusercontent.com/u/72609122",
-      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
+      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB.",
+      "currentQueue": 0
     },
     {
       "id": "e9uu",
       "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
       "descriptions": " Menyediakan layanan kesehatan menyeluruh bagi ibu dan anak, meliputi pemeriksaan kehamilan, imunisasi, pemantauan tumbuh kembang, dan konseling laktasi.",
       "image": "https://avatars.githubusercontent.com/u/63576769",
-      "schedule": "Buka setiap hari, 24/7 kecuali libur nasional."
+      "schedule": "Buka setiap hari, 24/7 kecuali libur nasional.",
+      "currentQueue": 0
     },
     {
       "id": "xcv3",
       "polyName": "Poli Keluarga Berencana (KB)",
       "descriptions": "Berfokus pada pelayanan kontrasepsi, termasuk konseling, pemberian berbagai metode KB (pil, suntik, IUD, implan), dan penanganan efek samping.",
       "image": "https://avatars.githubusercontent.com/u/16646631",
-      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
+      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB.",
+      "currentQueue": 0
     }
   ],
   "doctors": [
     {
       "id": "do11",
-      "polyName": "Poli Umum",
+      "polyclinicId": "hzha", 
       "name": "dr. Tony Tony Chopper, M.Kes",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -94,10 +98,10 @@
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
-      "quota": 20,
+      "quota": 19,
       "schedule": {
         "open": "01:00",
-        "close": "13:00"
+        "close": "14:00"
       },
       "availableDays": [
         1,
@@ -107,7 +111,7 @@
     },
     {
       "id": "gyg9",
-      "polyName": "Poli Umum",
+      "polyclinicId": "hzha", 
       "name": "dr. Satoru Gojou",
       "email": "Wallace82@google.com",
       "gender": "pria",
@@ -128,7 +132,7 @@
     },
     {
       "id": "tqjt",
-      "polyName": "Poli Umum",
+      "polyclinicId": "hzha", 
       "name": "dr. Levi Ackerman, Sp.PD",
       "email": "Joann_Hirthe@google.com",
       "gender": "pria",
@@ -149,7 +153,7 @@
     },
     {
       "id": "do14",
-      "polyName": "Poli Gigi",
+      "polyclinicId": "xpxw", 
       "name": "drg. Nami, Sp.Ort",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -170,7 +174,7 @@
     },
     {
       "id": "do19",
-      "polyName": "Poli Gigi",
+      "polyclinicId": "xpxw", 
       "name": "drg. Forger Yor, Sp.Pros",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -178,6 +182,7 @@
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
       "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",
+      "quota": 18, 
       "schedule": {
         "open": "01:00",
         "close": "06:00"
@@ -190,7 +195,7 @@
     },
     {
       "id": "26ky",
-      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "polyclinicId": "e9uu", 
       "name": "dr. Makima, Sp.A",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
@@ -198,6 +203,7 @@
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
       "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg",
+      "quota": 20,
       "schedule": {
         "open": "01:00",
         "close": "06:00"
@@ -210,7 +216,7 @@
     },
     {
       "id": "21ky",
-      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "polyclinicId": "e9uu", 
       "name": "dr. Violet Evergarden, Sp.OG",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
@@ -218,6 +224,7 @@
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
       "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg",
+      "quota": 19, 
       "schedule": {
         "open": "01:00",
         "close": "06:00"
@@ -230,7 +237,7 @@
     },
     {
       "id": "250z",
-      "polyName": "Poli Keluarga Berencana (KB)",
+      "polyclinicId": "xcv3", 
       "name": "dr. Maki Zenin",
       "email": "Lorraine.Parker@google.com",
       "gender": "wanita",
@@ -238,6 +245,7 @@
       "invitedAt": "2015-04-10T12:21:25.176Z",
       "location": "Hollisfield",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd",
+      "quota": 20,
       "schedule": {
         "open": "01:00",
         "close": "06:00"
@@ -247,93 +255,74 @@
         3,
         5
       ]
-    },
-    {
-      "id": "2415",
-      "name": "test",
-      "polyName": "Poli Gigi",
-      "gender": "wanita",
-      "email": "admin8@email.com",
-      "descriptions": "gfggf",
-      "location": "Hollisfield",
-      "phoneNumber": "087766767678",
-      "quota": "46",
-      "schedule": {
-        "open": "12:49",
-        "close": "12:51"
-      }
-    },
-    {
-      "id": "4fee",
-      "name": "test",
-      "polyName": "Poli Gigi",
-      "gender": "wanita",
-      "email": "cahyaninabila@gmail.com",
-      "descriptions": "fdfsfsdf",
-      "location": "sfsfs",
-      "phoneNumber": "087766767678",
-      "quota": 34,
-      "schedule": {
-        "open": "13:39",
-        "close": "15:38"
-      }
-    },
-    {
-      "id": "6a22",
-      "name": "test",
-      "polyName": "Poli Gigi",
-      "gender": "wanita",
-      "email": "cahyaninabila@gmail.com",
-      "descriptions": "njkkjkk",
-      "location": "sfsfs",
-      "phoneNumber": "087766767678",
-      "quota": 34,
-      "schedule": {
-        "open": "14:09",
-        "close": "14:09"
-      }
     }
   ],
   "bookings": [
     {
       "id": "43e2",
-      "polyName": "Poli Jantung",
+      "polyclinicId": "hzha", 
+      "doctorId": "do11", 
+      "userId": "1234", 
       "name": "Christian",
       "createdAt": "2024-12-12T12:18:26.355Z",
       "doneAt": "2024-12-15T14:16:53.130Z",
-      "status": "Done"
+      "status": "Done",
+      "queueNumber": 1 
     },
     {
       "id": "idnf",
-      "polyName": "Poli Penyakit Dalam",
+      "polyclinicId": "xpxw", 
+      "doctorId": "do14", 
+      "userId": "2345", 
       "name": "Lucia",
       "createdAt": "2024-12-12T13:36:25.296Z",
       "doneAt": "2024-12-13T20:29:00.577Z",
-      "status": "Done"
+      "status": "Done",
+      "queueNumber": 1 
     },
     {
       "id": "ttv6",
-      "polyName": "Poli Jantung",
+      "polyclinicId": "hzha", 
+      "doctorId": "gyg9", 
+      "userId": "1234", 
       "name": "Kelvin",
       "createdAt": "2024-12-12T20:46:31.966Z",
       "doneAt": "2024-12-16T14:53:42.014Z",
-      "status": "Approve"
+      "status": "Approve",
+      "queueNumber": 2 
     },
     {
       "id": "p2ke",
-      "polyName": "Poli Paru",
+      "polyclinicId": "e9uu", 
+      "doctorId": "26ky", 
+      "userId": "3456", 
       "name": "Alfredo",
       "createdAt": "2024-12-12T16:31:21.664Z",
       "doneAt": "2024-12-17T23:46:09.855Z",
-      "status": "Done"
+      "status": "Done",
+      "queueNumber": 1 
     },
     {
       "id": "hesg",
-      "polyName": "Poli Paru",
+      "polyclinicId": "xcv3", 
+      "doctorId": "250z", 
+      "userId": "26a2", 
       "name": "Christy",
       "createdAt": "2024-12-12T21:41:48.520Z",
       "doneAt": "2024-12-17T03:35:37.046Z",
-      "status": "Approve"
+      "status": "Approve",
+      "queueNumber": 1 
+    },
+    {
+      "id": "b870",
+      "polyclinicId": "hzha", 
+      "doctorId": "tqjt", 
+      "userId": "3456", 
+      "name": "John Doe", 
+      "createdAt": "2024-12-16T08:00:00.000Z", 
+      "doneAt": null,
+      "status": "Waiting",
+      "queueNumber": 1 
     }
   ]
 }
