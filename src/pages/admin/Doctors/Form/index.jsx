@@ -63,10 +63,10 @@ function FormDoctors() {
   const handleSubmitForm = async (values) => {
     console.log("Available days:", values.availableDays);
     console.log("Form values:", values);
-    console.log("availableDays", availableDays)
-    const availableDaysFormatted = values.availableDays.map((day) =>
-      parseInt(day, 10)
-    );
+    // console.log("availableDays", availableDays)
+    // const availableDaysFormatted = values.availableDays.map((day) =>
+    //   parseInt(day, 10)
+    // );
 
     const schedule = {
       open: values.open,
@@ -77,7 +77,7 @@ function FormDoctors() {
     const payload = {
       ...rest,
       schedule: schedule,
-      availableDays: availableDaysFormatted,
+      // availableDays: availableDaysFormatted,
     };
 
     console.log("Payload before sending:", payload);

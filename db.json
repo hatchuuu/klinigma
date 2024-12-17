@@ -247,6 +247,21 @@
         3,
         5
       ]
+    },
+    {
+      "id": "17a3",
+      "name": "test",
+      "polyName": "Poli Gigi",
+      "gender": "wanita",
+      "email": "cahyaninabila@gmail.com",
+      "descriptions": "adfhjj",
+      "location": "sfsfs",
+      "phoneNumber": "087766767678",
+      "quota": "89",
+      "schedule": {
+        "open": "11:52",
+        "close": "11:52"
+      }
     }
   ],
   "bookings": [

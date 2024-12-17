@@ -93,11 +93,11 @@ export const doctorsSchema = z.object({
     .string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "End Time is Invalid")
     .optional(),
-    availableDays: z
-    .array(z.enum(["1", "2", "3", "4", "5", "6", "7"], {
-      message: "Day must be between 1 and 7",
-    }))
-    .min(1, "At least one day is required")
-    .max(7, "Maximum of 7 days can be selected"),
+    // availableDays: z
+    // .array(z.enum(["1", "2", "3", "4", "5", "6", "7"], {
+    //   message: "Day must be between 1 and 7",
+    // }))
+    // .min(1, "At least one day is required")
+    // .max(7, "Maximum of 7 days can be selected"),
     quota: z.string().min(1, "Quota Name is required"),
 });
