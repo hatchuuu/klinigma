@@ -21,10 +21,14 @@ import { getUserById } from "@/data/users";
 import { getAllDataBooking } from "@/data/bookings";
 import { calculateAge, formatDate, getLatestToken } from "@/data/service";
 import Loader from "@/components/Loader";
+import { getAllDataPoly } from "@/data/poly";
+import SideBarListQueue from "@/components/SideBarListQueue";
+import TokenBoard from "@/components/TokenBoard";
 
 const DashboardPage = () => {
   const [user, setUser] = useState("")
-  const [booking, setBooking] = useState("")
+  const [allBookings, setAllBookings] = useState("")
+  const [latestBooking, setLatestBooking] = useState("")
   const token = sessionStorage.getItem("token")
   const { id, role } = jwtDecode(token)
 
@@ -36,34 +40,61 @@ const DashboardPage = () => {
       console.log(error);
     }
   }
+
   const fetchDataBookings = async () => {
     try {
       const response = await getAllDataBooking()
-      setBooking(() => {
-        const filteredBookingById = response?.data?.filter((value) => {
-          return value.userId.includes(id)
-        })
-
-        return filteredBookingById
+      /** Filter by Id */
+      const filteredBookingById = response?.data?.filter((value) => {
+        return value.userId.includes(id)
       })
+      setAllBookings(filteredBookingById)
+
+      const polysData = await fetchDataPolys()
+
+      /** Add PolyName to Array filteredBookingById */
+      let filterBookings = [];
+      for (let i = 0; i < filteredBookingById.length; i++) {
+        let booking = { ...filteredBookingById[i] };
+        for (let j = 0; j < polysData.length; j++) {
+          let poly = polysData[j];
+          if (booking.polyId === poly.id) {
+            booking["polyName"] = poly.polyName;
+            booking["polyQueue"] = poly.queue;
+            break;
+          }
+        }
+        filterBookings.push(booking);
+      }
+      setAllBookings(filterBookings)
+
+      /** Cari data pertama yang belum selesai*/
+      const latestBooking = filterBookings.find((value) => {
+        return value.doneAt == null
+      })
+
+      setLatestBooking(latestBooking)
+
     } catch (error) {
       console.log(error);
     }
   }
 
+  const fetchDataPolys = async () => {
+    try {
+      const response = await getAllDataPoly();
+      return response.data
+    } catch (error) {
+      console.log("Gagal mendapatkan data poliklinik:", error);
+    }
+  };
+  console.log(latestBooking);
   useEffect(() => {
     if (role == "user") {
       fetchDataBookings()
     }
     fetchIdUser()
   }, [])
-
-  let latestBooking;
-  let latestDate;
-  if (booking) {
-    latestBooking = getLatestToken(booking)
-    latestDate = formatDate(latestBooking.visitedAt)
-  }
 
   const navigate = useNavigate()
   const handleLogout = () => {
@@ -75,6 +106,8 @@ const DashboardPage = () => {
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5855003249085!2d106.73948209999999!3d-6.1861864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f72a01b8f00d%3A0x7f87d867fb930560!2sPT.%20Kreasi%20Layanan%20Medis!5e0!3m2!1sen!2sid!4v1734104130782!5m2!1sen!2sid"; // Ganti dengan URL Google Maps Anda
 
   return (
+
+
     <div>
       {
         (user) ?
@@ -113,47 +146,57 @@ const DashboardPage = () => {
                 </div>
               </div>
             </section>
-            {
-              booking &&
-              <section>
-                <div className="grid grid-cols-2 gap-4 px-5">
-                  <p className="h-20 rounded-lg bg-secondary border-2 border-primary/30 shadow w-full">{latestDate.fullDate}, {latestDate.time}</p>
-                  <p className="h-20 rounded-lg bg-secondary  border-2 border-primary/30 shadow w-full">{latestBooking.queue}</p>
+            <div className="flex sm:flex-row flex-col">
+              <section className="sm:order-2 order-1">
+                {
+                  (latestBooking) &&
+                  <div className="grid grid-cols-4 gap-4 px-5">
+                    <p className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full"> Jam Mulai {formatDate(latestBooking.visitedAt).fullDate}, {formatDate(latestBooking.visitedAt).time}</p>
+                    <div className="py-10 rounded-lg bg-primary  hover:shadow-xl shadow w-3/4 flex justify-center items-center">
+                      <p className="text-2xl text-white semibold">Antrean Kamu {latestBooking.polyQueue}</p>
+                    </div>
+                    <div className="py-10 rounded-lg bg-primary  hover:shadow-xl shadow w-3/4 flex justify-center items-center">
+                      <p className="text-2xl text-white semibold">Antrean Sekarang{latestBooking.polyQueue}</p>
+                    </div>
+                    <Link to="/all-queue" className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full">
+                      Lihat semua antrean yang akan datang
+                    </Link>
+                    <SideBarListQueue data={allBookings} />
+                  </div>
+                }
+              </section>
+              <section className="pb-16 sm:order-1 order-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+                  <Link
+                    to="/booking"
+                    className="bg-white sm:col-span-2 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                  >
+                    <CalendarDays size={40} className="text-purple-900 mb-3" />
+                    <span className="text-lg font-medium text-center">
+                      Booking Kunjungan
+                    </span>
+                  </Link>
+                  <Link
+                    to="/info"
+                    className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                  >
+                    <BookOpen size={40} className="text-purple-900 mb-3" />
+                    <span className="text-lg font-medium text-center">
+                      Info & Artikel
+                    </span>
+                  </Link>
+                  <Link
+                    to="/tanya"
+                    className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                  >
+                    <MessageCircle size={40} className="text-purple-900 mb-3" />
+                    <span className="text-lg font-medium text-center">
+                      Tanya Klinigma
+                    </span>
+                  </Link>
                 </div>
               </section>
-            }
-            <section className="pb-16">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
-                <Link
-                  to="/booking"
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                >
-                  <CalendarDays size={40} className="text-purple-900 mb-3" />
-                  <span className="text-lg font-medium text-center">
-                    Booking Kunjungan
-                  </span>
-                </Link>
-                <Link
-                  to="/info"
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                >
-                  <BookOpen size={40} className="text-purple-900 mb-3" />
-                  <span className="text-lg font-medium text-center">
-                    Info & Artikel
-                  </span>
-                </Link>
-                <Link
-                  to="/tanya"
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                >
-                  <MessageCircle size={40} className="text-purple-900 mb-3" />
-                  <span className="text-lg font-medium text-center">
-                    Tanya Klinigma
-                  </span>
-                </Link>
-              </div>
-            </section>
-
+            </div>
             <section className="px-4 -mt-10">
               <div className="flex items-center justify-center mb-8 gap-2">
                 <LocateIcon />
@@ -181,3 +224,4 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+

@@ -28,7 +28,7 @@
     },
     {
       "id": "3456",
-      "name": "Klinigma User",
+      "name": "User",
       "email": "user@klinigma.com",
       "password": "Password123@",
       "location": "Medan",
@@ -55,32 +55,49 @@
   ],
   "polyclinics": [
     {
-      "id": "hzha",
-      "polyName": "Poli Umum",
-      "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
-      "image": "https://avatars.githubusercontent.com/u/10128738",
-      "schedule": "Buka setiap hari, 24/7."
+      "id": "4321",
+      "polyName": "Poli Jantung",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "queue": 2,
+      "descriptions": "oVgSSrrnIxiLScHHhsYJrSiRoiZBfNCjciGelYzE",
+      "image": "https://avatars.githubusercontent.com/u/10128738"
     },
     {
-      "id": "xpxw",
-      "polyName": "Poli Gigi",
-      "descriptions": "Menangani masalah kesehatan gigi dan mulut, mulai dari pemeriksaan rutin, penambalan, pencabutan, hingga perawatan khusus.",
-      "image": "https://avatars.githubusercontent.com/u/72609122",
-      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
+      "id": "5432",
+      "polyName": "Poli Penyakit Dalam",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "queue": 3,
+      "descriptions": "dsYxCoRNQHDzQGyVjmziUendMDSAODbuzKfRAVDB",
+      "image": "https://avatars.githubusercontent.com/u/72609122"
     },
     {
-      "id": "e9uu",
-      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
-      "descriptions": " Menyediakan layanan kesehatan menyeluruh bagi ibu dan anak, meliputi pemeriksaan kehamilan, imunisasi, pemantauan tumbuh kembang, dan konseling laktasi.",
-      "image": "https://avatars.githubusercontent.com/u/63576769",
-      "schedule": "Buka setiap hari, 24/7 kecuali libur nasional."
+      "id": "6543",
+      "polyName": "Poli Jantung",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "queue": 4,
+      "descriptions": "HPSCnhKVGwyZHROUShWZaysgUksIhCkZUKHpLIdf",
+      "image": "https://avatars.githubusercontent.com/u/63576769"
     },
     {
-      "id": "xcv3",
-      "polyName": "Poli Keluarga Berencana (KB)",
-      "descriptions": "Berfokus pada pelayanan kontrasepsi, termasuk konseling, pemberian berbagai metode KB (pil, suntik, IUD, implan), dan penanganan efek samping.",
-      "image": "https://avatars.githubusercontent.com/u/16646631",
-      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
+      "id": "7654",
+      "polyName": "Poli Paru",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "queue": 5,
+      "descriptions": "HpMnWvjfKxBoZKvtvdJOkWEkezLmDbabGMvGLcmj",
+      "image": "https://avatars.githubusercontent.com/u/16646631"
+    },
+    {
+      "id": "8765",
+      "polyName": "Poli Paru",
+      "openDay": ["Senin", "Kamis"],
+      "openTime": [7, 30],
+      "queue": 6,
+      "descriptions": "cKqyKalNTfpkYQClHsGWAGigIExDrNOBheJQQqNB",
+      "image": "https://avatars.githubusercontent.com/u/37820435"
     }
   ],
   "doctors": [
@@ -252,7 +269,7 @@
   "bookings": [
     {
       "id": "43e2",
-      "queue": "002",
+      "queue": 2,
       "polyId": "5432",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -262,7 +279,7 @@
     },
     {
       "id": "45r2",
-      "queue": "023",
+      "queue": 23,
       "polyId": "4321",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -272,7 +289,7 @@
     },
     {
       "id": "4we2",
-      "queue": "025",
+      "queue": 25,
       "polyId": "4321",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -282,7 +299,7 @@
     },
     {
       "id": "dwe2",
-      "queue": "125",
+      "queue": 125,
       "polyId": "7654",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -292,7 +309,7 @@
     },
     {
       "id": "dwe6",
-      "queue": "025",
+      "queue": 25,
       "polyId": "8765",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -302,7 +319,7 @@
     },
     {
       "id": "dwe7",
-      "queue": "005",
+      "queue": 5,
       "polyId": "8765",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -312,7 +329,7 @@
     },
     {
       "id": "dwe1",
-      "queue": "045",
+      "queue": 45,
       "polyId": "5432",
       "userId": "3456",
       "createdAt": "2024-12-12T12:18:26.355Z",
@@ -322,7 +339,7 @@
     },
     {
       "id": "d2e1",
-      "queue": "100",
+      "queue": 100,
       "polyId": "5432",
       "userId": "4567",
       "createdAt": "2024-12-12T12:18:26.355Z",
