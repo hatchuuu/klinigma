@@ -55,9 +55,9 @@ function BookingSchedule() {
   }
 
   const dokterDiPoli = dataDokter.filter(
-    (dokter) => dokter.polyName === poliklinik.polyName
+    (dokter) => dokter.polyclinicId === poliklinik.id
   );
-
+  
   const handlePilihTanggal = (tanggal) => {
     setTanggalTerpilih(tanggal);
     setDokterTerpilih(null);

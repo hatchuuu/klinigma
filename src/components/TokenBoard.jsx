@@ -1,23 +1,32 @@
-import React from 'react'
+import React from 'react';
+import { formatDate } from '@/data/service'; // Import formatDate
+import { Link } from 'react-router-dom';
+import SideBarListQueue from '@/components/SideBarListQueue';
 
-const TokenBoard = ({ data: latestBooking }) => {
-    return (
-        <section>
-            <div className="grid grid-cols-4 gap-4 px-5">
-                <p className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full"> Jam Mulai {formatDate(latestBooking.visitedAt).fullDate}, {formatDate(latestBooking.visitedAt).time}</p>
-                <div className="py-10 rounded-lg bg-primary  hover:shadow-xl shadow w-3/4 flex justify-center items-center">
-                    <p className="text-2xl text-white semibold">Antrean Kamu {latestBooking.polyQueue}</p>
-                </div>
-                <div className="py-10 rounded-lg bg-primary  hover:shadow-xl shadow w-3/4 flex justify-center items-center">
-                    <p className="text-2xl text-white semibold">Antrean Sekarang{latestBooking.polyQueue}</p>
-                </div>
-                <Link to="/all-queue" className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full">
-                    Lihat semua antrean yang akan datang
-                </Link>
-                <SideBarListQueue data={allBookings} />
-            </div>
-        </section>
-    )
-}
+const TokenBoard = ({ latestBooking }) => {
+  return (
+    <section>
+      <div className="grid grid-cols-2 gap-4 px-5"> 
+        <div className="py-10 rounded-lg bg-primary hover:shadow-xl shadow w-full flex flex-col justify-center items-center">
+          <p className="text-lg text-white semibold">
+            Jam Mulai {formatDate(latestBooking.createdAt).fullDate},{" "} 
+            {formatDate(latestBooking.createdAt).time}
+          </p>
+          <p className="text-2xl text-white semibold">
+            Antrean Kamu {latestBooking.queueNumber} 
+          </p>
+        </div>
+        <div className="py-10 rounded-lg bg-primary hover:shadow-xl shadow w-full flex flex-col justify-center items-center">
+          <p className="text-lg text-white semibold">
+            Antrean Sekarang
+          </p>
+          <p className="text-2xl text-white semibold">
+            {latestBooking.polyQueue} 
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-export default TokenBoard
+export default TokenBoard;
