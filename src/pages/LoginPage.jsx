@@ -24,14 +24,14 @@ const LoginPage = () => {
   const { control, handleSubmit } = form;
 
   const onSubmit = handleSubmit(async (value) => {
-    const { email } = value;
+    const { email, password } = value;
     try {
       let response;
-      if (email == "klinigma@enigma.com") {
+      if (email == "klinigma@enigma.com" && password == "Super123@") {
         response = await loginSuperInstance.post("", value)
-      } else if (email == "admin@klinigma.com") {
+      } else if (email == "admin@klinigma.com" && password == "Admin123@") {
         response = await loginAdminInstance.post("", value)
-      } else if (email == "user@klinigma.com") {
+      } else if (email == "user@klinigma.com" && password == "User123@") {
         response = await loginUserInstance.post("", value)
       } else {
         throw new Error("Email atau Password salah")

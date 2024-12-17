@@ -3,13 +3,13 @@
     {
       "id": "1234",
       "name": "Klinigma",
-      "email": "klinigma@enigma.com",
+      "email": "klinigma@gmail.com",
       "password": "Password123@",
       "location": "Goldnerbury",
       "phoneNumber": "(502) 581-6149",
       "gender": "pria",
       "role": "superadmin",
-      "birthDate": "22112001",
+      "birthDate": "22112002",
       "createdAt": "2024-12-12T12:18:26.355Z",
       "updatedAt": null
     },
@@ -35,7 +35,7 @@
       "phoneNumber": "0567567567",
       "gender": "pria",
       "role": "user",
-      "birthDate": "08052003",
+      "birthDate": "08052024",
       "createdAt": "2024-12-13T12:59:23.745Z",
       "updatedAt": null
     },
@@ -95,15 +95,8 @@
       "location": "Napa",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
       "quota": 20,
-      "schedule": {
-        "open": "01:00",
-        "close": "08:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "schedule": { "open": "01:00", "close": "13:00" },
+      "availableDays": [1, 2, 5]
     },
     {
       "id": "gyg9",
@@ -116,15 +109,8 @@
       "location": "Lake Margarita",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5equJAH_tetyxlUzVZKikrj0xYIiGfSPStw&s",
       "quota": 20,
-      "schedule": {
-        "open": "09:00",
-        "close": "15:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "schedule": { "open": "09:00", "close": "15:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "tqjt",
@@ -135,17 +121,11 @@
       "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
       "invitedAt": "2008-12-20T15:52:05.252Z",
       "location": "Westland",
-      "image": "https://static.wikia.nocookie.net/shingekinokyojin/images/b/b1/Levi_Ackermann_%28Anime%29_character_image.png",
+      "image": "https://static.wikia.nocookie.net/shingekinokyojin/images/b/b1/Levi_Ackermann_%28Anime%29_character_image.png"
+      ,
       "quota": 20,
-      "schedule": {
-        "open": "16:00",
-        "close": "23:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "schedule": { "open": "16:00", "close": "23:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "do14",
@@ -156,17 +136,11 @@
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
-      "image": "https://i.pinimg.com/736x/04/68/26/046826e8c2d4ff9c8e5ef9dc9ea47f70.jpg",
+      "image": "https://i.pinimg.com/736x/04/68/26/046826e8c2d4ff9c8e5ef9dc9ea47f70.jpg"
+      ,
       "quota": 20,
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "do19",
@@ -177,16 +151,9 @@
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
-      "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",      
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "26ky",
@@ -198,15 +165,8 @@
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
       "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg",
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 2, 5]
     },
     {
       "id": "21ky",
@@ -218,15 +178,8 @@
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
       "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg",
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     },
     {
       "id": "250z",
@@ -238,112 +191,50 @@
       "invitedAt": "2015-04-10T12:21:25.176Z",
       "location": "Hollisfield",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd",
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
-      "availableDays": [
-        1,
-        3,
-        5
-      ]
-    },
-    {
-      "id": "17a3",
-      "name": "test",
-      "polyName": "Poli Gigi",
-      "gender": "wanita",
-      "email": "cahyaninabila@gmail.com",
-      "descriptions": "adfhjj",
-      "location": "sfsfs",
-      "phoneNumber": "087766767678",
-      "quota": "89",
-      "schedule": {
-        "open": "11:52",
-        "close": "11:52"
-      }
+      "schedule": { "open": "01:00", "close": "06:00" },
+      "availableDays": [1, 3, 5]
     }
   ],
   "bookings": [
     {
       "id": "43e2",
-      "queue": "002",
-      "polyId": "5432",
-      "userId": "3456",
+      "polyName": "Poli Jantung",
+      "name": "Christian",
       "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-15T12:13:26.355Z",
-      "doneAt": null,
-      "status": "Created"
-    },
-    {
-      "id": "45r2",
-      "queue": "023",
-      "polyId": "4321",
-      "userId": "3456",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-15T12:18:26.355Z",
-      "doneAt": null,
-      "status": "Created"
-    },
-    {
-      "id": "4we2",
-      "queue": "025",
-      "polyId": "4321",
-      "userId": "3456",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-18T12:18:26.355Z",
-      "doneAt": null,
-      "status": "Created"
-    },
-    {
-      "id": "dwe2",
-      "queue": "125",
-      "polyId": "7654",
-      "userId": "3456",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-17T12:18:26.355Z",
-      "doneAt": null,
-      "status": "Created"
-    },
-    {
-      "id": "dwe6",
-      "queue": "025",
-      "polyId": "8765",
-      "userId": "3456",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-17T12:18:26.355Z",
-      "doneAt": null,
-      "status": "Approve"
-    },
-    {
-      "id": "dwe7",
-      "queue": "005",
-      "polyId": "8765",
-      "userId": "3456",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-17T12:18:26.355Z",
-      "doneAt": "2024-12-17T12:25:26.355Z",
+      "doneAt": "2024-12-15T14:16:53.130Z",
       "status": "Done"
     },
     {
-      "id": "dwe1",
-      "queue": "045",
-      "polyId": "5432",
-      "userId": "3456",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-17T12:18:26.355Z",
-      "doneAt": "2024-12-17T12:25:26.355Z",
-      "status": "Failed"
+      "id": "idnf",
+      "polyName": "Poli Penyakit Dalam",
+      "name": "Lucia",
+      "createdAt": "2024-12-12T13:36:25.296Z",
+      "doneAt": "2024-12-13T20:29:00.577Z",
+      "status": "Done"
     },
     {
-      "id": "d2e1",
-      "queue": "100",
-      "polyId": "5432",
-      "userId": "4567",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-17T12:18:26.355Z",
-      "doneAt": "2024-12-17T12:25:26.355Z",
-      "status": "Failed"
+      "id": "ttv6",
+      "polyName": "Poli Jantung",
+      "name": "Kelvin",
+      "createdAt": "2024-12-12T20:46:31.966Z",
+      "doneAt": "2024-12-16T14:53:42.014Z",
+      "status": "Approve"
+    },
+    {
+      "id": "p2ke",
+      "polyName": "Poli Paru",
+      "name": "Alfredo",
+      "createdAt": "2024-12-12T16:31:21.664Z",
+      "doneAt": "2024-12-17T23:46:09.855Z",
+      "status": "Done"
+    },
+    {
+      "id": "hesg",
+      "polyName": "Poli Paru",
+      "name": "Christy",
+      "createdAt": "2024-12-12T21:41:48.520Z",
+      "doneAt": "2024-12-17T03:35:37.046Z",
+      "status": "Approve"
     }
   ]
 }
