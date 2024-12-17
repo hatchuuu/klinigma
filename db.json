@@ -111,14 +111,14 @@
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
-      "quota": 20,
+      "quota": 18,
       "schedule": {
         "open": "01:00",
-        "close": "08:00"
+        "close": "11:00"
       },
       "availableDays": [
         1,
-        3,
+        2,
         5
       ]
     },
@@ -132,13 +132,14 @@
       "invitedAt": "2016-01-26T03:29:45.616Z",
       "location": "Lake Margarita",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5equJAH_tetyxlUzVZKikrj0xYIiGfSPStw&s",
-      "quota": 20,
+      "quota": 19,
       "schedule": {
-        "open": "09:00",
-        "close": "15:00"
+        "open": "12:00",
+        "close": "18:00"
       },
       "availableDays": [
         1,
+        2,
         3,
         5
       ]
@@ -194,6 +195,7 @@
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
+      "quota": 20,
       "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",
       "schedule": {
         "open": "01:00",
@@ -328,24 +330,24 @@
       "status": "Done"
     },
     {
-      "id": "dwe1",
-      "queue": 45,
-      "polyId": "5432",
-      "userId": "3456",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-17T12:18:26.355Z",
-      "doneAt": "2024-12-17T12:25:26.355Z",
-      "status": "Failed"
+      "id": "hesg",
+      "polyName": "Poli Paru",
+      "name": "Christy",
+      "createdAt": "2024-12-12T21:41:48.520Z",
+      "doneAt": "2024-12-17T03:35:37.046Z",
+      "status": "Approve"
     },
     {
-      "id": "d2e1",
-      "queue": 100,
-      "polyId": "5432",
-      "userId": "4567",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "visitedAt": "2024-12-17T12:18:26.355Z",
-      "doneAt": "2024-12-17T12:25:26.355Z",
-      "status": "Failed"
+      "id": "e729",
+      "polyName": "Poli Umum"
+    },
+    {
+      "id": "c249",
+      "polyName": "Poli Umum"
+    },
+    {
+      "id": "87ed",
+      "polyName": "Poli Umum"
     }
   ]
 }
