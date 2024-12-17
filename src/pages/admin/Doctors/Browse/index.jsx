@@ -12,6 +12,16 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
+  const daysMap = {
+    1: "Senin",
+    2: "Selasa",
+    3: "Rabu",
+    4: "Kamis",
+    5: "Jumat",
+    6: "Sabtu",
+    7: "Minggu",
+  };
+
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -65,10 +75,13 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[300px]">
               Jadwal
             </TableHead>
+            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[300px]">
+              Quota
+            </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
               Deskripsi
             </TableHead>
-            <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center right-0 bg-gray-100 z-10">
+            <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center right-0 z-10">
               Aksi
             </TableHead>
           </TableRow>
@@ -78,7 +91,7 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
             <TableRow
               key={index}
               className={`${
-                index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                index % 2 === 0 ? "bg-purple-100" : "bg-white"
               } hover:bg-gray-100 transition duration-200`}
             >
               <TableCell className="py-3 px-4 text-gray-600">
@@ -94,13 +107,19 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
                 {doctors.email}
               </TableCell>
               <TableCell className="py-3 px-4 text-gray-600">
-                {doctors.schedule.day}, {doctors.schedule.open} -{" "}
-                {doctors.schedule.close}
+                {doctors.availableDays && Array.isArray(doctors.availableDays)
+                  ? doctors.availableDays.map((day) => daysMap[day]).join(", ")
+                  : "No available days"}
+                , {doctors.schedule.open} - {doctors.schedule.close}
+              </TableCell>
+
+              <TableCell className="py-3 px-4 text-gray-600">
+                {doctors.quota}
               </TableCell>
               <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.descriptions}
               </TableCell>
-              <TableCell className="py-3 px-4 text-center right-0 bg-white z-10">
+              <TableCell className="py-3 px-4 text-center right-0 z-10">
                 <div className="flex justify-center space-x-2">
                   <Button
                     onClick={() =>

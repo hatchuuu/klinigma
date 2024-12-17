@@ -62,7 +62,7 @@ export const doctorsSchema = z.object({
     .max(100, "Maksimal 100 Karakter"),
   polyName: z
     .string({ required_error: "Poly Name is Required" })
-    .min(3, "Minimal 3 Karakter")
+    .min(3, "Poly Name is Requaired")
     .max(100, "Maksimal 100 Karakter"),
   gender: z.enum(["wanita", "pria"], { message: "Gender is Required" }),
   email: z
@@ -93,10 +93,11 @@ export const doctorsSchema = z.object({
     .string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "End Time is Invalid")
     .optional(),
-  day: z.enum(
-    ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
-    {
-      message: "Day is Required",
-    }
-  ),
+    availableDays: z
+    .array(z.enum(["1", "2", "3", "4", "5", "6", "7"], {
+      message: "Day must be between 1 and 7",
+    }))
+    .min(1, "At least one day is required")
+    .max(7, "Maximum of 7 days can be selected"),
+    quota: z.string().min(1, "Quota Name is required"),
 });

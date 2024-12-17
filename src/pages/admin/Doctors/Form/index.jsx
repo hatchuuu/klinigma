@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { doctorsSchema } from "@/lib/zodSchema";
 import { axiosInstance } from "@/lib/axios";
 import { failedToast, successToast } from "@/lib/toaster";
+import FieldMultiSelect from "@/components/form/field/MultiSelect";
 
 function FormDoctors() {
   const navigate = useNavigate();
@@ -31,7 +32,16 @@ function FormDoctors() {
   const [selectedPoli, setSelectedPoli] = useState(null);
 
   const list = ["wanita", "pria"];
-  const hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+  const hari = [
+    { value: "1", label: "Senin" },
+    { value: "2", label: "Selasa" },
+    { value: "3", label: "Rabu" },
+    { value: "4", label: "Kamis" },
+    { value: "5", label: "Jumat" },
+    { value: "6", label: "Sabtu" },
+    { value: "7", label: "Minggu" },
+  ];
+
   const form = useForm({
     defaultValues: {
       name: "",
@@ -43,26 +53,36 @@ function FormDoctors() {
       location: "",
       open: "",
       close: "",
-      day: "",
+      availableDays: [],
+      quota: "",
     },
     resolver: zodResolver(doctorsSchema),
   });
   const { control, handleSubmit, reset } = form;
+  
+  const handleSubmitForm = async (values) => {
+    console.log("Available days:", values.availableDays);
+    console.log("Form values:", values);
+    console.log("availableDays", availableDays)
+    const availableDaysFormatted = values.availableDays.map((day) =>
+      parseInt(day, 10)
+    );
 
-  const onSubmit = handleSubmit(async (values) => {
     const schedule = {
-      day: values.day,
       open: values.open,
       close: values.close,
     };
-    const { day, open, close, ...rest } = values;
+
+    const { open, close, ...rest } = values;
     const payload = {
-      // ...values,
       ...rest,
-      schedule:schedule
+      schedule: schedule,
+      availableDays: availableDaysFormatted,
     };
+
+    console.log("Payload before sending:", payload);
+
     try {
-      console.log(values);
       if (action === "edit" && doctorId) {
         // Update
         const response = await axiosInstance.put(
@@ -77,12 +97,17 @@ function FormDoctors() {
         console.log("Doctor created successfully:", response.data);
         successToast(response.message);
       }
+
       navigate("/doctors");
     } catch (error) {
       console.error("Error submitting form:", error);
-      failedToast(response.message);
+
+      const errorMessage =
+        error?.response?.data?.message ||
+        "An error occurred during the request.";
+      failedToast(errorMessage);
     }
-  });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,9 +121,9 @@ function FormDoctors() {
             polyName: doctorData.polyName || "",
             phoneNumber: doctorData.phoneNumber || "",
             gender: doctorData.gender || "",
-            day:doctorData.schedule.day || "",
-            open:doctorData.schedule.open || "",
-            close:doctorData.schedule.day || ""
+            availableDays: doctorData.availableDays || "",
+            open: doctorData.schedule.open || "",
+            close: doctorData.schedule.close || "",
           });
           console.log("doctorData", response.data);
         } catch (error) {
@@ -173,67 +198,99 @@ function FormDoctors() {
 
         {/* Form */}
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8 mx-5">
-          <div className="w-full  bg-white shadow-lg rounded-lg p-8">
+          <div className="w-full bg-white shadow-lg rounded-lg p-8">
             <Form {...form}>
-              <form onSubmit={onSubmit}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit(handleSubmitForm)}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <FieldInput
                     control={control}
                     name="name"
                     label="Nama"
-                    disabled={action == "detail"}
+                    disabled={action === "detail"}
                   />
-                  <FieldSelect
+                  <FieldInput
                     control={control}
-                    name="polyName"
-                    label="Poly State"
-                    list={poilList}
-                    value={selectedPoli} // Set selected value from state
-                    onChange={(value) => setSelectedPoli(value)}
+                    name="email"
+                    label="Email"
+                    disabled={action === "detail"}
                   />
-                  <FieldInput control={control} name="email" label="Email" />
                   <FieldInput
                     control={control}
                     name="phoneNumber"
                     label="Nomor Telepon"
                     inputMode="numeric"
                     pattern="[0-9]*"
+                    disabled={action === "detail"}
+                  />
+                  <FieldInput
+                    control={control}
+                    name="location"
+                    label="Lokasi"
+                    disabled={action === "detail"}
                   />
                   <FieldSelect
                     control={control}
                     name="gender"
                     label="Jenis Kelamin"
                     list={list}
+                    disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldSelect
                     control={control}
-                    name="location"
-                    label="Lokasi"
+                    name="polyName"
+                    label="Poly State"
+                    list={poilList}
+                    value={selectedPoli}
+                    onChange={(value) => setSelectedPoli(value)}
+                    disabled={action === "detail"}
                   />
+                </div>
+
+                {/* Day, Start Time, End Time, and Quota */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                  <FieldMultiSelect
+                    control={control}
+                    name="availableDays"
+                    label="Hari"
+                    list={hari}
+                    disabled={action === "detail"}
+                  />
+
                   <FieldInput
                     control={control}
                     name="open"
                     label="Start Time"
                     type="time"
+                    disabled={action === "detail"}
                   />
                   <FieldInput
                     control={control}
                     name="close"
                     label="End Time"
                     type="time"
+                    disabled={action === "detail"}
                   />
-                  <FieldSelect
+                  <FieldInput
                     control={control}
-                    name="day"
-                    label="Hari"
-                    list={hari}
+                    name="quota"
+                    label="Quota"
+                    type="number"
+                    disabled={action === "detail"}
                   />
+                </div>
+
+                {/* Descriptions */}
+                <div className="mt-4">
                   <FieldInput
                     control={control}
                     name="descriptions"
                     label="Descriptions"
+                    isTextarea={true}
+                    disabled={action === "detail"}
                   />
                 </div>
+
+                {/* Submit and Back buttons */}
                 <div className="mt-6 flex justify-end">
                   {action !== "detail" && (
                     <Button
