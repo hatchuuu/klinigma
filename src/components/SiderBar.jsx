@@ -38,8 +38,8 @@ export function SiderBar() {
             <SheetContent>
                 <SheetHeader>
                     <SheetTitle className="flex justify-center flex-col items-center gap-2">
-                        <img src="/klinigma.png" alt="sdfsdf" className="w-44" />
-                        <p>Kesehatanmu ada di genggaman mu</p>
+                        <img src="/klinigma.png" alt="sdfsdf" className="w-28" />
+                        <p className="text-xs">Kesehatanmu ada di genggaman mu</p>
                     </SheetTitle>
                 </SheetHeader>
                 <div className="grid gap-4 py-10">
