@@ -8,7 +8,6 @@ const DoctorsPage = lazy(() => import("./pages/DoctorsPage"))
 const PolyclinicsPage = lazy(() => import("./pages/PolyclinicsPage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const HistoryPage = lazy(() => import("./pages/HistoryPage"))
-const BookingPage = lazy(() => import("./pages/BookingPage"))
 const LoginPage = lazy(() => import("@/pages/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"))
 const UsersPage = lazy(() => import("@/pages/admin/UserPage"))
@@ -16,6 +15,9 @@ const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"))
 const AdminPage = lazy(() => import("@/pages/admin/AdminPage"))
 const NotFound = lazy(() => import("@/pages/NotFound"))
 
+// BOOKING
+const BookingPage = lazy(() => import("./pages/booking/BookingPage"))
+const BookingSchedule = lazy(() => import("./pages/booking/BookingSchedule"))
 
 const App = () => {
   const allRoutes =
@@ -26,8 +28,12 @@ const App = () => {
       { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
       { path: "/profile", role: "user", element: <ProfilePage /> },
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
-      { path: "/booking", role: "user", element: <BookingPage /> },
       
+      // BOOKING
+      { path: "/booking", role: "user", element: <BookingPage /> },
+      { path: "/booking/pilih-jadwal", role: "user", element: <BookingSchedule /> },
+
+
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
       { path: "/login", role: "user", element: <LoginPage /> },
       { path: "/register", role: "user", element: <RegisterPage /> },
