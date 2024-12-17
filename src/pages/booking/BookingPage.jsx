@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 // import { Input } from "@/components/ui/input";
-import { ArrowLeft, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/button/NavigationButton";
 
@@ -66,8 +66,8 @@ export default function BookingPage() {
         </div>
       </div>
 
-      <section className="mt-10">
-        <div className="relative mb-4">
+      <section className="pb-14">
+        <div className="relative my-5">
           <Input
             placeholder="Cari nama ..."
             className="pl-10 h-12 text-lg"
@@ -77,16 +77,16 @@ export default function BookingPage() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols- lg:gap-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols- lg:gap-6 ">
           {filteredPoliklinik.map((poli, index) => (
             <div
               key={index}
               className="border rounded-lg shadow-md p-4 bg-white dark:bg-gray-800 cursor-pointer"
-              onClick={() => handlePilihPoli(poli)} // Tambahkan onClick di sini
+              onClick={() => handlePilihPoli(poli)}
             >
               <div className="flex flex-wrap justify-between gap-3">
                 {/* Avatar dan Info */}
-                <div className="flex gap-3">
+                <div className="flex gap-3 items-center">
                   <Avatar>
                     <AvatarImage src={poli.image} alt={poli.polyName} />
                     <AvatarFallback>{poli.polyName[0]}</AvatarFallback>
@@ -95,32 +95,23 @@ export default function BookingPage() {
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                       {poli.polyName}
                     </h2>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Deskripsi: {poli.descriptions}
-                    </p>
+                    <div className="flex flex-wrap gap-2 items-center text-sm">
+                      {/* <span className="font-semibold">Jadwal Praktik:</span> */}
+                      <span>{poli.schedule}</span> {/* Gunakan poli.schedule */}
+                    </div>
                   </div>
                 </div>
+                  <div className="ml-auto my-auto">
+                    <ArrowRight/>
+                  </div>
 
                 <Separator />
 
                 {/* Jadwal */}
-                <div className="flex flex-wrap gap-2 items-center text-sm">
-                  <span className="font-semibold">Jadwal:</span>
-                  {poli.openDay.map((day, index) => (
-                    <span key={index}>{day}</span>
-                  ))}
-                  <span>
-                    {poli.openTime[0]}:{poli.openTime[1]}
-                  </span>
-                </div>
-              </div>
-
-              {/* Deskripsi */}
-              {/* <div className="mt-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {poli.description}
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {poli.descriptions}
                 </p>
-              </div> */}
+              </div>
             </div>
           ))}
         </div>

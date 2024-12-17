@@ -3,7 +3,7 @@
     {
       "id": "1234",
       "name": "Klinigma",
-      "email": "klinigma@gmail.com",
+      "email": "klinigma@enigma.com",
       "password": "Password123@",
       "location": "Goldnerbury",
       "phoneNumber": "(502) 581-6149",
@@ -102,59 +102,168 @@
   ],
   "doctors": [
     {
-      "id": "4321",
-      "polyName": "Poli Jantung",
-      "name": "Wallace",
-      "email": "Wallace82@google.com",
-      "gender": "wanita",
-      "descriptions": "drcUczEGbQivHyvRgVYzHEkwOrOoWIkMuTwXLiyh",
-      "invitedAt": "2016-01-26T03:29:45.616Z",
-      "location": "Lake Margarita",
-      "image": "https://avatars.githubusercontent.com/u/6091428"
-    },
-    {
-      "id": "5432",
-      "polyName": "Poli Penyakit Dalam",
-      "name": "Joann",
-      "email": "Joann_Hirthe@google.com",
-      "gender": "pria",
-      "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
-      "invitedAt": "2008-12-20T15:52:05.252Z",
-      "location": "Westland",
-      "image": "https://avatars.githubusercontent.com/u/26891770"
-    },
-    {
-      "id": "6543",
-      "polyName": "Poli THT",
-      "name": "David",
+      "id": "do11",
+      "polyName": "Poli Umum",
+      "name": "dr. Tony Tony Chopper, M.Kes",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
-      "image": "https://avatars.githubusercontent.com/u/81562255"
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
+      "quota": 20,
+      "schedule": {
+        "open": "01:00",
+        "close": "08:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
     },
     {
-      "id": "7654",
-      "polyName": "Poli Anak",
-      "name": "Merle",
+      "id": "gyg9",
+      "polyName": "Poli Umum",
+      "name": "dr. Satoru Gojou",
+      "email": "Wallace82@google.com",
+      "gender": "pria",
+      "descriptions": "drcUczEGbQivHyvRgVYzHEkwOrOoWIkMuTwXLiyh",
+      "invitedAt": "2016-01-26T03:29:45.616Z",
+      "location": "Lake Margarita",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5equJAH_tetyxlUzVZKikrj0xYIiGfSPStw&s",
+      "quota": 20,
+      "schedule": {
+        "open": "09:00",
+        "close": "15:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "tqjt",
+      "polyName": "Poli Umum",
+      "name": "dr. Levi Ackerman, Sp.PD",
+      "email": "Joann_Hirthe@google.com",
+      "gender": "pria",
+      "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
+      "invitedAt": "2008-12-20T15:52:05.252Z",
+      "location": "Westland",
+      "image": "https://static.wikia.nocookie.net/shingekinokyojin/images/b/b1/Levi_Ackermann_%28Anime%29_character_image.png",
+      "quota": 20,
+      "schedule": {
+        "open": "16:00",
+        "close": "23:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "do14",
+      "polyName": "Poli Gigi",
+      "name": "drg. Nami, Sp.Ort",
+      "email": "David_Koepp@google.com",
+      "gender": "wanita",
+      "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
+      "invitedAt": "2007-12-14T11:23:25.259Z",
+      "location": "Napa",
+      "image": "https://i.pinimg.com/736x/04/68/26/046826e8c2d4ff9c8e5ef9dc9ea47f70.jpg",
+      "quota": 20,
+      "schedule": {
+        "open": "01:00",
+        "close": "06:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "do19",
+      "polyName": "Poli Gigi",
+      "name": "drg. Forger Yor, Sp.Pros",
+      "email": "David_Koepp@google.com",
+      "gender": "wanita",
+      "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
+      "invitedAt": "2007-12-14T11:23:25.259Z",
+      "location": "Napa",
+      "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",
+      "schedule": {
+        "open": "01:00",
+        "close": "06:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "26ky",
+      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "name": "dr. Makima, Sp.A",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
       "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
-      "image": "https://avatars.githubusercontent.com/u/76868199"
+      "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg",
+      "schedule": {
+        "open": "01:00",
+        "close": "06:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
     },
     {
-      "id": "8765",
-      "polyName": "Poli Mata",
-      "name": "Lorraine",
+      "id": "21ky",
+      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "name": "dr. Violet Evergarden, Sp.OG",
+      "email": "Merle_Corwin@google.com",
+      "gender": "wanita",
+      "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
+      "invitedAt": "2008-06-20T14:28:32.691Z",
+      "location": "West Alexisfield",
+      "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg",
+      "schedule": {
+        "open": "01:00",
+        "close": "06:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "250z",
+      "polyName": "Poli Keluarga Berencana (KB)",
+      "name": "dr. Maki Zenin",
       "email": "Lorraine.Parker@google.com",
       "gender": "wanita",
       "descriptions": "SyQxXRbNkhrHeTFYytNJedOZRbvSOxRecrovmqZV",
       "invitedAt": "2015-04-10T12:21:25.176Z",
       "location": "Hollisfield",
-      "image": "https://avatars.githubusercontent.com/u/57949354"
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd",
+      "schedule": {
+        "open": "01:00",
+        "close": "06:00"
+      },
+      "availableDays": [
+        1,
+        3,
+        5
+      ]
     }
   ],
   "bookings": [
