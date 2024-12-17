@@ -40,7 +40,7 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchIdUser()
-  })
+  },[])
 
 
   return (

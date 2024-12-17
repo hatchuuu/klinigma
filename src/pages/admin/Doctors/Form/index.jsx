@@ -18,7 +18,8 @@ import { useForm } from "react-hook-form";
 import { doctorsSchema } from "@/lib/zodSchema";
 import { axiosInstance } from "@/lib/axios";
 import { failedToast, successToast } from "@/lib/toaster";
-import FieldMultiSelect from "@/components/form/field/MultiSelect";
+import MultiSelect from "@/components/form/field/MultiSelect";
+// import MultiSelect from "@/components/form/field/MultiSelect2";
 import { number } from "prop-types";
 
 function FormDoctors() {
@@ -34,7 +35,7 @@ function FormDoctors() {
 
   const list = ["wanita", "pria"];
   const hari = [
-    { value: 1, label: "Senn" },
+    { value: 1, label: "Senin" },
     { value: 2, label: "Selasa" },
     { value: 3, label: "Rabu" },
     { value: 4, label: "Kamis" },
@@ -62,13 +63,13 @@ function FormDoctors() {
   const { control, handleSubmit, reset } = form;
 
   const handleSubmitForm = async (values) => {
-    console.log("Available days:", values.availableDays);
     console.log("Form values:", values);
-    // console.log("availableDays", availableDays)
-    const availableDaysFormatted = values.availableDays.map((day) =>
-      number(day, 10)
-    );
+    console.log("Available days:", values.availableDays);
 
+    // // Memformat availableDays jika diperlukan
+    // const availableDaysFormatted = values.availableDays.map(
+    //   (day) => Number(day) // Pastikan untuk mengonversi ke angka
+    // );
     console.log(values.quota);
     const schedule = {
       open: values.open,
@@ -79,7 +80,7 @@ function FormDoctors() {
     const payload = {
       ...rest,
       schedule: schedule,
-      availableDays: availableDaysFormatted,
+      // availableDays: availableDaysFormatted, 
     };
 
     console.log("Payload before sending:", payload);
@@ -164,7 +165,13 @@ function FormDoctors() {
   useEffect(() => {
     fetchTableData();
   }, []);
-
+  
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  console.log('Selected values:', selectedOptions);
+  const handleChange = (newValues) => {
+    setSelectedOptions(newValues);
+    console.log('Selected values:', newValues); // Debugging
+};
   return (
     <>
       <div className="mx-auto px-6">
@@ -250,14 +257,15 @@ function FormDoctors() {
 
                 {/* Day, Start Time, End Time, and Quota */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
-                  <FieldMultiSelect
+                  <MultiSelect
                     control={control}
                     name="availableDays"
                     label="Hari"
-                    list={hari}
+                    options={hari}
+           
                     disabled={action === "detail"}
                   />
-
+                 
                   <FieldInputForm
                     control={control}
                     name="open"
@@ -291,7 +299,6 @@ function FormDoctors() {
                     disabled={action === "detail"}
                   />
                 </div>
-
                 {/* Submit and Back buttons */}
                 <div className="mt-6 flex justify-end">
                   {action !== "detail" && (

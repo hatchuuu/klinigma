@@ -1,9 +1,10 @@
+"use client"
+
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import PropTypes from "prop-types"
 
 const Dialog = DialogPrimitive.Root
 
@@ -92,24 +93,4 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-}
-
-DialogOverlay.propTypes = {
-  className: PropTypes.string
-}
-DialogContent.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node
-}
-DialogHeader.propTypes = {
-  className: PropTypes.string
-}
-DialogFooter.propTypes = {
-  className: PropTypes.string
-}
-DialogTitle.propTypes = {
-  className: PropTypes.string
-}
-DialogDescription.propTypes = {
-  className: PropTypes.string
 }
