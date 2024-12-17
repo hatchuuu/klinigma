@@ -5,17 +5,21 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { getUserById } from "@/data/users";
 import AlertButton from "@/components/AlertButton";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible";
 
 const ProfilePage = () => {
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
     const jwt = jwtDecode(token);
     const { name, role, id } = jwt;
+    const [open, setOpen] = useState(false);
+    const [data, setData] = useState();
 
     const handleLogout = () => {
         sessionStorage.removeItem("token");
         navigate("/login");
     };
+
 
     useEffect(() => {
         const fetchUserById = async () => {
