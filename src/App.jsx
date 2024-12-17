@@ -4,16 +4,20 @@ import Middleware from "@/hoc/Middleware"
 import Loader from "@/components/Loader"
 
 const DashboardPage = lazy(() => import("./pages/DashboardPage"))
-const DoctorsPage = lazy(() => import("./pages/DoctorsPage"))
+// const DoctorsPage = lazy(() => import("./pages/DoctorsPage"))
+
 const PolyclinicsPage = lazy(() => import("./pages/PolyclinicsPage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const HistoryPage = lazy(() => import("./pages/HistoryPage"))
 const LoginPage = lazy(() => import("@/pages/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"))
-const UsersPage = lazy(() => import("@/pages/admin/UserPage"))
-const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"))
+const UsersPage = lazy(() => import("@/pages/admin/Users/UserPage"))
+// const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"))
 const AdminPage = lazy(() => import("@/pages/admin/AdminPage"))
 const NotFound = lazy(() => import("@/pages/NotFound"))
+// Doctors Page
+const DoctorsPage = lazy(() => import("./pages/admin/Doctors/DoctorsTeamPage"))
+const FormDoctors = lazy(() => import("@/pages/admin/Doctors/Form/index"))
 
 // BOOKING
 const BookingPage = lazy(() => import("./pages/booking/BookingPage"))
@@ -25,7 +29,7 @@ const App = () => {
     [
       { path: "*", role: "user", element: <NotFound /> },
       { path: "/dashboard", role: "user", element: <DashboardPage /> },
-      { path: "/doctors", role: "user", element: <DoctorsPage /> },
+      // { path: "/doctors", role: "user", element: <DoctorsPage /> },
       { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
       { path: "/profile", role: "user", element: <ProfilePage /> },
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
@@ -41,7 +45,8 @@ const App = () => {
       { path: "/register", role: "user", element: <RegisterPage /> },
       //hnya untuk admin & superadmin
       { path: "/users", role: "admin", element: <UsersPage /> },
-      { path: "/doctors", role: "admin", element: <DoctorPage /> },
+      { path: "/doctors", role: "admin", element: <DoctorsPage /> },
+      { path: "/addDoctors", role: "admin", element: <FormDoctors /> },
       //hanya untuk superadmin
       { path: "/admin", role: "admin", element: <AdminPage /> }
     ]

@@ -1,4 +1,5 @@
 import { Input } from '@/components/ui/input'
+import { Search } from 'lucide-react'
 
 const SearchInput = ({ defaultValue, handleChange, placeHolder }) => {
     return (

@@ -24,22 +24,20 @@ const LoginPage = () => {
   const { control, handleSubmit } = form;
 
   const onSubmit = handleSubmit(async (value) => {
-    const { email } = value;
-    console.log(value);
+    const { email, password } = value;
     try {
       let response;
-      if (email == "klinigma@enigma.com") {
+      if (email == "klinigma@enigma.com" || password == "Password123@") {
         response = await loginSuperInstance.post("", value)
-      } else if (email == "admin@klinigma.com") {
+      } else if (email == "admin@klinigma.com" || password == "Password123@") {
         response = await loginAdminInstance.post("", value)
-      } else if (email == "user@klinigma.com") {
+      } else if (email == "user@klinigma.com" || password == "Password123@") {
         response = await loginUserInstance.post("", value)
       } else {
         throw new Error("Email atau Password salah")
       }
-      console.log("halo");
       if (response.status == 200) {
-        localStorage.setItem("token", response.data.data.token);
+        sessionStorage.setItem("token", response.data.data.token);
         navigate("/dashboard");
       } else {
         throw new Error(response.message)
