@@ -24,6 +24,10 @@ const BookingPage = lazy(() => import("./pages/booking/BookingPage"))
 const BookingSchedule = lazy(() => import("./pages/booking/BookingSchedule"))
 const BookingDetails = lazy(() => import("./pages/booking/BookingDetails"))
 
+// PRESENT CLIENT
+const HandlerPage = lazy(() => import("./pages/admin/Present/HandlerPage"))
+const PresentPage = lazy(() => import("./pages/admin/Present/PresentPage"))
+
 const App = () => {
   const allRoutes =
     [
@@ -33,7 +37,7 @@ const App = () => {
       { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
       { path: "/profile", role: "user", element: <ProfilePage /> },
       { path: "/profile/history", role: "user", element: <HistoryPage /> },
-      
+
       // BOOKING
       { path: "/booking", role: "user", element: <BookingPage /> },
       { path: "/booking/pilih-jadwal", role: "user", element: <BookingSchedule /> },
@@ -48,7 +52,10 @@ const App = () => {
       { path: "/doctors", role: "admin", element: <DoctorsPage /> },
       { path: "/addDoctors", role: "admin", element: <FormDoctors /> },
       //hanya untuk superadmin
-      { path: "/admin", role: "admin", element: <AdminPage /> }
+      { path: "/admin", role: "admin", element: <AdminPage /> },
+      //hanya untuk admin
+      { path: "/admin/handler/", role: "admin", element: <HandlerPage /> },
+      { path: "/present/:id", role: "user", element: <PresentPage /> }
     ]
 
   return (
