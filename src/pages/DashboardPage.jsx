@@ -37,44 +37,42 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const { id, role } = jwtDecode(token);
         // Check if token exists before decoding
-        if (token) {
-          const { id, role } = jwtDecode(token);
+        const responseUser = await getUserById(id);
+        setUser(responseUser.data);
 
-          if (role === "user") {
-            const responseBookings = await getAllDataBooking();
-            const polysData = await getAllDataPoly();
+        if (role === "user") {
+          const responseBookings = await getAllDataBooking();
+          const polysData = await getAllDataPoly();
 
-            // Filter bookings by userId and add polyName
-            const filteredBookingById = responseBookings?.data?.filter(
-              (value) => value.userId === id
-            );
+          // Filter bookings by userId and add polyName
+          const filteredBookingById = responseBookings?.data?.filter(
+            (value) => value.userId === id
+          );
 
-            let filterBookings = [];
-            for (let i = 0; i < filteredBookingById.length; i++) {
-              let booking = { ...filteredBookingById[i] };
-              for (let j = 0; j < polysData.length; j++) {
-                let poly = polysData[j];
-                if (booking.polyclinicId === poly.id) {
-                  booking["polyName"] = poly.polyName;
-                  booking["polyQueue"] = poly.currentQueue;
-                  break;
-                }
+          let filterBookings = [];
+          for (let i = 0; i < filteredBookingById.length; i++) {
+            let booking = { ...filteredBookingById[i] };
+            for (let j = 0; j < polysData.length; j++) {
+              let poly = polysData[j];
+              if (booking.polyclinicId === poly.id) {
+                booking["polyName"] = poly.polyName;
+                booking["polyQueue"] = poly.currentQueue;
+                break;
               }
-              filterBookings.push(booking);
             }
-
-            setAllBookings(filterBookings);
-
-            // Find the first unfinished booking
-            const latestBooking = filterBookings.find((value) => {
-              return value.doneAt == null;
-            });
-            setLatestBooking(latestBooking);
+            filterBookings.push(booking);
           }
 
-          const responseUser = await getUserById(id);
-          setUser(responseUser.data);
+          setAllBookings(filterBookings);
+
+          // Find the first unfinished booking
+          const latestBooking = filterBookings.find((value) => {
+            return value.doneAt == null;
+          });
+          setLatestBooking(latestBooking);
+
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -83,7 +81,7 @@ const DashboardPage = () => {
     };
 
     fetchData();
-  }, [token]); // Re-run effect if token changes
+  }, []); // Re-run effect if token changes
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -93,11 +91,11 @@ const DashboardPage = () => {
   const mapUrl =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5855003249085!2d106.73948209999999!3d-6.1861864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f72a01b8f00d%3A0x7f87d867fb930560!2sPT.%20Kreasi%20Layanan%20Medis!5e0!3m2!1sen!2sid!4v1734104130782!5m2!1sen!2sid";
 
-  if (user === null) {
-    return <Loader />;
-  } // Re-run effect if token changes
+  // if (user === null) {
+  //   return <Loader />;
+  // } // Re-run effect if token changes
 
-
+  console.log({ user });
   return (
     <div>
       {user ? (

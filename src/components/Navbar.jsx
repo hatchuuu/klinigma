@@ -18,11 +18,13 @@ const Navbar = () => {
 
   let role = null;
   let id = null;
+  let name = null
   if (token) {
     try {
       const decoded = jwtDecode(token);
       role = decoded.role;
       id = decoded.id;
+      name = decoded.name;
     } catch (error) {
       sessionStorage.removeItem("token");
       role = null;
@@ -40,7 +42,9 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    fetchIdUser()
+    if (token) {
+      fetchIdUser()
+    }
   }, [])
 
   if (pathname.startsWith("/present")) {

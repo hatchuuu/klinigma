@@ -1,53 +1,125 @@
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-// import { Divider } from "@nextui-org/divider"
-import { ChevronLeft } from "lucide-react"
-import { Link } from "react-router-dom"
-import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button";
+import { Bell } from "lucide-react";
+// import { fetchDataUsers } from "@/data/users";
+import { Link } from "react-router-dom";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+    CalendarDays,
+    MessageCircle,
+    BookOpen,
+    LocateIcon,
+} from "lucide-react"; // Anda bisa mengganti ikon sesuai kebutuhan
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import { getUserById } from "@/data/users";
+import { getAllDataBooking } from "@/data/bookings";
+import { calculateAge, formatDate, getLatestToken } from "@/data/service";
+import Loader from "@/components/Loader";
+import { getAllDataPoly } from "@/data/poly";
+import SideBarListQueue from "@/components/SideBarListQueue";
+import TokenBoard from "@/components/TokenBoard";
+import useCounterStore from "@/store/counter";
+import { Separator } from "@/components/ui/separator";
 
 const HistoryPage = () => {
+    const [allBookings, setAllBookings] = useState(null);
+    const [name, setName] = useState(null);
+    const token = sessionStorage.getItem("token");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Check if token exists before decoding
+                if (token) {
+                    const { id, role, name } = jwtDecode(token);
+                    setName(name);
+                    if (role === "user") {
+                        const responseBookings = await getAllDataBooking();
+                        const polysData = await getAllDataPoly();
+                        // Filter bookings by userId and add polyName
+                        const filteredBookingById = responseBookings?.data?.filter(
+                            (value) => value.userId === id && (value.status === "Done" || value.status === "Failed")
+                        );
+
+                        let filterBookings = [];
+                        for (let i = 0; i < filteredBookingById.length; i++) {
+                            let booking = { ...filteredBookingById[i] };
+                            for (let j = 0; j < polysData.data.length; j++) {
+                                let poly = polysData.data[j];
+                                if (booking.polyclinicId === poly.id) {
+                                    booking["polyName"] = poly.polyName;
+                                    break;
+                                }
+                            }
+                            filterBookings.push(booking);
+                        }
+                        setAllBookings(filterBookings);
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                // Handle error, e.g., show error message to user
+            }
+        };
+
+        fetchData();
+    }, [token]); // Re-run effect if token changes
+
+    const renderBookings = () =>
+        allBookings.map((value, i) => (
+            <div key={i}>
+                <div className="flex justify-between mb-7 items-center">
+                    <h3 className="text-xl ">{value.polyName}</h3>
+                    <h3 className="text-xl">{value.queueNumber}</h3>
+                    <h3 className={`${value.status == "Done" ? "bg-green-400" : "bg-red-400"} py-1 px-2 text-xl rounded-md`}>{value.status}</h3>
+                </div>
+                <Separator className="mb-7" />
+            </div>
+        )
+        )
+
     return (
-        <div className="h-screen flex flex-col p-8">
-            <div className="mb-7">
-                <Link to={"/profile"}>
-                    <Button size="default">
-                        <ChevronLeft />
-                    </Button>
-                </Link>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-                <h1 className="text-2xl mb-2">History Poliklinik</h1>
-                {/* <Divider className="md:w-1/2 mb-5" /> */}
-                <Separator className="md:w-1/2 mb-5"/>
-                <Card className="w-full md:w-1/2 p-3 mb-4">
-                    <div className="flex flex-row justify-between mx-1 md:mx-5">
-                        <div>
-                            <h3 className="text-lg">Poli Umum</h3>
-                            <h3 className="text-lg">Dr. Bintang alfarisyi</h3>
+        <div className="h-screen items-center flex flex-col p-8 sm:pt-44">
+            {allBookings ? (
+                <div className={`flex flex-col sm:w-1/3`}>
+                    <section className="flex flex-col justify-center items-center gap-1 mb-20">
+                        <h1 className="text-4xl font-semibold uppercase">{name}</h1>
+                    </section>
+                    <div>
+                        <div className="flex justify-between mb-7">
+                            <h3 className="text-xl ">Poliklinik</h3>
+                            <h3 className="text-xl">Antrean</h3>
+                            <h3 className="text-xl">Status</h3>
                         </div>
-                        <div className="flex gap-4 items-center">
-                            <div className="text-green-500 p-3 rounded-full border-2 border-green-500">
-                                001
-                            </div>
-                        </div>
+                        <Separator className="mb-7" />
                     </div>
-                </Card>
-                <Card className="w-full md:w-1/2 p-3">
-                    <div className="flex flex-row justify-between mx-1 md:mx-5">
-                        <div>
-                            <h3 className="text-lg">Poli Umum</h3>
-                            <h3 className="text-lg">Dokter Bintang</h3>
-                        </div>
-                        <div className="flex items-center">
-                            <div className="text-red-500 p-3 rounded-full border-2 border-red-500">
-                                002
-                            </div>
-                        </div>
+                    <div>
+                        {
+                            renderBookings()
+                        }
                     </div>
-                </Card>
-            </div>
+                    <div className={` w-full flex justify-end mb-5`}>
+                        <Link to="/profile">
+                            <Button>
+                                Kembali
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+            ) : (
+                <div className='flex w-full justify-center items-center p-2'>
+                    <p className='page-loader' />
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default HistoryPage
