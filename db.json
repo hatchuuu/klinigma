@@ -266,6 +266,26 @@
         "open": "15:58",
         "close": "15:58"
       }
+    },
+    {
+      "id": "e0f9",
+      "name": "test",
+      "polyName": "Poli Gigi",
+      "gender": "wanita",
+      "email": "cahyaninabila@gmail.com",
+      "descriptions": "test",
+      "location": "Lake Margarita",
+      "phoneNumber": "087766767678",
+      "availableDays": [
+        1,
+        2,
+        3
+      ],
+      "quota": 34,
+      "schedule": {
+        "open": "08:50",
+        "close": "08:51"
+      }
     }
   ],
   "bookings": [

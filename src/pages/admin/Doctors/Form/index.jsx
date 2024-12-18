@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LucideAlignHorizontalSpaceBetween } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Breadcrumb,
@@ -19,8 +19,8 @@ import { doctorsSchema } from "@/lib/zodSchema";
 import { axiosInstance } from "@/lib/axios";
 import { failedToast, successToast } from "@/lib/toaster";
 import MultiSelect from "@/components/form/field/MultiSelect";
-// import MultiSelect from "@/components/form/field/MultiSelect2";
-import { number } from "prop-types";
+// import MultipleSelect from "@/components/form/field/MultipleField";
+// import CheckboxGroup from "@/components/form/field/MultipleField";
 
 function FormDoctors() {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ function FormDoctors() {
     const payload = {
       ...rest,
       schedule: schedule,
-      // availableDays: availableDaysFormatted, 
+      // availableDays: availableDaysFormatted,
     };
 
     console.log("Payload before sending:", payload);
@@ -165,13 +165,18 @@ function FormDoctors() {
   useEffect(() => {
     fetchTableData();
   }, []);
-  
+
   const [selectedOptions, setSelectedOptions] = useState([]);
-  console.log('Selected values:', selectedOptions);
-  const handleChange = (newValues) => {
-    setSelectedOptions(newValues);
-    console.log('Selected values:', newValues); // Debugging
-};
+  // console.log("Selected values:", selectedOptions);
+
+  // const handleChange = (newValues) => {
+  //   setSelectedOptions(newValues);
+  //   console.log("Selected values:", newValues); // Debugging
+  // };
+
+  const handleSelectionChange = (selectedIds) => {
+    console.log("Selected IDs:", selectedIds);
+  };
   return (
     <>
       <div className="mx-auto px-6">
@@ -262,10 +267,12 @@ function FormDoctors() {
                     name="availableDays"
                     label="Hari"
                     options={hari}
-           
+                    // onChange={handleChange}
+                    // value={selectedOptions}
+                    // onSelect={handleSelectionChange} 
                     disabled={action === "detail"}
                   />
-                 
+
                   <FieldInputForm
                     control={control}
                     name="open"
