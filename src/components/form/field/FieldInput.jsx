@@ -5,9 +5,8 @@ import { Eye, EyeOff } from 'lucide-react'
 import PropTypes from 'prop-types'
 
 
-const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type = "text" }) => {
-    const [visible, setVisible] = useState(!canHide);
-
+const FieldInput = ({ control, name, label, canHide }) => {
+    const [visible, setVisible] = useState(!canHide)
     return (
         <FormField
             control={control}
@@ -17,35 +16,17 @@ const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type 
                     <FormLabel className="text-md font-semibold text-gray-700"> {label} </FormLabel>
                     <FormControl>
                         <div className="relative">
-                            {isTextarea ? (
-                                <Textarea
-                                    className={`relative w-full border border-gray-400 focus:outline-none resize-none ${disabled ? 'bg-gray-200 cursor-not-allowed' : ''
-                                        }`}
-                                    disabled={disabled}
-                                    rows={4} // Default height untuk textarea
-                                    {...field}
-                                />
-                            ) : (
-                                <>
-                                    <Input
-                                        className={`${type !== 'password' && 'pe-9'
-                                            } relative border border-gray-400 focus:outline-none ${disabled ? 'bg-gray-200 cursor-not-allowed' : ''
-                                            }`}
-                                        type={type === 'password' && !visible ? 'password' : type}
-                                        disabled={disabled}
-                                        {...field}
-                                    />
-                                    {type === 'password' && canHide && (
-                                        <div
-                                            onClick={() => !disabled && setVisible((prev) => !prev)}
-                                            className={`absolute z-10 right-3 bottom-[8px] ${disabled ? 'cursor-not-allowed text-gray-400' : 'cursor-pointer'
-                                                }`}
-                                        >
-                                            {visible ? <Eye size={12} /> : <EyeOff size={12} />}
-                                        </div>
-                                    )}
-                                </>
-                            )}
+                            <Input
+                                className={` ${!visible && "pe-9"} relative border border-gray-400 focus:outline-none`}
+                                type={visible ? "text" : "password"}
+                                {...field}
+                            />
+                            <div
+                                onClick={() => setVisible((prev) => !prev)}
+                                className={` ${!canHide && "hidden"} absolute z-10 right-3 bottom-[8px]`}
+                            >
+                                {visible ? <Eye size={12} /> : <EyeOff size={12} />}
+                            </div>
                         </div>
                     </FormControl>
                     <FormMessage />
@@ -54,6 +35,7 @@ const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type 
         />
     )
 }
+
 FieldInput.propTypes = {
     label: PropTypes.string.isRequired,
     name: PropTypes.string,
