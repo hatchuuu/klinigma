@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { Textarea } from '@/components/ui/textarea';
 
-const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type }) => {
+const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type = "text" }) => {
     const [visible, setVisible] = useState(!canHide);
 
     return (
@@ -19,9 +19,8 @@ const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type 
                         <div className="relative">
                             {isTextarea ? (
                                 <Textarea
-                                    className={`relative w-full border border-gray-400 focus:outline-none resize-none ${
-                                        disabled ? 'bg-gray-200 cursor-not-allowed' : ''
-                                    }`}
+                                    className={`relative w-full border border-gray-400 focus:outline-none resize-none ${disabled ? 'bg-gray-200 cursor-not-allowed' : ''
+                                        }`}
                                     disabled={disabled}
                                     rows={4} // Default height untuk textarea
                                     {...field}
@@ -29,11 +28,9 @@ const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type 
                             ) : (
                                 <>
                                     <Input
-                                        className={`${
-                                            type !== 'password' && 'pe-9'
-                                        } relative border border-gray-400 focus:outline-none ${
-                                            disabled ? 'bg-gray-200 cursor-not-allowed' : ''
-                                        }`}
+                                        className={`${type !== 'password' && 'pe-9'
+                                            } relative border border-gray-400 focus:outline-none ${disabled ? 'bg-gray-200 cursor-not-allowed' : ''
+                                            }`}
                                         type={type === 'password' && !visible ? 'password' : type}
                                         disabled={disabled}
                                         {...field}
@@ -41,9 +38,8 @@ const FieldInput = ({ control, name, label, canHide, disabled, isTextarea, type 
                                     {type === 'password' && canHide && (
                                         <div
                                             onClick={() => !disabled && setVisible((prev) => !prev)}
-                                            className={`absolute z-10 right-3 bottom-[8px] ${
-                                                disabled ? 'cursor-not-allowed text-gray-400' : 'cursor-pointer'
-                                            }`}
+                                            className={`absolute z-10 right-3 bottom-[8px] ${disabled ? 'cursor-not-allowed text-gray-400' : 'cursor-pointer'
+                                                }`}
                                         >
                                             {visible ? <Eye size={12} /> : <EyeOff size={12} />}
                                         </div>
@@ -69,8 +65,8 @@ FieldInput.propTypes = {
     type: PropTypes.string, // Menambahkan prop untuk tipe input
 };
 
-FieldInput.defaultProps = {
-    type: 'text', // Default tipe adalah text
-};
+// FieldInput.defaultProps = {
+//     type: 'text', // Default tipe adalah text
+// };
 
 export default FieldInput;
