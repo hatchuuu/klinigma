@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import PropTypes from 'prop-types'
 
 
-const FieldInput = ({ control, name, label, canHide }) => {
+const FieldInput = ({ control, name, label, canHide, disabled }) => {
     const [visible, setVisible] = useState(!canHide)
     return (
         <FormField
@@ -20,6 +20,7 @@ const FieldInput = ({ control, name, label, canHide }) => {
                                 className={` ${!visible && "pe-9"} relative border border-gray-400 focus:outline-none`}
                                 type={visible ? "text" : "password"}
                                 {...field}
+                                disabled={disabled}
                             />
                             <div
                                 onClick={() => setVisible((prev) => !prev)}

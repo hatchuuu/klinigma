@@ -11,7 +11,10 @@ import { failedToast, successToast } from "@/lib/toaster";
 import FieldBirthDate from "@/components/form/field/FieldBirthDate";
 
 const RegisterPage = () => {
-  const list = ["wanita", "pria"];
+  const list = [
+    { id: 1, value: "Pria" },
+    { id: 2, value: "Wanita" },
+  ];
   const form = useForm({
     defaultValues: {
       name: "",

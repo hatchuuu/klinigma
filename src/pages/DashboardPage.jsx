@@ -43,16 +43,16 @@ const DashboardPage = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const fetchDataPolys = async () => {
     try {
       const polysData = await getAllDataPoly();
-      return polysData
+      return polysData;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const fetchDataBookings = async () => {
     try {
@@ -80,16 +80,15 @@ const DashboardPage = () => {
         return value.doneAt == null;
       });
       setLatestBooking(latestBooking);
-    } catch (error) {
-    }
-  }
+    } catch (error) {}
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       if (role === "user") {
-        fetchDataBookings()
+        fetchDataBookings();
       }
-      fetchIdUser()
+      fetchIdUser();
     };
     fetchData();
   }, [token]); // Re-run effect if token changes
@@ -153,60 +152,83 @@ const DashboardPage = () => {
             </div>
           </section>
 
-          <div className="flex sm:flex-row flex-col">
-            <section className="sm:order-2 order-1">
+          {/* Section for Latest Booking */}
+          <section>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
               {latestBooking && (
-                <div className="grid grid-cols-4 gap-4 px-5">
-                  <p className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full">
-                    {" "}
-                    Jam Mulai {
-                      formatDate(latestBooking.createdAt).fullDate
-                    }, {formatDate(latestBooking.createdAt).time}
-                  </p>
-                  <TokenBoard latestBooking={latestBooking} />
-                  <SideBarListQueue data={allBookings} />
-                </div>
+                <>
+                  <div className="bg-white rounded-lg shadow-lg text-center">
+                    <div className="bg-purple-500 text-white font-medium py-3 rounded-t-lg">
+                      <p className="text-lg text-white semibold">
+                        Jam Beroperasi
+                      </p>
+                    </div>
+                    <div className="p-4">
+                      <p className="text-2xl text-black semibold">
+                        {formatDate(latestBooking.createdAt).fullDate},{" "}
+                        {formatDate(latestBooking.createdAt).time}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-lg shadow-lg text-center">
+                    <TokenBoard latestBooking={latestBooking} />
+                  </div>
+
+                  <div>
+                    <SideBarListQueue data={allBookings} />
+                  </div>
+                </>
               )}
-            </section>
-            <section className="pb-16 sm:order-1 order-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
-                <Link
-                  to="/booking"
-                  className="bg-white sm:col-span-2 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                >
-                  <CalendarDays size={40} className="text-purple-900 mb-3" />
-                  <span className="text-lg font-medium text-center">
-                    Booking Kunjungan
-                  </span>
-                </Link>
-                <Link
-                  to="/info"
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                >
-                  <BookOpen size={40} className="text-purple-900 mb-3" />
-                  <span className="text-lg font-medium text-center">
-                    Info & Artikel
-                  </span>
-                </Link>
-                <Link
-                  to="/tanya"
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                >
-                  <MessageCircle size={40} className="text-purple-900 mb-3" />
-                  <span className="text-lg font-medium text-center">
-                    Tanya Klinigma
-                  </span>
-                </Link>
+            </div>
+          </section>
+
+          {/* Section for Links */}
+          <section className="sm:order-1 order-2 w-full sm:w-1/2 pb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
+              <Link
+                to="/booking"
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+              >
+                <CalendarDays size={40} className="text-purple-900 mb-3" />
+                <span className="text-lg font-medium text-center">
+                  Booking Kunjungan
+                </span>
+              </Link>
+              <Link
+                to="/info"
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+              >
+                <BookOpen size={40} className="text-purple-900 mb-3" />
+                <span className="text-lg font-medium text-center">
+                  Info & Artikel
+                </span>
+              </Link>
+              <Link
+                to="/tanya"
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+              >
+                <MessageCircle size={40} className="text-purple-900 mb-3" />
+                <span className="text-lg font-medium text-center">
+                  Tanya Klinigma
+                </span>
+              </Link>
+            </div>
+          </section>
+
+          <footer className="bg-gray-100 py-8 px-4">
+            <div className="flex flex-col items-center justify-center mb-6">
+              <div className="flex items-center gap-2 mb-2">
+                <LocateIcon />
+                <h1 className="text-center text-xl font-semibold text-gray-800">
+                  Lokasi Klinik
+                </h1>
               </div>
-            </section>
-          </div>
-          <section className="px-4 -mt-10">
-            <div className="flex items-center justify-center mb-8 gap-2">
-              <LocateIcon />
-              <h1 className="text-center text-2xl">Lokasi Klinik</h1>
+              <p className="text-center text-sm text-gray-600">
+                Temukan lokasi klinik kami di peta berikut.
+              </p>
             </div>
             <div className="w-full flex justify-center md:w-2/3 lg:w-1/2 mx-auto">
-              {" "}
               {/* Atur lebar frame agar responsif */}
               <iframe
                 src={mapUrl}
@@ -214,10 +236,13 @@ const DashboardPage = () => {
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="rounded-lg shadow-md w-full" // Tambahkan class Tailwind CSS
+                className="rounded-lg shadow-md w-full h-64"
               ></iframe>
             </div>
-          </section>
+            <div className="text-center text-sm text-gray-500 mt-6">
+              &copy; {new Date().getFullYear()} Klinigma. Semua hak dilindungi.
+            </div>
+          </footer>
         </div>
       ) : (
         <Loader />

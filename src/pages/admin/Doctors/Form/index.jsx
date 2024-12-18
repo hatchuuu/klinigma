@@ -31,7 +31,10 @@ function FormDoctors() {
   const [poilList, setPoliList] = useState([]);
   const [selectedPoli, setSelectedPoli] = useState(null);
 
-  const list = ["wanita", "pria"];
+  const list = [
+    { id: 1, value: "Pria" },
+    { id: 2, value: "Wanita" },
+  ];
   const hari = [
     { value: 1, label: "Senin" },
     { value: 2, label: "Selasa" },
@@ -55,6 +58,7 @@ function FormDoctors() {
       close: "",
       availableDays: [],
       quota: "",
+      polyclinicId:""
     },
     resolver: zodResolver(doctorsSchema),
   });
@@ -78,6 +82,7 @@ function FormDoctors() {
     const payload = {
       ...rest,
       schedule: schedule,
+      // polyclinicId: selectedPoli.id
       // availableDays: availableDaysFormatted,
     };
 
@@ -150,7 +155,11 @@ function FormDoctors() {
     try {
       const response = await axiosInstance.get("/polyclinics");
       const data = response.data;
-      const mappingOptions = data.map((item) => item.polyName);
+      // const mappingOptions = data.map((item) => item.polyName);
+      const mappingOptions = data.map((item) => ({
+        id: item.id,
+        value: item.polyName,
+      }));
       setPoliList(mappingOptions);
       console.log(mappingOptions);
     } catch (error) {
@@ -164,17 +173,7 @@ function FormDoctors() {
     fetchTableData();
   }, []);
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  // console.log("Selected values:", selectedOptions);
 
-  // const handleChange = (newValues) => {
-  //   setSelectedOptions(newValues);
-  //   console.log("Selected values:", newValues); // Debugging
-  // };
-
-  const handleSelectionChange = (selectedIds) => {
-    console.log("Selected IDs:", selectedIds);
-  };
   return (
     <>
       <div className="mx-auto px-6">
@@ -186,7 +185,7 @@ function FormDoctors() {
           </Link>
           <div>
             <h2 className="font-semibold text-[18px] sm:text-[20px] lg:text-[22px]">
-              Add Doctors
+            {action === 'edit' ? 'Edit' : action === 'detail' ? 'Detail' : 'Add'} Doctors
             </h2>
           </div>
         </section>

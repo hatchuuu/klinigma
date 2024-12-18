@@ -65,7 +65,7 @@ const BrowseUsers = ({ filteredUsers }) => {
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
               Birth Date
             </TableHead>
-            <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center right-0 bg-gray-100 z-10">
+            <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center right-0 z-10">
               Aksi
             </TableHead>
           </TableRow>
@@ -75,7 +75,7 @@ const BrowseUsers = ({ filteredUsers }) => {
             <TableRow
               key={index}
               className={`${
-                index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                index % 2 === 0 ? "bg-purple-100" : "bg-white"
               } hover:bg-gray-100 transition duration-200`}
             >
               <TableCell className="py-3 px-4 text-gray-600">
@@ -99,20 +99,20 @@ const BrowseUsers = ({ filteredUsers }) => {
               <TableCell className="py-3 px-4 text-gray-600">
                 {data.birthDate}
               </TableCell>
-              <TableCell className="py-3 px-4 text-center right-0 bg-white z-10">
+              <TableCell className="py-3 px-4 text-center right-0 z-10">
                 <div className="flex justify-center space-x-2">
-                  {/* <Button
+                  <Button
                     onClick={() =>
-                      navigate(`/addDoctors?id=${doctors.id}&action=detail`)
+                      navigate(`/EditUsers?id=${data.id}&action=detail`)
                     }
                     className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 focus:ring-2 focus:ring-green-300 focus:outline-none transition duration-300"
                   >
                     Detail
-                  </Button> */}
+                  </Button>
                   <Button
-                    // onClick={() =>
-                    //   navigate(`/addDoctors?id=${doctors.id}&action=edit`)
-                    // }
+                    onClick={() =>
+                      navigate(`/EditUsers?id=${data.id}`)
+                    }
                     className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300 focus:outline-none transition duration-300"
                   >
                     Edit

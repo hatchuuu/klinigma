@@ -78,9 +78,9 @@ const UserPage = () => {
         <h1>DAFTAR USER</h1>
       </section>
 
-      <section>
+      {/* <section>
         <UserChart />
-      </section>
+      </section> */}
       {/* <section>
         <Input
           className="h-10 w-full border border-gray-300 rounded-md px-3 mb-3"

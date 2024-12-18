@@ -12,6 +12,7 @@ const HistoryPage = lazy(() => import("./pages/HistoryPage"))
 const LoginPage = lazy(() => import("@/pages/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"))
 const UsersPage = lazy(() => import("@/pages/admin/Users/UserPage"))
+const FormUesrs = lazy(() => import("@/pages/admin/Users/Form/Index"))
 // const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"))
 const AdminPage = lazy(() => import("@/pages/admin/AdminPage"))
 const NotFound = lazy(() => import("@/pages/NotFound"))
@@ -51,6 +52,7 @@ const App = () => {
       { path: "/users", role: "admin", element: <UsersPage /> },
       { path: "/doctors", role: "admin", element: <DoctorsPage /> },
       { path: "/addDoctors", role: "admin", element: <FormDoctors /> },
+      { path: "/EditUsers", role: "admin", element: <FormUesrs /> },
       //hanya untuk superadmin
       { path: "/admin", role: "admin", element: <AdminPage /> },
       //hanya untuk admin

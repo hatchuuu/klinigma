@@ -27,16 +27,16 @@
       "updatedAt": null
     },
     {
-      "id": "3456",
       "name": "Klinigma User",
+      "gender": "Pria",
       "email": "user@klinigma.com",
-      "password": "User123@",
       "location": "Medan",
       "phoneNumber": "089145992310",
-      "gender": "pria",
+      "password": "User123@",
+      "birthDate": "08052024",
       "role": "user",
-      "birthDate": "08052001",
       "createdAt": "2024-12-13T12:59:23.745Z",
+      "id": "3456",
       "updatedAt": null
     },
     {
@@ -50,6 +50,52 @@
       "role": "user",
       "birthDate": "12122009",
       "createdAt": "2024-12-14T00:09:21.886Z",
+      "updatedAt": null
+    },
+    {
+      "name": "Nabila",
+      "gender": "Pria",
+      "email": "admin8@email.com",
+      "location": "Jakarta",
+      "phoneNumber": "087766767678",
+      "id": "sU-FMBk"
+    },
+    {
+      "name": "nabila edit",
+      "gender": "Wanita",
+      "email": "admin8@email.com",
+      "location": "sfsfs",
+      "phoneNumber": "087766767678",
+      "birthDate": "2024-12-17",
+      "role": "user",
+      "createdAt": "2024-12-18T15:03:34.571Z",
+      "id": "LFehSUy",
+      "updatedAt": null
+    },
+    {
+      "name": "nabila1235657",
+      "gender": "Wanita",
+      "email": "admin999@email.com",
+      "location": "sfsfs",
+      "phoneNumber": "087766767678",
+      "password": "Test123@",
+      "birthDate": "2024-12-17",
+      "role": "user",
+      "createdAt": "2024-12-18T15:03:42.306Z",
+      "id": "cyB-5NV",
+      "updatedAt": null
+    },
+    {
+      "name": "nabilaaaaaaa",
+      "gender": "Wanita",
+      "email": "admin99@email.com",
+      "location": "sfsfs",
+      "phoneNumber": "087766767678",
+      "password": "Test123@",
+      "birthDate": "2024-12-17",
+      "role": "user",
+      "createdAt": "2024-12-18T15:03:51.237Z",
+      "id": "62ipHEE",
       "updatedAt": null
     }
   ],
@@ -95,7 +141,7 @@
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
-      "quota": 20,
+      "quota": 19,
       "schedule": {
         "open": "01:00",
         "close": "13:00"
@@ -252,6 +298,65 @@
         "close": "06:00"
       },
       "id": "250z"
+    },
+    {
+      "name": "admin8",
+      "polyName": "Poli Umum",
+      "gender": "Pria",
+      "email": "cahyaninabila@gmail.com",
+      "descriptions": "testst",
+      "location": "Hollisfield",
+      "phoneNumber": "087766767678",
+      "availableDays": [
+        2,
+        3,
+        4
+      ],
+      "quota": 34,
+      "schedule": {
+        "open": "13:35",
+        "close": "13:41"
+      },
+      "id": "tnrs1a-"
+    },
+    {
+      "name": "admin8",
+      "polyName": "Poli Umum",
+      "gender": "Pria",
+      "email": "admin8@email.com",
+      "descriptions": "sdssfs",
+      "location": "Lake Margarita",
+      "phoneNumber": "087766767678",
+      "availableDays": [
+        3,
+        4
+      ],
+      "quota": 3,
+      "schedule": {
+        "open": "13:54",
+        "close": "13:54"
+      },
+      "id": "KeKNobS"
+    },
+    {
+      "name": "test",
+      "polyName": "Poli Umum",
+      "gender": "Pria",
+      "email": "cahyaninabila@gmail.com",
+      "descriptions": "awdfghjkl;'",
+      "location": "sfsfs",
+      "phoneNumber": "087766767678",
+      "availableDays": [
+        2,
+        3,
+        4
+      ],
+      "quota": 34,
+      "schedule": {
+        "open": "21:35",
+        "close": "21:31"
+      },
+      "id": "l9z2IE6"
     }
   ],
   "bookings": [
@@ -320,6 +425,10 @@
       "doneAt": null,
       "status": "Waiting",
       "queueNumber": 1
+    },
+    {
+      "polyName": "Poli Umum",
+      "id": "dmWsqt3"
     }
   ]
 }
