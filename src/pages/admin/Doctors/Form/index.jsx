@@ -19,8 +19,6 @@ import { doctorsSchema } from "@/lib/zodSchema";
 import { axiosInstance } from "@/lib/axios";
 import { failedToast, successToast } from "@/lib/toaster";
 import MultiSelect from "@/components/form/field/MultiSelect";
-// import MultipleSelect from "@/components/form/field/MultipleField";
-// import CheckboxGroup from "@/components/form/field/MultipleField";
 
 function FormDoctors() {
   const navigate = useNavigate();
@@ -261,18 +259,15 @@ function FormDoctors() {
                 </div>
 
                 {/* Day, Start Time, End Time, and Quota */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
-                  <MultiSelect
-                    control={control}
-                    name="availableDays"
-                    label="Hari"
-                    options={hari}
-                    // onChange={handleChange}
-                    // value={selectedOptions}
-                    // onSelect={handleSelectionChange} 
-                    disabled={action === "detail"}
-                  />
 
+                <MultiSelect
+                  control={control}
+                  name="availableDays"
+                  label="Hari"
+                  options={hari}
+                  disabled={action === "detail"}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
                   <FieldInputForm
                     control={control}
                     name="open"
