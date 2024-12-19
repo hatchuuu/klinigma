@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Socket.IO server setup
-const socketPort = process.env.VITE_PORT_SOCKET
+const socketPort = Number(process.env.VITE_PORT_SOCKET)
 const io = new Server(socketPort, {
     cors: {
         origin: '*'

@@ -42,7 +42,7 @@ server.post('/login', (req, res) => {
 })
 
 server.use(router)
-const PORT = process.env.VITE_PORT_DB
+const PORT = Number(process.env.VITE_PORT_DB)
 server.listen(PORT, () => {
     console.log(`JSON Server is running on port ${PORT}`)
 })
