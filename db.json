@@ -101,30 +101,30 @@
   ],
   "polyclinics": [
     {
-      "id": "hzha",
-      "polyName": "Poli Umum",
+      "id": 1,
+      "polyclinicName": "Poli Umum",
       "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
       "schedule": "Buka setiap hari, 24/7.",
       "currentQueue": 0
     },
     {
-      "id": "xpxw",
-      "polyName": "Poli Gigi",
+      "id": 2,
+      "polyclinicName": "Poli Gigi",
       "descriptions": "Menangani masalah kesehatan gigi dan mulut, mulai dari pemeriksaan rutin, penambalan, pencabutan, hingga perawatan khusus.",
       "image": "https://avatars.githubusercontent.com/u/72609122",
       "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
     },
     {
-      "id": "e9uu",
-      "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "id": 3,
+      "polyclinicName": "Poli Kesehatan Ibu dan Anak (KIA)",
       "descriptions": " Menyediakan layanan kesehatan menyeluruh bagi ibu dan anak, meliputi pemeriksaan kehamilan, imunisasi, pemantauan tumbuh kembang, dan konseling laktasi.",
       "image": "https://avatars.githubusercontent.com/u/63576769",
       "schedule": "Buka setiap hari, 24/7 kecuali libur nasional."
     },
     {
-      "id": "xcv3",
-      "polyName": "Poli Keluarga Berencana (KB)",
+      "id": 4,
+      "polyclinicName": "Poli Keluarga Berencana (KB)",
       "descriptions": "Berfokus pada pelayanan kontrasepsi, termasuk konseling, pemberian berbagai metode KB (pil, suntik, IUD, implan), dan penanganan efek samping.",
       "image": "https://avatars.githubusercontent.com/u/16646631",
       "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
@@ -132,8 +132,8 @@
   ],
   "doctors": [
     {
-      "id": "do11",
-      "polyclinicId": "hzha",
+      "id": 1,
+      "polyclinicId": 1,
       "name": "dr. Tony Tony Chopper, M.Kes",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -141,20 +141,56 @@
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
       "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
-      "quota": 19,
-      "schedule": {
-        "open": "01:00",
-        "close": "13:00"
-      },
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Rabu",
+          "open": "10:00",
+          "close": "23:00",
+          "quota": 8
+        },
+        {
+          "day": "Kamis",
+          "open": "01:00", 
+          "close": "09:00", 
+          "quota": 5 
+        },
+        {
+          "day": "Jumat",
+          "open": "01:00",
+          "close": "09:00",
+          "quota": 8
+        },
+        {
+          "day": "Sabtu",
+          "open": "01:00", 
+          "close": "12:00", 
+          "quota": 3 
+        }
+      ],
       "availableDays": [
-        1,
-        2,
-        5
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu" 
       ]
     },
     {
-      "id": "gyg9",
-      "polyclinicId": "hzha",
+      "id": 2,
+      "polyclinicId": 1,
       "name": "dr. Satoru Gojou",
       "email": "Wallace82@google.com",
       "gender": "pria",
@@ -162,20 +198,49 @@
       "invitedAt": "2016-01-26T03:29:45.616Z",
       "location": "Lake Margarita",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5equJAH_tetyxlUzVZKikrj0xYIiGfSPStw&s",
-      "quota": 20,
-      "schedule": {
-        "open": "09:00",
-        "close": "15:00"
-      },
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Kamis",
+          "open": "10:00",
+          "close": "18:00", 
+          "quota": 8 
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00", 
+          "close": "18:00", 
+          "quota": 10 
+        },
+        {
+          "day": "Sabtu",
+          "open": "13:00", 
+          "close": "23:00", 
+          "quota": 5 
+        }
+      ],
       "availableDays": [
-        1,
-        3,
-        5
+        "Senin",
+        "Selasa",
+        "Kamis",
+        "Jumat",
+        "Sabtu" 
       ]
     },
     {
-      "id": "tqjt",
-      "polyclinicId": "hzha",
+      "id": 3,
+      "polyclinicId": 1,
       "name": "dr. Levi Ackerman, Sp.PD",
       "email": "Joann_Hirthe@google.com",
       "gender": "pria",
@@ -183,20 +248,42 @@
       "invitedAt": "2008-12-20T15:52:05.252Z",
       "location": "Westland",
       "image": "https://static.wikia.nocookie.net/shingekinokyojin/images/b/b1/Levi_Ackermann_%28Anime%29_character_image.png",
-      "quota": 20,
-      "schedule": {
-        "open": "16:00",
-        "close": "23:00"
-      },
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Kamis",
+          "open": "19:00", 
+          "close": "23:00", 
+          "quota": 6 
+        },
+        {
+          "day": "Jumat",
+          "open": "19:00",
+          "close": "23:00",
+          "quota": 8
+        }
+      ],
       "availableDays": [
-        1,
-        3,
-        5
+        "Senin",
+        "Selasa",
+        "Kamis", 
+        "Jumat"
       ]
     },
     {
-      "id": "do14",
-      "polyclinicId": "xpxw",
+      "id": 4,
+      "polyclinicId": 2,
       "name": "drg. Nami, Sp.Ort",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
@@ -204,20 +291,35 @@
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
       "image": "https://i.pinimg.com/736x/04/68/26/046826e8c2d4ff9c8e5ef9dc9ea47f70.jpg",
-      "quota": 19,
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 8
+        }
+      ],
       "availableDays": [
-        1,
-        3,
-        5
+        "Senin",
+        "Selasa",
+        "Jumat"
       ]
     },
     {
-      "id": "do19",
-      "polyclinicId": "xpxw",
+      "id": 5,
+      "polyclinicId": 2,
       "name": "drg. Forger Yor, Sp.Pros",
       "polyName": "Poli Gigi",
       "gender": "wanita",
@@ -225,41 +327,71 @@
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "location": "Napa",
       "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",
-      "quota": 18,
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 8
+        }
+      ],
       "availableDays": [
-        1,
-        3,
-        5
+        "Senin",
+        "Selasa",
+        "Jumat"
       ]
     },
     {
-      "id": "26ky",
-      "polyclinicId": "e9uu",
+      "id": 6,
+      "polyclinicId": 3,
       "name": "dr. Makima, Sp.A",
       "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
       "gender": "wanita",
       "email": "Merle_Corwin@google.com",
       "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
       "location": "West Alexisfield",
-      "phoneNumber": "08123456743",
-      "availableDays": [
-        1,
-        2,
-        5
+      "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 8
+        }
       ],
-      "quota": 34,
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      }
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     },
     {
-      "id": "21ky",
-      "polyclinicId": "e9uu",
+      "id": 7,
+      "polyclinicId": 3,
       "name": "dr. Violet Evergarden, Sp.OG",
       "polyName": "Poli Umum",
       "gender": "wanita",
@@ -267,168 +399,113 @@
       "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
       "location": "West Alexisfield",
       "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg",
-      "quota": 19,
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 8
+        }
+      ],
       "availableDays": [
-        1,
-        3,
-        5
+        "Senin",
+        "Selasa",
+        "Jumat"
       ]
     },
     {
+      "id": 8,
+      "polyclinicId": 4,
       "name": "dr. Maki Zenin",
       "polyName": "Poli Kesehatan Ibu dan Anak (KIA)",
       "gender": "wanita",
       "email": "Lorraine.Parker@google.com",
       "descriptions": "SyQxXRbNkhrHeTFYytNJedOZRbvSOxRecrovmqZV",
       "location": "Hollisfield",
-      "phoneNumber": "084627364827359",
-      "availableDays": [
-        1,
-        3,
-        5,
-        4
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 12
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 8
+        }
       ],
-      "quota": 34,
-      "schedule": {
-        "open": "01:00",
-        "close": "06:00"
-      },
-      "id": "250z"
-    },
-    {
-      "name": "admin8",
-      "polyName": "Poli Umum",
-      "gender": "Pria",
-      "email": "cahyaninabila@gmail.com",
-      "descriptions": "testst",
-      "location": "Hollisfield",
-      "phoneNumber": "087766767678",
       "availableDays": [
-        2,
-        3,
-        4
-      ],
-      "quota": 34,
-      "schedule": {
-        "open": "13:35",
-        "close": "13:41"
-      },
-      "id": "tnrs1a-"
-    },
-    {
-      "name": "admin8",
-      "polyName": "Poli Umum",
-      "gender": "Pria",
-      "email": "admin8@email.com",
-      "descriptions": "sdssfs",
-      "location": "Lake Margarita",
-      "phoneNumber": "087766767678",
-      "availableDays": [
-        3,
-        4
-      ],
-      "quota": 3,
-      "schedule": {
-        "open": "13:54",
-        "close": "13:54"
-      },
-      "id": "KeKNobS"
-    },
-    {
-      "name": "test",
-      "polyName": "Poli Umum",
-      "gender": "Pria",
-      "email": "cahyaninabila@gmail.com",
-      "descriptions": "awdfghjkl;'",
-      "location": "sfsfs",
-      "phoneNumber": "087766767678",
-      "availableDays": [
-        2,
-        3,
-        4
-      ],
-      "quota": 34,
-      "schedule": {
-        "open": "21:35",
-        "close": "21:31"
-      },
-      "id": "l9z2IE6"
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     }
   ],
   "bookings": [
     {
       "id": "43e2",
-      "polyclinicId": "hzha",
-      "doctorId": "do11",
-      "userId": "1234",
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": 1,
       "name": "Christian",
       "createdAt": "2024-12-12T12:18:26.355Z",
-      "doneAt": "2024-12-15T14:16:53.130Z",
-      "status": "Done",
-      "queueNumber": 1
-    },
-    {
-      "id": "idnf",
-      "polyclinicId": "xpxw",
-      "doctorId": "do14",
-      "userId": "2345",
-      "name": "Lucia",
-      "createdAt": "2024-12-12T13:36:25.296Z",
-      "doneAt": "2024-12-13T20:29:00.577Z",
-      "status": "Done",
-      "queueNumber": 1
-    },
-    {
-      "id": "ttv6",
-      "polyclinicId": "hzha",
-      "doctorId": "gyg9",
-      "userId": "1234",
-      "name": "Kelvin",
-      "createdAt": "2024-12-12T20:46:31.966Z",
-      "doneAt": "2024-12-16T14:53:42.014Z",
-      "status": "Approve",
-      "queueNumber": 2
-    },
-    {
-      "id": "p2ke",
-      "polyclinicId": "e9uu",
-      "doctorId": "26ky",
-      "userId": "3456",
-      "name": "Alfredo",
-      "createdAt": "2024-12-12T16:31:21.664Z",
-      "doneAt": "2024-12-17T23:46:09.855Z",
-      "status": "Done",
-      "queueNumber": 1
-    },
-    {
-      "id": "hesg",
-      "polyclinicId": "xcv3",
-      "doctorId": "250z",
-      "userId": "26a2",
-      "name": "Christy",
-      "createdAt": "2024-12-12T21:41:48.520Z",
-      "doneAt": "2024-12-17T03:35:37.046Z",
-      "status": "Approve",
-      "queueNumber": 1
-    },
-    {
-      "id": "b870",
-      "polyclinicId": "hzha",
-      "doctorId": "tqjt",
-      "userId": "3456",
-      "name": "John Doe",
-      "createdAt": "2024-12-16T08:00:00.000Z",
-      "doneAt": null,
+      "updatedAt": "2024-12-12T12:18:26.355Z",
       "status": "Waiting",
       "queueNumber": 1
     },
     {
-      "polyName": "Poli Umum",
-      "id": "dmWsqt3"
+      "id": "b7f5",
+      "polyclinicId": 2,
+      "doctorId": 4,
+      "userId": 2,
+      "name": "Klinigma Admin",
+      "createdAt": "2024-12-13T09:00:00.000Z",
+      "updatedAt": "2024-12-13T09:05:00.000Z",
+      "status": "Approved",
+      "queueNumber": 2
+    },
+    {
+      "id": "c8g6",
+      "polyclinicId": 3,
+      "doctorId": 6,
+      "userId": 3,
+      "name": "Klinigma User",
+      "createdAt": "2024-12-14T10:00:00.000Z",
+      "updatedAt": "2024-12-14T14:30:00.000Z",
+      "status": "Completed",
+      "queueNumber": 3
+    },
+    {
+      "id": "d9h7",
+      "polyclinicId": 4,
+      "doctorId": 8,
+      "userId": 4,
+      "name": "Ryan Kusuma",
+      "createdAt": "2024-12-15T11:00:00.000Z",
+      "updatedAt": "2024-12-15T11:10:00.000Z",
+      "status": "Rejected",
+      "queueNumber": 4
     }
   ]
 }
