@@ -90,11 +90,11 @@ const HistoryPage = () => {
             </div>
         )
         )
-
+    console.log({ allBookings });
     return (
-        <div className="h-screen items-center flex flex-col p-8 sm:pt-44">
+        <div className="h-screen items-center flex flex-col p-8 sm:pt-32 pt-20">
             {allBookings ? (
-                <div className={`flex flex-col sm:w-1/3`}>
+                <div className={`flex flex-col sm:w-3/5`}>
                     <section className="flex flex-col justify-center items-center gap-1 mb-20">
                         <h1 className="text-4xl font-semibold uppercase">{name}</h1>
                     </section>
@@ -108,7 +108,9 @@ const HistoryPage = () => {
                     </div>
                     <div>
                         {
-                            renderBookings()
+                            allBookings.length > 0
+                                ? renderBookings()
+                                : <p className="pb-4 text-center">Belum Belum Pernah Mengambil Antrean</p>
                         }
                     </div>
                     <div className={` w-full flex justify-end mb-5`}>

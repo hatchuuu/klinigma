@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
+import { Bell, User } from "lucide-react";
 // import { fetchDataUsers } from "@/data/users";
 import { Link } from "react-router-dom";
 import {
@@ -24,7 +24,6 @@ import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
 import SideBarListQueue from "@/components/SideBarListQueue";
 import TokenBoard from "@/components/TokenBoard";
-import useCounterStore from "@/store/counter";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
@@ -32,6 +31,7 @@ const DashboardPage = () => {
   const [latestBooking, setLatestBooking] = useState(null);
   const token = sessionStorage.getItem("token");
   const { id, role } = jwtDecode(token);
+  const [isAdmin, polyId] = role.split("-")
 
   const navigate = useNavigate();
 
@@ -43,16 +43,16 @@ const DashboardPage = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const fetchDataPolys = async () => {
     try {
       const polysData = await getAllDataPoly();
-      return polysData
+      return polysData;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const fetchDataBookings = async () => {
     try {
@@ -80,16 +80,15 @@ const DashboardPage = () => {
         return value.doneAt == null;
       });
       setLatestBooking(latestBooking);
-    } catch (error) {
-    }
-  }
+    } catch (error) { }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       if (role === "user") {
-        fetchDataBookings()
+        fetchDataBookings();
       }
-      fetchIdUser()
+      fetchIdUser();
     };
     fetchData();
   }, [token]); // Re-run effect if token changes
@@ -104,125 +103,6 @@ const DashboardPage = () => {
 
   console.log({ latestBooking });
   return (
-    // <div>
-    //   {user ? (
-    //     <div className="mx-auto">
-    //       <section className="flex justify-between items-center p-6 md:px-10 md:invisible">
-    //         <div className="flex gap-5">
-    //           {/* Avatar with dropdown trigger */}
-    //           <DropdownMenu>
-    //             <DropdownMenuTrigger>
-    //               <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer" />
-    //             </DropdownMenuTrigger>
-    //             <DropdownMenuContent className="bg-white shadow-lg rounded-lg p-2 w-48">
-    //               <DropdownMenuItem
-    //                 className="text-sm text-purple-800"
-    //                 onClick={handleLogout}
-    //               >
-    //                 Logout
-    //               </DropdownMenuItem>
-    //             </DropdownMenuContent>
-    //           </DropdownMenu>
-    //           <div>
-    //             <p className="font-semibold uppercase">{user.name}</p>
-    //             <p className="text-xs capitalize">
-    //               {user.gender}, {calculateAge(user.birthDate)} tahun
-    //             </p>
-    //           </div>
-    //         </div>
-    //         <Button variant="ghost" size="rounded">
-    //           <Bell />
-    //         </Button>
-    //       </section>
-
-    //       <section className="mb-5">
-    //         <div className="w-full px-4">
-    //           {/* <input type="text" placeholder="Search Anything" className="w-full p-2 rounded-lg border-2 shadow text-xs" /> */}
-    //           <div className="flex items-center justify-between bg-gradient-to-r from-white to-primary p-6 px-10">
-    //             <img
-    //               src="/klinigma.png"
-    //               alt=""
-    //               className="sm:w-[150px] aspect-auto w-[100px]"
-    //             />
-    //             <h1 className="sm:text-2xl text-lg font-light text-end text-white">
-    //               Layanan Kesehatan
-    //               <br /> Dalam Satu <br />
-    //               Genggaman
-    //             </h1>
-    //           </div>
-    //         </div>
-    //       </section>
-
-    //       <div className="flex sm:flex-row flex-col">
-    //         <section className="sm:order-2 order-1">
-    //           {latestBooking && (
-    //             <div className="grid grid-cols-4 gap-4 px-5">
-    //               <p className="h-20 rounded-lg bg-primary text-white hover:shadow-xl shadow w-full">
-    //                 {" "}
-    //                 Jam Mulai {
-    //                   formatDate(latestBooking.createdAt).fullDate
-    //                 }, {formatDate(latestBooking.createdAt).time}
-    //               </p>
-    //               <TokenBoard latestBooking={latestBooking} />
-    //               <SideBarListQueue data={allBookings} />
-    //             </div>
-    //           )}
-    //         </section>
-    //         <section className="pb-16 sm:order-1 order-2">
-    //           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
-    //             <Link
-    //               to="/booking"
-    //               className="bg-white sm:col-span-2 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-    //             >
-    //               <CalendarDays size={40} className="text-purple-900 mb-3" />
-    //               <span className="text-lg font-medium text-center">
-    //                 Booking Kunjungan
-    //               </span>
-    //             </Link>
-    //             <Link
-    //               to="/info"
-    //               className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-    //             >
-    //               <BookOpen size={40} className="text-purple-900 mb-3" />
-    //               <span className="text-lg font-medium text-center">
-    //                 Info & Artikel
-    //               </span>
-    //             </Link>
-    //             <Link
-    //               to="/tanya"
-    //               className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-    //             >
-    //               <MessageCircle size={40} className="text-purple-900 mb-3" />
-    //               <span className="text-lg font-medium text-center">
-    //                 Tanya Klinigma
-    //               </span>
-    //             </Link>
-    //           </div>
-    //         </section>
-    //       </div>
-    //       <section className="px-4 -mt-10">
-    //         <div className="flex items-center justify-center mb-8 gap-2">
-    //           <LocateIcon />
-    //           <h1 className="text-center text-2xl">Lokasi Klinik</h1>
-    //         </div>
-    //         <div className="w-full flex justify-center md:w-2/3 lg:w-1/2 mx-auto">
-    //           {" "}
-    //           {/* Atur lebar frame agar responsif */}
-    //           <iframe
-    //             src={mapUrl}
-    //             style={{ border: 0 }}
-    //             allowFullScreen=""
-    //             loading="lazy"
-    //             referrerPolicy="no-referrer-when-downgrade"
-    //             className="rounded-lg shadow-md w-full" // Tambahkan class Tailwind CSS
-    //           ></iframe>
-    //         </div>
-    //       </section>
-    //     </div>
-    //   ) : (
-    //     <Loader />
-    //   )}
-    // </div>
     <div>
       {user ? (
         <div className="mx-auto">
@@ -231,7 +111,9 @@ const DashboardPage = () => {
               {/* Avatar with dropdown trigger */}
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer" />
+                  <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer flex justify-center items-center">
+                    <User />
+                  </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white shadow-lg rounded-lg p-2 w-48">
                   <DropdownMenuItem
@@ -273,48 +155,73 @@ const DashboardPage = () => {
           </section>
 
           {/* Section for Latest Booking */}
-          <section>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
-              {latestBooking && (
-                <>
-                  <div className="bg-white rounded-lg shadow-lg text-center">
-                    <div className="bg-purple-500 text-white font-medium py-3 rounded-t-lg">
+          {
+            isAdmin !== "admin" &&
+            <section>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
+                {latestBooking ? (
+                  <>
+                    <div className="bg-white rounded-lg shadow-lg text-center">
+                      <div className="bg-purple-500 text-white font-medium py-3 rounded-t-lg">
+                        <p className="text-lg text-white semibold">
+                          Jam Beroperasi
+                        </p>
+                      </div>
+                      <div className="p-4">
+                        <p className="text-2xl text-black semibold">
+                          {formatDate(latestBooking.createdAt).fullDate},{" "}
+                          {formatDate(latestBooking.createdAt).time}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg shadow-lg text-center">
+                      <TokenBoard latestBooking={latestBooking} />
+                    </div>
+
+                    <div>
+                      <SideBarListQueue data={allBookings} />
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white rounded-lg shadow-lg text-center col-span-2 sm:mb-4">
+                    <div className="bg-purple-500 text-white font-medium py-3 rounded-lg">
                       <p className="text-lg text-white semibold">
-                        Jam Beroperasi
+                        Anda Belum Memiliki Nomor Antrean
                       </p>
-                    </div>
-                    <div className="p-4">
-                      <p className="text-2xl text-black semibold">
-                        {formatDate(latestBooking.createdAt).fullDate},{" "}
-                        {formatDate(latestBooking.createdAt).time}
-                      </p>
+                      <Link to="/booking"><Button> Ambil Nomor Antrean</Button></Link>
                     </div>
                   </div>
-
-                  <div className="bg-white rounded-lg shadow-lg text-center">
-                    <TokenBoard latestBooking={latestBooking} />
-                  </div>
-
-                  <div>
-                    <SideBarListQueue data={allBookings} />
-                  </div>
-                </>
-              )}
-            </div>
-          </section>
-
+                )
+                }
+              </div>
+            </section>
+          }
           {/* Section for Links */}
           <section className="sm:order-1 order-2 w-full sm:w-1/2 pb-16">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
-              <Link
-                to="/booking"
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-              >
-                <CalendarDays size={40} className="text-purple-900 mb-3" />
-                <span className="text-lg font-medium text-center">
-                  Booking Kunjungan
-                </span>
-              </Link>
+              {
+                isAdmin !== "admin" ?
+                  <Link
+                    to="/booking"
+                    className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                  >
+                    <CalendarDays size={40} className="text-purple-900 mb-3" />
+                    <span className="text-lg font-medium text-center">
+                      Booking Kunjungan
+                    </span>
+                  </Link>
+                  :
+                  <Link
+                    to="/admin/handler"
+                    className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                  >
+                    <CalendarDays size={40} className="text-purple-900 mb-3" />
+                    <span className="text-lg font-medium text-center">
+                      Atur Antrean
+                    </span>
+                  </Link>
+              }
               <Link
                 to="/info"
                 className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"

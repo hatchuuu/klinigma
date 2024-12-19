@@ -81,7 +81,9 @@ const Navbar = () => {
             <section className="flex justify-between items-center p-6 md:px-8">
               <div className="flex gap-5">
                 {/* Avatar with dropdown trigger */}
-                <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer" />
+                <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer flex justify-center items-center">
+                  <User />
+                </div>
                 <div>
                   <p className="font-semibold uppercase">{user.name}</p>
                   <p className="text-xs capitalize">

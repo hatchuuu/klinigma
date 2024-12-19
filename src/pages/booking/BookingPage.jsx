@@ -7,6 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/button/NavigationButton";
+import Loader from "@/components/Loader";
+import { successToast } from "@/lib/toaster";
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -36,28 +38,28 @@ export default function BookingPage() {
 
   const handlePilihPoli = (poliklinik) => {
     // Redirect ke halaman PilihJadwal
-    navigate("/booking/pilih-jadwal", { state: { poliklinik } });
+    navigate("/booking/schedule", { state: { poliklinik } });
   };
 
   // Filter poliklinik berdasarkan search term
   const filteredPoliklinik = dataPoliklinik.filter((poli) => {
     const search = searchTerm.toLowerCase();
     return (
-      poli.polyName.toLowerCase().includes(search) ||
+      poli.polyclinicName.toLowerCase().includes(search) ||
       poli.descriptions.toLowerCase().includes(search)
     );
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="min-h-screen bg-white w-full"> {successToast(error.message)}</div>;
   }
 
   return (
-    <div className="mx-auto p-6">
+    <div className="mx-auto p-6 md:pt-24">
       <div className="flex items-center">
         <BackButton path="/dashboard" />
         <h1 className="font-bold font-sans text-2xl ml-4">Pilih Poli</h1>
@@ -78,9 +80,9 @@ export default function BookingPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols- lg:gap-6 ">
-          {filteredPoliklinik.map((poli, index) => (
+          {filteredPoliklinik.map((poli) => (
             <div
-              key={index}
+              key={poli.id}
               className="border rounded-lg shadow-md p-4 bg-white dark:bg-gray-800 cursor-pointer"
               onClick={() => handlePilihPoli(poli)}
             >
@@ -89,11 +91,11 @@ export default function BookingPage() {
                 <div className="flex gap-3 items-center">
                   <Avatar>
                     <AvatarImage src={poli.image} alt={poli.polyName} />
-                    <AvatarFallback>{poli.polyName[0]}</AvatarFallback>
+                    <AvatarFallback>{poli.polyclinicName[0]}</AvatarFallback>
                   </Avatar>
                   <div>
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                      {poli.polyName}
+                      {poli.polyclinicName}
                     </h2>
                     <div className="flex flex-wrap gap-2 items-center text-sm">
                       {/* <span className="font-semibold">Jadwal Praktik:</span> */}
@@ -101,9 +103,9 @@ export default function BookingPage() {
                     </div>
                   </div>
                 </div>
-                  <div className="ml-auto my-auto">
-                    <ArrowRight/>
-                  </div>
+                <div className="ml-auto my-auto">
+                  <ArrowRight />
+                </div>
 
                 <Separator />
 
