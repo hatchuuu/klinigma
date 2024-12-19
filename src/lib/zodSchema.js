@@ -1,3 +1,4 @@
+import { DayContent } from "react-day-picker";
 import { z } from "zod";
 export const loginSchema = z.object({
   email: z
@@ -39,7 +40,7 @@ export const registerSchema = loginSchema
       .string({ required_error: "Nama dibutuhkan" })
       .min(3, "Minimal 3 Karakter")
       .max(30, "Maksimal 30 Karakter"),
-      gender: z
+    gender: z
       .string({ required_error: "Gender dibutuhkan" })
       .min(3, { message: "Gender must be at least 3 characters long" })
       .max(100, { message: "Gender must be less than 100 characters" }),
@@ -58,52 +59,34 @@ export const registerSchema = loginSchema
     path: ["confirmPassword"],
   });
 
-export const doctorsSchema = z.object({
-  name: z
-    .string({ required_error: "Name is Required" })
-    .min(3, "Minimal 3 Karakter")
-    .max(100, "Maksimal 100 Karakter"),
-  polyName: z
-    .string({ required_error: "Poly Name is Required" })
-    .min(3, "Poly Name is Requaired")
-    .max(100, "Maksimal 100 Karakter"),
-  gender: z
-    .string({ required_error: "Gender is required" })
-    .min(3, { message: "Gender must be at least 3 characters long" })
-    .max(100, { message: "Gender must be less than 100 characters" }),
-  email: z
-    .string({ required_error: "Email is Required" })
-    .max(30, "Maksimal 30 Karakter")
-    .email("Format Email tidak Valid"),
-  descriptions: z
-    .string({ required_error: "Descriptions are Required" })
-    .min(3, "Minimal 3 Karakter")
-    .max(200, "Maksimal 200 Karakter"),
-  location: z
-    .string({ required_error: "Location is Required" })
-    .min(3, "Minimal 3 Karakter")
-    .max(200, "Maksimal 200 Karakter"),
-  phoneNumber: z
-    .string()
-    .regex(
-      /^(?:\+62|62|0)8[1-9]\d{6,12}$/,
-      "Nomor Telepon tidak valid, gunakan format yang benar."
-    )
-    .min(10, "Nomor Telepon minimal 10 digit")
-    .max(15, "Nomor Telepon maksimal 15 digit"),
-  open: z
-    .string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "Start Time is Invalid")
-    .optional(),
-  close: z
-    .string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "End Time is Invalid")
-    .optional(),
-  availableDays: z
-    .array(z.number())
-    .nonempty("At least one day must be selected"),
-  quota: z.preprocess((val) => Number(val), z.number().positive()),
-});
+  export const doctorsSchema = z.object({
+    name: z.string().nonempty({ message: "Name is required" }),
+    gender: z.string().nonempty({ message: "Gender is required" }),
+    email: z.string().email({ message: "Invalid email address" }),
+    // polyName: z.string().email({ message: "Invalid Poly Name address" }),
+    phoneNumber: z.preprocess((val) => Number(val), z.number().positive().int()),
+    descriptions: z.string().nonempty({ message: "Descriptions are required" }),
+    location: z.string().nonempty({ message: "Location is required" }),
+    availableDays: z.array(z.string().nonempty({ message: "Available days are required" })), // Memastikan availableDays adalah array string
+    polyclinicId: z.string().nonempty({ message: "Polyclinic ID is required" }),
+    schedules: z.array(
+      z.object({
+        day: z.string().nonempty({ message: "Day is required" }),
+        open: z.string().nonempty({ message: "Open time is required" }),
+        close: z.string().nonempty({ message: "Close time is required" }),
+        quota: z.preprocess((val) => Number(val), z.number().positive()),
+      })
+    ),
+    // image: z
+    // .instanceof(File) // Memastikan bahwa input adalah instance dari File
+    // .refine((file) => file.type.startsWith('image/'), {
+    //     message: "Uploaded file must be an image",
+    // })
+    // .refine((file) => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024, {
+    //     message: `File size must be less than ${MAX_FILE_SIZE_MB}MB`,
+    // })
+    // .optional(),
+  });
 
 export const EditUsersSchema = z.object({
   name: z

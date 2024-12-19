@@ -162,9 +162,9 @@
         },
         {
           "day": "Kamis",
-          "open": "01:00", 
-          "close": "09:00", 
-          "quota": 5 
+          "open": "01:00",
+          "close": "09:00",
+          "quota": 5
         },
         {
           "day": "Jumat",
@@ -174,9 +174,9 @@
         },
         {
           "day": "Sabtu",
-          "open": "01:00", 
-          "close": "12:00", 
-          "quota": 3 
+          "open": "01:00",
+          "close": "12:00",
+          "quota": 3
         }
       ],
       "availableDays": [
@@ -185,7 +185,7 @@
         "Rabu",
         "Kamis",
         "Jumat",
-        "Sabtu" 
+        "Sabtu"
       ]
     },
     {
@@ -214,20 +214,20 @@
         {
           "day": "Kamis",
           "open": "10:00",
-          "close": "18:00", 
-          "quota": 8 
+          "close": "18:00",
+          "quota": 8
         },
         {
           "day": "Jumat",
-          "open": "10:00", 
-          "close": "18:00", 
-          "quota": 10 
+          "open": "10:00",
+          "close": "18:00",
+          "quota": 10
         },
         {
           "day": "Sabtu",
-          "open": "13:00", 
-          "close": "23:00", 
-          "quota": 5 
+          "open": "13:00",
+          "close": "23:00",
+          "quota": 5
         }
       ],
       "availableDays": [
@@ -235,7 +235,7 @@
         "Selasa",
         "Kamis",
         "Jumat",
-        "Sabtu" 
+        "Sabtu"
       ]
     },
     {
@@ -263,9 +263,9 @@
         },
         {
           "day": "Kamis",
-          "open": "19:00", 
-          "close": "23:00", 
-          "quota": 6 
+          "open": "19:00",
+          "close": "23:00",
+          "quota": 6
         },
         {
           "day": "Jumat",
@@ -277,7 +277,7 @@
       "availableDays": [
         "Senin",
         "Selasa",
-        "Kamis", 
+        "Kamis",
         "Jumat"
       ]
     },
@@ -460,52 +460,29 @@
         "Selasa",
         "Jumat"
       ]
+    },
+    {
+      "name": "admin8",
+      "gender": "Pria",
+      "email": "admin8@email.com",
+      "phoneNumber": 87766767678,
+      "descriptions": "dfgd",
+      "location": "Lake Margarita",
+      "availableDays": [
+        "Selasa"
+      ],
+      "polyclinicId": 2,
+      "schedules": [
+        {
+          "day": "Selasa",
+          "open": "15:04",
+          "close": "15:04",
+          "quota": 4
+        }
+      ],
+      "polyName": "Poli Gigi",
+      "id": 9
     }
   ],
-  "bookings": [
-    {
-      "id": "43e2",
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": 1,
-      "name": "Christian",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "updatedAt": "2024-12-12T12:18:26.355Z",
-      "status": "Waiting",
-      "queueNumber": 1
-    },
-    {
-      "id": "b7f5",
-      "polyclinicId": 2,
-      "doctorId": 4,
-      "userId": 2,
-      "name": "Klinigma Admin",
-      "createdAt": "2024-12-13T09:00:00.000Z",
-      "updatedAt": "2024-12-13T09:05:00.000Z",
-      "status": "Approved",
-      "queueNumber": 2
-    },
-    {
-      "id": "c8g6",
-      "polyclinicId": 3,
-      "doctorId": 6,
-      "userId": 3,
-      "name": "Klinigma User",
-      "createdAt": "2024-12-14T10:00:00.000Z",
-      "updatedAt": "2024-12-14T14:30:00.000Z",
-      "status": "Completed",
-      "queueNumber": 3
-    },
-    {
-      "id": "d9h7",
-      "polyclinicId": 4,
-      "doctorId": 8,
-      "userId": 4,
-      "name": "Ryan Kusuma",
-      "createdAt": "2024-12-15T11:00:00.000Z",
-      "updatedAt": "2024-12-15T11:10:00.000Z",
-      "status": "Rejected",
-      "queueNumber": 4
-    }
-  ]
+  "bookings": []
 }

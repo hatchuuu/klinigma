@@ -11,6 +11,7 @@ const DoctorsPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [poilList, setPoliList] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
   const fetchTableData = async () => {
@@ -27,8 +28,22 @@ const DoctorsPage = () => {
     setLoading(false);
   };
 
+  const fetchTableDataPoli = async () => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.get("/polyclinics");
+      const data = response.data;
+      setPoliList(data)
+      console.log(data);
+    } catch (error) {
+      setError("Failed to fetch data.");
+      console.log(error);
+    }
+    setLoading(false);
+  };
   useEffect(() => {
     fetchTableData();
+    fetchTableDataPoli(); // fetch data poliklinik
   }, []);
 
   const HandleDelete = async (id) => {
@@ -105,6 +120,7 @@ const DoctorsPage = () => {
           <BrowseDoctors
             filteredDoctors={filteredDoctors}
             HandleDelete={HandleDelete}
+            poilList={poilList}
           />
         </section>
       </div>

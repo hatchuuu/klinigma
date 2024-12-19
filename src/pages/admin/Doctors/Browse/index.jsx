@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
+const BrowseDoctors = ({ filteredDoctors, poilList,HandleDelete }) => {
   const daysMap = {
     1: "Senin",
     2: "Selasa",
@@ -45,6 +45,12 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
     // Reset halaman ke 1 jika hasil query berubah
     setCurrentPage(1);
   }, [filteredDoctors]);
+
+  const getPolyNameById = (polyId) => {
+    const polyclinic = poilList.find(poly => poly.id === polyId);
+    return polyclinic ? polyclinic.polyclinicName : "Unknown Poly";
+  }
+
 
   return (
     <div className="p-6 bg-gray-50 shadow-lg rounded-lg border border-gray-200">
@@ -89,17 +95,24 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
                 {doctors.name}
               </TableCell>
               <TableCell className="py-3 px-4 text-gray-600">
-                {doctors.polyName}
+              {getPolyNameById(doctors.polyclinicId)}
               </TableCell>
               <TableCell className="py-3 px-4 text-gray-600">
-                {doctors.availableDays && Array.isArray(doctors.availableDays)
-                  ? doctors.availableDays.map((day) => daysMap[day]).join(", ")
+                {doctors.schedules && Array.isArray(doctors.schedules)
+                  ? doctors.schedules.map((schedule) => (
+                      <div key={schedule.day}>
+                        {schedule.day}: {schedule.open} - {schedule.close}
+                      </div>
+                    ))
                   : "No available days"}
-                , {doctors.schedule.open} - {doctors.schedule.close}
               </TableCell>
 
               <TableCell className="py-3 px-4 text-gray-600">
-                {doctors.quota}
+                {doctors.schedules && Array.isArray(doctors.schedules)
+                  ? doctors.schedules.map((schedule) => (
+                      <div key={schedule.day}>{schedule.quota}</div>
+                    ))
+                  : "No available quota"}
               </TableCell>
               <TableCell className="py-3 px-4 text-center right-0 z-10">
                 <div className="flex justify-center space-x-2">
