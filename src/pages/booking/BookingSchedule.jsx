@@ -269,10 +269,11 @@ function BookingSchedule() {
             return (
               <div key={dokter.id}>
                 <Drawer key={dokter.id}>
-                  <DrawerTrigger asChild>
-                    <div
-                      key={dokter.id}
-                      className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 
+                  {isAvailable ? (
+                    <DrawerTrigger asChild>
+                      <div
+                        key={dokter.id}
+                        className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 
                         ${
                           dokter.id === dokterTerpilih?.id
                             ? "bg-blue-500 text-white"
@@ -280,39 +281,86 @@ function BookingSchedule() {
                         } 
                         ${isAvailable ? "" : "opacity-50 cursor-not-allowed"} 
                       `}
-                      onClick={(e) => {
-                        if (isAvailable) {
-                          handlePilihDokter(dokter);
-                        } else {
-                          e.stopPropagation();
-                        }
-                      }}
+                        onClick={() => handlePilihDokter(dokter)}
+                      >
+                        <Avatar className="w-16 h-16">
+                          <AvatarImage src={dokter.image} alt={dokter.name} />
+                          <AvatarFallback>{dokter.name[0]}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            {dokter.name}
+                          </h3>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {jadwalHariIni
+                              ? `${formattedOpenTime} - ${formattedCloseTime}`
+                              : "Tidak ada jadwal"}
+                          </p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Sisa Kuota:{" "}
+                            {jadwalHariIni ? jadwalHariIni.quota : "N/A"}
+                          </p>
+                          {!isAvailable && (
+                            <p className="text-sm text-red-500">
+                              {availabilityMessage}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </DrawerTrigger>
+                  ) : (
+                    <div // div biasa jika dokter tidak tersedia
+                      key={dokter.id}
+                      className={`card-dokter p-4 border rounded-lg shadow-md cursor-not-allowed flex items-center gap-3 
+${
+  dokter.id === dokterTerpilih?.id
+    ? "bg-blue-500 text-white"
+    : "bg-white dark:bg-gray-800"
+} 
+                     opacity-50 
+`}
+                      onClick={(e) => e.stopPropagation()}
                     >
+                       {" "}
                       <Avatar className="w-16 h-16">
-                        <AvatarImage src={dokter.image} alt={dokter.name} />
-                        <AvatarFallback>{dokter.name[0]}</AvatarFallback>
+                                             {" "}
+                        <AvatarImage src={dokter.image} alt={dokter.name} />   
+                                         {" "}
+                        <AvatarFallback>{dokter.name[0]}</AvatarFallback>       
+                                   {" "}
                       </Avatar>
+                                         {" "}
                       <div>
+                                             {" "}
                         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                          {dokter.name}
+                                                  {dokter.name}                 
+                             {" "}
                         </h3>
+                                             {" "}
                         <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                 {" "}
                           {jadwalHariIni
                             ? `${formattedOpenTime} - ${formattedCloseTime}`
                             : "Tidak ada jadwal"}
+                                               {" "}
                         </p>
+                                             {" "}
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                          Sisa Kuota:{" "}
-                          {jadwalHariIni ? jadwalHariIni.quota : "N/A"}
+                                                  Sisa Kuota:                  
+                                {jadwalHariIni ? jadwalHariIni.quota : "N/A"}   
+                                           {" "}
                         </p>
+                                             {" "}
                         {!isAvailable && (
                           <p className="text-sm text-red-500">
-                            {availabilityMessage}
+                                                      {availabilityMessage}     
+                                             {" "}
                           </p>
                         )}
+                                           {" "}
                       </div>
                     </div>
-                  </DrawerTrigger>
+                  )}
                   <DrawerContent>
                     <DrawerClose />
                     <DrawerHeader>

@@ -119,9 +119,9 @@
         },
         {
           "day": "Kamis",
-          "open": "01:00", 
-          "close": "09:00", 
-          "quota": 5 
+          "open": "01:00",
+          "close": "09:00",
+          "quota": 5
         },
         {
           "day": "Jumat",
@@ -131,9 +131,9 @@
         },
         {
           "day": "Sabtu",
-          "open": "01:00", 
-          "close": "12:00", 
-          "quota": 3 
+          "open": "01:00",
+          "close": "12:00",
+          "quota": 3
         }
       ],
       "availableDays": [
@@ -142,7 +142,7 @@
         "Rabu",
         "Kamis",
         "Jumat",
-        "Sabtu" 
+        "Sabtu"
       ]
     },
     {
@@ -171,20 +171,20 @@
         {
           "day": "Kamis",
           "open": "10:00",
-          "close": "18:00", 
-          "quota": 8 
+          "close": "18:00",
+          "quota": 8
         },
         {
           "day": "Jumat",
-          "open": "10:00", 
-          "close": "18:00", 
-          "quota": 10 
+          "open": "10:00",
+          "close": "18:00",
+          "quota": 10
         },
         {
           "day": "Sabtu",
-          "open": "13:00", 
-          "close": "23:00", 
-          "quota": 5 
+          "open": "13:00",
+          "close": "23:00",
+          "quota": 5
         }
       ],
       "availableDays": [
@@ -192,7 +192,7 @@
         "Selasa",
         "Kamis",
         "Jumat",
-        "Sabtu" 
+        "Sabtu"
       ]
     },
     {
@@ -220,9 +220,9 @@
         },
         {
           "day": "Kamis",
-          "open": "19:00", 
-          "close": "23:00", 
-          "quota": 6 
+          "open": "19:00",
+          "close": "23:00",
+          "quota": 6
         },
         {
           "day": "Jumat",
@@ -234,7 +234,7 @@
       "availableDays": [
         "Senin",
         "Selasa",
-        "Kamis", 
+        "Kamis",
         "Jumat"
       ]
     },
@@ -463,6 +463,14 @@
       "updatedAt": "2024-12-15T11:10:00.000Z",
       "status": "Rejected",
       "queueNumber": 4
+    },
+    {
+      "polyName": "Poli Umum",
+      "id": "v2s5i5e"
+    },
+    {
+      "polyName": "Poli Umum",
+      "id": "WqDoOyz"
     }
   ]
 }
