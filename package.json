@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "db": "node middleware.js"
+    "db": "node middleware.js",
+    "socket": "node socket-server.js"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.1.0",
