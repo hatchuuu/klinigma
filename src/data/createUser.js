@@ -1,4 +1,4 @@
-import { userInstance } from "@/lib/axios";
+import { axiosInstance } from "@/lib/axios";
 
 export const createUser = async (value) => {
     try {
@@ -12,7 +12,7 @@ export const createUser = async (value) => {
             gender,
             role,
         } = value;
-        await userInstance.post("/users", {
+        await axiosInstance.post("/users", {
             name,
             email,
             password,

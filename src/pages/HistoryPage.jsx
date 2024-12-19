@@ -32,6 +32,7 @@ const HistoryPage = () => {
     const [name, setName] = useState(null);
     const token = sessionStorage.getItem("token");
     const navigate = useNavigate();
+    console.log({ token });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,6 +41,7 @@ const HistoryPage = () => {
                 if (token) {
                     const { id, role, name } = jwtDecode(token);
                     setName(name);
+                    console.log({ role });
                     if (role === "user") {
                         const responseBookings = await getAllDataBooking();
                         const polysData = await getAllDataPoly();
@@ -47,7 +49,7 @@ const HistoryPage = () => {
                         const filteredBookingById = responseBookings?.data?.filter(
                             (value) => value.userId === id && (value.status === "Done" || value.status === "Failed")
                         );
-
+                        console.log({ filteredBookingById });
                         let filterBookings = [];
                         for (let i = 0; i < filteredBookingById.length; i++) {
                             let booking = { ...filteredBookingById[i] };
@@ -60,7 +62,10 @@ const HistoryPage = () => {
                             }
                             filterBookings.push(booking);
                         }
+                        console.log({ filterBookings });
                         setAllBookings(filterBookings);
+                    } else {
+                        navigate(-1)
                     }
                 }
             } catch (error) {
@@ -69,8 +74,9 @@ const HistoryPage = () => {
             }
         };
 
+        console.log({ allBookings });
         fetchData();
-    }, [token]); // Re-run effect if token changes
+    }, []); // Re-run effect if token changes
 
     const renderBookings = () =>
         allBookings.map((value, i) => (

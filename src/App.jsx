@@ -54,7 +54,7 @@ const App = () => {
       //hanya untuk superadmin
       { path: "/admin", role: "admin", element: <AdminPage /> },
       //hanya untuk admin
-      { path: "/admin/handler/", role: "admin", element: <HandlerPage /> },
+      { path: "/admin/handler", role: "admin", element: <HandlerPage /> },
       { path: "/present/:id", role: "user", element: <PresentPage /> }
     ]
 
