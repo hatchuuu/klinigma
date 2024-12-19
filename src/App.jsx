@@ -40,7 +40,7 @@ const App = () => {
 
       // BOOKING
       { path: "/booking", role: "user", element: <BookingPage /> },
-      { path: "/booking/pilih-jadwal", role: "user", element: <BookingSchedule /> },
+      { path: "/booking/schedule", role: "user", element: <BookingSchedule /> },
       { path: "/booking/schedule/details", role: "user", element: <BookingDetails /> },
 
 
