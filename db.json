@@ -79,7 +79,6 @@
       "location": "sfsfs",
       "phoneNumber": "087766767678",
       "password": "Test123@",
-      "birthDate": "2024-12-17",
       "role": "user",
       "createdAt": "2024-12-18T15:03:42.306Z",
       "id": "cyB-5NV",
@@ -482,6 +481,50 @@
       ],
       "polyName": "Poli Gigi",
       "id": 9
+    },
+    {
+      "name": "test",
+      "gender": "Wanita",
+      "email": "cahyaninabila@gmail.com",
+      "phoneNumber": 87766767678,
+      "descriptions": "khjkjhkj",
+      "location": "Lake Margarita",
+      "availableDays": [
+        "Selasa"
+      ],
+      "polyclinicId": 1,
+      "schedules": [
+        {
+          "day": "Selasa",
+          "open": "17:36",
+          "close": "17:36",
+          "quota": 78
+        }
+      ],
+      "polyName": "Poli Umum",
+      "id": 10
+    },
+    {
+      "name": "test",
+      "gender": "Pria",
+      "email": "cahyaninabila@gmail.com",
+      "phoneNumber": 89145992310,
+      "descriptions": "teyus",
+      "location": "Lake Margarita",
+      "availableDays": [
+        "Jumat"
+      ],
+      "polyclinicId": 2,
+      "schedules": [
+        {
+          "day": "Jumat",
+          "open": "22:08",
+          "close": "22:08",
+          "quota": 89
+        }
+      ],
+      "polyName": "Poli Gigi",
+      "id": 11
     }
   ],
   "bookings": []

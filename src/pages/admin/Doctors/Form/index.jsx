@@ -48,7 +48,7 @@ function FormDoctors() {
     { id: 6, value: "Sabtu" },
     { id: 7, value: "Minggu" },
   ];
-  const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
 
   const form = useForm({
     defaultValues: {
@@ -223,23 +223,6 @@ function FormDoctors() {
     console.log("Selected gender:", value);
   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      console.log("Selected file:", file); // Menampilkan informasi file yang dipilih
-      if (file.size > MAX_FILE_SIZE) {
-        setError("File size exceeds 5 MB.");
-        setSelectedFile(null);
-        console.log("File size exceeds 5 MB."); // Menampilkan pesan jika ukuran file terlalu besar
-      } else {
-        setError("");
-        setSelectedFile(file);
-        console.log("File is valid and ready to be uploaded:", file); // Menampilkan pesan jika file valid
-      }
-    } else {
-      console.log("No file selected."); // Menampilkan pesan jika tidak ada file yang dipilih
-    }
-  };
   
   return (
     <>
@@ -387,7 +370,7 @@ function FormDoctors() {
                 ))}
 
                 {/* upload imgae */}
-                <FieldInputForm
+                {/* <FieldInputForm
                   control={control}
                   type="file"
                   name="image"
@@ -395,7 +378,7 @@ function FormDoctors() {
                   accept="image/*"
                   onChange={handleFileChange}
                   disabled={action === "detail"}
-                />
+                /> */}
                 {/* Descriptions */}
                 <div className="mt-4">
                   <FieldInputForm

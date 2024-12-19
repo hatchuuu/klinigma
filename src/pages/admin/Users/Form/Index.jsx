@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { ArrowLeft } from "lucide-react";
 import { userInstance } from "@/lib/axios";
+import dayjs from "dayjs";
 
 function FormUesrs() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function FormUesrs() {
       phoneNumber: 0,
       gender: "",
       role: "user",
-      birthDate: "dd/mm/yyyy",
+      birthDate: dayjs().format("DD-MM-YYYY"),
     },
     resolver: zodResolver(EditUsersSchema),
   });
@@ -57,8 +58,8 @@ function FormUesrs() {
     console.log("rest", rest);
     const payload = {
       ...rest,
-      password: usersData.password,
-      birthDate: usersData.birthDate,
+      password: values.birthDate ||usersData.password,
+      birthDate: values.birthDate ? dayjs(values.birthDate).format("DD-MM-YYYY") : usersData.birthDate,
       role: usersData.role,
       createdAt: usersData.createdAt,
       id: usersData.id,
@@ -84,22 +85,29 @@ function FormUesrs() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (action === "detail" && usresId) {
+      if ((action === "detail" || action === "edit") && usresId) {
         try {
           const response = await userInstance.get(`/users/${usresId}`);
           const usersData = response.data;
-          console.log("usersData", usersData);
+          console.log("Fetched User Data:", usersData);
+  
+          // Ensure birthDate is in the correct format (YYYY-MM-DD)
+          const formattedBirthDate = usersData.birthDate
+            ? dayjs(usersData.birthDate).format("DD-MM-YYYY")
+            : "";
+  
+          // Update state and reset form values
           setUsersData(usersData);
           reset({
             ...usersData,
             gender: usersData.gender || "",
-            birthDate: usersData.birthDate,
+            birthDate: formattedBirthDate, // Ensure correct format for date input
             role: usersData.role,
             password: usersData.password,
           });
         } catch (error) {
           console.error(
-            "Error:",
+            "Error fetching user data:",
             error.response ? error.response.data : error.message
           );
           setError(error.response ? error.response.data : error.message);
@@ -108,14 +116,15 @@ function FormUesrs() {
         }
       }
     };
-
+  
     fetchData();
   }, [usresId, action, reset]);
+  
 
   return (
     <>
       <div className="mx-auto px-6">
-        <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
+        <section className="flex flex-wrap items-center justify-start gap-5">
           <Link to={"/users"}>
             <div className="p-3 rounded-sm bg-purple-900">
               <ArrowLeft className="text-white" />
@@ -168,7 +177,7 @@ function FormUesrs() {
                     name="password"
                     label="Password"
                     canHide={true}
-                    disabled={action === "detail"}
+                    disabled={true}
                   />
                   <FieldInputForm
                     control={control}
@@ -193,20 +202,22 @@ function FormUesrs() {
                     control={control}
                     label="Tanggal Lahir"
                     name="birthDate"
-                    disabled={action === "detail"}
+                    disabled={true}
                   />
                 </div>
                 {/* Submit and Back buttons */}
                 <div className="mt-6 flex justify-end">
-                  <Button
-                    type="submit"
-                    className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600"
-                  >
-                    Submit
-                  </Button>
-
+                  {action !== "detail" && (
+                    <Button
+                      type="submit"
+                      className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600"
+                    >
+                      Submit
+                    </Button>
+                  )}
                   <Button
                     onClick={() => navigate("/users")}
+                    type="button"
                     className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 ml-4"
                   >
                     Kembali
