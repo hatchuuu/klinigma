@@ -172,7 +172,6 @@ const HandlerPage = () => {
         }
     };
 
-
     const renderTable = (array) => (
         <Table>
             <TableHeader>
@@ -207,12 +206,12 @@ const HandlerPage = () => {
 
             {/* List Booking By Polyclinic */}
             <div className="flex justify-center items-start sm:gap-10 w-full sm:flex-row flex-col">
-                <section className="bg-white rounded-lg shadow-xl w-[50vw] p-8 flex flex-col gap-7 items-center">
-                    <div className='w-full flex justify-between'>
+                <section className="bg-white rounded-lg shadow-xl p-8 flex flex-col gap-7 items-center justify-center w-full">
+                    <div className='w-full flex sm:justify-between sm:flex-row sm:gap-10 gap-4  flex-col justify-center items-center'>
                         <div className="flex flex-col">
                             <Label className="mb-2">Pilih Dokter</Label>
                             <Select onValueChange={handleFilterByDoctor}>
-                                <SelectTrigger className="w-[280px]">
+                                <SelectTrigger className="w-[60vw] sm:w-[25vw]">
                                     <SelectValue placeholder="Pilih Dokter" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -229,7 +228,7 @@ const HandlerPage = () => {
                         <div className="flex flex-col">
                             <Label className="mb-2">Atur Batas Terlambat (Menit)</Label>
                             <div className="flex gap-2">
-                                <Input type="number" className="w-40 p-2" placeholder="default (15)"
+                                <Input type="number" className="max-w-40 p-2" placeholder="default (15)"
                                     onChange={(e) => setInputValue(e.target.value)}
                                 />
                                 <Button onClick={handleTime}> Ubah </Button>
@@ -238,12 +237,12 @@ const HandlerPage = () => {
                     </div>
 
                     {/* Tabel Tepat Waktu */}
-                    <div className="flex gap-5 w-full min-h-[270px]">
+                    <div className="flex gap-5 w-full sm:min-h-[270px] sm:flex-row flex-col justify-center items-center">
                         <div className="w-full overflow-auto">
                             <Label className="text-start mb-2">Tepat Waktu</Label>
                             {renderTable(booking)}
                         </div>
-                        <Separator orientation="vertical" className="min-h-[270px]" />
+                        <Separator orientation="vertical" className="sm:block hidden min-h-[270px]" />
                         {/* Tabel Telat Waktu */}
                         <div className="w-full overflow-auto">
                             <Label className="text-start mb-2">Terlambat Waktu</Label>
@@ -252,7 +251,7 @@ const HandlerPage = () => {
                     </div>
                 </section>
 
-                <section className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
+                <section className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-auto mt-20">
                     <h1 className="text-2xl font-semibold text-center text-primary/90">
                         KONTROL ANTREAN
                     </h1>

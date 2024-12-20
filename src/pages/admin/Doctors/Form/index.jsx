@@ -28,21 +28,30 @@ function FormDoctors() {
   const action = queryParams.get("action");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [poilList, setPoliList] = useState([]);
+  const [poliList, setPoliList] = useState([]);
   const [selectedPoli, setSelectedPoli] = useState(null);
 
   const list = [
     { id: 1, value: "Pria" },
     { id: 2, value: "Wanita" },
   ];
-  const hari = [
-    { value: 1, label: "Senin" },
-    { value: 2, label: "Selasa" },
-    { value: 3, label: "Rabu" },
-    { value: 4, label: "Kamis" },
-    { value: 5, label: "Jumat" },
-    { value: 6, label: "Sabtu" },
-    { value: 7, label: "Minggu" },
+  // const hari = [
+  //   { value: 1, label: "Senin" },
+  //   { value: 2, label: "Selasa" },
+  //   { value: 3, label: "Rabu" },
+  //   { value: 4, label: "Kamis" },
+  //   { value: 5, label: "Jumat" },
+  //   { value: 6, label: "Sabtu" },
+  //   { value: 7, label: "Minggu" },
+  // ];
+  const availableDays = [
+    { id: "Senin", label: "Senin" },
+    { id: "Selasa", label: "Selasa" },
+    { id: "Rabu", label: "Rabu" },
+    { id: "Kamis", label: "Kamis" },
+    { id: "Jumat", label: "Jumat" },
+    { id: "Sabtu", label: "Sabtu" },
+    { id: "Minggu", label: "Minggu" },
   ];
 
   const form = useForm({
@@ -65,11 +74,9 @@ function FormDoctors() {
   const { control, handleSubmit, reset } = form;
 
   const handleSubmitForm = async (values) => {
-
-    // // Memformat availableDays jika diperlukan
-    // const availableDaysFormatted = values.availableDays.map(
-    //   (day) => Number(day) // Pastikan untuk mengonversi ke angka
-    // );
+    console.log({ values });
+    // Memformat availableDays jika diperlukan
+    const availableDaysFormatted = values.availableDays
     const schedule = {
       open: values.open,
       close: values.close,
@@ -79,10 +86,9 @@ function FormDoctors() {
     const payload = {
       ...rest,
       schedule: schedule,
-      // polyclinicId: selectedPoli.id
-      // availableDays: availableDaysFormatted,
+      polyclinicId: selectedPoli.id,
+      availableDays: availableDaysFormatted,
     };
-
 
     try {
       if (action === "edit" && doctorId) {
@@ -111,19 +117,19 @@ function FormDoctors() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("Halo");
       if ((action === "detail" || action === "edit") && doctorId) {
         try {
           const response = await axiosInstance.get(`/doctors/${doctorId}`);
           const doctorData = response.data;
-          console.log({ doctorData });
           reset({
             ...doctorData,
             polyName: doctorData.polyName || "",
             phoneNumber: doctorData.phoneNumber || "",
             gender: doctorData.gender || "",
             availableDays: doctorData.availableDays || "",
-            open: doctorData.schedule.open || "",
-            close: doctorData.schedule.close || "",
+            open: doctorData.schedules.open || "",
+            close: doctorData.schedules.close || "",
           });
         } catch (error) {
           console.error(
@@ -151,8 +157,9 @@ function FormDoctors() {
       // const mappingOptions = data.map((item) => item.polyName);
       const mappingOptions = data.map((item) => ({
         id: item.id,
-        value: item.polyName,
+        value: item.polyclinicName,
       }));
+      console.log({ mappingOptions });
       setPoliList(mappingOptions);
     } catch (error) {
       setError("Failed to fetch data.");
@@ -203,7 +210,7 @@ function FormDoctors() {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8 mx-5">
           <div className="w-full bg-white shadow-lg rounded-lg p-8">
             <Form {...form}>
-              <form onSubmit={() => handleSubmit(handleSubmitForm)}>
+              <form onSubmit={handleSubmit(handleSubmitForm)}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <FieldInputForm
                     control={control}
@@ -242,7 +249,7 @@ function FormDoctors() {
                     control={control}
                     name="polyName"
                     label="Poly State"
-                    list={poilList}
+                    list={poliList}
                     value={selectedPoli}
                     onChange={(value) => setSelectedPoli(value)}
                     disabled={action === "detail"}
@@ -255,7 +262,7 @@ function FormDoctors() {
                   control={control}
                   name="availableDays"
                   label="Hari"
-                  options={hari}
+                  options={availableDays}
                   disabled={action === "detail"}
                 />
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">

@@ -73,7 +73,7 @@ const DoctorsPage = () => {
     <>
       {
         !loading ?
-          <div className="mx-auto px-6">
+          <div className="mx-auto px-6 md:pt-20 pt-10">
             <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
               <Link to={"/dashboard"}>
                 <div className="p-3 rounded-sm bg-purple-900">

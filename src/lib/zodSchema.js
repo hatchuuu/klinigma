@@ -39,10 +39,10 @@ export const registerSchema = loginSchema
       .string({ required_error: "Nama dibutuhkan" })
       .min(3, "Minimal 3 Karakter")
       .max(30, "Maksimal 30 Karakter"),
-      gender: z
+    gender: z
       .string({ required_error: "Gender dibutuhkan" })
-      .min(3, { message: "Gender must be at least 3 characters long" })
-      .max(100, { message: "Gender must be less than 100 characters" }),
+      .min(3, { message: "Jenis Kelamin tidak valid" })
+      .max(20, { message: "Maksimal 20 digit karakter" }),
     role: z.enum(["user", "admin", "superadmin"], {
       required_error: "Role dibutuhkan",
     }),
@@ -60,27 +60,27 @@ export const registerSchema = loginSchema
 
 export const doctorsSchema = z.object({
   name: z
-    .string({ required_error: "Name is Required" })
+    .string({ required_error: "Nama dibutuhkan" })
     .min(3, "Minimal 3 Karakter")
     .max(100, "Maksimal 100 Karakter"),
   polyName: z
-    .string({ required_error: "Poly Name is Required" })
-    .min(3, "Poly Name is Requaired")
+    .string({ required_error: "Nama Poliklinik Dibutuhkan" })
+    .min(3, "Minimal 3 Karakter")
     .max(100, "Maksimal 100 Karakter"),
   gender: z
-    .string({ required_error: "Gender is required" })
-    .min(3, { message: "Gender must be at least 3 characters long" })
-    .max(100, { message: "Gender must be less than 100 characters" }),
+    .string({ required_error: "Jenis Kelamin dibutuhkan" })
+    .min(3, { message: "Minimal 3 karakter" })
+    .max(20, { message: "Maksimal 20 karakter" }),
   email: z
-    .string({ required_error: "Email is Required" })
+    .string({ required_error: "Email dibutuhkan" })
     .max(30, "Maksimal 30 Karakter")
     .email("Format Email tidak Valid"),
   descriptions: z
-    .string({ required_error: "Descriptions are Required" })
+    .string({ required_error: "Deskripsi dibutuhkan" })
     .min(3, "Minimal 3 Karakter")
     .max(200, "Maksimal 200 Karakter"),
   location: z
-    .string({ required_error: "Location is Required" })
+    .string({ required_error: "Asal domisili dibutuhkan" })
     .min(3, "Minimal 3 Karakter")
     .max(200, "Maksimal 200 Karakter"),
   phoneNumber: z
@@ -89,37 +89,37 @@ export const doctorsSchema = z.object({
       /^(?:\+62|62|0)8[1-9]\d{6,12}$/,
       "Nomor Telepon tidak valid, gunakan format yang benar."
     )
-    .min(10, "Nomor Telepon minimal 10 digit")
+    .min(9, "Nomor Telepon minimal 9 digit")
     .max(15, "Nomor Telepon maksimal 15 digit"),
   open: z
     .string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "Start Time is Invalid")
+    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "Waktu mulai tidak valid")
     .optional(),
   close: z
     .string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "End Time is Invalid")
+    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "Waktu selesai tidak valid")
     .optional(),
-  availableDays: z
-    .array(z.number())
-    .nonempty("At least one day must be selected"),
-  quota: z.preprocess((val) => Number(val), z.number().positive()),
+  availableDays: z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "You have to select at least one item.",
+  }),
+  quota: z.preprocess((val) => Number(val), z.number().positive(), { message: "Minimal 1" }),
 });
 
 export const EditUsersSchema = z.object({
   name: z
-    .string({ required_error: "Name is Required" })
+    .string({ required_error: "Nama dibutuhkan" })
     .min(3, "Minimal 3 Karakter")
     .max(100, "Maksimal 100 Karakter"),
   gender: z
-    .string({ required_error: "Gender is required" })
-    .min(3, { message: "Gender must be at least 3 characters long" })
-    .max(100, { message: "Gender must be less than 100 characters" }),
+    .string({ required_error: "Jenis Kelamin dibutuhkan" })
+    .min(3, { message: "Minimal 3 karakter" })
+    .max(20, { message: "Maksimal 20 karakter" }),
   email: z
-    .string({ required_error: "Email is Required" })
+    .string({ required_error: "Email dibutuhkan" })
     .max(30, "Maksimal 30 Karakter")
     .email("Format Email tidak Valid"),
   location: z
-    .string({ required_error: "Location is Required" })
+    .string({ required_error: "Asal domisili dibutuhkan" })
     .min(3, "Minimal 3 Karakter")
     .max(200, "Maksimal 200 Karakter"),
   phoneNumber: z
@@ -128,6 +128,6 @@ export const EditUsersSchema = z.object({
       /^(?:\+62|62|0)8[1-9]\d{6,12}$/,
       "Nomor Telepon tidak valid, gunakan format yang benar."
     )
-    .min(10, "Nomor Telepon minimal 10 digit")
+    .min(9, "Nomor Telepon minimal 9 digit")
     .max(15, "Nomor Telepon maksimal 15 digit"),
 });

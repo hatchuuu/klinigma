@@ -81,9 +81,8 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
           {currentDoctors.map((doctors, index) => (
             <TableRow
               key={index}
-              className={`${
-                index % 2 === 0 ? "bg-purple-100" : "bg-white"
-              } hover:bg-gray-100 transition duration-200`}
+              className={`${index % 2 === 0 ? "bg-purple-100" : "bg-white"
+                } hover:bg-gray-100 transition duration-200`}
             >
               <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.name}
@@ -95,7 +94,7 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
                 {doctors.availableDays && Array.isArray(doctors.availableDays)
                   ? doctors.availableDays.map((day) => daysMap[day]).join(", ")
                   : "No available days"}
-                , {doctors.schedule.open} - {doctors.schedule.close}
+                , {doctors.schedules.open} - {doctors.schedules.close}
               </TableCell>
 
               <TableCell className="py-3 px-4 text-gray-600">
