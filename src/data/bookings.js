@@ -8,3 +8,14 @@ export const getAllDataBooking = async () => {
         return { status: 404, message: "Data Tidak ditemukan" }
     }
 }
+
+export const approveBooking = async (id) => {
+    try {
+        await axiosInstance.put(`/bookings/${id}`, {
+            status: "Approved"
+        })
+        return { status: 200, message: "Data Berhasil Disetujui" }
+    } catch (error) {
+        return { status: 400, message: "Data Gagal Disetujui" }
+    }
+}

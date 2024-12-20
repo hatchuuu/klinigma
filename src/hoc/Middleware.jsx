@@ -31,11 +31,9 @@ const Middleware = ({ children, role }) => {
     const [isAdmin, polyId] = jwtRole.split("-") // Match role like "admin-0001"
 
     // SuperAdmin can access any route
-    if (jwtRole === "superAdmin") {
+    if (jwtRole === "superadmin") {
         return children;
     }
-    console.log({ isAdmin });
-    console.log({ jwtRole });
     // Admin can access routes for admin and user
     if (isAdmin == "admin") {
         if (role === "admin" || role === "user") {

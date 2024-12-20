@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bell, User } from "lucide-react";
+import { Bell, Check, User } from "lucide-react";
 // import { fetchDataUsers } from "@/data/users";
 import { Link } from "react-router-dom";
 import {
@@ -37,6 +37,7 @@ const DashboardPage = () => {
 
   const fetchIdUser = async () => {
     try {
+      console.log("halo");
       const responseUser = await getUserById(id);
       setUser(responseUser.data);
       console.log("Fetched User:", responseUser.data);
@@ -80,7 +81,9 @@ const DashboardPage = () => {
         return value.doneAt == null;
       });
       setLatestBooking(latestBooking);
-    } catch (error) { }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -202,15 +205,30 @@ const DashboardPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
               {
                 isAdmin !== "admin" ?
-                  <Link
-                    to="/booking"
-                    className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                  >
-                    <CalendarDays size={40} className="text-purple-900 mb-3" />
-                    <span className="text-lg font-medium text-center">
-                      Booking Kunjungan
-                    </span>
-                  </Link>
+                  (<>
+                    {
+                      isAdmin == "superadmin" && (
+                        <Link
+                          to="/admin/approved"
+                          className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                        >
+                          <Check size={40} className="text-purple-900 mb-3" />
+                          <span className="text-lg font-medium text-center">
+                            Setujui Kunjungan
+                          </span>
+                        </Link>
+                      )
+                    }
+                    <Link
+                      to="/booking"
+                      className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                    >
+                      <CalendarDays size={40} className="text-purple-900 mb-3" />
+                      <span className="text-lg font-medium text-center">
+                        Booking Kunjungan
+                      </span>
+                    </Link>
+                  </>)
                   :
                   <Link
                     to="/admin/handler"

@@ -8,7 +8,8 @@ import { getAllDataBooking } from '@/data/bookings';
 import { getDataPolyById } from '@/data/poly';
 import { ChevronUp, Minus, Plus } from 'lucide-react';
 import { BackButton } from '@/components/button/NavigationButton';
-import { Select } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import dayjs from 'dayjs';
 
 const HandlerPage = () => {
 
@@ -30,8 +31,9 @@ const HandlerPage = () => {
                     const [role, prePolyId] = decodedToken.role.split("-");
                     setPolyId(prePolyId);
                     const { data: bookingData } = await getAllDataBooking()
+                    console.log({ bookingData });
                     const filterBookingsByPoly = bookingData.filter((value) => {
-                        return value.polyclinicId === Number(prePolyId)
+                        return value.polyclinicId === Number(prePolyId) && value.status === "Approved" && value.bookingDate == dayjs().format('YYYY-MM-DD');
                     })
                     setBooking(filterBookingsByPoly)
 
