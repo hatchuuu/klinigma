@@ -2,7 +2,7 @@ import { Bell, Calendar, House, User } from "lucide-react";
 import { jwtDecode } from "jwt-decode";
 import DrawerMenu from "./DrawerMenu";
 import NavbarButton from "./NavbarButton";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { SiderBar } from "./SiderBar";
 import { useEffect, useState } from "react";
@@ -51,10 +51,32 @@ const Navbar = () => {
     return null;
   }
 
+  const items = [
+    {
+      title: "Beranda",
+      url: "/dashboard",
+      icon: House,
+    },
+    {
+      title: "Antrean",
+      url: "/booking",
+      icon: Calendar,
+    },
+    {
+      title: "Profil",
+      url: "/profile",
+      icon: User,
+    },
+  ];
+
   return (
     <>
       <div>
-        <div className={`w-full bg-transparent font-roboto ${!token ? "hidden" : "fixed"} bottom-3 px-4 md:hidden `}>
+        <div
+          className={`w-full bg-transparent font-roboto ${
+            !token ? "hidden" : "fixed"
+          } bottom-3 px-4 md:hidden `}
+        >
           <div className="bg-primary w-full py-2 rounded-2xl">
             <div className="flex justify-evenly items-center">
               <NavbarButton text="HOME" path="/dashboard">
@@ -74,8 +96,9 @@ const Navbar = () => {
           </div>
         </div>
         <div
-          className={` bg-white w-full font-roboto ${!token ? "hidden" : "md:fixed"
-            } top-0`}
+          className={` bg-white w-full font-roboto ${
+            !token ? "hidden" : "md:fixed"
+          } top-0`}
         >
           {user ? (
             <section className="flex justify-between items-center p-6 md:px-8">
@@ -91,11 +114,27 @@ const Navbar = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-center items-center gap-4 ">
+              <div className="flex items-center gap-4">
+                <div className="flex flex-wrap gap-4">
+                  {items.map((item, i) => (
+                    <p
+                      key={i}
+                      className="flex items-center justify-center semibold px-4 py-2"
+                      asChild
+                    >
+                      <Link
+                        to={item.url}
+                        className="flex items-center gap-2 text-[20] semibold hover:text-purple-700"
+                      >
+                        {/* <item.icon className="text-black" /> */}
+                        <span>{item.title}</span>
+                      </Link>
+                    </p>
+                  ))}
+                </div>
                 <Button variant="ghost" size="rounded">
                   <Bell />
                 </Button>
-                <SiderBar />
               </div>
             </section>
           ) : (
@@ -103,7 +142,6 @@ const Navbar = () => {
           )}
         </div>
       </div>
-
     </>
   );
 };
