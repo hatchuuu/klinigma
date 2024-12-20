@@ -13,6 +13,8 @@ import {
   MessageCircle,
   BookOpen,
   LocateIcon,
+  Stethoscope,
+  ClipboardList
 } from "lucide-react"; // Anda bisa mengganti ikon sesuai kebutuhan
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -184,7 +186,7 @@ const DashboardPage = () => {
           </section>
 
           {/* Section for Links */}
-          <section className="sm:order-1 order-2 w-full sm:w-1/2 pb-16">
+          {/* <section className="sm:order-1 order-2 w-full sm:w-1/2 pb-16">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
               <Link
                 to="/booking"
@@ -211,6 +213,47 @@ const DashboardPage = () => {
                 <MessageCircle size={40} className="text-purple-900 mb-3" />
                 <span className="text-lg font-medium text-center">
                   Tanya Klinigma
+                </span>
+              </Link>
+            </div>
+          </section> */}
+
+          <section className="w-full pb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
+              <Link
+                to="/booking"
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center border border-gray-300"
+              >
+                <CalendarDays size={40} className="text-purple-600 mb-3" />
+                <span className="text-lg font-semibold text-center text-gray-800">
+                  Pendaftaran Online
+                </span>
+                <span className="mt-2 text-sm text-center text-purple-600 font-medium">
+                  Lihat Detail
+                </span>
+              </Link>
+              <Link
+                to="/fasilitas-pelayanan"
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center border border-gray-300"
+              >
+                <ClipboardList size={40} className="text-purple-600 mb-3" /> 
+                <span className="text-lg font-semibold text-center text-gray-800">
+                  Fasilitas Pelayanan
+                </span>
+                <span className="mt-2 text-sm text-center text-purple-600 font-medium">
+                  Lihat Detail
+                </span>
+              </Link>
+              <Link
+                to="/info-ruangan"
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center border border-gray-300"
+              >
+                <Stethoscope size={40} className="text-purple-600 mb-3" />
+                <span className="text-lg font-semibold text-center text-gray-800">
+                  Dokter Spesialis
+                </span>
+                <span className="mt-2 text-sm text-center text-purple-600 font-medium">
+                  Lihat Detail
                 </span>
               </Link>
             </div>
