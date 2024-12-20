@@ -48,6 +48,7 @@ const BrowseDoctors = ({ filteredDoctors, poilList,HandleDelete }) => {
 
   const getPolyNameById = (polyId) => {
     const polyclinic = poilList.find(poly => poly.id === polyId);
+    console.log("polyclinic",polyclinic)
     return polyclinic ? polyclinic.polyclinicName : "Unknown Poly";
   }
 

@@ -19,3 +19,13 @@ export const getDoctorById = async (doctorId) => {
         return { status: 400, data: error }
     }
 }
+
+export const getDoctorForTeam = async () => {
+    try {
+        const { data: docResponse } = await axiosInstance.get(`/doctors`)
+        return { status: 200, data: docResponse }
+    } catch (error) {
+        return { status: 400, data: error }
+    }
+}
+
