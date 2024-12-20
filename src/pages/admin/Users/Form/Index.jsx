@@ -19,6 +19,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { ArrowLeft } from "lucide-react";
+import { axiosInstance } from "@/lib/axios";
+import { BackButton } from "@/components/button/NavigationButton";
 import { userInstance } from "@/lib/axios";
 import dayjs from "dayjs";
 
@@ -67,7 +69,7 @@ function FormUesrs() {
     };
 
     try {
-      const response = await userInstance.put(`/users/${usresId}`, payload);
+      const response = await axiosInstance.put(`/users/${usresId}`, payload);
       console.log("users created successfully:", response.data);
       successToast(response.message);
 
@@ -87,7 +89,7 @@ function FormUesrs() {
     const fetchData = async () => {
       if ((action === "detail" || action === "edit") && usresId) {
         try {
-          const response = await userInstance.get(`/users/${usresId}`);
+          const response = await axiosInstance.get(`/users/${usresId}`);
           const usersData = response.data;
           console.log("Fetched User Data:", usersData);
   
@@ -123,6 +125,9 @@ function FormUesrs() {
 
   return (
     <>
+      <div className="mx-auto px-6 md:pt-20 pt-10">
+        <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
+          <BackButton path="/users" />
       <div className="mx-auto px-6">
         <section className="flex flex-wrap items-center justify-start gap-5">
           <Link to={"/users"}>
@@ -138,10 +143,10 @@ function FormUesrs() {
         </section>
 
         {/* Breadcrumbs */}
-        <Breadcrumb>
+        <Breadcrumb className="ms-10">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/dashboard">Home</BreadcrumbLink>
+              <BreadcrumbLink href="/dashboard">Beranda</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -155,7 +160,7 @@ function FormUesrs() {
         </Breadcrumb>
 
         {/* Form */}
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8 mx-5">
+        <div className="flex flex-col items-center justify-center bg-gray-50 py-6 px-4 sm:px-6 lg:px-8 mx-5">
           <div className="w-full bg-white shadow-lg rounded-lg p-8">
             <Form {...form}>
               <form onSubmit={handleSubmit(handleSubmitForm)}>
@@ -228,6 +233,8 @@ function FormUesrs() {
           </div>
         </div>
       </div>
+    </section>
+    </div>
     </>
   );
 }

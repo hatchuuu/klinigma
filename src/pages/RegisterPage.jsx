@@ -9,6 +9,8 @@ import FieldSelect from "@/components/form/field/FieldSelect";
 import { createUser } from "@/data/createUser";
 import { failedToast, successToast } from "@/lib/toaster";
 import FieldBirthDate from "@/components/form/field/FieldBirthDate";
+import { axiosInstance } from "@/lib/axios";
+import { getAllUsers } from "@/data/users";
 
 const RegisterPage = () => {
   const list = [
@@ -29,12 +31,19 @@ const RegisterPage = () => {
     },
     resolver: zodResolver(registerSchema),
   });
-  const { control, handleSubmit } = form;
+  const { control, handleSubmit, reset } = form;
+
+  const fetchUsers = async () => {
+    await getAllUsers()
+  };
+
 
   const onSubmit = handleSubmit(async (value) => {
     const response = await createUser(value);
     if (response.status == 201) {
       successToast(response.message);
+      fetchUsers()
+      reset()
     } else {
       failedToast(response.message);
     }

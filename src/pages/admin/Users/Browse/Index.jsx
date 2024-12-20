@@ -48,22 +48,22 @@ const BrowseUsers = ({ filteredUsers }) => {
               ID
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              User Name
+              Nama User
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
               Email
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              Location
+              Domisili
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              Phone Number
+              Nomor Telepon
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              Gender
+              Jenis Kelamin
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              Birth Date
+              Tanggal Lahir
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center right-0 z-10">
               Aksi
@@ -74,9 +74,8 @@ const BrowseUsers = ({ filteredUsers }) => {
           {currentUsers.map((data, index) => (
             <TableRow
               key={index}
-              className={`${
-                index % 2 === 0 ? "bg-purple-100" : "bg-white"
-              } hover:bg-gray-100 transition duration-200`}
+              className={`${index % 2 === 0 ? "bg-purple-100" : "bg-white"
+                } hover:bg-gray-100 transition duration-200`}
             >
               <TableCell className="py-3 px-4 text-gray-600">
                 {data.id}

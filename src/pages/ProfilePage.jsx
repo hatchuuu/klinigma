@@ -5,39 +5,47 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { getUserById } from "@/data/users";
 import AlertButton from "@/components/AlertButton";
+import { formatDate } from "@/data/service";
+import { History } from "lucide-react";
+import { getDataPolyById } from "@/data/poly";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-  const token = sessionStorage.getItem("token");
-  const jwt = jwtDecode(token);
-  const { name, role, id } = jwt;
-  const [data, setData] = useState();
+    const navigate = useNavigate();
+    const token = sessionStorage.getItem("token");
+    const jwt = jwtDecode(token);
+    const { name, role, id } = jwt;
+    const [isAdmin, polyId] = role.split("-")
+    const [data, setData] = useState();
+    const [polyName, setPolyName] = useState();
+    const handleLogout = () => {
+        sessionStorage.removeItem("token");
+        navigate("/login");
+    };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/login");
-  };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userResponse = await getUserById(id);
+                setData(userResponse.data);
 
-  useEffect(() => {
-    try {
-      const fetchUserById = async () => {
-        const response = await getUserById(id);
-        setData(response.data);
-      };
-      fetchUserById();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+                if (isAdmin === "admin") {
+                    const polyResponse = await getDataPolyById(polyId);
+                    setPolyName(polyResponse.data.polyclinicName);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, [id, polyId, isAdmin]);
 
     const array = [
         { title: "Email", data: data?.email },
-        { title: "Tanggal Lahir", data: data?.birthDate },
+        { title: "Tanggal Lahir", data: formatDate(data?.birthDate).fullDate },
         { title: "Nomor Telepon", data: data?.phoneNumber },
         { title: "Jenis Kelamin", data: data?.gender }
     ]
-
-
 
     const rowProfile = () =>
         array.map((value, i) => (
@@ -50,30 +58,32 @@ const ProfilePage = () => {
             </div>
         )
         )
-
-
     return (
-        <div className="h-screen items-center flex flex-col p-8 sm:pt-44">
+        <div className="h-screen items-center flex flex-col p-8 md:pt-32 pt-20">
             {data ? (
-                <div className={`flex flex-col sm:w-1/3`}>
+                <div className={`flex flex-col sm:w-3/5`}>
                     <section className="flex flex-col justify-center items-center gap-1 mb-20">
                         <h1 className="text-4xl font-semibold uppercase">{name}</h1>
-                        <h1 className="text-base font-semibold capitalize">( {role} )</h1>
+                        <h1 className="text-base font-semibold capitalize">({isAdmin == "admin" ? "admin " + polyName : role})</h1>
                     </section>
                     <div>
                         {
                             rowProfile()
                         }
                     </div>
-                    <div className={` w-full flex justify-end mb-5`}>
-                        <Link to="/profile/history">
-                            <Button>
-                                Riwayat Antrean
-                            </Button>
-                        </Link>
-                    </div>
-                    <div className="w-full flex justify-end">
-                        <AlertButton handleLogout={handleLogout} />
+                    <div className={` w-full flex  ${isAdmin != "admin" ? "justify-between" : "justify-end"} mb-5`}>
+                        {
+                            isAdmin != "admin" &&
+                            <Link to="/profile/history">
+                                <Button className="py-4 px-6">
+                                    <History size={15} />
+                                    Riwayat Antrean
+                                </Button>
+                            </Link>
+                        }
+                        <div>
+                            <AlertButton handleLogout={handleLogout} />
+                        </div>
                     </div>
                 </div>
             ) : (

@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import PropTypes from 'prop-types';
 import { Textarea } from '@/components/ui/textarea';
 
-const FieldInputForm = ({ control, name, label, disabled, isTextarea, type , onChange, accept}) => {
+const FieldInputForm = ({ control, name, label, disabled, isTextarea, type = 'text' , onChange, accept}) => {
     return (
         <FormField
             control={control}
@@ -15,9 +15,8 @@ const FieldInputForm = ({ control, name, label, disabled, isTextarea, type , onC
                         <div className="relative">
                             {isTextarea ? (
                                 <Textarea
-                                    className={`relative w-full border border-gray-400 focus:outline-none resize-none ${
-                                        disabled ? 'bg-gray-200 cursor-not-allowed' : ''
-                                    }`}
+                                    className={`relative w-full border border-gray-400 focus:outline-none resize-none ${disabled ? 'bg-gray-200 cursor-not-allowed' : ''
+                                        }`}
                                     disabled={disabled}
                                     rows={4} // Default height untuk textarea
                                     {...field}
@@ -57,8 +56,8 @@ FieldInputForm.propTypes = {
     type: PropTypes.string, // Menambahkan prop untuk tipe input
 };
 
-FieldInputForm.defaultProps = {
-    type: 'text', // Default tipe adalah text
-};
+// FieldInputForm.defaultProps = {
+//     type: 'text', // Default tipe adalah text
+// };
 
 export default FieldInputForm;

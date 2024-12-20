@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
+import { Bell, Check, User } from "lucide-react";
 // import { fetchDataUsers } from "@/data/users";
 import { Link } from "react-router-dom";
 import {
@@ -26,19 +26,22 @@ import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
 import SideBarListQueue from "@/components/SideBarListQueue";
 import TokenBoard from "@/components/TokenBoard";
-import useCounterStore from "@/store/counter";
+import { getDoctorById } from "@/data/doctors";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [allBookings, setAllBookings] = useState(null);
   const [latestBooking, setLatestBooking] = useState(null);
+  const [openHour, setOpenHour] = useState(null);
   const token = sessionStorage.getItem("token");
   const { id, role } = jwtDecode(token);
+  const [isAdmin] = role.split("-")
 
   const navigate = useNavigate();
 
   const fetchIdUser = async () => {
     try {
+      console.log("halo");
       const responseUser = await getUserById(id);
       setUser(responseUser.data);
       console.log("Fetched User:", responseUser.data);
@@ -63,7 +66,7 @@ const DashboardPage = () => {
       const filteredBookingById = responseBookings?.data?.filter(
         (value) => value.userId === id
       );
-      const polysData = await fetchDataPolys();
+      const { data: polysData } = await fetchDataPolys();
       let filterBookings = [];
       for (let i = 0; i < filteredBookingById.length; i++) {
         let booking = { ...filteredBookingById[i] };
@@ -71,6 +74,7 @@ const DashboardPage = () => {
           let poly = polysData[j];
           if (booking.polyclinicId === poly.id) {
             booking["polyQueue"] = poly.currentQueue;
+            booking["polyName"] = poly.polyclinicName;
             break;
           }
         }
@@ -79,10 +83,21 @@ const DashboardPage = () => {
       setAllBookings(filterBookings);
       // Find the first unfinished booking
       const latestBooking = filterBookings.find((value) => {
-        return value.doneAt == null;
+        return value.status == "Approved";
       });
       setLatestBooking(latestBooking);
-    } catch (error) {}
+
+      //Find Schedule Hour by Doctor and Day
+      const { doctorId, scheduleDay } = latestBooking
+      const { data: docData } = await getDoctorById(doctorId)
+      const findSchedulesHour = docData.schedules.find((value) => value.day == scheduleDay)
+      const openOn = findSchedulesHour.open
+      setOpenHour(openOn)
+      // const closeOn = findSchedulesHour.close
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -103,7 +118,7 @@ const DashboardPage = () => {
   const mapUrl =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5855003249085!2d106.73948209999999!3d-6.1861864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f72a01b8f00d%3A0x7f87d867fb930560!2sPT.%20Kreasi%20Layanan%20Medis!5e0!3m2!1sen!2sid!4v1734104130782!5m2!1sen!2sid";
 
-  console.log({ user });
+  console.log({ latestBooking });
   return (
     <div>
       {user ? (
@@ -113,7 +128,9 @@ const DashboardPage = () => {
               {/* Avatar with dropdown trigger */}
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer" />
+                  <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer flex justify-center items-center">
+                    <User />
+                  </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white shadow-lg rounded-lg p-2 w-48">
                   <DropdownMenuItem
@@ -155,48 +172,89 @@ const DashboardPage = () => {
           </section>
 
           {/* Section for Latest Booking */}
-          <section>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
-              {latestBooking && (
-                <>
-                  <div className="bg-white rounded-lg shadow-lg text-center">
-                    <div className="bg-purple-500 text-white font-medium py-3 rounded-t-lg">
+          {
+            isAdmin !== "admin" &&
+            <section className="p-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
+                {latestBooking ? (
+                  <>
+                    <div className=" rounded-lg shadow-lg text-center">
+                      <div className=" font-medium py-3 rounded-t-lg">
+                        <p className="text-lg text-white semibold">
+                          Jam Beroperasi
+                        </p>
+                      </div>
+                      <div className="p-4">
+                        <p className="text-2xl text-black semibold">
+                          {formatDate(latestBooking.bookingDate).fullDate},
+                          {openHour}
+                        </p>
+                        <p>{latestBooking.polyName}</p>
+                      </div>
+                    </div>
+
+                    <div className="">
+                      <TokenBoard latestBooking={latestBooking} />
+                    </div>
+
+                    <div>
+                      <SideBarListQueue data={allBookings} />
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white rounded-lg shadow-lg text-center col-span-2 sm:mb-4">
+                    <div className="bg-purple-500 text-white font-medium py-3 rounded-lg">
                       <p className="text-lg text-white semibold">
-                        Jam Beroperasi
+                        Anda Belum Memiliki Nomor Antrean
                       </p>
-                    </div>
-                    <div className="p-4">
-                      <p className="text-2xl text-black semibold">
-                        {formatDate(latestBooking.createdAt).fullDate},{" "}
-                        {formatDate(latestBooking.createdAt).time}
-                      </p>
+                      <Link to="/booking"><Button> Ambil Nomor Antrean</Button></Link>
                     </div>
                   </div>
-
-                  <div className="bg-white rounded-lg shadow-lg text-center">
-                    <TokenBoard latestBooking={latestBooking} />
-                  </div>
-
-                  <div>
-                    <SideBarListQueue data={allBookings} />
-                  </div>
-                </>
-              )}
-            </div>
-          </section>
-
+                )
+                }
+              </div>
+            </section>
+          }
           {/* Section for Links */}
           {/* <section className="sm:order-1 order-2 w-full sm:w-1/2 pb-16">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
-              <Link
-                to="/booking"
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-              >
-                <CalendarDays size={40} className="text-purple-900 mb-3" />
-                <span className="text-lg font-medium text-center">
-                  Booking Kunjungan
-                </span>
-              </Link>
+              {
+                isAdmin !== "admin" ?
+                  (<>
+                    {
+                      isAdmin == "superadmin" && (
+                        <Link
+                          to="/admin/approved"
+                          className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                        >
+                          <Check size={40} className="text-purple-900 mb-3" />
+                          <span className="text-lg font-medium text-center">
+                            Setujui Kunjungan
+                          </span>
+                        </Link>
+                      )
+                    }
+                    <Link
+                      to="/booking"
+                      className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                    >
+                      <CalendarDays size={40} className="text-purple-900 mb-3" />
+                      <span className="text-lg font-medium text-center">
+                        Booking Kunjungan
+                      </span>
+                    </Link>
+                  </>)
+                  :
+                  <Link
+                    to="/admin/handler"
+                    className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
+                  >
+                    <CalendarDays size={40} className="text-purple-900 mb-3" />
+                    <span className="text-lg font-medium text-center">
+                      Atur Antrean
+                    </span>
+                  </Link>
+              }
               <Link
                 to="/info"
                 className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
@@ -219,7 +277,7 @@ const DashboardPage = () => {
           </section> */}
 
           <section className="w-full pb-16">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-7 px-8">
               <Link
                 to="/booking"
                 className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center border border-gray-300"

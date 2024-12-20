@@ -2,6 +2,9 @@ import jsonServer from 'json-server'
 import jwt from 'jsonwebtoken'
 import bodyParser from 'body-parser'
 import fs from 'fs'
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const server = jsonServer.create()
 const userdb = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'))
@@ -13,7 +16,7 @@ server.use(middlewares)
 
 const router = jsonServer.router('db.json')
 
-const SECRET_KEY = 'your_secret_key'
+const SECRET_KEY = process.env.VITE_SECRET_KEY
 const expiresIn = '1h'
 
 function createToken(payload) {
@@ -39,7 +42,7 @@ server.post('/login', (req, res) => {
 })
 
 server.use(router)
-const PORT = 3002
+const PORT = Number(process.env.VITE_PORT_DB)
 server.listen(PORT, () => {
     console.log(`JSON Server is running on port ${PORT}`)
 })

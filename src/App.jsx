@@ -30,6 +30,9 @@ const BookingCreated = lazy(() => import("./pages/booking/BookingCreated"));
 const HandlerPage = lazy(() => import("./pages/admin/Present/HandlerPage"));
 const PresentPage = lazy(() => import("./pages/admin/Present/PresentPage"));
 
+//APROVED BOOKING ONLY SUPERADMIN
+const BookingApprovedPage = lazy(() => import("./pages/admin/Approved/BookingApprovedPage"))
+
 const App = () => {
   const allRoutes = [
     { path: "*", role: "user", element: <NotFound /> },
@@ -53,20 +56,21 @@ const App = () => {
       element: <BookingCreated />,
     },
 
-      { path: "/profile/history", role: "user", element: <HistoryPage /> },
-      { path: "/login", role: "user", element: <LoginPage /> },
-      { path: "/register", role: "user", element: <RegisterPage /> },
-      //hnya untuk admin & superadmin
-      { path: "/users", role: "admin", element: <UsersPage /> },
-      { path: "/doctors", role: "admin", element: <DoctorsPage /> },
-      { path: "/addDoctors", role: "admin", element: <FormDoctors /> },
-      { path: "/EditUsers", role: "admin", element: <FormUesrs /> },
-      //hanya untuk superadmin
-      { path: "/admin", role: "admin", element: <AdminPage /> },
-      //hanya untuk admin
-      { path: "/admin/handler/", role: "admin", element: <HandlerPage /> },
-      { path: "/present/:id", role: "user", element: <PresentPage /> }
-    ]
+    { path: "/profile/history", role: "user", element: <HistoryPage /> },
+    { path: "/login", role: "user", element: <LoginPage /> },
+    { path: "/register", role: "user", element: <RegisterPage /> },
+    //hnya untuk admin & superadmin
+    { path: "/users", role: "admin", element: <UsersPage /> },
+    { path: "/doctors", role: "admin", element: <DoctorsPage /> },
+    { path: "/addDoctors", role: "admin", element: <FormDoctors /> },
+    { path: "/EditUsers", role: "admin", element: <FormUesrs /> },
+    //hanya untuk superadmin
+    { path: "/admin", role: "admin", element: <AdminPage /> },
+    { path: "/admin/approved", role: "superadmin", element: <BookingApprovedPage /> },
+    //hanya untuk admin
+    { path: "/admin/handler", role: "admin", element: <HandlerPage /> },
+    { path: "/present/:id", role: "user", element: <PresentPage /> }
+  ]
 
   return (
     <Routes>

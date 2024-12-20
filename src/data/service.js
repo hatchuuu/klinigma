@@ -2,20 +2,17 @@ import { parseISO, format } from "date-fns";
 import { id } from "date-fns/locale";
 
 export const calculateAge = (birthDate) => {
-  // Check if birthDate is valid before proceeding
-  if (!birthDate || typeof birthDate !== 'string' || birthDate.length !== 8) {
-    console.error("Invalid birthDate format:", birthDate);
-    return 0; // Or handle the error as you prefer
+  if (!birthDate || typeof birthDate !== "string" || birthDate.length !== 10) {
+    console.error("Tanggal lahir tidak valid:", birthDate);
+    return 0;
   }
 
-  const birth = new Date(
-    parseInt(birthDate.slice(4), 10),
-    parseInt(birthDate.slice(2, 4), 10) - 1,
-    parseInt(birthDate.slice(0, 2), 10)
-  );
+  const [year, month, day] = birthDate.split("-");
+  const birth = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
   const today = new Date();
 
   let age = today.getFullYear() - birth.getFullYear();
+
   if (
     today.getMonth() < birth.getMonth() ||
     (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
@@ -24,6 +21,7 @@ export const calculateAge = (birthDate) => {
   }
   return age;
 };
+
 
 
 export const getLatestToken = (data) => {

@@ -1,30 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
-// import { fetchDataUsers } from "@/data/users";
 import { Link } from "react-router-dom";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-    CalendarDays,
-    MessageCircle,
-    BookOpen,
-    LocateIcon,
-} from "lucide-react"; // Anda bisa mengganti ikon sesuai kebutuhan
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { getUserById } from "@/data/users";
 import { getAllDataBooking } from "@/data/bookings";
-import { calculateAge, formatDate, getLatestToken } from "@/data/service";
-import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
-import SideBarListQueue from "@/components/SideBarListQueue";
-import TokenBoard from "@/components/TokenBoard";
-import useCounterStore from "@/store/counter";
 import { Separator } from "@/components/ui/separator";
 
 const HistoryPage = () => {
@@ -40,14 +20,13 @@ const HistoryPage = () => {
                 if (token) {
                     const { id, role, name } = jwtDecode(token);
                     setName(name);
-                    if (role === "user") {
+                    if (role === "user" || role === "superadmin") {
                         const responseBookings = await getAllDataBooking();
                         const polysData = await getAllDataPoly();
                         // Filter bookings by userId and add polyName
                         const filteredBookingById = responseBookings?.data?.filter(
-                            (value) => value.userId === id && (value.status === "Done" || value.status === "Failed")
+                            (value) => value.userId === id && (value.status === "Completed" || value.status === "Rejected")
                         );
-
                         let filterBookings = [];
                         for (let i = 0; i < filteredBookingById.length; i++) {
                             let booking = { ...filteredBookingById[i] };
@@ -61,6 +40,8 @@ const HistoryPage = () => {
                             filterBookings.push(booking);
                         }
                         setAllBookings(filterBookings);
+                    } else {
+                        navigate("/profile")
                     }
                 }
             } catch (error) {
@@ -70,7 +51,7 @@ const HistoryPage = () => {
         };
 
         fetchData();
-    }, [token]); // Re-run effect if token changes
+    }, []); // Re-run effect if token changes
 
     const renderBookings = () =>
         allBookings.map((value, i) => (
@@ -84,11 +65,10 @@ const HistoryPage = () => {
             </div>
         )
         )
-
     return (
-        <div className="h-screen items-center flex flex-col p-8 sm:pt-44">
+        <div className="h-screen items-center flex flex-col p-8 sm:pt-32 pt-20">
             {allBookings ? (
-                <div className={`flex flex-col sm:w-1/3`}>
+                <div className={`flex flex-col sm:w-3/5`}>
                     <section className="flex flex-col justify-center items-center gap-1 mb-20">
                         <h1 className="text-4xl font-semibold uppercase">{name}</h1>
                     </section>
@@ -102,7 +82,9 @@ const HistoryPage = () => {
                     </div>
                     <div>
                         {
-                            renderBookings()
+                            allBookings.length > 0
+                                ? renderBookings()
+                                : <p className="pb-4 text-center">Belum Belum Pernah Mengambil Antrean</p>
                         }
                     </div>
                     <div className={` w-full flex justify-end mb-5`}>
