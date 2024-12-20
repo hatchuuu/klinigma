@@ -24,14 +24,16 @@ import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
 import SideBarListQueue from "@/components/SideBarListQueue";
 import TokenBoard from "@/components/TokenBoard";
+import { getDoctorById } from "@/data/doctors";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [allBookings, setAllBookings] = useState(null);
   const [latestBooking, setLatestBooking] = useState(null);
+  const [openHour, setOpenHour] = useState(null);
   const token = sessionStorage.getItem("token");
   const { id, role } = jwtDecode(token);
-  const [isAdmin, polyId] = role.split("-")
+  const [isAdmin] = role.split("-")
 
   const navigate = useNavigate();
 
@@ -62,8 +64,7 @@ const DashboardPage = () => {
       const filteredBookingById = responseBookings?.data?.filter(
         (value) => value.userId === id
       );
-      const polysData = await fetchDataPolys();
-      console.log({ polysData });
+      const { data: polysData } = await fetchDataPolys();
       let filterBookings = [];
       for (let i = 0; i < filteredBookingById.length; i++) {
         let booking = { ...filteredBookingById[i] };
@@ -77,13 +78,21 @@ const DashboardPage = () => {
         }
         filterBookings.push(booking);
       }
-      console.log({ filterBookings });
       setAllBookings(filterBookings);
       // Find the first unfinished booking
       const latestBooking = filterBookings.find((value) => {
         return value.status == "Approved";
       });
       setLatestBooking(latestBooking);
+
+      //Find Schedule Hour by Doctor and Day
+      const { doctorId, scheduleDay } = latestBooking
+      const { data: docData } = await getDoctorById(doctorId)
+      const findSchedulesHour = docData.schedules.find((value) => value.day == scheduleDay)
+      const openOn = findSchedulesHour.open
+      setOpenHour(openOn)
+      // const closeOn = findSchedulesHour.close
+
     } catch (error) {
       console.log(error);
     }
@@ -163,26 +172,26 @@ const DashboardPage = () => {
           {/* Section for Latest Booking */}
           {
             isAdmin !== "admin" &&
-            <section className="bg-green-300 p-2">
+            <section className="p-2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
                 {latestBooking ? (
                   <>
-                    <div className="bg-white rounded-lg shadow-lg text-center">
-                      <div className="bg-purple-500 text-white font-medium py-3 rounded-t-lg">
+                    <div className=" rounded-lg shadow-lg text-center">
+                      <div className=" font-medium py-3 rounded-t-lg">
                         <p className="text-lg text-white semibold">
                           Jam Beroperasi
                         </p>
                       </div>
                       <div className="p-4">
                         <p className="text-2xl text-black semibold">
-                          {formatDate(latestBooking.createdAt).fullDate},{" "}
-                          {formatDate(latestBooking.createdAt).time}
+                          {formatDate(latestBooking.bookingDate).fullDate},
+                          {openHour}
                         </p>
                         <p>{latestBooking.polyName}</p>
                       </div>
                     </div>
 
-                    <div className="bg-white rounded-lg shadow-lg text-center">
+                    <div className="">
                       <TokenBoard latestBooking={latestBooking} />
                     </div>
 

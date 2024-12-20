@@ -16,10 +16,10 @@ const PresentPage = () => {
     const fetchDataPoly = async () => {
       try {
         const polyMapping = {
-          umum: 'hzha',
-          gigi: 'xpxw',
-          kia: 'e9uu',
-          kb: 'xcv3',
+          umum: 1,
+          gigi: 2,
+          kia: 3,
+          kb: 4,
         };
 
         const currentId = polyMapping[id] || null;

@@ -145,7 +145,7 @@
       "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
       "schedule": "Buka setiap hari, 24/7.",
-      "currentQueue": 7
+      "currentQueue": 10
     },
     {
       "id": 2,
@@ -212,7 +212,7 @@
         },
         {
           "day": "Jumat",
-          "open": "00:00",
+          "open": "10:00",
           "close": "09:00",
           "quota": 8,
           "booked": 4
@@ -225,7 +225,14 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu"
+      ]
     },
     {
       "id": 2,
@@ -274,7 +281,13 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Kamis", "Jumat", "Sabtu"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Kamis",
+        "Jumat",
+        "Sabtu"
+      ]
     },
     {
       "id": 3,
@@ -316,7 +329,12 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Kamis", "Jumat"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Kamis",
+        "Jumat"
+      ]
     },
     {
       "id": 4,
@@ -351,7 +369,11 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Jumat"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     },
     {
       "id": 5,
@@ -386,7 +408,11 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Jumat"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     },
     {
       "id": 6,
@@ -421,7 +447,11 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Jumat"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     },
     {
       "id": 7,
@@ -456,7 +486,11 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Jumat"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     },
     {
       "id": 8,
@@ -491,7 +525,11 @@
           "booked": 1
         }
       ],
-      "availableDays": ["Senin", "Selasa", "Jumat"]
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     }
   ],
   "bookings": [
