@@ -4,48 +4,117 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/button/NavigationButton";
+import moment from "moment"; // Make sure you have moment.js installed
+import { Card } from "@/components/ui/card";
 
 function BookingCreated() {
   const location = useLocation();
+  const { bookingId } = location.state;
+  const [bookingData, setBookingData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [poliklinikData, setPoliklinikData] = useState(null);
+  const [dokterData, setDokterData] = useState(null);
   const navigate = useNavigate();
-  const { poliklinik, tanggalTerpilih, dokterTerpilih } = location.state;
-  const [nomorAntrian, setNomorAntrian] = useState(null);
-  const [currentQueue, setCurrentQueue] = useState(null); 
-  const [userData, setUserData] = useState(null); 
 
   useEffect(() => {
     const fetchBookingData = async () => {
       try {
-        // 1. Mendapatkan nomor antrian dari API (misalnya, dari response POST sebelumnya)
-        const response = await fetch("http://localhost:3002/bookings"); 
-        const bookingsData = await response.json();
-        const latestBooking = bookingsData[bookingsData.length - 1];
-        setNomorAntrian(latestBooking.queueNumber);
-
-        // 2. Mendapatkan currentQueue dari poliklinik
-        const polyclinicResponse = await fetch(
-          `http://localhost:3002/polyclinics/${poliklinik.id}`
+        const response = await fetch(
+          `http://localhost:3002/bookings/${bookingId}`
         );
-        const polyclinicData = await polyclinicResponse.json();
-        setCurrentQueue(polyclinicData.currentQueue);
-
-        // 3. Mendapatkan data user (misalnya, dari local storage atau API)
-        const userId = "3456"; // Ganti dengan ID user yang login
-        const userResponse = await fetch(`http://localhost:3002/users/${userId}`);
-        const userData = await userResponse.json();
-        setUserData(userData);
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data booking");
+        }
+        const data = await response.json();
+        setBookingData(data);
       } catch (error) {
-        console.error("Gagal mengambil data booking:", error);
-        // Tampilkan pesan error ke user
+        console.error("Error fetching booking data:", error);
+        // Handle error appropriately, e.g., show an error message
       }
     };
 
-    fetchBookingData();
-  }, []);
+    if (bookingId) {
+      fetchBookingData();
+    }
+  }, [bookingId]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (bookingData) {
+        try {
+          const response = await fetch(
+            `http://localhost:3002/users/${bookingData.userId}`
+          );
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data user");
+          }
+          const data = await response.json();
+          setUserData(data);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [bookingData]);
+
+  useEffect(() => {
+    const fetchPoliklinikData = async () => {
+      if (bookingData) {
+        try {
+          const response = await fetch(
+            `http://localhost:3002/polyclinics/${bookingData.polyclinicId}`
+          );
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data poliklinik");
+          }
+          const data = await response.json();
+          setPoliklinikData(data);
+        } catch (error) {
+          console.error("Error fetching poliklinik data:", error);
+        }
+      }
+    };
+
+    fetchPoliklinikData();
+  }, [bookingData]);
+
+  useEffect(() => {
+    const fetchDokterData = async () => {
+      if (bookingData) {
+        try {
+          const response = await fetch(
+            `http://localhost:3002/doctors/${bookingData.doctorId}`
+          );
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data dokter");
+          }
+          const data = await response.json();
+          setDokterData(data);
+        } catch (error) {
+          console.error("Error fetching dokter data:", error);
+        }
+      }
+    };
+
+    fetchDokterData();
+  }, [bookingData]);
 
   const handleDashboard = () => {
     navigate("/dashboard");
   };
+
+  if (!bookingData || !userData || !poliklinikData || !dokterData) {
+    return <div>Loading...</div>;
+  }
+
+  const { queueNumber, scheduleDay, bookingDate } = bookingData;
+  const { name: userName, birthDate } = userData;
+  const { polyclinicName } = poliklinikData;
+  const { name: dokterName, schedules } = dokterData;
+
+  const jadwal = schedules.find((s) => s.day === scheduleDay);
 
   return (
     <div className="mx-auto p-6">
@@ -59,43 +128,47 @@ function BookingCreated() {
         </div>
       </div>
 
+      <div className="flex flex-col items-center gap-4 mb-8">
+        <Card>
+          <p className="flex flex-col items-center p-4">
+            <strong>Antrian Sekarang</strong> {poliklinikData.currentQueue}
+          </p>
+        </Card>
+        <Card>
+          <p className="flex flex-col items-center p-4">
+            <strong>Nomor Antrian Anda</strong> {queueNumber}
+          </p>
+        </Card>
+      </div>
+
       <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
           Ringkasan Booking:
         </h3>
         <p>
-          <strong>Poliklinik:</strong> {poliklinik.polyName}
+          <strong>Poliklinik:</strong> {polyclinicName}
         </p>
         <p>
-          <strong>Dokter:</strong> {dokterTerpilih.name}
+          <strong>Dokter:</strong> {dokterName}
         </p>
         <p>
-          <strong>Tanggal:</strong> {tanggalTerpilih}
+          <strong>Tanggal:</strong> {bookingDate}
         </p>
-        {nomorAntrian && (
+        <p>
+          <strong>Jam Praktik:</strong> {jadwal.open} - {jadwal.close}
+        </p>
+        <div>
           <p>
-            <strong>Nomor Antrian:</strong> {nomorAntrian}
+            <strong>Nama:</strong> {userName}
           </p>
-        )}
-        {currentQueue && (
           <p>
-            <strong>Antrian Saat Ini:</strong> {currentQueue}
+            <strong>ID:</strong> {bookingData.userId}
           </p>
-        )}
-        {userData && (
-          <div>
-            <p>
-              <strong>Nama:</strong> {userData.name}
-            </p>
-            <p>
-              <strong>ID:</strong> {userData.id}
-            </p>
-            <p>
-              <strong>Umur:</strong>{" "}
-              {moment().diff(moment(userData.birthDate, "DDMMYYYY"), "years")}
-            </p>
-          </div>
-        )}
+          <p>
+            <strong>Umur:</strong>{" "}
+            {moment().diff(moment(birthDate, "DDMMYYYY"), "years")}
+          </p>
+        </div>
       </div>
 
       <div className="mt-8">
