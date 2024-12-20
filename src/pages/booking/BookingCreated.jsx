@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/button/NavigationButton";
 import moment from "moment"; // Make sure you have moment.js installed
+import { Card } from "@/components/ui/card";
 
 function BookingCreated() {
   const location = useLocation();
@@ -127,6 +128,19 @@ function BookingCreated() {
         </div>
       </div>
 
+      <div className="flex flex-col items-center gap-4 mb-8">
+        <Card>
+          <p className="flex flex-col items-center p-4">
+            <strong>Antrian Sekarang</strong> {poliklinikData.currentQueue}
+          </p>
+        </Card>
+        <Card>
+          <p className="flex flex-col items-center p-4">
+            <strong>Nomor Antrian Anda</strong> {queueNumber}
+          </p>
+        </Card>
+      </div>
+
       <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
           Ringkasan Booking:
@@ -139,12 +153,6 @@ function BookingCreated() {
         </p>
         <p>
           <strong>Tanggal:</strong> {bookingDate}
-        </p>
-        <p>
-          <strong>Nomor Antrian Sekarang:</strong> {poliklinikData.currentQueue}
-        </p>
-        <p>
-          <strong>Nomor Antrian Anda:</strong> {queueNumber}
         </p>
         <p>
           <strong>Jam Praktik:</strong> {jadwal.open} - {jadwal.close}

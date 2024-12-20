@@ -131,8 +131,8 @@
           "day": "Jumat",
           "open": "00:00",
           "close": "09:00",
-          "quota": 8,
-          "booked": 4
+          "quota": 7,
+          "booked": 8
         },
         {
           "day": "Sabtu",
@@ -657,6 +657,19 @@
       "scheduleDay": "Jumat",
       "bookingDate": "2024-12-20",
       "id": "9nx2A8-"
+    },
+    {
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T01:03:17.830Z",
+      "updatedAt": "2024-12-20T01:03:17.830Z",
+      "status": "Waiting",
+      "queueNumber": 8,
+      "scheduleDay": "Jumat",
+      "bookingDate": "2024-12-20",
+      "id": "xo0HmgO"
     }
   ]
 }

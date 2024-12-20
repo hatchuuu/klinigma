@@ -51,7 +51,6 @@ function BookingDetails() {
 
       const newBooking = await responseBooking.json(); // Get the new booking data with ID
 
-
       // Update booked dan quota di jadwal dokter
       const updatedDokter = { ...dokterTerpilih };
 
@@ -71,7 +70,7 @@ function BookingDetails() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              schedules: updatedDokter.schedules
+              schedules: updatedDokter.schedules,
             }),
           });
         } else {
@@ -86,7 +85,7 @@ function BookingDetails() {
       // Redirect ke halaman sukses dengan data booking
       navigate("/booking/schedule/details/created", {
         state: {
-          bookingId: newBooking.id
+          bookingId: newBooking.id,
         },
       });
     } catch (error) {
@@ -104,7 +103,7 @@ function BookingDetails() {
         </div>
       </div>
 
-      <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
+      <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800 mb-8">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
           Ringkasan Booking:
         </h3>
@@ -120,6 +119,12 @@ function BookingDetails() {
         <p>
           <strong>Jadwal Praktik:</strong> {jadwal.jamBuka} - {jadwal.jamTutup}
         </p>
+      </div>
+
+      <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+          Detail Pasien:
+        </h3>
       </div>
 
       <div className="mt-8">
