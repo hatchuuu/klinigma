@@ -32,6 +32,7 @@ const HandlerPage = () => {
     const [isConnected, setIsConnected] = useState(false);
     const [booking, setBooking] = useState([])
     const [lateBooking, setLateBooking] = useState([])
+    const [allBooking, setAllBooking] = useState([])
     const [polyName, setPolyName] = useState("")
     const [doctorId, setDoctorId] = useState(null)
     const [change, setChange] = useState(false)
@@ -74,8 +75,16 @@ const HandlerPage = () => {
                             && value.doctorId == doctorId
                             && !limitTimeBooking
                     })
+                    const allBookingsByPoly = bookingData.filter((value) => {
+                        return value.polyclinicId === Number(prePolyId)
+                            && value.status === "Approved"
+                            && value.bookingDate == dayjs().format('YYYY-MM-DD')
+                            && value.doctorId == doctorId
+                    })
                     setBooking(filterBookingsByPoly)
                     setLateBooking(filterLateBookingsByPoly)
+                    setAllBooking(allBookingsByPoly)
+
                     const { data: doctorsResp } = await getDoctorsByPoly(prePolyId)
                     setListDoctors(doctorsResp)
                     const { data: polyData } = await getDataPolyById(prePolyId)
@@ -125,9 +134,12 @@ const HandlerPage = () => {
     //Tombol Selesai / Batal
     const updateQueue = async (message) => {
         try {
-            const findIdBooking = booking.find((value) => {
-                return value.queueNumber == Number(number)
-            })
+            console.log({ booking });
+            console.log({ lateBooking });
+            const findIdBooking = allBooking.find((value) => (
+                value.queueNumber == Number(number)
+            ))
+            console.log({ findIdBooking });
             if (findIdBooking) {
                 const { status: polyStatus } = await updateQueuePoly(polyId, number)
                 const { status: bookingStatus } = await updateBooking(findIdBooking.id, message)

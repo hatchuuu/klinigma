@@ -91,10 +91,7 @@ const Navbar = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-center items-center gap-4 ">
-                <Button variant="ghost" size="rounded">
-                  <Bell />
-                </Button>
+              <div className="flex justify-center items-center">
                 <SiderBar />
               </div>
             </section>

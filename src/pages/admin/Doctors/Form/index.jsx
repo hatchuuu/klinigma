@@ -115,6 +115,7 @@ function FormDoctors() {
         try {
           const response = await axiosInstance.get(`/doctors/${doctorId}`);
           const doctorData = response.data;
+          console.log({ doctorData });
           reset({
             ...doctorData,
             polyName: doctorData.polyName || "",
@@ -202,7 +203,7 @@ function FormDoctors() {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8 mx-5">
           <div className="w-full bg-white shadow-lg rounded-lg p-8">
             <Form {...form}>
-              <form onSubmit={handleSubmit(handleSubmitForm)}>
+              <form onSubmit={() => handleSubmit(handleSubmitForm)}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <FieldInputForm
                     control={control}

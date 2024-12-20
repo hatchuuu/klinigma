@@ -72,7 +72,7 @@ const DoctorsPage = () => {
   return (
     <>
       {
-        loading ?
+        !loading ?
           <div className="mx-auto px-6">
             <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
               <Link to={"/dashboard"}>
