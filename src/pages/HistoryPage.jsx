@@ -1,30 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
-// import { fetchDataUsers } from "@/data/users";
 import { Link } from "react-router-dom";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-    CalendarDays,
-    MessageCircle,
-    BookOpen,
-    LocateIcon,
-} from "lucide-react"; // Anda bisa mengganti ikon sesuai kebutuhan
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { getUserById } from "@/data/users";
 import { getAllDataBooking } from "@/data/bookings";
-import { calculateAge, formatDate, getLatestToken } from "@/data/service";
-import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
-import SideBarListQueue from "@/components/SideBarListQueue";
-import TokenBoard from "@/components/TokenBoard";
-import useCounterStore from "@/store/counter";
 import { Separator } from "@/components/ui/separator";
 
 const HistoryPage = () => {
@@ -32,7 +12,6 @@ const HistoryPage = () => {
     const [name, setName] = useState(null);
     const token = sessionStorage.getItem("token");
     const navigate = useNavigate();
-    console.log({ token });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,15 +20,13 @@ const HistoryPage = () => {
                 if (token) {
                     const { id, role, name } = jwtDecode(token);
                     setName(name);
-                    console.log({ role });
-                    if (role === "user") {
+                    if (role === "user" || role === "superadmin") {
                         const responseBookings = await getAllDataBooking();
                         const polysData = await getAllDataPoly();
                         // Filter bookings by userId and add polyName
                         const filteredBookingById = responseBookings?.data?.filter(
-                            (value) => value.userId === id && (value.status === "Done" || value.status === "Failed")
+                            (value) => value.userId === id && (value.status === "Completed" || value.status === "Rejected")
                         );
-                        console.log({ filteredBookingById });
                         let filterBookings = [];
                         for (let i = 0; i < filteredBookingById.length; i++) {
                             let booking = { ...filteredBookingById[i] };
@@ -62,10 +39,9 @@ const HistoryPage = () => {
                             }
                             filterBookings.push(booking);
                         }
-                        console.log({ filterBookings });
                         setAllBookings(filterBookings);
                     } else {
-                        navigate(-1)
+                        navigate("/profile")
                     }
                 }
             } catch (error) {
@@ -74,7 +50,6 @@ const HistoryPage = () => {
             }
         };
 
-        console.log({ allBookings });
         fetchData();
     }, []); // Re-run effect if token changes
 
@@ -90,7 +65,6 @@ const HistoryPage = () => {
             </div>
         )
         )
-    console.log({ allBookings });
     return (
         <div className="h-screen items-center flex flex-col p-8 sm:pt-32 pt-20">
             {allBookings ? (

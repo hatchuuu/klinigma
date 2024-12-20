@@ -225,14 +225,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Rabu",
-        "Kamis",
-        "Jumat",
-        "Sabtu"
-      ]
+      "availableDays": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
     },
     {
       "id": 2,
@@ -281,13 +274,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Kamis",
-        "Jumat",
-        "Sabtu"
-      ]
+      "availableDays": ["Senin", "Selasa", "Kamis", "Jumat", "Sabtu"]
     },
     {
       "id": 3,
@@ -329,12 +316,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Kamis",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Kamis", "Jumat"]
     },
     {
       "id": 4,
@@ -369,11 +351,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 5,
@@ -408,11 +386,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 6,
@@ -447,11 +421,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 7,
@@ -486,11 +456,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 8,
@@ -525,11 +491,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     }
   ],
   "bookings": [
@@ -547,7 +509,16 @@
       "id": "KwUepB2"
     },
     {
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-19T16:57:34.763Z",
+      "updatedAt": "2024-12-19T16:57:34.763Z",
       "status": "Approved",
+      "queueNumber": 2,
+      "scheduleDay": "Jumat",
+      "bookingDate": "2024-12-20",
       "id": "5Wj-4hw"
     },
     {

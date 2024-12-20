@@ -63,6 +63,7 @@ const DashboardPage = () => {
         (value) => value.userId === id
       );
       const polysData = await fetchDataPolys();
+      console.log({ polysData });
       let filterBookings = [];
       for (let i = 0; i < filteredBookingById.length; i++) {
         let booking = { ...filteredBookingById[i] };
@@ -70,15 +71,17 @@ const DashboardPage = () => {
           let poly = polysData[j];
           if (booking.polyclinicId === poly.id) {
             booking["polyQueue"] = poly.currentQueue;
+            booking["polyName"] = poly.polyclinicName;
             break;
           }
         }
         filterBookings.push(booking);
       }
+      console.log({ filterBookings });
       setAllBookings(filterBookings);
       // Find the first unfinished booking
       const latestBooking = filterBookings.find((value) => {
-        return value.doneAt == null;
+        return value.status == "Approved";
       });
       setLatestBooking(latestBooking);
     } catch (error) {
@@ -160,7 +163,7 @@ const DashboardPage = () => {
           {/* Section for Latest Booking */}
           {
             isAdmin !== "admin" &&
-            <section>
+            <section className="bg-green-300 p-2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
                 {latestBooking ? (
                   <>
@@ -175,6 +178,7 @@ const DashboardPage = () => {
                           {formatDate(latestBooking.createdAt).fullDate},{" "}
                           {formatDate(latestBooking.createdAt).time}
                         </p>
+                        <p>{latestBooking.polyName}</p>
                       </div>
                     </div>
 

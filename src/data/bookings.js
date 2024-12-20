@@ -11,7 +11,7 @@ export const getAllDataBooking = async () => {
 
 export const approveBooking = async (id) => {
     try {
-        await axiosInstance.put(`/bookings/${id}`, {
+        await axiosInstance.patch(`/bookings/${id}`, {
             status: "Approved"
         })
         return { status: 200, message: "Data Berhasil Disetujui" }
