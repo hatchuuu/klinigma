@@ -1,26 +1,38 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/button/NavigationButton";
+import dayjs from "dayjs";
 
 function BookingDetails() {
   const location = useLocation();
   const navigate = useNavigate();
   const { poliklinik, tanggalTerpilih, dokterTerpilih, jadwal } =
     location.state;
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleBooking = async () => {
-    try {
-      // Ambil data poliklinik (hanya untuk mengambil currentQueue)
-      const responsePoliklinik = await fetch(
-        `http://localhost:3002/polyclinics/${poliklinik.id}`
-      );
-      const dataPoliklinik = await responsePoliklinik.json();
+    setIsLoading(true);
+    setError(null);
 
-      // Generate queueNumber (sesuaikan dengan logika aplikasi kamu)
-      const queueNumber = dataPoliklinik.currentQueue + 1;
+    try {
+      const tanggalTerpilihDayjs = dayjs(tanggalTerpilih); // Konversi ke object dayjs
+      const formattedDate = tanggalTerpilihDayjs.format("YYYY-MM-DD");
+      // 1. Ambil data antrian dari database
+      const responseQueue = await fetch(
+        `http://localhost:3002/queues?polyclinicId=${poliklinik.id}&date=${formattedDate}`
+      );
+      const dataQueue = await responseQueue.json();
+
+      let queueNumber = 1; // Default jika belum ada antrian
+
+      if (dataQueue.length > 0) {
+        // Jika sudah ada antrian, ambil currentQueue dan increment
+        queueNumber = dataQueue[0].currentQueue + 1;
+      }
 
       // Buat data booking
       const bookingData = {
@@ -33,7 +45,7 @@ function BookingDetails() {
         status: "Waiting",
         queueNumber: queueNumber,
         scheduleDay: jadwal.hari,
-        bookingDate: tanggalTerpilih,
+        bookingDate: formattedDate,
       };
 
       // Kirim data booking ke server
@@ -46,10 +58,32 @@ function BookingDetails() {
       });
 
       if (!responseBooking.ok) {
-        throw new Error("Gagal membuat booking");
+        const errorData = await responseBooking.json(); // Ambil pesan error dari server
+        throw new Error(
+          `Gagal membuat booking: ${errorData.message || "Unknown error"}`
+        );
       }
 
       const newBooking = await responseBooking.json(); // Get the new booking data with ID
+      console.log("New booking:", newBooking); // Cek data booking yang baru dibuat
+
+      // --- Buat data antrian baru ---
+      const createQueueResponse = await fetch("http://localhost:3002/queues", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          polyclinicId: poliklinik.id,
+          date: formattedDate,
+          currentQueue: queueNumber, // Pastikan queueNumber sudah di-increment
+        }),
+      });
+
+      if (!createQueueResponse.ok) {
+        const errorData = await createQueueResponse.json(); // Ambil pesan error dari server (jika ada)
+        throw new Error(
+          `Gagal membuat antrian: ${errorData.message || "Unknown error"}`
+        );
+      }
 
       // Update booked dan quota di jadwal dokter
       const updatedDokter = { ...dokterTerpilih };
@@ -90,7 +124,10 @@ function BookingDetails() {
       });
     } catch (error) {
       console.error("Gagal membuat booking:", error);
+      setError("Gagal membuat booking. Silahkan coba lagi.");
       // Tampilkan pesan error ke user
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -128,7 +165,9 @@ function BookingDetails() {
       </div>
 
       <div className="mt-8">
-        <Button onClick={handleBooking}>Konfirmasi Booking</Button>
+        <Button onClick={handleBooking} disabled={isLoading}>
+          {isLoading ? "Loading ..." : "Konfirmasi Booking"}
+        </Button>
       </div>
     </div>
   );
