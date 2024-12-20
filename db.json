@@ -145,7 +145,7 @@
       "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
       "schedule": "Buka setiap hari, 24/7.",
-      "currentQueue": 10
+      "currentQueue": 3
     },
     {
       "id": 2,
@@ -225,14 +225,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Rabu",
-        "Kamis",
-        "Jumat",
-        "Sabtu"
-      ]
+      "availableDays": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
     },
     {
       "id": 2,
@@ -281,13 +274,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Kamis",
-        "Jumat",
-        "Sabtu"
-      ]
+      "availableDays": ["Senin", "Selasa", "Kamis", "Jumat", "Sabtu"]
     },
     {
       "id": 3,
@@ -329,12 +316,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Kamis",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Kamis", "Jumat"]
     },
     {
       "id": 4,
@@ -369,11 +351,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 5,
@@ -408,11 +386,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 6,
@@ -447,11 +421,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 7,
@@ -486,11 +456,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     },
     {
       "id": 8,
@@ -525,11 +491,7 @@
           "booked": 1
         }
       ],
-      "availableDays": [
-        "Senin",
-        "Selasa",
-        "Jumat"
-      ]
+      "availableDays": ["Senin", "Selasa", "Jumat"]
     }
   ],
   "bookings": [
@@ -552,8 +514,8 @@
       "userId": "3456",
       "name": "Nama User",
       "createdAt": "2024-12-19T16:57:34.763Z",
-      "updatedAt": "2024-12-19T16:57:34.763Z",
-      "status": "Approved",
+      "updatedAt": "2024-12-20T05:35:56.991Z",
+      "status": "Completed",
       "queueNumber": 2,
       "scheduleDay": "Jumat",
       "bookingDate": "2024-12-20",
@@ -566,7 +528,7 @@
       "name": "Nama User",
       "createdAt": "2024-12-19T17:04:31.033Z",
       "updatedAt": "2024-12-19T17:04:31.033Z",
-      "status": "Waiting",
+      "status": "Completed",
       "queueNumber": 3,
       "scheduleDay": "Jumat",
       "bookingDate": "2024-12-20",
@@ -578,8 +540,8 @@
       "userId": "3456",
       "name": "Nama User",
       "createdAt": "2024-12-19T17:04:53.132Z",
-      "updatedAt": "2024-12-19T17:04:53.132Z",
-      "status": "Waiting",
+      "updatedAt": "2024-12-20T10:14:53.132Z",
+      "status": "Approved",
       "queueNumber": 4,
       "scheduleDay": "Jumat",
       "bookingDate": "2024-12-20",

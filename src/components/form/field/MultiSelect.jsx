@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const MultiSelect = ({ control, name, label, options, disabled }) => {
-  console.log("options", options);
+const MultiSelect = ({ control, name, label, options, disabled = false }) => {
 
   return (
     <FormField
@@ -27,12 +26,12 @@ const MultiSelect = ({ control, name, label, options, disabled }) => {
                 <div key={option.value}>
                   <div className="flex items-center">
                     <Checkbox
-                      checked={field.value.includes(option.value)} 
+                      checked={field.value.includes(option.value)}
                       onCheckedChange={(checked) => {
                         const newValue = checked
-                          ? [...field.value, option.value] 
-                          : field.value.filter((val) => val !== option.value); 
-                        field.onChange(newValue); 
+                          ? [...field.value, option.value]
+                          : field.value.filter((val) => val !== option.value);
+                        field.onChange(newValue);
                       }}
                       disabled={disabled}
                       className="mr-2"
@@ -56,7 +55,7 @@ MultiSelect.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired, // Support both string and number values
+        .isRequired,
       label: PropTypes.string.isRequired,
     })
   ).isRequired,
@@ -64,9 +63,5 @@ MultiSelect.propTypes = {
   control: PropTypes.object.isRequired, // control is required from form context
 };
 
-MultiSelect.defaultProps = {
-  disabled: false,
-  value: [],
-};
 
 export default MultiSelect;

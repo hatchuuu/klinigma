@@ -26,7 +26,6 @@ const LoginPage = () => {
   const onSubmit = handleSubmit(async (value) => {
     try {
       const response = await axiosInstance.post("/login", value)
-      console.log("atas", response.data.token)
       sessionStorage.setItem("token", response.data.token);
       navigate("/dashboard");
       reset()

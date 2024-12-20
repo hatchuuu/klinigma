@@ -16,3 +16,13 @@ export const getAllDataPoly = async () => {
         return { status: 404, message: "Data Tidak ditemukan" }
     }
 }
+export const updateQueuePoly = async (id, number) => {
+    try {
+        await axiosInstance.patch(`/polyclinics/${id}`, {
+            currentQueue: number,
+        })
+        return { status: 200, message: "Antrean Berhasil diubah" }
+    } catch (error) {
+        return { status: 404, message: "Data Tidak ditemukan" }
+    }
+}

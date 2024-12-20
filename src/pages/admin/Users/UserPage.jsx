@@ -1,5 +1,3 @@
-import UserChart from "@/components/charts/UserCharts";
-import { TableComponent } from "@/components/table/TableComponent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getUsersbyRole } from "@/data/users";
@@ -19,7 +17,6 @@ const UserPage = () => {
       failedToast(response.message);
     } else {
       setData(response);
-      console.log(response);
     }
   };
 

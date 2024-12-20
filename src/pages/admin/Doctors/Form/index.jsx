@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ArrowLeft, LucideAlignHorizontalSpaceBetween } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowLeft } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Breadcrumb,
@@ -58,21 +58,18 @@ function FormDoctors() {
       close: "",
       availableDays: [],
       quota: "",
-      polyclinicId:""
+      polyclinicId: ""
     },
     resolver: zodResolver(doctorsSchema),
   });
   const { control, handleSubmit, reset } = form;
 
   const handleSubmitForm = async (values) => {
-    console.log("Form values:", values);
-    console.log("Available days:", values.availableDays);
 
     // // Memformat availableDays jika diperlukan
     // const availableDaysFormatted = values.availableDays.map(
     //   (day) => Number(day) // Pastikan untuk mengonversi ke angka
     // );
-    console.log(values.quota);
     const schedule = {
       open: values.open,
       close: values.close,
@@ -86,7 +83,6 @@ function FormDoctors() {
       // availableDays: availableDaysFormatted,
     };
 
-    console.log("Payload before sending:", payload);
 
     try {
       if (action === "edit" && doctorId) {
@@ -95,12 +91,10 @@ function FormDoctors() {
           `/doctors/${doctorId}`,
           payload
         );
-        console.log("Doctor updated successfully:", response.data);
         successToast(response.message);
       } else {
         // Create
         const response = await axiosInstance.post("/doctors", payload);
-        console.log("Doctor created successfully:", response.data);
         successToast(response.message);
       }
 
@@ -118,7 +112,6 @@ function FormDoctors() {
   useEffect(() => {
     const fetchData = async () => {
       if ((action === "detail" || action === "edit") && doctorId) {
-        console.log(action);
         try {
           const response = await axiosInstance.get(`/doctors/${doctorId}`);
           const doctorData = response.data;
@@ -131,7 +124,6 @@ function FormDoctors() {
             open: doctorData.schedule.open || "",
             close: doctorData.schedule.close || "",
           });
-          console.log("doctorData", response.data);
         } catch (error) {
           console.error(
             "Error:",
@@ -161,7 +153,6 @@ function FormDoctors() {
         value: item.polyName,
       }));
       setPoliList(mappingOptions);
-      console.log(mappingOptions);
     } catch (error) {
       setError("Failed to fetch data.");
       console.log(error);
@@ -185,7 +176,7 @@ function FormDoctors() {
           </Link>
           <div>
             <h2 className="font-semibold text-[18px] sm:text-[20px] lg:text-[22px]">
-            {action === 'edit' ? 'Edit' : action === 'detail' ? 'Detail' : 'Add'} Doctors
+              {action === 'edit' ? 'Edit' : action === 'detail' ? 'Detail' : 'Add'} Doctors
             </h2>
           </div>
         </section>

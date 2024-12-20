@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { getAllDataBooking } from '@/data/bookings';
-import { getDataPolyById } from '@/data/poly';
-import { ChevronUp, Minus, Plus } from 'lucide-react';
+import { getAllDataBooking, updateBooking } from '@/data/bookings';
+import { getDataPolyById, updateQueuePoly } from '@/data/poly';
+import { Ban, Check, Minus, Plus } from 'lucide-react';
 import { BackButton } from '@/components/button/NavigationButton';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import dayjs from 'dayjs';
+import { getDoctorById, getDoctorsByPoly } from '@/data/doctors';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Label } from '@/components/ui/label';
+import { failedToast, successToast } from '@/lib/toaster';
+import 'dayjs/locale/id';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import { compareTime } from '@/data/service';
+import { Separator } from '@/components/ui/separator';
+
+
+dayjs.locale('id');
 
 const HandlerPage = () => {
 
@@ -20,9 +31,14 @@ const HandlerPage = () => {
     const [polyId, setPolyId] = useState(0);
     const [isConnected, setIsConnected] = useState(false);
     const [booking, setBooking] = useState([])
+    const [lateBooking, setLateBooking] = useState([])
     const [polyName, setPolyName] = useState("")
+    const [doctorId, setDoctorId] = useState(null)
+    const [change, setChange] = useState(false)
+    const [inputValue, setInputValue] = useState(null)
+    const [inputTime, setInputTime] = useState(15)
+    const [listDoctors, setListDoctors] = useState([])
 
-    //Validasi Token
     useEffect(() => {
         const fetchDataBookings = async () => {
             if (token) {
@@ -31,12 +47,37 @@ const HandlerPage = () => {
                     const [role, prePolyId] = decodedToken.role.split("-");
                     setPolyId(prePolyId);
                     const { data: bookingData } = await getAllDataBooking()
-                    console.log({ bookingData });
+
+                    // Validasi telat atau tidak
+                    let openOn;
+                    if (doctorId !== null) {
+                        const { data: docData } = await getDoctorById(doctorId)
+                        const hari = dayjs().format('dddd')
+                        const findSchedulesHour = docData.schedules.find((value) => value.day == hari)
+                        openOn = findSchedulesHour.open
+                    }
+                    dayjs.extend(isSameOrBefore);
+
                     const filterBookingsByPoly = bookingData.filter((value) => {
-                        return value.polyclinicId === Number(prePolyId) && value.status === "Approved" && value.bookingDate == dayjs().format('YYYY-MM-DD');
+                        const limitTimeBooking = compareTime(value.updatedAt, openOn, inputTime)
+                        return value.polyclinicId === Number(prePolyId)
+                            && value.status === "Approved"
+                            && value.bookingDate == dayjs().format('YYYY-MM-DD')
+                            && value.doctorId == doctorId
+                            && limitTimeBooking
+                    })
+                    const filterLateBookingsByPoly = bookingData.filter((value) => {
+                        const limitTimeBooking = compareTime(value.updatedAt, openOn, inputTime)
+                        return value.polyclinicId === Number(prePolyId)
+                            && value.status === "Approved"
+                            && value.bookingDate == dayjs().format('YYYY-MM-DD')
+                            && value.doctorId == doctorId
+                            && !limitTimeBooking
                     })
                     setBooking(filterBookingsByPoly)
-
+                    setLateBooking(filterLateBookingsByPoly)
+                    const { data: doctorsResp } = await getDoctorsByPoly(prePolyId)
+                    setListDoctors(doctorsResp)
                     const { data: polyData } = await getDataPolyById(prePolyId)
                     setPolyName(polyData.polyclinicName)
                     setNumber(polyData.currentQueue)
@@ -47,21 +88,19 @@ const HandlerPage = () => {
                         socket.connect()
                     }
                 } catch (err) {
-                    console.error("Invalid token:", err);
-                    sessionStorage.removeItem("token");
-                    navigate("/login");
+                    console.error("Pesan Error:", err);
                 }
             } else {
+                sessionStorage.removeItem("token");
                 navigate("/login");
             }
         }
-
         fetchDataBookings()
 
         return () => {
             socket.disconnect();
         };
-    }, [token, navigate]);
+    }, [token, navigate, doctorId, change, inputTime]);
 
     //Validasi Socket udah connect atau belum
     useEffect(() => {
@@ -79,17 +118,74 @@ const HandlerPage = () => {
         };
     }, [polyId, socket]);
 
-
+    // Select Dokter
+    const handleFilterByDoctor = (value) => {
+        setDoctorId(value)
+    }
+    //Tombol Selesai / Batal
+    const updateQueue = async (message) => {
+        try {
+            const findIdBooking = booking.find((value) => {
+                return value.queueNumber == Number(number)
+            })
+            if (findIdBooking) {
+                const { status: polyStatus } = await updateQueuePoly(polyId, number)
+                const { status: bookingStatus } = await updateBooking(findIdBooking.id, message)
+                if (polyStatus == 200 && bookingStatus == 200) {
+                    successToast("Berhasil Memperbarui data!")
+                    setChange(() => prev => !prev)
+                }
+                else { throw new Error("Gagal Memperbarui data") }
+            } else { throw new Error("Nomor Antrean tidak ditemukan") }
+        } catch (error) {
+            failedToast(error.message)
+        }
+    }
+    // Tombol Panggil
     const sendNumber = () => {
         if (number && !isNaN(number)) {
-            socket.emit('updateQueue', { number, polyId }
-            );
+            socket.emit('updateQueue', { number, polyId });
+            successToast(`Memanggil urutan ke-${number}`)
         } else {
             alert("Masukkan angka valid");
         }
     };
+    //Handle Input Time
+    const handleTime = () => {
+        if (inputValue !== "" && !isNaN(inputValue)) {
+            setInputTime(inputValue);
+            successToast("Berhasil mengubah batas terlambat!");
+        } else {
+            failedToast("Input harus berupa angka dan tidak boleh kosong!");
+        }
+    };
 
-    console.log({ booking });
+
+    const renderTable = (array) => (
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableHead>Booking ID</TableHead>
+                    <TableHead>Antrean</TableHead>
+                    <TableHead>Nama</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {array.length > 0 ? (array?.map((value, i) => (
+                    <TableRow key={i} className="cursor-pointer" onClick={() => setNumber(Number(value.queueNumber))}>
+                        <TableCell>{value.id}</TableCell>
+                        <TableCell>{value.queueNumber}</TableCell>
+                        <TableCell>{value.name}</TableCell>
+                    </TableRow>
+                )))
+                    :
+                    <TableRow className="hover:bg-transparent">
+                        <TableCell>Tidak ada data</TableCell>
+                    </TableRow>
+                }
+            </TableBody>
+        </Table>
+    )
 
     return (
         <div className="flex flex-col gap-4 justify-center items-center w-full pt-20 sm:pt-40  p-6">
@@ -97,33 +193,51 @@ const HandlerPage = () => {
                 <BackButton path="/dashboard" />
             </section>
 
-            <Select>
-                <SelectTrigger className="w-[280px]">
-                    <SelectValue placeholder="Select a timezone" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                        <SelectLabel>North America</SelectLabel>
-                        {
-
-                        }
-                        <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>
-                        <SelectItem value="cst">Central Standard Time (CST)</SelectItem>
-                        <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>
-                        <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>
-                        <SelectItem value="akst">Alaska Standard Time (AKST)</SelectItem>
-                        <SelectItem value="hst">Hawaii Standard Time (HST)</SelectItem>
-                    </SelectGroup>
-                </SelectContent>
-            </Select>
-
             {/* List Booking By Polyclinic */}
-            <div className="flex justify-center items-center sm:gap-10 w-full sm:flex-row flex-col">
+            <div className="flex justify-center items-start sm:gap-10 w-full sm:flex-row flex-col">
+                <section className="bg-white rounded-lg shadow-xl w-[50vw] p-8 flex flex-col gap-7 items-center">
+                    <div className='w-full flex justify-between'>
+                        <div className="flex flex-col">
+                            <Label className="mb-2">Pilih Dokter</Label>
+                            <Select onValueChange={handleFilterByDoctor}>
+                                <SelectTrigger className="w-[280px]">
+                                    <SelectValue placeholder="Pilih Dokter" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {
+                                            listDoctors?.map((value, i) => (
+                                                <SelectItem key={i} value={value.id}>{value.name}</SelectItem>
+                                            ))
+                                        }
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="flex flex-col">
+                            <Label className="mb-2">Atur Batas Terlambat (Menit)</Label>
+                            <div className="flex gap-2">
+                                <Input type="number" className="w-40 p-2" placeholder="default (15)"
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                />
+                                <Button onClick={handleTime}> Ubah </Button>
+                            </div>
+                        </div>
+                    </div>
 
-                <section className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-                    {
-                        booking.map((value, i) => <p key={i}>{value.id}</p>)
-                    }
+                    {/* Tabel Tepat Waktu */}
+                    <div className="flex gap-5 w-full min-h-[270px]">
+                        <div className="w-full overflow-auto">
+                            <Label className="text-start mb-2">Tepat Waktu</Label>
+                            {renderTable(booking)}
+                        </div>
+                        <Separator orientation="vertical" className="min-h-[270px]" />
+                        {/* Tabel Telat Waktu */}
+                        <div className="w-full overflow-auto">
+                            <Label className="text-start mb-2">Terlambat Waktu</Label>
+                            {renderTable(lateBooking)}
+                        </div>
+                    </div>
                 </section>
 
                 <section className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
@@ -164,13 +278,29 @@ const HandlerPage = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-center items-center">
+                    <div className="flex flex-col justify-center gap-5 items-center">
                         <Button
                             onClick={sendNumber}
-                            className="w-3/4 text-center py-4 "
+                            className="w-full text-center py-4 "
                         >
-                            Kirim Angka
+                            Panggil
                         </Button>
+                        <div className="flex justify-between w-full gap-5">
+                            <Button
+                                onClick={() => updateQueue("Canceled")}
+                                className="bg-primary/80 w-full text-center py-5 "
+                            >
+                                <Ban size={15} />
+                                Tolak
+                            </Button>
+                            <Button
+                                onClick={() => updateQueue("Completed")}
+                                className="bg-primary/80 w-full text-center py-5 "
+                            >
+                                <Check size={15} />
+                                Selesai
+                            </Button>
+                        </div>
                     </div>
 
                     <p className="mt-6 text-center text-gray-600">

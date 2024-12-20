@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { EditUsersSchema } from "@/lib/zodSchema";
 import FieldInput from "@/components/form/field/FieldInput";
 import FieldInputForm from "@/components/form/field/FieldInputForm";
@@ -18,7 +18,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ArrowLeft } from "lucide-react";
 import { axiosInstance } from "@/lib/axios";
 import { BackButton } from "@/components/button/NavigationButton";
 
@@ -53,9 +52,7 @@ function FormUesrs() {
   const { control, handleSubmit, reset } = form;
 
   const handleSubmitForm = async (values) => {
-    console.log("Form values:", values);
     const { ...rest } = values;
-    console.log("rest", rest);
     const payload = {
       ...rest,
       password: usersData.password,
@@ -68,7 +65,6 @@ function FormUesrs() {
 
     try {
       const response = await axiosInstance.put(`/users/${usresId}`, payload);
-      console.log("users created successfully:", response.data);
       successToast(response.message);
 
       navigate("/users");
@@ -89,7 +85,6 @@ function FormUesrs() {
         try {
           const response = await axiosInstance.get(`/users/${usresId}`);
           const usersData = response.data;
-          console.log("usersData", usersData);
           setUsersData(usersData);
           reset({
             ...usersData,

@@ -9,13 +9,15 @@ export const getAllDataBooking = async () => {
     }
 }
 
-export const approveBooking = async (id) => {
+export const updateBooking = async (id, status, date = null) => {
     try {
-        await axiosInstance.patch(`/bookings/${id}`, {
-            status: "Approved"
-        })
-        return { status: 200, message: "Data Berhasil Disetujui" }
+        const payload = { status };
+        if (date !== null) {
+            payload["updatedAt"] = new Date().toISOString();
+        }
+        await axiosInstance.patch(`/bookings/${id}`, payload)
+        return { status: 200, message: "Data Berhasil Diubah" }
     } catch (error) {
-        return { status: 400, message: "Data Gagal Disetujui" }
+        return { status: 400, message: "Data Gagal Diubah" }
     }
 }

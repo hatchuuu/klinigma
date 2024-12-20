@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { approveBooking, getAllDataBooking } from '@/data/bookings'
+import { getAllDataBooking, updateBooking } from '@/data/bookings'
 import { getDoctorsByPoly } from '@/data/doctors'
 import { failedToast, successToast } from '@/lib/toaster'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const BookingApprovedPage = () => {
     const [booking, setBooking] = useState([])
@@ -38,7 +38,7 @@ const BookingApprovedPage = () => {
     }
     const handleApprove = async (id) => {
         try {
-            const response = await approveBooking(id)
+            const response = await updateBooking(id, "Approved", true)
             successToast(response.message)
             setApprove(prev => !prev)
         } catch (error) {
