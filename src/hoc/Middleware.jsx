@@ -1,9 +1,8 @@
-import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 
 const Middleware = ({ children, role }) => {
-    const token = localStorage.getItem("token")
+    const token = sessionStorage.getItem("token")
     const { pathname } = useLocation();
     let jwtRole = null;
     if (token) {
@@ -12,7 +11,7 @@ const Middleware = ({ children, role }) => {
             jwtRole = decodedToken.role
         } catch (err) {
             console.error("Invalid token:", err)
-            localStorage.removeItem("token")
+            sessionStorage.removeItem("token")
         }
     }
 

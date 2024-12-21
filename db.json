@@ -2,11 +2,11 @@
   "users": [
     {
       "id": "1234",
-      "name": "Klinigma",
-      "email": "klinigma@gmail.com",
-      "password": "Password123@",
-      "location": "Goldnerbury",
-      "phoneNumber": "(502) 581-6149",
+      "name": "Klinigma Super Admin",
+      "email": "klinigma@enigma.com",
+      "password": "Super123@",
+      "location": "DKI Jakarta",
+      "phoneNumber": "089545637896",
       "gender": "pria",
       "role": "superadmin",
       "birthDate": "22112002",
@@ -17,9 +17,9 @@
       "id": "2345",
       "name": "Klinigma Admin",
       "email": "admin@klinigma.com",
-      "password": "Password123@",
-      "location": "Janesville",
-      "phoneNumber": "(499) 270-9654",
+      "password": "Admin123@",
+      "location": "Bandung",
+      "phoneNumber": "086512783245",
       "gender": "wanita",
       "role": "admin",
       "birthDate": "22112002",
@@ -30,22 +30,22 @@
       "id": "3456",
       "name": "Klinigma User",
       "email": "user@klinigma.com",
-      "password": "Password123@",
+      "password": "User123@",
       "location": "Medan",
-      "phoneNumber": "0567567567",
+      "phoneNumber": "089145992310",
       "gender": "pria",
       "role": "user",
-      "birthDate": "08052024",
+      "birthDate": "08052001",
       "createdAt": "2024-12-13T12:59:23.745Z",
       "updatedAt": null
     },
     {
       "id": "26a2",
-      "name": "Ryan Nagara",
-      "email": "ryan@gmail.com",
-      "password": "qweQWE123@",
-      "location": "sdfs",
-      "phoneNumber": "0345464564",
+      "name": "Ryan Kusuma",
+      "email": "ryankusuma@gmail.com",
+      "password": "Password123@",
+      "location": "Deli Serdang",
+      "phoneNumber": "087732995634",
       "gender": "pria",
       "role": "user",
       "birthDate": "12122009",
@@ -55,143 +55,474 @@
   ],
   "polyclinics": [
     {
-      "id": "hzha",
-      "polyName": "Poli Jantung",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "oVgSSrrnIxiLScHHhsYJrSiRoiZBfNCjciGelYzE",
-      "image": "https://avatars.githubusercontent.com/u/10128738"
+      "id": 1,
+      "polyclinicName": "Poli Umum",
+      "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
+      "image": "https://avatars.githubusercontent.com/u/10128738",
+      "schedule": "Buka setiap hari, 24/7."
     },
     {
-      "id": "xpxw",
-      "polyName": "Poli Penyakit Dalam",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "dsYxCoRNQHDzQGyVjmziUendMDSAODbuzKfRAVDB",
-      "image": "https://avatars.githubusercontent.com/u/72609122"
+      "id": 2,
+      "polyclinicName": "Poli Gigi",
+      "descriptions": "Menangani masalah kesehatan gigi dan mulut, mulai dari pemeriksaan rutin, penambalan, pencabutan, hingga perawatan khusus.",
+      "image": "https://avatars.githubusercontent.com/u/72609122",
+      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
     },
     {
-      "id": "e9uu",
-      "polyName": "Poli Jantung",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "HPSCnhKVGwyZHROUShWZaysgUksIhCkZUKHpLIdf",
-      "image": "https://avatars.githubusercontent.com/u/63576769"
+      "id": 3,
+      "polyclinicName": "Poli Kesehatan Ibu dan Anak (KIA)",
+      "descriptions": " Menyediakan layanan kesehatan menyeluruh bagi ibu dan anak, meliputi pemeriksaan kehamilan, imunisasi, pemantauan tumbuh kembang, dan konseling laktasi.",
+      "image": "https://avatars.githubusercontent.com/u/63576769",
+      "schedule": "Buka setiap hari, 24/7 kecuali libur nasional."
     },
     {
-      "id": "xcv3",
-      "polyName": "Poli Paru",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "HpMnWvjfKxBoZKvtvdJOkWEkezLmDbabGMvGLcmj",
-      "image": "https://avatars.githubusercontent.com/u/16646631"
+      "id": 4,
+      "polyclinicName": "Poli Keluarga Berencana (KB)",
+      "descriptions": "Berfokus pada pelayanan kontrasepsi, termasuk konseling, pemberian berbagai metode KB (pil, suntik, IUD, implan), dan penanganan efek samping.",
+      "image": "https://avatars.githubusercontent.com/u/16646631",
+      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
+    }
+  ],
+  "queues": [
+    {
+      "id": "queue-1",
+      "polyclinicId": 1,
+      "date": "2024-12-20",
+      "currentQueue": 7
     },
     {
-      "id": "rn23",
-      "polyName": "Poli Paru",
-      "openDay": ["Senin", "Kamis"],
-      "openTime": [7, 30],
-      "descriptions": "cKqyKalNTfpkYQClHsGWAGigIExDrNOBheJQQqNB",
-      "image": "https://avatars.githubusercontent.com/u/37820435"
+      "id": "queue-2",
+      "polyclinicId": 2,
+      "date": "2024-12-20",
+      "currentQueue": 3
+    },
+    {
+      "polyclinicId": 1,
+      "date": "2024-12-23",
+      "currentQueue": 1,
+      "id": "rQyqIRq"
+    },
+    {
+      "polyclinicId": 1,
+      "date": "2024-12-23",
+      "currentQueue": 2,
+      "id": "tP-L5FS"
     }
   ],
   "doctors": [
     {
-      "id": "gyg9",
-      "polyName": "Poli Jantung",
-      "name": "Wallace",
-      "email": "Wallace82@google.com",
-      "gender": "wanita",
-      "descriptions": "drcUczEGbQivHyvRgVYzHEkwOrOoWIkMuTwXLiyh",
-      "invitedAt": "2016-01-26T03:29:45.616Z",
-      "location": "Lake Margarita",
-      "image": "https://avatars.githubusercontent.com/u/6091428"
-    },
-    {
-      "id": "tqjt",
-      "polyName": "Poli Penyakit Dalam",
-      "name": "Joann",
-      "email": "Joann_Hirthe@google.com",
-      "gender": "pria",
-      "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
-      "invitedAt": "2008-12-20T15:52:05.252Z",
-      "location": "Westland",
-      "image": "https://avatars.githubusercontent.com/u/26891770"
-    },
-    {
-      "id": "do11",
-      "polyName": "Poli Jantung",
-      "name": "David",
+      "id": 1,
+      "polyclinicId": 1,
+      "name": "dr. Tony Tony Chopper, M.Kes",
       "email": "David_Koepp@google.com",
       "gender": "wanita",
       "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
       "invitedAt": "2007-12-14T11:23:25.259Z",
       "location": "Napa",
-      "image": "https://avatars.githubusercontent.com/u/81562255"
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/99c1bbdc-6cfa-46ac-7d32-49f449d92600/avatarhd",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 7,
+          "booked": 4
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 2
+        },
+        {
+          "day": "Rabu",
+          "open": "10:00",
+          "close": "23:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Kamis",
+          "open": "01:00",
+          "close": "09:00",
+          "quota": 10,
+          "booked": 2
+        },
+        {
+          "day": "Jumat",
+          "open": "00:00",
+          "close": "09:00",
+          "quota": 9,
+          "booked": 8
+        },
+        {
+          "day": "Sabtu",
+          "open": "01:00",
+          "close": "12:00",
+          "quota": 7,
+          "booked": 4
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu"
+      ]
     },
     {
-      "id": "26ky",
-      "polyName": "Poli Paru",
-      "name": "Merle",
+      "id": 2,
+      "polyclinicId": 1,
+      "name": "dr. Satoru Gojou",
+      "email": "Wallace82@google.com",
+      "gender": "pria",
+      "descriptions": "drcUczEGbQivHyvRgVYzHEkwOrOoWIkMuTwXLiyh",
+      "invitedAt": "2016-01-26T03:29:45.616Z",
+      "location": "Lake Margarita",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5equJAH_tetyxlUzVZKikrj0xYIiGfSPStw&s",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Kamis",
+          "open": "10:00",
+          "close": "18:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "18:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Sabtu",
+          "open": "13:00",
+          "close": "23:00",
+          "quota": 10,
+          "booked": 1
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Kamis",
+        "Jumat",
+        "Sabtu"
+      ]
+    },
+    {
+      "id": 3,
+      "polyclinicId": 1,
+      "name": "dr. Levi Ackerman, Sp.PD",
+      "email": "Joann_Hirthe@google.com",
+      "gender": "pria",
+      "descriptions": "kYHRtBbeERsqucBIySeOOqHTwpUhmTblNGNNdiNk",
+      "invitedAt": "2008-12-20T15:52:05.252Z",
+      "location": "Westland",
+      "image": "https://static.wikia.nocookie.net/shingekinokyojin/images/b/b1/Levi_Ackermann_%28Anime%29_character_image.png",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Kamis",
+          "open": "19:00",
+          "close": "23:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Jumat",
+          "open": "19:00",
+          "close": "23:00",
+          "quota": 7,
+          "booked": 4
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Kamis",
+        "Jumat"
+      ]
+    },
+    {
+      "id": 4,
+      "polyclinicId": 2,
+      "name": "drg. Nami, Sp.Ort",
+      "email": "David_Koepp@google.com",
+      "gender": "wanita",
+      "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
+      "invitedAt": "2007-12-14T11:23:25.259Z",
+      "location": "Napa",
+      "image": "https://i.pinimg.com/736x/04/68/26/046826e8c2d4ff9c8e5ef9dc9ea47f70.jpg",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 9,
+          "booked": 2
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
+    },
+    {
+      "id": 5,
+      "polyclinicId": 2,
+      "name": "drg. Forger Yor, Sp.Pros",
+      "email": "David_Koepp@google.com",
+      "gender": "wanita",
+      "descriptions": "eShvTRFmhEliGeBHMcEeQdXHdSbOlEkYvrHWVwEg",
+      "invitedAt": "2007-12-14T11:23:25.259Z",
+      "location": "Napa",
+      "image": "https://i.pinimg.com/originals/60/f3/9f/60f39f01c01222edad1c3aefbb27b41a.jpg",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 10,
+          "booked": 1
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
+    },
+    {
+      "id": 6,
+      "polyclinicId": 3,
+      "name": "dr. Makima, Sp.A",
       "email": "Merle_Corwin@google.com",
       "gender": "wanita",
       "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
       "invitedAt": "2008-06-20T14:28:32.691Z",
       "location": "West Alexisfield",
-      "image": "https://avatars.githubusercontent.com/u/76868199"
+      "image": "https://i.pinimg.com/736x/6c/ff/d5/6cffd5f0ce7a4b7550fe03ce74afe349.jpg",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 10,
+          "booked": 1
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     },
     {
-      "id": "250z",
-      "polyName": "Poli Paru",
-      "name": "Lorraine",
+      "id": 7,
+      "polyclinicId": 3,
+      "name": "dr. Violet Evergarden, Sp.OG",
+      "email": "Merle_Corwin@google.com",
+      "gender": "wanita",
+      "descriptions": "gkFEHpNtBTvVUhxmsOTfzFzKJpyVKNPFySCKTkSV",
+      "invitedAt": "2008-06-20T14:28:32.691Z",
+      "location": "West Alexisfield",
+      "image": "https://i.pinimg.com/736x/fa/c5/18/fac518d079ede36ac3a394cdb5c8766b.jpg",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 10,
+          "booked": 1
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
+    },
+    {
+      "id": 8,
+      "polyclinicId": 4,
+      "name": "dr. Maki Zenin",
       "email": "Lorraine.Parker@google.com",
       "gender": "wanita",
       "descriptions": "SyQxXRbNkhrHeTFYytNJedOZRbvSOxRecrovmqZV",
       "invitedAt": "2015-04-10T12:21:25.176Z",
       "location": "Hollisfield",
-      "image": "https://avatars.githubusercontent.com/u/57949354"
+      "image": "https://imagedelivery.net/LBWXYQ-XnKSYxbZ-NuYGqQ/4ad1b922-a064-4158-8863-6749b4846600/avatarhd",
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "08:00",
+          "close": "16:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Selasa",
+          "open": "09:00",
+          "close": "17:00",
+          "quota": 10,
+          "booked": 1
+        },
+        {
+          "day": "Jumat",
+          "open": "10:00",
+          "close": "14:00",
+          "quota": 10,
+          "booked": 1
+        }
+      ],
+      "availableDays": [
+        "Senin",
+        "Selasa",
+        "Jumat"
+      ]
     }
   ],
   "bookings": [
     {
-      "id": "43e2",
-      "polyName": "Poli Jantung",
-      "name": "Christian",
-      "createdAt": "2024-12-12T12:18:26.355Z",
-      "doneAt": "2024-12-15T14:16:53.130Z",
-      "status": "Done"
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:23:23.127Z",
+      "updatedAt": "2024-12-20T17:23:23.127Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 1
     },
     {
-      "id": "idnf",
-      "polyName": "Poli Penyakit Dalam",
-      "name": "Lucia",
-      "createdAt": "2024-12-12T13:36:25.296Z",
-      "doneAt": "2024-12-13T20:29:00.577Z",
-      "status": "Done"
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:26:41.059Z",
+      "updatedAt": "2024-12-20T17:26:41.060Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 2
     },
     {
-      "id": "ttv6",
-      "polyName": "Poli Jantung",
-      "name": "Kelvin",
-      "createdAt": "2024-12-12T20:46:31.966Z",
-      "doneAt": "2024-12-16T14:53:42.014Z",
-      "status": "Approve"
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:30:57.199Z",
+      "updatedAt": "2024-12-20T17:30:57.199Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 3
     },
     {
-      "id": "p2ke",
-      "polyName": "Poli Paru",
-      "name": "Alfredo",
-      "createdAt": "2024-12-12T16:31:21.664Z",
-      "doneAt": "2024-12-17T23:46:09.855Z",
-      "status": "Done"
-    },
-    {
-      "id": "hesg",
-      "polyName": "Poli Paru",
-      "name": "Christy",
-      "createdAt": "2024-12-12T21:41:48.520Z",
-      "doneAt": "2024-12-17T03:35:37.046Z",
-      "status": "Approve"
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:31:32.425Z",
+      "updatedAt": "2024-12-20T17:31:32.425Z",
+      "status": "Waiting",
+      "queueNumber": 2,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 4
     }
   ]
 }

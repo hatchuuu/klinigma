@@ -19,3 +19,7 @@ export const loginUserInstance = axios.create({
     baseURL: import.meta.env.VITE_API_LOGIN_USER_URL,
 });
 
+export const axiosInstance = axios.create({
+    baseURL: "http://localhost:3002/",
+});
+

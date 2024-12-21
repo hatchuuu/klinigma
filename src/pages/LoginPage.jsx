@@ -5,11 +5,12 @@ import {
 
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { loginAdminInstance, loginSuperInstance, loginUserInstance } from "@/lib/axios";
+import { axiosInstance, loginAdminInstance, loginSuperInstance, loginUserInstance } from "@/lib/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "@/lib/zodSchema";
 import FieldInput from "@/components/form/field/FieldInput";
 import { useState } from "react";
+import axios from "axios";
 
 const LoginPage = () => {
   const [err, setErr] = useState("")
@@ -24,28 +25,13 @@ const LoginPage = () => {
   const { control, handleSubmit } = form;
 
   const onSubmit = handleSubmit(async (value) => {
-    const { email } = value;
-    console.log(value);
     try {
-      let response;
-      if (email == "klinigma@enigma.com") {
-        response = await loginSuperInstance.post("", value)
-      } else if (email == "admin@klinigma.com") {
-        response = await loginAdminInstance.post("", value)
-      } else if (email == "user@klinigma.com") {
-        response = await loginUserInstance.post("", value)
-      } else {
-        throw new Error("Email atau Password salah")
-      }
-      console.log("halo");
-      if (response.status == 200) {
-        localStorage.setItem("token", response.data.data.token);
-        navigate("/dashboard");
-      } else {
-        throw new Error(response.message)
-      }
+      const response = await axiosInstance.post("/login", value)
+      console.log("atas", response.data.token)
+      sessionStorage.setItem("token", response.data.token);
+      navigate("/dashboard");
     } catch (error) {
-      setErr(error.message)
+      setErr(error.response.data.message)
     }
   });
 
