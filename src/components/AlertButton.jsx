@@ -6,7 +6,7 @@ const AlertButton = ({ handleLogout }) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button> <LogOut /> Keluar</Button>
+                <Button className="py-4 px-6"> <LogOut size={15} /> Keluar</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>

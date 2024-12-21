@@ -18,7 +18,7 @@ export default function BookingPage() {
   useEffect(() => {
     const fetchPoliklinik = async () => {
       try {
-        const response = await fetch("http://localhost:3002/polyclinics"); // Ganti dengan URL endpoint JSON Server kamu
+        const response = await fetch("http://localhost:3002/polyclinics");
         if (!response.ok) {
           throw new Error("Gagal mengambil data poliklinik");
         }
@@ -36,14 +36,14 @@ export default function BookingPage() {
 
   const handlePilihPoli = (poliklinik) => {
     // Redirect ke halaman PilihJadwal
-    navigate("/booking/pilih-jadwal", { state: { poliklinik } });
+    navigate("/booking/schedule", { state: { poliklinik } });
   };
 
   // Filter poliklinik berdasarkan search term
   const filteredPoliklinik = dataPoliklinik.filter((poli) => {
     const search = searchTerm.toLowerCase();
     return (
-      poli.polyName.toLowerCase().includes(search) ||
+      poli.polyclinicName.toLowerCase().includes(search) ||
       poli.descriptions.toLowerCase().includes(search)
     );
   });
@@ -78,9 +78,9 @@ export default function BookingPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols- lg:gap-6 ">
-          {filteredPoliklinik.map((poli, index) => (
+          {filteredPoliklinik.map((poli) => (
             <div
-              key={index}
+              key={poli.id}
               className="border rounded-lg shadow-md p-4 bg-white dark:bg-gray-800 cursor-pointer"
               onClick={() => handlePilihPoli(poli)}
             >
@@ -89,11 +89,11 @@ export default function BookingPage() {
                 <div className="flex gap-3 items-center">
                   <Avatar>
                     <AvatarImage src={poli.image} alt={poli.polyName} />
-                    <AvatarFallback>{poli.polyName[0]}</AvatarFallback>
+                    <AvatarFallback>{poli.polyclinicName[0]}</AvatarFallback>
                   </Avatar>
                   <div>
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                      {poli.polyName}
+                      {poli.polyclinicName}
                     </h2>
                     <div className="flex flex-wrap gap-2 items-center text-sm">
                       {/* <span className="font-semibold">Jadwal Praktik:</span> */}

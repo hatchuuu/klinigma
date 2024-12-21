@@ -24,63 +24,73 @@ import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
 import SideBarListQueue from "@/components/SideBarListQueue";
 import TokenBoard from "@/components/TokenBoard";
+import useCounterStore from "@/store/counter";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [allBookings, setAllBookings] = useState(null);
   const [latestBooking, setLatestBooking] = useState(null);
   const token = sessionStorage.getItem("token");
+  const { id, role } = jwtDecode(token);
 
   const navigate = useNavigate();
 
+  const fetchIdUser = async () => {
+    try {
+      const responseUser = await getUserById(id);
+      setUser(responseUser.data);
+      console.log("Fetched User:", responseUser.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const fetchDataPolys = async () => {
+    try {
+      const polysData = await getAllDataPoly();
+      return polysData
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const fetchDataBookings = async () => {
+    try {
+      const responseBookings = await getAllDataBooking();
+      // Filter bookings by userId and add polyName
+      const filteredBookingById = responseBookings?.data?.filter(
+        (value) => value.userId === id
+      );
+      const polysData = await fetchDataPolys();
+      let filterBookings = [];
+      for (let i = 0; i < filteredBookingById.length; i++) {
+        let booking = { ...filteredBookingById[i] };
+        for (let j = 0; j < polysData.length; j++) {
+          let poly = polysData[j];
+          if (booking.polyclinicId === poly.id) {
+            booking["polyQueue"] = poly.currentQueue;
+            break;
+          }
+        }
+        filterBookings.push(booking);
+      }
+      setAllBookings(filterBookings);
+      // Find the first unfinished booking
+      const latestBooking = filterBookings.find((value) => {
+        return value.doneAt == null;
+      });
+      setLatestBooking(latestBooking);
+    } catch (error) {
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        // Check if token exists before decoding
-        if (token) {
-          const { id, role } = jwtDecode(token);
-
-          if (role === "user") {
-            const responseBookings = await getAllDataBooking();
-            const polysData = await getAllDataPoly();
-
-            // Filter bookings by userId and add polyName
-            const filteredBookingById = responseBookings?.data?.filter(
-              (value) => value.userId === id
-            );
-
-            let filterBookings = [];
-            for (let i = 0; i < filteredBookingById.length; i++) {
-              let booking = { ...filteredBookingById[i] };
-              for (let j = 0; j < polysData.length; j++) {
-                let poly = polysData[j];
-                if (booking.polyclinicId === poly.id) {
-                  booking["polyName"] = poly.polyName;
-                  booking["polyQueue"] = poly.currentQueue;
-                  break;
-                }
-              }
-              filterBookings.push(booking);
-            }
-
-            setAllBookings(filterBookings);
-
-            // Find the first unfinished booking
-            const latestBooking = filterBookings.find((value) => {
-              return value.doneAt == null;
-            });
-            setLatestBooking(latestBooking);
-          }
-
-          const responseUser = await getUserById(id);
-          setUser(responseUser.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        // Handle error, e.g., show error message to user
+      if (role === "user") {
+        fetchDataBookings()
       }
+      fetchIdUser()
     };
-
     fetchData();
   }, [token]); // Re-run effect if token changes
 
@@ -92,9 +102,7 @@ const DashboardPage = () => {
   const mapUrl =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5855003249085!2d106.73948209999999!3d-6.1861864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f72a01b8f00d%3A0x7f87d867fb930560!2sPT.%20Kreasi%20Layanan%20Medis!5e0!3m2!1sen!2sid!4v1734104130782!5m2!1sen!2sid";
 
-  if (user === null) {
-    return <Loader />;
-  } // Re-run effect if token changes
+  console.log({ user });
   return (
     <div>
       {user ? (
@@ -144,6 +152,7 @@ const DashboardPage = () => {
               </div>
             </div>
           </section>
+
           <div className="flex sm:flex-row flex-col">
             <section className="sm:order-2 order-1">
               {latestBooking && (

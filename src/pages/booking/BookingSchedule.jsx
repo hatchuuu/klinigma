@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import moment from "moment";
-import "moment/locale/id";
+import dayjs from "dayjs";
+import "dayjs/locale/id";
+import isBetween from "dayjs/plugin/isBetween";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,136 +20,180 @@ import {
 import { BackButton } from "@/components/button/NavigationButton";
 import { SquarePen } from "lucide-react";
 
+dayjs.extend(isBetween);
+dayjs.locale("id");
+
+function convertDayToIndonesian(day) {
+  const days = {
+    Sunday: "Minggu",
+    Monday: "Senin",
+    Tuesday: "Selasa",
+    Wednesday: "Rabu",
+    Thursday: "Kamis",
+    Friday: "Jumat",
+    Saturday: "Sabtu",
+  };
+  return days[day] || day;
+}
+
 function BookingSchedule() {
   const location = useLocation();
   const navigate = useNavigate();
-  const poliklinik = location.state?.poliklinik;
-
-  const [tanggalTerpilih, setTanggalTerpilih] = useState(moment());
-  const [dokterTerpilih, setDokterTerpilih] = useState(null);
-  const [dataDokter, setDataDokter] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { poliklinik } = location.state || {};
 
   useEffect(() => {
-    moment.locale("id");
+    if (!poliklinik) {
+      navigate("/booking");
+    }
+  }, [poliklinik]);
 
+  const [loading, setLoading] = useState({ isLoading: true, dayjs: null });
+  const [tanggalTerpilih, setTanggalTerpilih] = useState(null);
+  const [dokterTerpilih, setDokterTerpilih] = useState(null);
+  const [dataDokter, setDataDokter] = useState([]);
+  const [isBooking, setIsBooking] = useState(false);
+
+  useEffect(() => {
+    async function init() {
+      const dayjsModule = await import("dayjs");
+      await import("dayjs/locale/id");
+      dayjsModule.default.locale("id");
+      setLoading({ isLoading: false, dayjs: dayjsModule.default });
+      setTanggalTerpilih(dayjsModule.default());
+    }
+    init();
+  }, []);
+
+  useEffect(() => {
     const fetchDokter = async () => {
-      try {
-        const response = await fetch("http://localhost:3002/doctors");
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data dokter");
+      if (!loading.isLoading) {
+        try {
+          const response = await fetch("http://localhost:3002/doctors");
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data dokter");
+          }
+          setDataDokter(await response.json());
+        } catch (error) {
+          console.error(error);
         }
-        const data = await response.json();
-        setDataDokter(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchDokter();
-  }, []);
+  }, [loading.isLoading]);
 
-  if (isLoading) {
-    return <div>Loading data dokter...</div>;
+  if (loading.isLoading) {
+    return <div>Loading...</div>;
   }
 
   const dokterDiPoli = dataDokter.filter(
     (dokter) => dokter.polyclinicId === poliklinik.id
   );
-  
-  const handlePilihTanggal = (tanggal) => {
+
+  const handlePilihTanggal = async (tanggal) => {
     setTanggalTerpilih(tanggal);
     setDokterTerpilih(null);
+
+    const formattedDate = tanggal.format("YYYY-MM-DD");
+
+    try {
+      // Fetch data antrian dari database
+      const response = await fetch(`http://localhost:3002/queues?polyclinicId=${poliklinik.id}&date=${formattedDate}`);
+      const data = await response.json();
+
+      if (data.length === 0) {
+        // setNomorAntrian(data[0].currentQueue);
+        console.log("Antrian belum ada, akan dibuat saat konfirmasi booking.")
+      } else {
+        // setNomorAntrian(1);
+        console.log("Antrian sudah ada.")
+      }
+    } catch (error) {
+      console.error("Error fetching queue:", error);
+      // Handle error, misal tampilkan error message ke user
+    }
   };
 
   const handlePilihDokter = (dokter) => {
-    let isAvailable = true;
-    let availabilityMessage = "";
-
-    const jamBuka = moment(dokter.schedule.open, "HH:mm");
-    const jamTutup = moment(dokter.schedule.close, "HH:mm");
-
-    if (jamTutup.isBefore(jamBuka)) {
-      jamTutup.add(1, "day");
-    }
-
-    const now = moment();
-    const open = moment(tanggalTerpilih).set({
-      hour: jamBuka.hour(),
-      minute: jamBuka.minute(),
-    });
-    const close = moment(tanggalTerpilih).set({
-      hour: jamTutup.hour(),
-      minute: jamTutup.minute(),
-    });
-
-    if (tanggalTerpilih.isSame(moment(), "day")) {
-      isAvailable =
-        dokter.availableDays.includes(tanggalTerpilih.day()) &&
-        now.isBetween(open, close, undefined, "[]");
-
-      if (!isAvailable) {
-        availabilityMessage = dokter.availableDays.includes(tanggalTerpilih.day())
-          ? "Tidak tersedia di jam ini"
-          : "Tidak tersedia di hari ini";
-      }
-    } else {
-      isAvailable = dokter.availableDays.includes(tanggalTerpilih.day());
-      if (!isAvailable) {
-        availabilityMessage = "Tidak tersedia di hari ini";
-      }
-    }
-
-    if (isAvailable) {
-      setDokterTerpilih(dokter);
-    } else {
-      console.error("Dokter tidak tersedia.", availabilityMessage);
-      // Consider showing an alert or a more prominent error message to the user
-    }
+    setDokterTerpilih(dokter);
   };
 
   const handleConfirmBooking = async () => {
-    setIsLoading(true); // Menampilkan loading indicator
-  
+    setIsBooking(true);
+
     try {
-      // 1. Mengurangi kuota dokter di database
-      const response = await fetch(`http://localhost:3002/doctors/${dokterTerpilih.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          quota: dokterTerpilih.quota - 1,
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Gagal memperbarui kuota dokter");
+      const hariInggris = tanggalTerpilih.format("dddd");
+      const hariIndonesia = convertDayToIndonesian(hariInggris);
+      const jadwalHariIni = dokterTerpilih.schedules.find(
+        (s) => s.day === hariIndonesia
+      );
+
+      if (!jadwalHariIni) {
+        throw new Error("Jadwal tidak ditemukan.");
       }
-  
-      // 2. Membuat data booking baru
+
       const bookingData = {
         poliklinik: {
           id: poliklinik.id,
-          polyName: poliklinik.polyName,
+          polyName: poliklinik.polyclinicName,
         },
         tanggalTerpilih: tanggalTerpilih.format("YYYY-MM-DD"),
         dokterTerpilih: {
           id: dokterTerpilih.id,
           name: dokterTerpilih.name,
+          schedules: dokterTerpilih.schedules,
+        },
+        jadwal: {
+          hari: hariIndonesia,
+          jamBuka: jadwalHariIni.open,
+          jamTutup: jadwalHariIni.close,
+          quota: jadwalHariIni.quota,
+          booked: jadwalHariIni.booked,
         },
       };
-  
-      // 3. Navigasi ke halaman BookingDetails
+
       navigate("/booking/schedule/details", { state: bookingData });
     } catch (error) {
       console.error(error);
-      // Tampilkan pesan error ke user (misalnya, dengan alert)
     } finally {
-      setIsLoading(false); // Menyembunyikan loading indicator
+      setIsBooking(false);
     }
+  };
+
+  const isDoctorAvailable = (dokter) => {
+    const hariInggris = tanggalTerpilih.format("dddd");
+    const hariIndonesia = convertDayToIndonesian(hariInggris);
+    const jadwalHariIni = dokter.schedules.find((s) => s.day === hariIndonesia);
+
+    if (!jadwalHariIni) {
+      return false; // Dokter tidak tersedia di hari ini
+    }
+
+    if (tanggalTerpilih.isSame(loading.dayjs(), "day")) {
+      // Periksa apakah jadwal dokter sudah lewat untuk hari ini
+      const now = loading.dayjs();
+      const [openHour, openMinute] = jadwalHariIni.open.split(":").map(Number);
+      const [closeHour, closeMinute] = jadwalHariIni.close
+        .split(":")
+        .map(Number);
+
+      const jamBuka = loading
+        .dayjs() // Use loading.dayjs() here
+        .set("hour", openHour)
+        .set("minute", openMinute);
+      const jamTutup = loading
+        .dayjs() // Use loading.dayjs() here
+        .set("hour", closeHour)
+        .set("minute", closeMinute);
+
+      if (jamTutup.isBefore(jamBuka)) {
+        const jamTutup = jamTutup.add(1, "day");
+      }
+
+      return now.isBetween(jamBuka, jamTutup, null, "[]");
+    }
+
+    return true;
   };
 
   return (
@@ -167,7 +212,7 @@ function BookingSchedule() {
       <div className="p-4 border flex rounded-lg shadow-md bg-white dark:bg-gray-800">
         <div className="w-[85%]">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-            {poliklinik.polyName}
+            {poliklinik.polyclinicName}
           </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {poliklinik.descriptions}
@@ -185,7 +230,7 @@ function BookingSchedule() {
       <h1 className="my-6 text-lg font-semibold">Pilih Jadwal</h1>
       <div className="flex gap-4 mt-4">
         {[0, 1, 2].map((hari) => {
-          const tanggal = moment().add(hari, "days");
+          const tanggal = loading.dayjs().add(hari, "days");
           const isActive = tanggal.isSame(tanggalTerpilih, "day");
 
           return (
@@ -209,108 +254,173 @@ function BookingSchedule() {
         <h1 className="my-6 text-lg font-semibold">Pilih Dokter</h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pb-8">
           {dokterDiPoli.map((dokter) => {
-            const jamBuka = moment(dokter.schedule.open, "HH:mm");
-            const jamTutup = moment(dokter.schedule.close, "HH:mm");
-            const sisaKuota = dokter.quota - 10;
+            const hariInggris = tanggalTerpilih.format("dddd");
+            const hariIndonesia = convertDayToIndonesian(hariInggris);
+            const jadwalHariIni = dokter.schedules.find(
+              (s) => s.day === hariIndonesia
+            );
 
-            if (jamTutup.isBefore(jamBuka)) {
-              jamTutup.add(1, "day");
-            }
+            let formattedOpenTime = "Invalid Date";
+            let formattedCloseTime = "Invalid Date";
 
-            let isAvailable = dokter.availableDays.includes(tanggalTerpilih.day());
-            let availabilityMessage = "";
+            if (jadwalHariIni) {
+              try {
+                const today = loading.dayjs();
+                formattedOpenTime = today
+                  .set("hour", parseInt(jadwalHariIni.open.split(":")[0]))
+                  .set("minute", parseInt(jadwalHariIni.open.split(":")[1]))
+                  .format("HH:mm");
 
-            if (tanggalTerpilih.isSame(moment(), "day")) {
-              const now = moment(); 
-              const open = moment(tanggalTerpilih).set({
-                hour: jamBuka.hour(),
-                minute: jamBuka.minute(),
-              });
-              const close = moment(tanggalTerpilih).set({
-                hour: jamTutup.hour(),
-                minute: jamTutup.minute(),
-              });
-
-              isAvailable =
-                isAvailable && now.isBetween(open, close, undefined, "[]");
-
-              if (!isAvailable) {
-                availabilityMessage = dokter.availableDays.includes(tanggalTerpilih.day())
-                  ? "Tidak tersedia di jam ini"
-                  : "Tidak tersedia di hari ini";
+                formattedCloseTime = today
+                  .set("hour", parseInt(jadwalHariIni.close.split(":")[0]))
+                  .set("minute", parseInt(jadwalHariIni.close.split(":")[1]))
+                  .add(jadwalHariIni.close < jadwalHariIni.open ? 1 : 0, "day")
+                  .format("HH:mm");
+              } catch (error) {
+                console.error("Error parsing time:", error, jadwalHariIni);
               }
-            } else if (!isAvailable) {
-              availabilityMessage = "Tidak tersedia di hari ini";
             }
 
-
+            const isAvailable = isDoctorAvailable(dokter);
+            const availabilityMessage = isAvailable
+              ? "Dokter tersedia di jam ini"
+              : jadwalHariIni
+              ? "Dokter tidak tersedia di jam ini" // Dokter ada jadwal, tapi di luar jam praktek
+              : "Dokter tidak tersedia di hari ini"; // Dokter tidak ada jadwal di hari ini
             return (
-              <Drawer key={dokter.id}>
-                <DrawerTrigger asChild>
-                  <div
-                    key={dokter.id}
-                    className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 
+              <div key={dokter.id}>
+                <Drawer key={dokter.id}>
+                  {isAvailable ? (
+                    <DrawerTrigger asChild>
+                      <div
+                        key={dokter.id}
+                        className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 
+                        ${
+                          dokter.id === dokterTerpilih?.id
+                            ? "bg-blue-500 text-white"
+                            : "bg-white dark:bg-gray-800"
+                        } 
+                        ${isAvailable ? "" : "opacity-50 cursor-not-allowed"} 
+                      `}
+                        onClick={() => handlePilihDokter(dokter)}
+                      >
+                        <Avatar className="w-16 h-16">
+                          <AvatarImage src={dokter.image} alt={dokter.name} />
+                          <AvatarFallback>{dokter.name[0]}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            {dokter.name}
+                          </h3>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {jadwalHariIni
+                              ? `${formattedOpenTime} - ${formattedCloseTime}`
+                              : "Tidak ada jadwal"}
+                          </p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Sisa Kuota:{" "}
+                            {jadwalHariIni
+                              ? jadwalHariIni.quota - jadwalHariIni.booked
+                              : "N/A"}
+                          </p>
+                          {!isAvailable && (
+                            <p className="text-sm text-red-500">
+                              {availabilityMessage}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </DrawerTrigger>
+                  ) : (
+                    <div // div biasa jika dokter tidak tersedia
+                      key={dokter.id}
+                      className={`card-dokter p-4 border rounded-lg shadow-md cursor-not-allowed flex items-center gap-3 
                       ${
                         dokter.id === dokterTerpilih?.id
                           ? "bg-blue-500 text-white"
                           : "bg-white dark:bg-gray-800"
-                      } 
-                      ${
-                        isAvailable ? "" : "opacity-50 cursor-not-allowed" 
-                      }`}
-                    onClick={() => handlePilihDokter(dokter)}
-                  >
-                    <Avatar className="w-16 h-16">
-                      <AvatarImage src={dokter.image} alt={dokter.name} />
-                      <AvatarFallback>{dokter.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        {dokter.name}
-                      </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {jamBuka.format("HH:mm")} - {jamTutup.format("HH:mm")}
-                      </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Sisa Kuota: {sisaKuota}
-                      </p>
-                      {!isAvailable && (
-                        <p className="text-sm text-red-500">
-                          {availabilityMessage}
+                      } opacity-50 `}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                       {" "}
+                      <Avatar className="w-16 h-16">
+                        <AvatarImage src={dokter.image} alt={dokter.name} />
+                        <AvatarFallback>{dokter.name[0]}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                          {dokter.name}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {jadwalHariIni
+                            ? `${formattedOpenTime} - ${formattedCloseTime}`
+                            : "Tidak ada jadwal"}
                         </p>
-                      )}
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Sisa Kuota:{" "}
+                          {jadwalHariIni
+                            ? jadwalHariIni.quota - jadwalHariIni.booked
+                            : "N/A"}
+                        </p>
+                        {!isAvailable && (
+                          <p className="text-sm text-red-500">
+                            {availabilityMessage}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerClose />
-                  <DrawerHeader>
-                    <DrawerTitle>Ringkasan Booking</DrawerTitle>
-                    <DrawerDescription>
-                      Berikut adalah ringkasan booking Anda:
-                    </DrawerDescription>
-                  </DrawerHeader>
-                  <div className="p-4">
-                    <p>
-                      <strong>Poliklinik:</strong> {poliklinik.polyName}
-                    </p>
-                    {dokterTerpilih ? (
+                  )}
+                  <DrawerContent>
+                    <DrawerClose />
+                    <DrawerHeader>
+                      <DrawerTitle>Ringkasan Booking</DrawerTitle>
+                      <DrawerDescription>
+                        Berikut adalah ringkasan booking Anda:
+                      </DrawerDescription>
+                    </DrawerHeader>
+                    <div className="p-4">
                       <p>
-                        <strong>Dokter:</strong> {dokterTerpilih.name}
+                        <strong>Poliklinik:</strong> {poliklinik.polyclinicName}
                       </p>
-                    ) : (
-                      <p>Loading data dokter...</p>
-                    )}
-                    <p>
-                      <strong>Tanggal:</strong>{" "}
-                      {tanggalTerpilih.format("dddd, DD MMMM YYYY")}
-                    </p>
-                  </div>
-                  <DrawerFooter>
-                    <Button onClick={handleConfirmBooking}>Lanjut</Button>
-                  </DrawerFooter>
-                </DrawerContent>
-              </Drawer>
+                      {dokterTerpilih ? (
+                        <p>
+                          <strong>Dokter:</strong> {dokterTerpilih.name}
+                        </p>
+                      ) : (
+                        <p>Loading data dokter...</p>
+                      )}
+                      <p>
+                        <strong>Tanggal:</strong>{" "}
+                        {tanggalTerpilih.format("dddd, DD MMMM YYYY")}
+                      </p>
+                      <p>
+                        <strong>Jadwal Praktik:</strong>{" "}
+                        {jadwalHariIni
+                          ? `${formattedOpenTime} - ${formattedCloseTime}`
+                          : "Tidak ada jadwal"}
+                      </p>
+                      <p>
+                        <strong>Total Antrean:</strong>{" "}
+                        {jadwalHariIni?.booked || "N/A"}
+                      </p>
+                      <p>
+                        <strong>Sisa Kuota:</strong>{" "}
+                        {jadwalHariIni
+                          ? jadwalHariIni.quota - jadwalHariIni.booked
+                          : "N/A"}
+                      </p>
+                    </div>
+                    <DrawerFooter>
+                      <Button
+                        onClick={handleConfirmBooking}
+                        disabled={isBooking}
+                      >
+                        {isBooking ? "Loading..." : "Lanjut"}
+                      </Button>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
+              </div>
             );
           })}
         </div>

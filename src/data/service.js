@@ -16,7 +16,6 @@ export const calculateAge = (birthDate) => {
   const today = new Date();
 
   let age = today.getFullYear() - birth.getFullYear();
-
   if (
     today.getMonth() < birth.getMonth() ||
     (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
@@ -37,18 +36,18 @@ export const getLatestToken = (data) => {
 
 
 export const formatDate = (data) => {
-    // Check if data is valid before parsing
-    if (!data) {
-      console.error("Invalid date data:", data);
-      return { fullDate: "", time: "" }; 
-    }
-    const date = parseISO(data);
-  
-    const fullDate = format(date, "dd MMMM yyyy", { locale: id });
-    const time = format(date, "HH:mm", { locale: id });
-  
-    return {
-      fullDate,
-      time,
-    };
+  // Check if data is valid before parsing
+  if (!data) {
+    console.error("Invalid date data:", data);
+    return { fullDate: "", time: "" };
+  }
+  const date = parseISO(data);
+
+  const fullDate = format(date, "dd MMMM yyyy", { locale: id });
+  const time = format(date, "HH:mm", { locale: id });
+
+  return {
+    fullDate,
+    time,
   };
+};
