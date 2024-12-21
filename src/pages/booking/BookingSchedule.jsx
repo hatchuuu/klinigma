@@ -90,9 +90,28 @@ function BookingSchedule() {
     (dokter) => dokter.polyclinicId === poliklinik.id
   );
 
-  const handlePilihTanggal = (tanggal) => {
+  const handlePilihTanggal = async (tanggal) => {
     setTanggalTerpilih(tanggal);
     setDokterTerpilih(null);
+
+    const formattedDate = tanggal.format("YYYY-MM-DD");
+
+    try {
+      // Fetch data antrian dari database
+      const response = await fetch(`http://localhost:3002/queues?polyclinicId=${poliklinik.id}&date=${formattedDate}`);
+      const data = await response.json();
+
+      if (data.length === 0) {
+        // setNomorAntrian(data[0].currentQueue);
+        console.log("Antrian belum ada, akan dibuat saat konfirmasi booking.")
+      } else {
+        // setNomorAntrian(1);
+        console.log("Antrian sudah ada.")
+      }
+    } catch (error) {
+      console.error("Error fetching queue:", error);
+      // Handle error, misal tampilkan error message ke user
+    }
   };
 
   const handlePilihDokter = (dokter) => {
@@ -168,7 +187,7 @@ function BookingSchedule() {
         .set("minute", closeMinute);
 
       if (jamTutup.isBefore(jamBuka)) {
-        jamTutup = jamTutup.add(1, "day");
+        const jamTutup = jamTutup.add(1, "day");
       }
 
       return now.isBetween(jamBuka, jamTutup, null, "[]");

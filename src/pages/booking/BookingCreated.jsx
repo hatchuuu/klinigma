@@ -14,107 +14,118 @@ function BookingCreated() {
   const [userData, setUserData] = useState(null);
   const [poliklinikData, setPoliklinikData] = useState(null);
   const [dokterData, setDokterData] = useState(null);
+  const [antrianData, setAntrianData] = useState(null);
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchBookingData = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3002/bookings/${bookingId}`
-        );
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data booking");
+      if (bookingId) {
+        try {
+          const response = await fetch(
+            `http://localhost:3002/bookings/${bookingId}`
+          );
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data booking");
+          }
+          const data = await response.json();
+          setBookingData(data);
+          console.log("Booking data:", data);
+        } catch (error) {
+          console.error("Error fetching booking data:", error);
+        } finally {
+          setIsLoading(false);
         }
-        const data = await response.json();
-        setBookingData(data);
-      } catch (error) {
-        console.error("Error fetching booking data:", error);
-        // Handle error appropriately, e.g., show an error message
       }
     };
 
-    if (bookingId) {
-      fetchBookingData();
-    }
+    fetchBookingData();
   }, [bookingId]);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (bookingData) {
+    const fetchData = async () => {
+      if (bookingId) {
+        setIsLoading(true);
+
         try {
-          const response = await fetch(
-            `http://localhost:3002/users/${bookingData.userId}`
+          const bookingResponse = await fetch(
+            `http://localhost:3002/bookings/${bookingId}`
           );
-          if (!response.ok) {
+
+          if (!bookingResponse.ok) {
+            throw new Error("Gagal mengambil data booking!");
+          }
+
+          const bookingData = await bookingResponse.json();
+          setBookingData(bookingData);
+
+          const [
+            userResponse,
+            poliklinikResponse,
+            dokterResponse,
+            antrianResponse,
+          ] = await Promise.all([
+            fetch(`http://localhost:3002/users/${bookingData.userId}`),
+            fetch(
+              `http://localhost:3002/polyclinics/${bookingData.polyclinicId}`
+            ),
+            fetch(`http://localhost:3002/doctors/${bookingData.doctorId}`),
+            fetch(
+              `http://localhost:3002/queues?polyclinicId=${bookingData.polyclinicId}&date=${bookingData.bookingDate}`
+            ),
+          ]);
+
+          if (!userResponse.ok) {
             throw new Error("Gagal mengambil data user");
           }
-          const data = await response.json();
-          setUserData(data);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      }
-    };
-
-    fetchUserData();
-  }, [bookingData]);
-
-  useEffect(() => {
-    const fetchPoliklinikData = async () => {
-      if (bookingData) {
-        try {
-          const response = await fetch(
-            `http://localhost:3002/polyclinics/${bookingData.polyclinicId}`
-          );
-          if (!response.ok) {
+          if (!poliklinikResponse.ok) {
             throw new Error("Gagal mengambil data poliklinik");
           }
-          const data = await response.json();
-          setPoliklinikData(data);
-        } catch (error) {
-          console.error("Error fetching poliklinik data:", error);
-        }
-      }
-    };
-
-    fetchPoliklinikData();
-  }, [bookingData]);
-
-  useEffect(() => {
-    const fetchDokterData = async () => {
-      if (bookingData) {
-        try {
-          const response = await fetch(
-            `http://localhost:3002/doctors/${bookingData.doctorId}`
-          );
-          if (!response.ok) {
+          if (!dokterResponse.ok) {
             throw new Error("Gagal mengambil data dokter");
           }
-          const data = await response.json();
-          setDokterData(data);
+          if (!antrianResponse.ok) {
+            throw new Error("Gagal mengambil data antrian");
+          }
+
+          const [userData, poliklinikData, dokterData, antrianData] =
+            await Promise.all([
+              userResponse.json(),
+              poliklinikResponse.json(),
+              dokterResponse.json(),
+              antrianResponse.json(),
+            ]);
+
+          setUserData(userData);
+          setPoliklinikData(poliklinikData);
+          setDokterData(dokterData);
+          setAntrianData(antrianData[0]);
         } catch (error) {
-          console.error("Error fetching dokter data:", error);
+          console.error("Error fetching data:", error);
+        } finally {
+          setIsLoading(false);
         }
       }
     };
 
-    fetchDokterData();
-  }, [bookingData]);
+    fetchData();
+  }, [bookingId]);
 
   const handleDashboard = () => {
     navigate("/dashboard");
   };
 
-  if (!bookingData || !userData || !poliklinikData || !dokterData) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>Loading ...</div>;
   }
 
   const { queueNumber, scheduleDay, bookingDate } = bookingData;
-  const { name: userName, birthDate } = userData;
-  const { polyclinicName } = poliklinikData;
-  const { name: dokterName, schedules } = dokterData;
+  const { name: userName, birthDate } = userData || {};
+  const { polyclinicName } = poliklinikData || {};
+  const { name: dokterName, schedules } = dokterData || {};
 
-  const jadwal = schedules.find((s) => s.day === scheduleDay);
+  const jadwal = (schedules || []).find((s) => s.day === scheduleDay);
 
   return (
     <div className="mx-auto p-6">
@@ -131,7 +142,8 @@ function BookingCreated() {
       <div className="flex flex-col items-center gap-4 mb-8">
         <Card>
           <p className="flex flex-col items-center p-4">
-            <strong>Antrian Sekarang</strong> {poliklinikData.currentQueue}
+            <strong>Antrian Sekarang</strong>{" "}
+            {antrianData?.currentQueue || "Loading..."}
           </p>
         </Card>
         <Card>
@@ -155,7 +167,8 @@ function BookingCreated() {
           <strong>Tanggal:</strong> {bookingDate}
         </p>
         <p>
-          <strong>Jam Praktik:</strong> {jadwal.open} - {jadwal.close}
+          <strong>Jam Praktik:</strong> {jadwal && jadwal.open} -{" "}
+          {jadwal && jadwal.close}
         </p>
         <div>
           <p>

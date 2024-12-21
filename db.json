@@ -143,16 +143,14 @@
       "polyclinicName": "Poli Umum",
       "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
-      "schedule": "Buka setiap hari, 24/7.",
-      "currentQueue": 7
+      "schedule": "Buka setiap hari, 24/7."
     },
     {
       "id": 2,
       "polyclinicName": "Poli Gigi",
       "descriptions": "Menangani masalah kesehatan gigi dan mulut, mulai dari pemeriksaan rutin, penambalan, pencabutan, hingga perawatan khusus.",
       "image": "https://avatars.githubusercontent.com/u/72609122",
-      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB.",
-      "currentQueue": 4
+      "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
     },
     {
       "id": 3,
@@ -167,6 +165,32 @@
       "descriptions": "Berfokus pada pelayanan kontrasepsi, termasuk konseling, pemberian berbagai metode KB (pil, suntik, IUD, implan), dan penanganan efek samping.",
       "image": "https://avatars.githubusercontent.com/u/16646631",
       "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
+    }
+  ],
+  "queues": [
+    {
+      "id": "queue-1",
+      "polyclinicId": 1,
+      "date": "2024-12-20",
+      "currentQueue": 7
+    },
+    {
+      "id": "queue-2",
+      "polyclinicId": 2,
+      "date": "2024-12-20",
+      "currentQueue": 3
+    },
+    {
+      "polyclinicId": 1,
+      "date": "2024-12-23",
+      "currentQueue": 1,
+      "id": "rQyqIRq"
+    },
+    {
+      "polyclinicId": 1,
+      "date": "2024-12-23",
+      "currentQueue": 2,
+      "id": "tP-L5FS"
     }
   ],
   "doctors": [
@@ -185,8 +209,8 @@
           "day": "Senin",
           "open": "08:00",
           "close": "16:00",
-          "quota": 10,
-          "booked": 1
+          "quota": 7,
+          "booked": 4
         },
         {
           "day": "Selasa",
@@ -213,15 +237,15 @@
           "day": "Jumat",
           "open": "10:00",
           "close": "09:00",
-          "quota": 7,
+          "quota": 9,
           "booked": 8
         },
         {
           "day": "Sabtu",
           "open": "01:00",
           "close": "12:00",
-          "quota": 10,
-          "booked": 1
+          "quota": 7,
+          "booked": 4
         }
       ],
       "availableDays": [
@@ -324,8 +348,8 @@
           "day": "Jumat",
           "open": "19:00",
           "close": "23:00",
-          "quota": 10,
-          "booked": 1
+          "quota": 7,
+          "booked": 4
         }
       ],
       "availableDays": [
@@ -364,8 +388,8 @@
           "day": "Jumat",
           "open": "10:00",
           "close": "14:00",
-          "quota": 10,
-          "booked": 1
+          "quota": 9,
+          "booked": 2
         }
       ],
       "availableDays": [
@@ -529,234 +553,60 @@
         "Selasa",
         "Jumat"
       ]
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T16:57:34.763Z",
-      "updatedAt": "2024-12-20T14:44:46.488Z",
-      "status": "Canceled",
-      "queueNumber": 1,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "KwUepB2"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T16:57:34.763Z",
-      "updatedAt": "2024-12-20T13:15:08.444Z",
-      "status": "Canceled",
-      "queueNumber": 2,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "5Wj-4hw"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:04:31.033Z",
-      "updatedAt": "2024-12-20T13:15:10.380Z",
-      "status": "Canceled",
-      "queueNumber": 3,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "DVIESRm"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:04:53.132Z",
-      "updatedAt": "2024-12-20T13:15:11.659Z",
-      "status": "Approved",
-      "queueNumber": 4,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "x8pW_Nm"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:05:26.478Z",
-      "updatedAt": "2024-12-20T13:15:18.205Z",
-      "status": "Approved",
-      "queueNumber": 5,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "uAsAvLS"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:37:44.213Z",
-      "updatedAt": "2024-12-20T13:15:12.928Z",
-      "status": "Canceled",
-      "queueNumber": 6,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "dPSx-Xc"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:38:10.909Z",
-      "updatedAt": "2024-12-20T13:15:17.181Z",
-      "status": "Completed",
-      "queueNumber": 7,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "xwXpOjm"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:42:22.771Z",
-      "updatedAt": "2024-12-20T13:15:16.441Z",
-      "status": "Canceled",
-      "queueNumber": 8,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "OPIr4J3"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:42:34.565Z",
-      "updatedAt": "2024-12-20T13:15:15.652Z",
-      "status": "Approved",
-      "queueNumber": 9,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "UZIuoms"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T17:42:38.291Z",
-      "updatedAt": "2024-12-20T13:15:20.740Z",
-      "status": "Canceled",
-      "queueNumber": 10,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "VBBewtG"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T18:42:07.800Z",
-      "updatedAt": "2024-12-20T13:15:19.900Z",
-      "status": "Approved",
-      "queueNumber": 11,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "8lOvbZW"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-19T18:43:38.627Z",
-      "updatedAt": "2024-12-20T13:15:19.181Z",
-      "status": "Canceled",
-      "queueNumber": 12,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "9nx2A8-"
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-20T01:03:17.830Z",
-      "updatedAt": "2024-12-20T01:03:17.830Z",
-      "status": "Waiting",
-      "queueNumber": 8,
-      "scheduleDay": "Jumat",
-      "bookingDate": "2024-12-20",
-      "id": "xo0HmgO"
-    },
-    {
-      "name": "nabila ",
-      "gender": "Pria",
-      "email": "admin8@email.com",
-      "phoneNumber": 87766767678,
-      "descriptions": "test add",
-      "location": "Napa",
-      "availableDays": [
-        "Jumat",
-        "Senin"
-      ],
-      "polyclinicId": 1,
-      "schedules": [
-        {
-          "day": "Jumat",
-          "open": "15:04",
-          "close": "15:04",
-          "quota": 454
-        },
-        {
-          "day": "Senin",
-          "open": "15:04",
-          "close": "15:04",
-          "quota": 33
-        }
-      ],
-      "polyName": "Poli Umum",
-      "id": 9
-    },
-    {
-      "name": "test",
-      "gender": "Pria",
-      "email": "admin8@email.com",
-      "phoneNumber": 89145992310,
-      "descriptions": "grgdfgdfg",
-      "location": "Hollisfield",
-      "availableDays": [
-        "Jumat",
-        "Sabtu"
-      ],
-      "polyclinicId": 1,
-      "schedules": [
-        {
-          "day": "Jumat",
-          "open": "14:02",
-          "close": "14:02",
-          "quota": 45
-        },
-        {
-          "day": "Sabtu",
-          "open": "14:02",
-          "close": "14:02",
-          "quota": 45
-        }
-      ],
-      "polyName": "Poli Umum",
-      "id": 10
     }
   ],
-  "bookings": []
+  "bookings": [
+    {
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:23:23.127Z",
+      "updatedAt": "2024-12-20T17:23:23.127Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 1
+    },
+    {
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:26:41.059Z",
+      "updatedAt": "2024-12-20T17:26:41.060Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 2
+    },
+    {
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:30:57.199Z",
+      "updatedAt": "2024-12-20T17:30:57.199Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 3
+    },
+    {
+      "polyclinicId": 1,
+      "doctorId": 1,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-20T17:31:32.425Z",
+      "updatedAt": "2024-12-20T17:31:32.425Z",
+      "status": "Waiting",
+      "queueNumber": 2,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 4
+    }
+  ]
 }

@@ -20,7 +20,7 @@ export default function BookingPage() {
   useEffect(() => {
     const fetchPoliklinik = async () => {
       try {
-        const response = await fetch("http://localhost:3002/polyclinics"); // Ganti dengan URL endpoint JSON Server kamu
+        const response = await fetch("http://localhost:3002/polyclinics");
         if (!response.ok) {
           throw new Error("Gagal mengambil data poliklinik");
         }
