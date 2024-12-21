@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import PropTypes from 'prop-types';
 import { Textarea } from '@/components/ui/textarea';
 
-const FieldInputForm = ({ control, name, label, disabled, isTextarea, type = 'text' }) => {
+const FieldInputForm = ({ control, name, label, disabled, isTextarea, type = 'text' , onChange, accept}) => {
     return (
         <FormField
             control={control}
@@ -23,8 +23,14 @@ const FieldInputForm = ({ control, name, label, disabled, isTextarea, type = 'te
                                 />
                             ) : (
                                 <Input
-                                    className={`relative border border-gray-400 focus:outline-none ${disabled ? 'bg-gray-200 cursor-not-allowed' : ''
-                                        }`}
+                                    className={`relative border border-gray-400 focus:outline-none ${
+                                        disabled ? 'bg-gray-200 cursor-not-allowed' : ''
+                                    }`}
+                                    onChange={(e) => {
+                                        field.onChange(e); // Panggil onChange dari field
+                                        if (onChange) onChange(e); // Panggil onChange tambahan jika ada
+                                    }}
+                                    accept={accept}
                                     type={type}
                                     disabled={disabled}
                                     {...field}
@@ -45,6 +51,8 @@ FieldInputForm.propTypes = {
     control: PropTypes.object,
     disabled: PropTypes.bool,
     isTextarea: PropTypes.bool,
+    onChange: PropTypes.func,
+    accept: PropTypes.string,   // Menambahkan prop untuk mendefinisikan format file yang dapat diupload
     type: PropTypes.string, // Menambahkan prop untuk tipe input
 };
 

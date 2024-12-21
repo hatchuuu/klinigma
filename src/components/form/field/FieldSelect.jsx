@@ -45,7 +45,7 @@ import PropTypes from "prop-types";
 //     )
 // }
 
-const FieldSelect = ({ control, name, label, list, disabled }) => (
+const FieldSelect = ({ control, name, label, list, disabled ,onValueChange}) => (
   <FormField
     control={control}
     name={name}
@@ -55,7 +55,20 @@ const FieldSelect = ({ control, name, label, list, disabled }) => (
           {label}
         </FormLabel>
         <Select
-          onValueChange={(value) => field.onChange(value)} // Handle perubahan nilai
+          // onValueChange={(value) => field.onChange(value)} // Handle perubahan nilai
+          // onValueChange={(value) => {
+          //   field.onChange(value); 
+          //   if (onValueChange) {
+          //     onValueChange(value); 
+          //   }
+          // }}
+          onValueChange={(value) => {
+            const selectedItem = list.find(item => item.value === value); // Find the selected item
+            field.onChange(value); // Update the form state
+            if (onValueChange && selectedItem) {
+              onValueChange(selectedItem); // Call the onValueChange prop with the entire item
+            }
+          }}
           value={field.value || ""} // Sinkronisasi nilai dengan form state
           disabled={disabled}
         >
@@ -84,6 +97,7 @@ FieldSelect.propTypes = {
   list: PropTypes.array,
   control: PropTypes.object,
   disabled: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 export default FieldSelect;

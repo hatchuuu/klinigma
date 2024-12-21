@@ -14,7 +14,7 @@ const LoginPage = lazy(() => import("@/pages/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"))
 const UsersPage = lazy(() => import("@/pages/admin/Users/UserPage"))
 const FormUesrs = lazy(() => import("@/pages/admin/Users/Form/Index"))
-// const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"))
+const DoctorPageList = lazy(() => import("@/pages/DoctorsPage"))
 const AdminPage = lazy(() => import("@/pages/admin/AdminPage"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 // Doctors Page
@@ -40,7 +40,7 @@ const App = () => {
     { path: "/", role: "user", element: <HomePage /> },
     
     { path: "/dashboard", role: "user", element: <DashboardPage /> },
-    // { path: "/doctors", role: "user", element: <DoctorsPage /> },
+    { path: "/doctorsList", role: "user", element: <DoctorPageList /> },
     { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
     { path: "/profile", role: "user", element: <ProfilePage /> },
     { path: "/profile/history", role: "user", element: <HistoryPage /> },
