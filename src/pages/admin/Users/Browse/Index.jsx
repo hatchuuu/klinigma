@@ -110,7 +110,7 @@ const BrowseUsers = ({ filteredUsers }) => {
                   </Button>
                   <Button
                     onClick={() =>
-                      navigate(`/EditUsers?id=${data.id}`)
+                      navigate(`/EditUsers?id=${data.id}&action=edit`)
                     }
                     className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300 focus:outline-none transition duration-300"
                   >
