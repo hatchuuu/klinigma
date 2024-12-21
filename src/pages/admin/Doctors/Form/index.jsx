@@ -144,6 +144,11 @@ function FormDoctors() {
     });
   };
 
+  const getPolyNameById = (polyId) => {
+    const polyclinic = poilList.find(poly => poly.id === polyId);
+    console.log("polyclinic",polyclinic)
+    return polyclinic ? polyclinic.polyclinicName : "Unknown Poly";
+  }
   // fetch data saat edit dan detail
   useEffect(() => {
     const fetchData = async () => {
@@ -159,12 +164,12 @@ function FormDoctors() {
             close: schedule.close,
             quota: Number(schedule.quota),
           }));
-
+          const polyclinicName = getPolyNameById(doctorData.polyclinicId);
           console.log("polyname", doctorData.polyName);
           console.log("gender", doctorData.gender);
           reset({
             ...doctorData,
-            polyclinicId: doctorData.polyName || "",
+            polyclinicId: polyclinicName|| "",
             gender: doctorData.gender,
             availableDays: doctorData.availableDays || "",
             schedules,
@@ -223,7 +228,6 @@ function FormDoctors() {
     console.log("Selected gender:", value);
   };
 
-  
   return (
     <>
       <div className="mx-auto px-6">

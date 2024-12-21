@@ -553,6 +553,64 @@
         "Selasa",
         "Jumat"
       ]
+    },
+    {
+      "name": "test",
+      "gender": "Pria",
+      "email": "admin8@email.com",
+      "phoneNumber": 87766767678,
+      "descriptions": "rwswdw",
+      "location": "sfsfs",
+      "availableDays": [
+        "Senin",
+        "Minggu"
+      ],
+      "polyclinicId": 1,
+      "schedules": [
+        {
+          "day": "Senin",
+          "open": "15:27",
+          "close": "15:27",
+          "quota": 12
+        },
+        {
+          "day": "Minggu",
+          "open": "15:27",
+          "close": "15:27",
+          "quota": 12
+        }
+      ],
+      "polyName": "Poli Umum",
+      "id": 9
+    },
+    {
+      "name": "nabilaaaaaaa",
+      "gender": "Wanita",
+      "email": "admin8@email.com",
+      "phoneNumber": 89145992310,
+      "descriptions": "teawew",
+      "location": "jkt",
+      "availableDays": [
+        "Jumat",
+        "Senin"
+      ],
+      "polyclinicId": 2,
+      "schedules": [
+        {
+          "day": "Jumat",
+          "open": "15:31",
+          "close": "15:31",
+          "quota": 12
+        },
+        {
+          "day": "Senin",
+          "open": "18:32",
+          "close": "11:32",
+          "quota": 12
+        }
+      ],
+      "polyName": "Poli Gigi",
+      "id": 10
     }
   ],
   "bookings": [

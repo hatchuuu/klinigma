@@ -94,16 +94,16 @@ function FormUesrs() {
           console.log("Fetched User Data:", usersData);
   
           // Ensure birthDate is in the correct format (YYYY-MM-DD)
-          const formattedBirthDate = usersData.birthDate
-            ? dayjs(usersData.birthDate).format("DD-MM-YYYY")
-            : "";
+          // const formattedBirthDate = usersData.birthDate
+          //   ? dayjs(usersData.birthDate).format("DD-MM-YYYY")
+          //   : "";
   
           // Update state and reset form values
           setUsersData(usersData);
           reset({
             ...usersData,
             gender: usersData.gender || "",
-            birthDate: formattedBirthDate, // Ensure correct format for date input
+            birthDate:usersData.birthDate, // Ensure correct format for date input
             role: usersData.role,
             password: usersData.password,
           });
