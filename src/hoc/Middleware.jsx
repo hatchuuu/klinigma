@@ -16,10 +16,13 @@ const Middleware = ({ children, role }) => {
     }
 
     if (!token || !jwtRole) {
-        if (pathname !== "/login" && pathname !== "/register") {
-            return <Navigate to="/login" />;
+        if (pathname === "/") {
+            return children
         }
-        return children;
+        if (pathname !== "/login" && pathname !== "/register") {
+            return <Navigate to="/" />
+        }
+        return children
     }
 
     if (pathname === "/login" || pathname === "/register") {
