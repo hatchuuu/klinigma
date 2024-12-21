@@ -415,7 +415,7 @@ const DashboardPage = () => {
                 Komitmen dalam Pelayanan, Dedikasi dalam Kesehatan
               </h1>
               <p className="text-lg text-gray-600 mt-6 leading-relaxed">
-                Rumah sakit kami didirikan dengan tujuan untuk memberikan
+               Klinigma kami didirikan dengan tujuan untuk memberikan
                 layanan kesehatan berkualitas tinggi dengan teknologi terkini
                 dan tenaga medis profesional. Dengan berbagai fasilitas modern,
                 kami berkomitmen untuk memenuhi kebutuhan kesehatan Anda dan
