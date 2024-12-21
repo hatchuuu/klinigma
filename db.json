@@ -192,6 +192,12 @@
       "date": "2024-12-23",
       "currentQueue": 2,
       "id": "tP-L5FS"
+    },
+    {
+      "polyclinicId": 1,
+      "date": "2024-12-21",
+      "currentQueue": 1,
+      "id": "wDzyvGs"
     }
   ],
   "doctors": [
@@ -301,8 +307,8 @@
           "day": "Sabtu",
           "open": "13:00",
           "close": "23:00",
-          "quota": 10,
-          "booked": 1
+          "quota": 9,
+          "booked": 2
         }
       ],
       "availableDays": [
@@ -608,6 +614,19 @@
       "scheduleDay": "Senin",
       "bookingDate": "2024-12-23",
       "id": 4
+    },
+    {
+      "polyclinicId": 1,
+      "doctorId": 2,
+      "userId": "3456",
+      "name": "Nama User",
+      "createdAt": "2024-12-21T11:57:34.853Z",
+      "updatedAt": "2024-12-21T11:57:34.853Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Sabtu",
+      "bookingDate": "2024-12-21",
+      "id": 5
     }
   ]
 }

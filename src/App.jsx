@@ -4,6 +4,7 @@ import Middleware from "@/hoc/Middleware";
 import Loader from "@/components/Loader";
 
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
+const HomePage = lazy(() => import("@/pages/HomePage"));
 // const DoctorsPage = lazy(() => import("./pages/DoctorsPage"))
 
 const PolyclinicsPage = lazy(() => import("./pages/PolyclinicsPage"))
@@ -36,6 +37,8 @@ const BookingApprovedPage = lazy(() => import("./pages/admin/Approved/BookingApp
 const App = () => {
   const allRoutes = [
     { path: "*", role: "user", element: <NotFound /> },
+    { path: "/", role: "user", element: <HomePage /> },
+    
     { path: "/dashboard", role: "user", element: <DashboardPage /> },
     // { path: "/doctors", role: "user", element: <DoctorsPage /> },
     { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
