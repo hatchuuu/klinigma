@@ -139,19 +139,24 @@ function BookingCreated() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-4 mb-8">
-        <Card>
-          <p className="flex flex-col items-center p-4">
-            <strong>Antrian Sekarang</strong>{" "}
-            {antrianData?.currentQueue || "Loading..."}
-          </p>
-        </Card>
-        <Card>
-          <p className="flex flex-col items-center p-4">
-            <strong>Nomor Antrian Anda</strong> {queueNumber}
-          </p>
-        </Card>
-      </div>
+      <main className="bg-neutral-50 p-4">
+        <div className="bg-purple-400 p-4 rounded-lg shadow">
+          <div className="w-full bg-white rounded-lg flex items-center justify-between relative">
+            <div className="w-[24px] h-[24px] bg-purple-400 rounded-lg absolute -left-[12px] top-1/2 -translate-y-1/2"></div>
+            <div className="p-4 w-full text-center">
+              <p className="text-neutral-500 text-sm">Antrian Sekarang</p>
+              <p className="text-primary-500 text-4xl font-title">
+                {antrianData?.currentQueue || "Loading..."}
+              </p>
+            </div>
+            <div className="w-[24px] h-[24px] bg-purple-400 rounded-lg absolute -right-[12px] top-1/2 -translate-y-1/2"></div>
+          </div>
+          <div className="mt-4 text-center">
+            <p className="text-neutral-100 text-sm">Nomor Antrian Anda</p>
+            <p className="text-neutral-100 text-4xl font-title">{queueNumber}</p>
+          </div>
+        </div>
+      </main>
 
       <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">

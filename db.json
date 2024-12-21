@@ -28,8 +28,10 @@
     },
     {
       "name": "Klinigma User",
+      "avatar": "https://avatarfiles.alphacoders.com/336/thumb-1920-336672.png",
       "gender": "Pria",
       "email": "user@klinigma.com",
+      "bloodType": "A",
       "location": "Medan",
       "phoneNumber": "089145992310",
       "password": "User123@",
@@ -167,38 +169,6 @@
       "schedule": "Senin s.d Kamis, 08:00 - 15:00 WIB."
     }
   ],
-  "queues": [
-    {
-      "id": "queue-1",
-      "polyclinicId": 1,
-      "date": "2024-12-20",
-      "currentQueue": 7
-    },
-    {
-      "id": "queue-2",
-      "polyclinicId": 2,
-      "date": "2024-12-20",
-      "currentQueue": 3
-    },
-    {
-      "polyclinicId": 1,
-      "date": "2024-12-23",
-      "currentQueue": 1,
-      "id": "rQyqIRq"
-    },
-    {
-      "polyclinicId": 1,
-      "date": "2024-12-23",
-      "currentQueue": 2,
-      "id": "tP-L5FS"
-    },
-    {
-      "polyclinicId": 1,
-      "date": "2024-12-21",
-      "currentQueue": 1,
-      "id": "wDzyvGs"
-    }
-  ],
   "doctors": [
     {
       "id": 1,
@@ -215,8 +185,8 @@
           "day": "Senin",
           "open": "08:00",
           "close": "16:00",
-          "quota": 7,
-          "booked": 4
+          "quota": 5,
+          "booked": 6
         },
         {
           "day": "Selasa",
@@ -306,8 +276,8 @@
           "day": "Sabtu",
           "open": "13:00",
           "close": "23:00",
-          "quota": 9,
-          "booked": 2
+          "quota": 6,
+          "booked": 5
         }
       ],
       "availableDays": [
@@ -561,71 +531,6 @@
       ]
     }
   ],
-  "bookings": [
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-20T17:23:23.127Z",
-      "updatedAt": "2024-12-20T17:23:23.127Z",
-      "status": "Waiting",
-      "queueNumber": 1,
-      "scheduleDay": "Senin",
-      "bookingDate": "2024-12-23",
-      "id": 1
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-20T17:26:41.059Z",
-      "updatedAt": "2024-12-20T17:26:41.060Z",
-      "status": "Waiting",
-      "queueNumber": 1,
-      "scheduleDay": "Senin",
-      "bookingDate": "2024-12-23",
-      "id": 2
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-20T17:30:57.199Z",
-      "updatedAt": "2024-12-20T17:30:57.199Z",
-      "status": "Waiting",
-      "queueNumber": 1,
-      "scheduleDay": "Senin",
-      "bookingDate": "2024-12-23",
-      "id": 3
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-20T17:31:32.425Z",
-      "updatedAt": "2024-12-20T17:31:32.425Z",
-      "status": "Waiting",
-      "queueNumber": 2,
-      "scheduleDay": "Senin",
-      "bookingDate": "2024-12-23",
-      "id": 4
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 2,
-      "userId": "3456",
-      "name": "Nama User",
-      "createdAt": "2024-12-21T11:57:34.853Z",
-      "updatedAt": "2024-12-21T11:57:34.853Z",
-      "status": "Waiting",
-      "queueNumber": 1,
-      "scheduleDay": "Sabtu",
-      "bookingDate": "2024-12-21",
-      "id": 5
-    }
-  ]
+  "bookings": [],
+  "queues": []
 }
