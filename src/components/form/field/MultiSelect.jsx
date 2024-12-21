@@ -1,78 +1,83 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { 
-  DropdownMenu, 
-  DropdownMenuCheckboxItem, 
-  DropdownMenuContent, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
 
-const FieldMultiSelect = ({ control, name, label, list = [], disabled }) => {
-  const [selectedValues, setSelectedValues] = useState([]);
-
-  const handleCheckedChange = (checked, value) => {
-    const newValue = checked
-      ? [...selectedValues, value]
-      : selectedValues.filter((val) => val !== value);
-
-    setSelectedValues(newValue);
-
-    // Pastikan `control` memiliki metode `setValue`
-    if (control && typeof control.setValue === "function") {
-      control.setValue(name, newValue); // Update form control value
-      console.log(`[handleCheckedChange] Updated selected values:`, newValue);
-    } else {
-      console.warn("`control.setValue` is not defined or not a function.");
-    }
-  };
-
-  console.log(`[Render] Current selected values:`, selectedValues);
+const MultiSelect = ({ control, name, label, options, disabled = false }) => {
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="bg-white hover:bg-white">{label}</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>{label}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {list.map((item) => {
-          const isChecked = selectedValues.includes(item.value);
-          console.log(`[Render] Item: ${item.label}, Checked: ${isChecked}`);
-          return (
-            <DropdownMenuCheckboxItem
-              key={item.value}
-              checked={isChecked}
-              onCheckedChange={(checked) => handleCheckedChange(checked, item.value)}
-              disabled={disabled}
-            >
-              {item.label}
-            </DropdownMenuCheckboxItem>
-          );
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <FormField
+      control={control}
+      name={name}
+      render={() => (
+        <FormItem>
+          <div className="mb-4">
+            <FormLabel className="text-base">{label}</FormLabel>
+            <FormDescription>
+              Select the items you want to display in the sidebar.
+            </FormDescription>
+          </div>
+          {options.map((item) => (
+            <FormField
+              key={item.id}
+              control={control}
+              name={name}
+              render={({ field }) => {
+                return (
+                  <FormItem
+                    key={item.id}
+                    className="flex flex-row items-start space-x-3 space-y-0"
+                  >
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value?.includes(item.id)}
+                        onCheckedChange={(checked) => {
+                          return checked
+                            ? field.onChange([...field.value, item.id])
+                            : field.onChange(
+                              field.value?.filter(
+                                (value) => value !== item.id
+                              )
+                            )
+                        }}
+                      />
+                    </FormControl>
+                    <FormLabel className="text-sm font-normal">
+                      {item.label}
+                    </FormLabel>
+                  </FormItem>
+                )
+              }}
+            />
+          ))}
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+
   );
 };
 
-FieldMultiSelect.propTypes = {
+MultiSelect.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  list: PropTypes.arrayOf(
+  options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
       label: PropTypes.string.isRequired,
     })
   ).isRequired,
-  control: PropTypes.shape({
-    setValue: PropTypes.func, // Optional jika tidak digunakan
-  }),
   disabled: PropTypes.bool,
+  control: PropTypes.object.isRequired, // control is required from form context
 };
 
-export default FieldMultiSelect;
+
+export default MultiSelect;

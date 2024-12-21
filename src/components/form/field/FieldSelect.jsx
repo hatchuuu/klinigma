@@ -66,8 +66,8 @@ const FieldSelect = ({ control, name, label, list, disabled }) => (
           </FormControl>
           <SelectContent>
             {list.map((item, index) => (
-              <SelectItem key={index} value={item}>
-                <p className="capitalize">{item}</p>
+              <SelectItem key={item.id} value={item.value}>
+                <p className="capitalize">{item.value}</p>
               </SelectItem>
             ))}
           </SelectContent>

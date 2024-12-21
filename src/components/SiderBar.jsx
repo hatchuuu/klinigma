@@ -6,28 +6,55 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { Calendar, House, Menu, User } from "lucide-react"
+import { Calendar, House, Menu, ShieldCheck, Stethoscope, User, Users } from "lucide-react"
 import { Link } from "react-router-dom"
-const items = [
-    {
-        title: "BERANDA",
-        url: "/dashboard",
-        icon: House,
-    },
-    {
-        title: "ANTREAN",
-        url: "/booking",
-        icon: Calendar,
-    },
-    {
-        title: "DATA DIRI",
-        url: "/profile",
-        icon: User,
-    }
-]
-
+import { jwtDecode } from "jwt-decode"
 
 export function SiderBar() {
+    let items = [
+        {
+            title: "BERANDA",
+            url: "/dashboard",
+            icon: House,
+        },
+        {
+            title: "ANTREAN",
+            url: "/booking",
+            icon: Calendar,
+        },
+        {
+            title: "DATA DIRI",
+            url: "/profile",
+            icon: User,
+        }
+    ]
+    const token = sessionStorage.getItem("token")
+    if (token) {
+        const { role } = jwtDecode(token)
+        const [isAdmin] = role.split("-")
+        if (isAdmin === "admin") {
+            const antreanObject = {
+                title: "ATUR ANTREAN",
+                url: "/admin/handler",
+                icon: ShieldCheck,
+            };
+            const doctorObject = {
+                title: "MENU DOKTER",
+                url: "/doctors",
+                icon: Stethoscope,
+            }
+            const userObject = {
+                title: "MENU USER",
+                url: "/users",
+                icon: Users,
+            }
+            const modifiedItems = [...items, doctorObject, userObject];
+            modifiedItems[1] = antreanObject; // Ganti elemen kedua
+            items = modifiedItems;
+        }
+    } else {
+        sessionStorage.removeItem("token")
+    }
     return (
         <Sheet>
             <SheetTrigger asChild>

@@ -7,6 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/button/NavigationButton";
+import Loader from "@/components/Loader";
+import { successToast } from "@/lib/toaster";
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -49,15 +51,15 @@ export default function BookingPage() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="min-h-screen bg-white w-full"> {successToast(error.message)}</div>;
   }
 
   return (
-    <div className="mx-auto p-6">
+    <div className="mx-auto p-6 md:pt-24">
       <div className="flex items-center">
         <BackButton path="/dashboard" />
         <h1 className="font-bold font-sans text-2xl ml-4">Pilih Poli</h1>
@@ -101,9 +103,9 @@ export default function BookingPage() {
                     </div>
                   </div>
                 </div>
-                  <div className="ml-auto my-auto">
-                    <ArrowRight/>
-                  </div>
+                <div className="ml-auto my-auto">
+                  <ArrowRight />
+                </div>
 
                 <Separator />
 

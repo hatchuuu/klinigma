@@ -5,12 +5,11 @@ import {
 
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { axiosInstance, loginAdminInstance, loginSuperInstance, loginUserInstance } from "@/lib/axios";
+import { axiosInstance } from "@/lib/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "@/lib/zodSchema";
 import FieldInput from "@/components/form/field/FieldInput";
 import { useState } from "react";
-import axios from "axios";
 
 const LoginPage = () => {
   const [err, setErr] = useState("")
@@ -22,14 +21,14 @@ const LoginPage = () => {
     },
     resolver: zodResolver(loginSchema),
   });
-  const { control, handleSubmit } = form;
+  const { control, handleSubmit, reset } = form;
 
   const onSubmit = handleSubmit(async (value) => {
     try {
       const response = await axiosInstance.post("/login", value)
-      console.log("atas", response.data.token)
       sessionStorage.setItem("token", response.data.token);
       navigate("/dashboard");
+      reset()
     } catch (error) {
       setErr(error.response.data.message)
     }
@@ -54,20 +53,12 @@ const LoginPage = () => {
             <FieldInput control={control} name="email" canHide={false} label="Email" />
             <FieldInput control={control} name="password" canHide={true} label="Password" />
 
-            {/* Link Lupa Password */}
-            <div className="flex justify-end mb-4">
-              <Link
-                to="/reset-password"
-              >
-                <Button variant="link">
-                  Lupa Password?
-                </Button>
-              </Link>
-            </div>
+
             <Button
               variant="auth"
               size="auth"
-              type="submit">
+              type="submit"
+              className="mt-5">
               Login
             </Button>
           </form>

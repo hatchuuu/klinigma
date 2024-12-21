@@ -181,7 +181,7 @@ function BookingSchedule() {
         .dayjs() // Use loading.dayjs() here
         .set("hour", openHour)
         .set("minute", openMinute);
-      const jamTutup = loading
+      let jamTutup = loading
         .dayjs() // Use loading.dayjs() here
         .set("hour", closeHour)
         .set("minute", closeMinute);
@@ -236,11 +236,10 @@ function BookingSchedule() {
           return (
             <div
               key={hari}
-              className={`card-tanggal p-4 border rounded-lg shadow-md cursor-pointer ${
-                isActive
+              className={`card-tanggal p-4 border rounded-lg shadow-md cursor-pointer ${isActive
                   ? "bg-blue-500 text-white"
                   : "bg-white dark:bg-gray-800"
-              }`}
+                }`}
               onClick={() => handlePilihTanggal(tanggal)}
             >
               {tanggal.format("dddd, DD MMMM YYYY")}
@@ -285,8 +284,8 @@ function BookingSchedule() {
             const availabilityMessage = isAvailable
               ? "Dokter tersedia di jam ini"
               : jadwalHariIni
-              ? "Dokter tidak tersedia di jam ini" // Dokter ada jadwal, tapi di luar jam praktek
-              : "Dokter tidak tersedia di hari ini"; // Dokter tidak ada jadwal di hari ini
+                ? "Dokter tidak tersedia di jam ini" // Dokter ada jadwal, tapi di luar jam praktek
+                : "Dokter tidak tersedia di hari ini"; // Dokter tidak ada jadwal di hari ini
             return (
               <div key={dokter.id}>
                 <Drawer key={dokter.id}>
@@ -295,11 +294,10 @@ function BookingSchedule() {
                       <div
                         key={dokter.id}
                         className={`card-dokter p-4 border rounded-lg shadow-md cursor-pointer flex items-center gap-3 
-                        ${
-                          dokter.id === dokterTerpilih?.id
+                        ${dokter.id === dokterTerpilih?.id
                             ? "bg-blue-500 text-white"
                             : "bg-white dark:bg-gray-800"
-                        } 
+                          } 
                         ${isAvailable ? "" : "opacity-50 cursor-not-allowed"} 
                       `}
                         onClick={() => handlePilihDokter(dokter)}
@@ -335,14 +333,13 @@ function BookingSchedule() {
                     <div // div biasa jika dokter tidak tersedia
                       key={dokter.id}
                       className={`card-dokter p-4 border rounded-lg shadow-md cursor-not-allowed flex items-center gap-3 
-                      ${
-                        dokter.id === dokterTerpilih?.id
+                      ${dokter.id === dokterTerpilih?.id
                           ? "bg-blue-500 text-white"
                           : "bg-white dark:bg-gray-800"
-                      } opacity-50 `}
+                        } opacity-50 `}
                       onClick={(e) => e.stopPropagation()}
                     >
-                       {" "}
+                      {" "}
                       <Avatar className="w-16 h-16">
                         <AvatarImage src={dokter.image} alt={dokter.name} />
                         <AvatarFallback>{dokter.name[0]}</AvatarFallback>

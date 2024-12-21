@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import FieldInput from "@/components/form/field/FieldInput";
+import FieldInputForm from "@/components/form/field/FieldInputForm";
 import FieldSelect from "@/components/form/field/FieldSelect";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { doctorsSchema } from "@/lib/zodSchema";
 import { axiosInstance } from "@/lib/axios";
 import { failedToast, successToast } from "@/lib/toaster";
-import FieldMultiSelect from "@/components/form/field/MultiSelect";
+import MultiSelect from "@/components/form/field/MultiSelect";
 
 function FormDoctors() {
   const navigate = useNavigate();
@@ -28,18 +28,30 @@ function FormDoctors() {
   const action = queryParams.get("action");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [poilList, setPoliList] = useState([]);
+  const [poliList, setPoliList] = useState([]);
   const [selectedPoli, setSelectedPoli] = useState(null);
 
-  const list = ["wanita", "pria"];
-  const hari = [
-    { value: "1", label: "Senin" },
-    { value: "2", label: "Selasa" },
-    { value: "3", label: "Rabu" },
-    { value: "4", label: "Kamis" },
-    { value: "5", label: "Jumat" },
-    { value: "6", label: "Sabtu" },
-    { value: "7", label: "Minggu" },
+  const list = [
+    { id: 1, value: "Pria" },
+    { id: 2, value: "Wanita" },
+  ];
+  // const hari = [
+  //   { value: 1, label: "Senin" },
+  //   { value: 2, label: "Selasa" },
+  //   { value: 3, label: "Rabu" },
+  //   { value: 4, label: "Kamis" },
+  //   { value: 5, label: "Jumat" },
+  //   { value: 6, label: "Sabtu" },
+  //   { value: 7, label: "Minggu" },
+  // ];
+  const availableDays = [
+    { id: "Senin", label: "Senin" },
+    { id: "Selasa", label: "Selasa" },
+    { id: "Rabu", label: "Rabu" },
+    { id: "Kamis", label: "Kamis" },
+    { id: "Jumat", label: "Jumat" },
+    { id: "Sabtu", label: "Sabtu" },
+    { id: "Minggu", label: "Minggu" },
   ];
 
   const form = useForm({
@@ -55,19 +67,16 @@ function FormDoctors() {
       close: "",
       availableDays: [],
       quota: "",
+      polyclinicId: ""
     },
     resolver: zodResolver(doctorsSchema),
   });
   const { control, handleSubmit, reset } = form;
-  
-  const handleSubmitForm = async (values) => {
-    console.log("Available days:", values.availableDays);
-    console.log("Form values:", values);
-    console.log("availableDays", availableDays)
-    const availableDaysFormatted = values.availableDays.map((day) =>
-      parseInt(day, 10)
-    );
 
+  const handleSubmitForm = async (values) => {
+    console.log({ values });
+    // Memformat availableDays jika diperlukan
+    const availableDaysFormatted = values.availableDays
     const schedule = {
       open: values.open,
       close: values.close,
@@ -77,10 +86,9 @@ function FormDoctors() {
     const payload = {
       ...rest,
       schedule: schedule,
+      polyclinicId: selectedPoli.id,
       availableDays: availableDaysFormatted,
     };
-
-    console.log("Payload before sending:", payload);
 
     try {
       if (action === "edit" && doctorId) {
@@ -89,12 +97,10 @@ function FormDoctors() {
           `/doctors/${doctorId}`,
           payload
         );
-        console.log("Doctor updated successfully:", response.data);
         successToast(response.message);
       } else {
         // Create
         const response = await axiosInstance.post("/doctors", payload);
-        console.log("Doctor created successfully:", response.data);
         successToast(response.message);
       }
 
@@ -111,8 +117,8 @@ function FormDoctors() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("Halo");
       if ((action === "detail" || action === "edit") && doctorId) {
-        console.log(action);
         try {
           const response = await axiosInstance.get(`/doctors/${doctorId}`);
           const doctorData = response.data;
@@ -122,10 +128,9 @@ function FormDoctors() {
             phoneNumber: doctorData.phoneNumber || "",
             gender: doctorData.gender || "",
             availableDays: doctorData.availableDays || "",
-            open: doctorData.schedule.open || "",
-            close: doctorData.schedule.close || "",
+            open: doctorData.schedules.open || "",
+            close: doctorData.schedules.close || "",
           });
-          console.log("doctorData", response.data);
         } catch (error) {
           console.error(
             "Error:",
@@ -149,9 +154,13 @@ function FormDoctors() {
     try {
       const response = await axiosInstance.get("/polyclinics");
       const data = response.data;
-      const mappingOptions = data.map((item) => item.polyName);
+      // const mappingOptions = data.map((item) => item.polyName);
+      const mappingOptions = data.map((item) => ({
+        id: item.id,
+        value: item.polyclinicName,
+      }));
+      console.log({ mappingOptions });
       setPoliList(mappingOptions);
-      console.log(mappingOptions);
     } catch (error) {
       setError("Failed to fetch data.");
       console.log(error);
@@ -162,6 +171,7 @@ function FormDoctors() {
   useEffect(() => {
     fetchTableData();
   }, []);
+
 
   return (
     <>
@@ -174,7 +184,7 @@ function FormDoctors() {
           </Link>
           <div>
             <h2 className="font-semibold text-[18px] sm:text-[20px] lg:text-[22px]">
-              Add Doctors
+              {action === 'edit' ? 'Edit' : action === 'detail' ? 'Detail' : 'Add'} Doctors
             </h2>
           </div>
         </section>
@@ -202,19 +212,19 @@ function FormDoctors() {
             <Form {...form}>
               <form onSubmit={handleSubmit(handleSubmitForm)}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="name"
                     label="Nama"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="email"
                     label="Email"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="phoneNumber"
                     label="Nomor Telepon"
@@ -222,7 +232,7 @@ function FormDoctors() {
                     pattern="[0-9]*"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="location"
                     label="Lokasi"
@@ -239,7 +249,7 @@ function FormDoctors() {
                     control={control}
                     name="polyName"
                     label="Poly State"
-                    list={poilList}
+                    list={poliList}
                     value={selectedPoli}
                     onChange={(value) => setSelectedPoli(value)}
                     disabled={action === "detail"}
@@ -247,30 +257,30 @@ function FormDoctors() {
                 </div>
 
                 {/* Day, Start Time, End Time, and Quota */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
-                  <FieldMultiSelect
-                    control={control}
-                    name="availableDays"
-                    label="Hari"
-                    list={hari}
-                    disabled={action === "detail"}
-                  />
 
-                  <FieldInput
+                <MultiSelect
+                  control={control}
+                  name="availableDays"
+                  label="Hari"
+                  options={availableDays}
+                  disabled={action === "detail"}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+                  <FieldInputForm
                     control={control}
                     name="open"
                     label="Start Time"
                     type="time"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="close"
                     label="End Time"
                     type="time"
                     disabled={action === "detail"}
                   />
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="quota"
                     label="Quota"
@@ -281,7 +291,7 @@ function FormDoctors() {
 
                 {/* Descriptions */}
                 <div className="mt-4">
-                  <FieldInput
+                  <FieldInputForm
                     control={control}
                     name="descriptions"
                     label="Descriptions"
@@ -289,7 +299,6 @@ function FormDoctors() {
                     disabled={action === "detail"}
                   />
                 </div>
-
                 {/* Submit and Back buttons */}
                 <div className="mt-6 flex justify-end">
                   {action !== "detail" && (

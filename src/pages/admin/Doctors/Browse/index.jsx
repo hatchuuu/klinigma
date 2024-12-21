@@ -63,23 +63,14 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
               Doctor Name
             </TableHead>
-            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
+            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[300px]">
               Poly State
-            </TableHead>
-            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              Gender
-            </TableHead>
-            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              Email
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[300px]">
               Jadwal
             </TableHead>
-            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[300px]">
+            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[10]">
               Quota
-            </TableHead>
-            <TableHead className="py-3 px-4 text-gray-700 font-semibold w-[200px]">
-              Deskripsi
             </TableHead>
             <TableHead className="py-3 px-4 text-gray-700 font-semibold text-center right-0 z-10">
               Aksi
@@ -90,9 +81,8 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
           {currentDoctors.map((doctors, index) => (
             <TableRow
               key={index}
-              className={`${
-                index % 2 === 0 ? "bg-purple-100" : "bg-white"
-              } hover:bg-gray-100 transition duration-200`}
+              className={`${index % 2 === 0 ? "bg-purple-100" : "bg-white"
+                } hover:bg-gray-100 transition duration-200`}
             >
               <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.name}
@@ -101,23 +91,14 @@ const BrowseDoctors = ({ filteredDoctors, HandleDelete }) => {
                 {doctors.polyName}
               </TableCell>
               <TableCell className="py-3 px-4 text-gray-600">
-                {doctors.gender}
-              </TableCell>
-              <TableCell className="py-3 px-4 text-gray-600">
-                {doctors.email}
-              </TableCell>
-              <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.availableDays && Array.isArray(doctors.availableDays)
                   ? doctors.availableDays.map((day) => daysMap[day]).join(", ")
                   : "No available days"}
-                , {doctors.schedule.open} - {doctors.schedule.close}
+                , {doctors.schedules.open} - {doctors.schedules.close}
               </TableCell>
 
               <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.quota}
-              </TableCell>
-              <TableCell className="py-3 px-4 text-gray-600">
-                {doctors.descriptions}
               </TableCell>
               <TableCell className="py-3 px-4 text-center right-0 z-10">
                 <div className="flex justify-center space-x-2">
