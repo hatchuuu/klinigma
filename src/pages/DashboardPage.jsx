@@ -28,7 +28,7 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { getUserById } from "@/data/users";
 import { getAllDataBooking } from "@/data/bookings";
-import { calculateAge, formatDate, getLatestToken } from "@/data/service";
+import { calculateAge, formatDate } from "@/data/service";
 import Loader from "@/components/Loader";
 import { getAllDataPoly } from "@/data/poly";
 import SideBarListQueue from "@/components/SideBarListQueue";
@@ -50,10 +50,8 @@ const DashboardPage = () => {
 
   const fetchIdUser = async () => {
     try {
-      console.log("halo");
       const responseUser = await getUserById(id);
       setUser(responseUser.data);
-      console.log("Fetched User:", responseUser.data);
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +81,7 @@ const DashboardPage = () => {
       const responseBookings = await getAllDataBooking();
       // Filter bookings by userId and add polyName
       const filteredBookingById = responseBookings?.data?.filter(
-        (value) => value.userId === id
+        (value) => value.userId === id && (value.status == "Approved" || value.status == "Waiting")
       );
       const { data: polysData } = await fetchDataPolys();
       let filterBookings = [];
@@ -136,8 +134,7 @@ const DashboardPage = () => {
     navigate("/login");
   };
 
-  const mapUrl =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5855003249085!2d106.73948209999999!3d-6.1861864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f72a01b8f00d%3A0x7f87d867fb930560!2sPT.%20Kreasi%20Layanan%20Medis!5e0!3m2!1sen!2sid!4v1734104130782!5m2!1sen!2sid";
+  const mapUrl = (import.meta.env.VITE_MAP_URL).toString()
 
   console.log({ latestBooking });
 
@@ -225,9 +222,6 @@ const DashboardPage = () => {
                 </p>
               </div>
             </div>
-            <Button variant="ghost" size="rounded">
-              <Bell />
-            </Button>
           </section>
 
           <section className="mb-5">

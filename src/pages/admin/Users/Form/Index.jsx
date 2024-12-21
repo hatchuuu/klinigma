@@ -21,7 +21,7 @@ import {
 import { ArrowLeft } from "lucide-react";
 import { axiosInstance } from "@/lib/axios";
 import { BackButton } from "@/components/button/NavigationButton";
-import { userInstance } from "@/lib/axios";
+// import { axiosInstance } from "@/lib/axios";
 import dayjs from "dayjs";
 
 function FormUesrs() {
@@ -125,10 +125,10 @@ function FormUesrs() {
 
   return (
     <>
-      <div className="mx-auto px-6 md:pt-20 pt-10">
-        <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5">
-          <BackButton path="/users" />
-      <div className="mx-auto px-6">
+      {/* <div className="mx-auto px-6 md:pt-20 pt-10"> */}
+        {/* <section className="flex flex-wrap items-center justify-start gap-5 p-4 mt-5"> */}
+          {/* <BackButton path="/users" /> */}
+      <div className="mx-auto px-6 md:pt-15 pt-10">
         <section className="flex flex-wrap items-center justify-start gap-5">
           <Link to={"/users"}>
             <div className="p-3 rounded-sm bg-purple-900">
@@ -233,8 +233,8 @@ function FormUesrs() {
           </div>
         </div>
       </div>
-    </section>
-    </div>
+    {/* </section> */}
+    {/* </div> */}
     </>
   );
 }

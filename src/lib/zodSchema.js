@@ -42,8 +42,8 @@ export const registerSchema = loginSchema
       .max(30, "Maksimal 30 Karakter"),
     gender: z
       .string({ required_error: "Gender dibutuhkan" })
-      .min(3, { message: "Gender must be at least 3 characters long" })
-      .max(100, { message: "Gender must be less than 100 characters" }),
+      .min(3, { message: "Jenis Kelamin tidak valid" })
+      .max(20, { message: "Maksimal 20 digit karakter" }),
     role: z.enum(["user", "admin", "superadmin"], {
       required_error: "Role dibutuhkan",
     }),
@@ -88,21 +88,22 @@ export const registerSchema = loginSchema
     // .optional(),
   });
 
+
 export const EditUsersSchema = z.object({
   name: z
-    .string({ required_error: "Name is Required" })
+    .string({ required_error: "Nama dibutuhkan" })
     .min(3, "Minimal 3 Karakter")
     .max(100, "Maksimal 100 Karakter"),
   gender: z
-    .string({ required_error: "Gender is required" })
-    .min(3, { message: "Gender must be at least 3 characters long" })
-    .max(100, { message: "Gender must be less than 100 characters" }),
+    .string({ required_error: "Jenis Kelamin dibutuhkan" })
+    .min(3, { message: "Minimal 3 karakter" })
+    .max(20, { message: "Maksimal 20 karakter" }),
   email: z
-    .string({ required_error: "Email is Required" })
+    .string({ required_error: "Email dibutuhkan" })
     .max(30, "Maksimal 30 Karakter")
     .email("Format Email tidak Valid"),
   location: z
-    .string({ required_error: "Location is Required" })
+    .string({ required_error: "Asal domisili dibutuhkan" })
     .min(3, "Minimal 3 Karakter")
     .max(200, "Maksimal 200 Karakter"),
   phoneNumber: z
@@ -111,6 +112,6 @@ export const EditUsersSchema = z.object({
       /^(?:\+62|62|0)8[1-9]\d{6,12}$/,
       "Nomor Telepon tidak valid, gunakan format yang benar."
     )
-    .min(10, "Nomor Telepon minimal 10 digit")
+    .min(9, "Nomor Telepon minimal 9 digit")
     .max(15, "Nomor Telepon maksimal 15 digit"),
 });

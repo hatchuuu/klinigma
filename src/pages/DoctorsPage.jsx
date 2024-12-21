@@ -158,7 +158,7 @@ const DoctorsPage = () => {
 
   return (
     <>
-      <div className="w-full p-6 flex flex-col gap-6">
+      <div className="w-full p-6 flex flex-col gap-6 md:pt-32 pt-20">
         <div className="flex items-center">
           <BackButton path="/dashboard" />
           <h1 className="font-bold font-sans text-2xl ml-4">Daftar Dokter</h1>

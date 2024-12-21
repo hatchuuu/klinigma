@@ -15,8 +15,21 @@ import {
 } from "./ui/accordion";
 import { formatDate } from "@/data/service";
 import { ScrollArea } from "./ui/scroll-area";
+import { updateBooking } from "@/data/bookings";
+import { failedToast, successToast } from "@/lib/toaster";
+import { jwtDecode } from "jwt-decode";
 
 const SideBarListQueue = ({ data }) => {
+
+  const handleCancel = async (id) => {
+    try {
+      const response = await updateBooking(id, "Canceled", true)
+      if (response.status == 200) successToast("Berhasil Membatalkan antrean")
+      else { throw new Error("Gagal Mematalkan Antrean") }
+    } catch (error) {
+      failedToast(error.message)
+    }
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -33,32 +46,32 @@ const SideBarListQueue = ({ data }) => {
         </SheetHeader>
         <ScrollArea className="py-10 h-[80vh]">
           <Accordion type="single" collapsible className="w-full pr-5">
-            {data.map((value, i) => (
+            {data?.map((value, i) => (
               <AccordionItem key={value.id} value={`item-${i + 1}`}>
                 <AccordionTrigger>
-                  <div className="flex justify-between px-5">
-                    <div className="flex flex-col gap-1">
-                      <p>
-                        {/* Check if value.visitedAt exists before formatting */}
-                        {value.visitedAt
-                          ? formatDate(value.visitedAt).fullDate
+                  <div className="flex flex-col w-full gap-2">
+                    <div className="flex flex-col">
+                      <div className="text-lg font-semibold">
+                        {value.bookingDate
+                          ? formatDate(value.bookingDate).fullDate
                           : "Tanggal belum ditentukan"}
-                      </p>
-                      <p>{value.polyName}</p>
+                      </div>
+                      <div>{value.polyName}</div>
                     </div>
-                    {value.status === "Created" ? (
-                      <p className="bg-green-400 py-1 px-3 rounded-sm text-sm ">
-                        Dibuat
-                      </p>
+                    {value.status === "Waiting" ? (
+                      <div className="bg-green-400 h-max w-2 text-sm ">
+                        Datang Segera
+                      </div>
                     ) : (
-                      <p className="bg-blue-400 py-1 px-3 rounded-sm text-sm">
-                        Menunggu
-                      </p>
+                      <div className="bg-blue-400 h-max w-fit rounded-sm p-1 text-sm">
+                        Menunggu Antrean : {value.queueNumber}
+                      </div>
                     )}
                   </div>
+
                 </AccordionTrigger>
                 <AccordionContent className="flex flex-col justify-end items-end gap-1">
-                  <Button variant="secondary" className="py-4 px-2">
+                  <Button onClick={() => handleCancel(value.id)} variant="secondary" className="py-3 px-6">
                     Batalkan
                   </Button>
                 </AccordionContent>

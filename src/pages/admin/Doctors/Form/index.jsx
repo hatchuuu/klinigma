@@ -318,7 +318,7 @@ function FormDoctors() {
                 {fields.map((item, index) => (
                   <div
                     key={item.id}
-                    className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-3 mb-3"
+                   className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-3 mb-3"
                   >
                     <FieldSelect
                       control={control}
