@@ -145,8 +145,7 @@
       "polyclinicName": "Poli Umum",
       "descriptions": "Pelayanan kesehatan umum, seperti pemeriksaan fisik, pengobatan penyakit ringan, dan konsultasi kesehatan.",
       "image": "https://avatars.githubusercontent.com/u/10128738",
-      "schedule": "Buka setiap hari, 24/7.",
-      "currentQueue": 7
+      "schedule": "Buka setiap hari, 24/7."
     },
     {
       "id": 2,
@@ -223,13 +222,6 @@
           "close": "12:00",
           "quota": 7,
           "booked": 4
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 29,
-          "booked": 2
         }
       ],
       "availableDays": [
@@ -238,8 +230,7 @@
         "Rabu",
         "Kamis",
         "Jumat",
-        "Sabtu",
-        "Minggu"
+        "Sabtu"
       ]
     },
     {
@@ -287,13 +278,6 @@
           "close": "23:00",
           "quota": 6,
           "booked": 5
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 30,
-          "booked": 1
         }
       ],
       "availableDays": [
@@ -301,8 +285,7 @@
         "Selasa",
         "Kamis",
         "Jumat",
-        "Sabtu",
-        "Minggu"
+        "Sabtu"
       ]
     },
     {
@@ -343,21 +326,13 @@
           "close": "23:00",
           "quota": 7,
           "booked": 4
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 30,
-          "booked": 1
         }
       ],
       "availableDays": [
         "Senin",
         "Selasa",
         "Kamis",
-        "Jumat",
-        "Minggu"
+        "Jumat"
       ]
     },
     {
@@ -391,20 +366,12 @@
           "close": "14:00",
           "quota": 9,
           "booked": 2
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 30,
-          "booked": 1
         }
       ],
       "availableDays": [
         "Senin",
         "Selasa",
-        "Jumat",
-        "Minggu"
+        "Jumat"
       ]
     },
     {
@@ -438,20 +405,12 @@
           "close": "14:00",
           "quota": 10,
           "booked": 1
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 30,
-          "booked": 1
         }
       ],
       "availableDays": [
         "Senin",
         "Selasa",
-        "Jumat",
-        "Minggu"
+        "Jumat"
       ]
     },
     {
@@ -485,20 +444,12 @@
           "close": "14:00",
           "quota": 10,
           "booked": 1
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 30,
-          "booked": 1
         }
       ],
       "availableDays": [
         "Senin",
         "Selasa",
-        "Jumat",
-        "Minggu"
+        "Jumat"
       ]
     },
     {
@@ -532,20 +483,12 @@
           "close": "14:00",
           "quota": 10,
           "booked": 1
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 30,
-          "booked": 1
         }
       ],
       "availableDays": [
         "Senin",
         "Selasa",
-        "Jumat",
-        "Minggu"
+        "Jumat"
       ]
     },
     {
@@ -579,20 +522,12 @@
           "close": "14:00",
           "quota": 10,
           "booked": 1
-        },
-        {
-          "day": "Minggu",
-          "open": "01:00",
-          "close": "20:00",
-          "quota": 30,
-          "booked": 1
         }
       ],
       "availableDays": [
         "Senin",
         "Selasa",
-        "Jumat",
-        "Minggu"
+        "Jumat"
       ]
     },
     {
@@ -610,9 +545,8 @@
         {
           "day": "Minggu",
           "open": "12:30",
-          "close": "23:06",
-          "quota": 12,
-          "booked": 1
+          "close": "02:06",
+          "quota": 12
         }
       ],
       "polyName": "Poli Umum",
@@ -626,11 +560,11 @@
       "userId": "3456",
       "name": "Klinigma User",
       "createdAt": "2024-12-22T03:52:44.026Z",
-      "updatedAt": "2024-12-22T12:14:22.430Z",
-      "status": "Canceled",
+      "updatedAt": "2024-12-22T03:52:44.026Z",
+      "status": "Waiting",
       "queueNumber": 1,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
       "id": 1
     },
     {
@@ -642,8 +576,8 @@
       "updatedAt": "2024-12-22T03:54:25.104Z",
       "status": "Waiting",
       "queueNumber": 2,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
       "id": 2
     },
     {
@@ -655,8 +589,8 @@
       "updatedAt": "2024-12-22T04:03:32.825Z",
       "status": "Waiting",
       "queueNumber": 3,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
       "id": 3
     },
     {
@@ -665,11 +599,11 @@
       "userId": "3456",
       "name": "Klinigma User",
       "createdAt": "2024-12-22T04:07:42.815Z",
-      "updatedAt": "2024-12-22T11:11:37.784Z",
-      "status": "Completed",
-      "queueNumber": 1,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
+      "updatedAt": "2024-12-22T04:07:42.815Z",
+      "status": "Waiting",
+      "queueNumber": 2,
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
       "id": 4
     },
     {
@@ -678,11 +612,11 @@
       "userId": "3456",
       "name": "Klinigma User",
       "createdAt": "2024-12-22T04:08:12.340Z",
-      "updatedAt": "2024-12-22T11:11:44.076Z",
-      "status": "Canceled",
+      "updatedAt": "2024-12-22T04:08:12.340Z",
+      "status": "Waiting",
       "queueNumber": 2,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
       "id": 5
     },
     {
@@ -691,11 +625,11 @@
       "userId": "3456",
       "name": "Klinigma User",
       "createdAt": "2024-12-22T04:08:46.903Z",
-      "updatedAt": "2024-12-22T11:11:43.002Z",
-      "status": "Canceled",
-      "queueNumber": 3,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
+      "updatedAt": "2024-12-22T04:08:46.903Z",
+      "status": "Waiting",
+      "queueNumber": 1,
+      "scheduleDay": "Selasa",
+      "bookingDate": "2024-12-24",
       "id": 6
     },
     {
@@ -706,7 +640,7 @@
       "createdAt": "2024-12-22T04:09:07.365Z",
       "updatedAt": "2024-12-22T04:09:07.365Z",
       "status": "Waiting",
-      "queueNumber": 4,
+      "queueNumber": 2,
       "scheduleDay": "Selasa",
       "bookingDate": "2024-12-24",
       "id": 7
@@ -732,7 +666,7 @@
       "createdAt": "2024-12-22T04:09:41.023Z",
       "updatedAt": "2024-12-22T04:09:41.023Z",
       "status": "Waiting",
-      "queueNumber": 5,
+      "queueNumber": 2,
       "scheduleDay": "Selasa",
       "bookingDate": "2024-12-24",
       "id": 9
@@ -745,7 +679,7 @@
       "createdAt": "2024-12-22T04:10:07.362Z",
       "updatedAt": "2024-12-22T04:10:07.362Z",
       "status": "Waiting",
-      "queueNumber": 6,
+      "queueNumber": 2,
       "scheduleDay": "Selasa",
       "bookingDate": "2024-12-24",
       "id": 10
@@ -756,56 +690,43 @@
       "userId": "3456",
       "name": "Klinigma User",
       "createdAt": "2024-12-22T04:11:47.246Z",
-      "updatedAt": "2024-12-22T11:11:41.202Z",
-      "status": "Canceled",
-      "queueNumber": 7,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
-      "id": 11
-    },
-    {
-      "polyclinicId": 1,
-      "doctorId": 1,
-      "userId": "3456",
-      "name": "Klinigma User",
-      "createdAt": "2024-12-22T11:06:29.342Z",
-      "updatedAt": "2024-12-22T11:06:29.342Z",
+      "updatedAt": "2024-12-22T04:11:47.246Z",
       "status": "Waiting",
       "queueNumber": 2,
-      "scheduleDay": "Minggu",
-      "bookingDate": "2024-12-22",
-      "id": 12
+      "scheduleDay": "Senin",
+      "bookingDate": "2024-12-23",
+      "id": 11
     }
   ],
   "queues": [
     {
       "polyclinicId": 1,
-      "date": "2024-12-22",
+      "date": "2024-12-23",
       "currentQueue": 1,
       "id": 1
     },
     {
       "polyclinicId": 1,
-      "date": "2024-12-22",
+      "date": "2024-12-23",
       "currentQueue": 2,
       "id": 2
     },
     {
       "polyclinicId": 1,
-      "date": "2024-12-22",
+      "date": "2024-12-23",
       "currentQueue": 3,
       "id": 3
     },
     {
       "polyclinicId": 1,
-      "date": "2024-12-22",
-      "currentQueue": 4,
+      "date": "2024-12-23",
+      "currentQueue": 2,
       "id": 4
     },
     {
       "polyclinicId": 1,
-      "date": "2024-12-22",
-      "currentQueue": 5,
+      "date": "2024-12-23",
+      "currentQueue": 2,
       "id": 5
     },
     {
@@ -840,15 +761,9 @@
     },
     {
       "polyclinicId": 1,
-      "date": "2024-12-22",
-      "currentQueue": 6,
+      "date": "2024-12-23",
+      "currentQueue": 2,
       "id": 11
-    },
-    {
-      "polyclinicId": 1,
-      "date": "2024-12-22",
-      "currentQueue": 7,
-      "id": 12
     }
   ]
 }

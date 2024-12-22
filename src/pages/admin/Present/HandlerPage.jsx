@@ -32,6 +32,7 @@ import "dayjs/locale/id";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { compareTime } from "@/data/service";
 import { Separator } from "@/components/ui/separator";
+import { getAllQueue } from "@/data/queue";
 
 dayjs.locale("id");
 
@@ -48,7 +49,7 @@ const HandlerPage = () => {
   const [polyName, setPolyName] = useState("");
   const [doctorId, setDoctorId] = useState(null);
   const [change, setChange] = useState(false);
-  const [inputValue, setInputValue] = useState(null);
+  const [inputValue, setInputValue] = useState(0);
   const [inputTime, setInputTime] = useState(15);
   const [listDoctors, setListDoctors] = useState([]);
 
@@ -69,7 +70,11 @@ const HandlerPage = () => {
             const findSchedulesHour = docData.schedules.find(
               (value) => value.day == hari
             );
-            openOn = findSchedulesHour.open;
+            if (findSchedulesHour) {
+              openOn = findSchedulesHour.open;
+            } else {
+              failedToast("Dokter tidak memiliki jadwal hari ini");
+            }
           }
           dayjs.extend(isSameOrBefore);
 
@@ -117,7 +122,6 @@ const HandlerPage = () => {
           setListDoctors(doctorsResp);
           const { data: polyData } = await getDataPolyById(prePolyId);
           setPolyName(polyData.polyclinicName);
-          setNumber(polyData.currentQueue);
 
           if (role !== "admin") {
             navigate("/dashboard");
@@ -238,122 +242,134 @@ const HandlerPage = () => {
   );
 
   return (
-    <div className="flex flex-wrap justify-center items-start gap-6 p-6 pt-10 sm:pt-40">
-      <section className="flex w-full">
-        <BackButton path="/dashboard" />
-      </section>
+    <div className="w-full mt-24">
+      <div className="flex flex-wrap justify-center items-start gap-6 p-4 sm:p-10">
+        <section className="w-full">
+          <BackButton path="/dashboard" />
+        </section>
 
-      {/* List Booking By Polyclinic */}
-      <div className="flex flex-wrap w-full gap-6 lg:flex-nowrap">
-        <section className="bg-white rounded-lg shadow-xl p-6 flex flex-col gap-6 w-full lg:w-2/3">
-          <div className="w-full flex sm:justify-between sm:flex-row sm:gap-10 gap-4  flex-col justify-center items-center">
-            <div className="flex flex-col">
-              <Label className="mb-2">Pilih Dokter</Label>
-              <Select onValueChange={handleFilterByDoctor}>
-                <SelectTrigger className="w-[60vw] sm:w-[25vw]">
-                  <SelectValue placeholder="Pilih Dokter" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {listDoctors?.map((value, i) => (
-                      <SelectItem key={i} value={value.id}>
-                        {value.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col">
-              <Label className="mb-2">Atur Batas Terlambat (Menit)</Label>
-              <div className="flex gap-2">
-                <Input
-                  type="number"
-                  className="max-w-40 p-2"
-                  placeholder="default (15)"
-                  onChange={(e) => setInputValue(e.target.value)}
-                />
-                <Button onClick={handleTime}> Ubah </Button>
+        <div className="flex flex-wrap gap-6 w-full lg:flex-nowrap">
+          {/* List Booking By Polyclinic */}
+          <section className="bg-white rounded-lg shadow-lg p-6 w-full lg:w-2/3">
+            <div className="flex flex-col gap-6">
+              {/* Filter Section */}
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 items-center">
+                <div className="flex flex-col w-full sm:w-1/2">
+                  <Label className="mb-2">Pilih Dokter</Label>
+                  <Select onValueChange={handleFilterByDoctor}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Pilih Dokter" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {listDoctors?.map((value, i) => (
+                          <SelectItem key={i} value={value.id}>
+                            {value.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex flex-col w-full sm:w-1/2">
+                  <Label className="mb-2">Atur Batas Terlambat (Menit)</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      type="number"
+                      className="flex-grow"
+                      placeholder="default (15)"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                    />
+                    <Button className="min-w-[100px]" onClick={handleTime}>
+                      Ubah
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Table Section */}
+              <div className="flex flex-col sm:flex-row gap-5 sm:min-h-[300px]">
+                <div className="w-full">
+                  <Label className="text-start mb-2">Tepat Waktu</Label>
+                  <div className="overflow-auto">
+                    {renderTable(booking)}
+                  </div>
+                </div>
+                <Separator orientation="vertical" className="hidden sm:block" />
+                <div className="w-full">
+                  <Label className="text-start mb-2">Terlambat Waktu</Label>
+                  <div className="overflow-auto">
+                    {renderTable(lateBooking)}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
 
-          {/* Tabel Tepat Waktu */}
-          <div className="flex gap-5 w-full sm:min-h-[270px] sm:flex-row flex-col justify-center items-center">
-            <div className="w-full overflow-auto">
-              <Label className="text-start mb-2">Tepat Waktu</Label>
-              {renderTable(booking)}
+          {/* Control Panel */}
+          <section className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-6 w-full lg:w-1/3">
+            <h1 className="text-2xl font-bold text-primary text-center">KONTROL ANTREAN</h1>
+            <h2 className="text-xl text-primary/70 text-center">{polyName}</h2>
+
+            <div className="flex flex-col items-center gap-6">
+              {/* Number Input and Control Buttons */}
+              <div className="flex items-center gap-4">
+                <Input
+                  type="number"
+                  value={number}
+                  onChange={(e) => setNumber(Number(e.target.value))}
+                  placeholder="Masukkan angka"
+                  className="text-center text-7xl w-2/3 h-20 rounded-lg border-primary"
+                />
+                <div className="flex flex-col gap-2">
+                  <Button
+                    className="p-2 rounded-lg bg-primary text-white"
+                    onClick={() => setNumber((prev) => prev + 1)}
+                  >
+                    <Plus size={20} />
+                  </Button>
+                  <Button
+                    className="p-2 rounded-lg bg-secondary text-white"
+                    onClick={() => setNumber((prev) => prev - 1)}
+                  >
+                    <Minus size={20} />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4 w-full sm:justify-between">
+                <Button
+                  onClick={sendNumber}
+                  className="bg-primary text-white w-full p-3 rounded-lg"
+                >
+                  Panggil
+                </Button>
+                <Button
+                  onClick={() => updateQueue("Canceled")}
+                  className="bg-red-500 hover:bg-red-600 text-white w-5/12 p-3 rounded-lg"
+                >
+                  <Ban size={20} /> Tolak
+                </Button>
+                <Button
+                  onClick={() => updateQueue("Completed")}
+                  className="bg-green-500 hover:bg-green-600 text-white w-5/12 p-3 rounded-lg"
+                >
+                  <Check size={20} /> Selesai
+                </Button>
+              </div>
             </div>
-            <Separator
-              orientation="vertical"
-              className="sm:block hidden min-h-[270px]"
-            />
-            {/* Tabel Telat Waktu */}
-            <div className="w-full overflow-auto">
-              <Label className="text-start mb-2">Terlambat Waktu</Label>
-              {renderTable(lateBooking)}
-            </div>
-          </div>
-        </section>
 
-        <section className="bg-white rounded-lg shadow-xl p-6 flex flex-col gap-6 w-full lg:w-1/3">
-          <h1 className="text-xl font-semibold text-center text-primary/90">
-            KONTROL ANTREAN
-          </h1>
-          <h2 className="text-lg font-semibold text-center text-primary/50 mb-4">
-            {polyName}
-          </h2>
-
-          {/* Number Input and Control Buttons */}
-          <div className="flex items-center gap-4 justify-center mb-6">
-            <Input
-              id="number"
-              type="number"
-              value={number}
-              onChange={(e) => setNumber(Number(e.target.value))}
-              placeholder="Masukkan angka"
-              className="text-center text-7xl md:text-8xl h-32 w-2/3"
-            />
-            <div className="flex flex-col gap-2">
-              <Button onClick={() => setNumber((prev) => prev + 1)}>
-                <Plus size={15} />
-              </Button>
-              <Button onClick={() => setNumber((prev) => prev - 1)}>
-                <Minus size={15} />
-              </Button>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col gap-4 items-center">
-            <Button onClick={sendNumber} className="w-full py-4">
-              Panggil
-            </Button>
-            <div className="flex justify-between gap-4 w-full">
-              <Button
-                onClick={() => updateQueue("Canceled")}
-                className="bg-red-500 text-white w-full py-3"
-              >
-                <Ban size={15} /> Tolak
-              </Button>
-              <Button
-                onClick={() => updateQueue("Completed")}
-                className="bg-green-500 text-white w-full py-3"
-              >
-                <Check size={15} /> Selesai
-              </Button>
-            </div>
-          </div>
-
-          <p className="mt-6 text-center text-gray-500">
-            {isConnected
-              ? "Tersambung ke server."
-              : "Tidak tersambung ke server."}
-          </p>
-        </section>
+            <p className={`mt-4 text-center ${isConnected ? "text-green-500" : "text-red-500"}`}>
+              {isConnected ? "Tersambung ke server." : "Tidak tersambung ke server."}
+            </p>
+          </section>
+        </div>
       </div>
     </div>
-  );
+  )
+
 };
 
 export default HandlerPage;

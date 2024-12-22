@@ -32,7 +32,7 @@ export function SiderBar() {
     if (token) {
         const { role } = jwtDecode(token)
         const [isAdmin] = role.split("-")
-        if (isAdmin === "admin") {
+        if (isAdmin === "admin" || role == "superadmin") {
             const antreanObject = {
                 title: "ATUR ANTREAN",
                 url: "/admin/handler",

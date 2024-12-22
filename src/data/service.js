@@ -36,7 +36,7 @@ export const getLatestToken = (data) => {
 export const formatDate = (data) => {
   // Check if data is valid before parsing
   if (!data) {
-    console.error("Invalid date data:", data);
+    console.log("menunggu data...");
     return { fullDate: "", time: "" };
   }
   const date = parseISO(data);

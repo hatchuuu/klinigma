@@ -29,7 +29,6 @@ const PresentPage = () => {
           const response = await getDataPolyById(currentId);
           if (isMounted) {
             setData(response.data);
-            setNumber(response.data.currentQueue); //Init nilai awal
           }
         } else {
           if (isMounted) setData('false');

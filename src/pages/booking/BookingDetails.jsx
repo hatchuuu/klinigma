@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { BackButton } from "@/components/button/NavigationButton";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
+import { jwtDecode } from "jwt-decode";
 
 dayjs.locale("id");
 
@@ -12,6 +13,7 @@ function BookingDetails() {
   const { poliklinik, tanggalTerpilih, dokterTerpilih, jadwal } =
     location.state;
 
+  const token = sessionStorage.getItem("token")
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -21,12 +23,17 @@ function BookingDetails() {
     const fetchUserData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("http://localhost:3002/users/3456"); // Ganti dengan ID user yang sedang login
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data user");
+        if (token) {
+          const { id } = jwtDecode(token)
+          const response = await fetch(`http://localhost:3002/users/${id}`); // Ganti dengan ID user yang sedang login
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data user");
+          }
+          const data = await response.json();
+          setUser(data);
+        } else {
+          throw new Error("Token tidak ada");
         }
-        const data = await response.json();
-        setUser(data);
       } catch (error) {
         setError("Gagal mengambil data user. Silakan coba lagi.");
       } finally {
@@ -197,7 +204,7 @@ function BookingDetails() {
             <div className="flex flex-col items-center gap-4 mb-6">
               <img
                 src={
-                  user
+                  user?.avatar
                     ? user.avatar
                     : "https://tools-api.webcrumbs.org/image-placeholder/80/80/avatars/3"
                 }
@@ -218,12 +225,6 @@ function BookingDetails() {
                 <p className="text-neutral-500">Jenis Kelamin</p>
                 <p className="text-neutral-950">
                   {user ? user.gender : "01 Jan 1990"}
-                </p>
-              </div>
-              <div className="flex justify-between mb-3">
-                <p className="text-neutral-500">Golongan Darah</p>
-                <p className="text-neutral-950">
-                  {user ? user.bloodType : "O+"}
                 </p>
               </div>
               <div className="flex justify-between mb-3">

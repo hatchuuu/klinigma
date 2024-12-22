@@ -187,7 +187,7 @@ function BookingSchedule() {
         .set("minute", closeMinute);
 
       if (jamTutup.isBefore(jamBuka)) {
-        const jamTutup = jamTutup.add(1, "day");
+        jamTutup = jamTutup.add(1, "day");
       }
 
       return now.isBetween(jamBuka, jamTutup, null, "[]");
@@ -237,8 +237,8 @@ function BookingSchedule() {
             <div
               key={hari}
               className={`card-tanggal p-4 border rounded-lg shadow-md cursor-pointer ${isActive
-                  ? "bg-blue-500 text-white"
-                  : "bg-white dark:bg-gray-800"
+                ? "bg-blue-500 text-white"
+                : "bg-white dark:bg-gray-800"
                 }`}
               onClick={() => handlePilihTanggal(tanggal)}
             >

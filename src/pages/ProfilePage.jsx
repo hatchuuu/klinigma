@@ -51,20 +51,20 @@ const ProfilePage = () => {
         array.map((value, i) => (
             <div key={i}>
                 <div className="flex justify-between mb-7">
-                    <h3 className="text-xl text-gray-600">{value.title}</h3>
-                    <h3 className="text-xl">{value.data}</h3>
+                    <h3 className="sm:text-xl text-sm text-gray-600">{value.title}</h3>
+                    <h3 className="sm:text-xl text-sm">{value.data}</h3>
                 </div>
                 <Separator className="mb-7" />
             </div>
         )
         )
     return (
-        <div className="h-screen items-center flex flex-col p-8 md:pt-32 pt-20">
+        <div className="h-screen items-center flex flex-col p-8 md:pt-40 pt-32">
             {data ? (
-                <div className={`flex flex-col sm:w-3/5`}>
+                <div className={`flex flex-col sm:w-3/5 w-4/5`}>
                     <section className="flex flex-col justify-center items-center gap-1 mb-20">
-                        <h1 className="text-4xl font-semibold uppercase">{name}</h1>
-                        <h1 className="text-base font-semibold capitalize">({isAdmin == "admin" ? "admin " + polyName : role})</h1>
+                        <h1 className="sm:text-3xl text-xl font-semibold uppercase">{name}</h1>
+                        <h1 className="sm:text-base text-sm font-semibold capitalize">({isAdmin == "admin" ? "admin " + polyName : role})</h1>
                     </section>
                     <div>
                         {

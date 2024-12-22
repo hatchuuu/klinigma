@@ -10,10 +10,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
       <Toaster />
+      <Navbar />
       <div className='font-roboto min-h-screen w-full mb-10'>
         <App />
       </div>
-      <Navbar />
     </Router>
   </StrictMode>,
 )

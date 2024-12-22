@@ -70,7 +70,7 @@ const UserPage = () => {
   };
 
   return (
-    <div className="p-8 flex flex-col gap-4 mb-52 md:pt-32 pt-20">
+    <div className="p-8 flex flex-col gap-4 mb-52 md:pt-32 pt-28">
       <section className="flex gap-5 items-center">
         <Button onClick={() => navigate("/dashboard")}>
           <ChevronLeft size={20} />

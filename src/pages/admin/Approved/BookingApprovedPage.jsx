@@ -61,43 +61,49 @@ const BookingApprovedPage = () => {
         }
     }
     return (
-        <div className="max-w-7xl mx-auto sm:pt-32 pt-20 flex flex-col sm:flex-row justify-center gap-10">
-            <section className='mx-5'>
+
+        <div className="max-w-7xl mx-auto sm:pt-32 pt-28 flex flex-col sm:flex-row justify-center gap-10 px-10">
+            <section className="w-full sm:w-1/3">
                 <div className="flex flex-col gap-5">
                     <BackButton path={"/dashboard"} />
-                    <h1 className='text-3xl font-semibold text-center w-full mb-10'>PERSETUJUAN ANTREAN</h1>
+                    <h1 className="text-3xl font-semibold text-center mb-10">PERSETUJUAN ANTREAN</h1>
                 </div>
-                <Label>Pilih Poliklinik</Label>
-                <Select onValueChange={handleFilterByPoly} className="w-full py-2">
-                    <SelectTrigger className="w-[280px]">
-                        <SelectValue placeholder="Pilih Poliklinik" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectItem value="1">Poli Umum</SelectItem>
-                            <SelectItem value="2">Poli Gigi</SelectItem>
-                            <SelectItem value="3">Kesehatan Ibu dan Anak (KIA)</SelectItem>
-                            <SelectItem value="4">Poli Keluarga Berencana (KB)</SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-                <Label className="mb-20">Pilih Dokter</Label>
-                <Select onValueChange={handleFilterByDoctor}>
-                    <SelectTrigger className="w-[280px]">
-                        <SelectValue placeholder="Pilih Dokter" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            {
-                                listDoctors?.map((value, i) => (
-                                    <SelectItem key={i} value={value.id}>{value.name}</SelectItem>
-                                ))
-                            }
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
+                <div className="mb-6">
+                    <Label>Pilih Poliklinik</Label>
+                    <Select onValueChange={handleFilterByPoly} className="w-full">
+                        <SelectTrigger className="w-full sm:w-[280px]">
+                            <SelectValue placeholder="Pilih Poliklinik" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="1">Poli Umum</SelectItem>
+                                <SelectItem value="2">Poli Gigi</SelectItem>
+                                <SelectItem value="3">Kesehatan Ibu dan Anak (KIA)</SelectItem>
+                                <SelectItem value="4">Poli Keluarga Berencana (KB)</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+                    <Label className="mb-2">Pilih Dokter</Label>
+                    <Select onValueChange={handleFilterByDoctor} className="w-full">
+                        <SelectTrigger className="w-full sm:w-[280px]">
+                            <SelectValue placeholder="Pilih Dokter" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {listDoctors?.map((value, i) => (
+                                    <SelectItem key={i} value={value.id}>
+                                        {value.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
             </section>
-            <section className='w-full mx-5'>
+
+            <section className="w-full">
                 <div className="w-full overflow-auto shadow-md rounded-lg bg-white">
                     <Table>
                         <TableHeader>
@@ -109,37 +115,38 @@ const BookingApprovedPage = () => {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {
-                                paginatedBooking.length > 0 ?
-                                    paginatedBooking?.map((value, i) => (
-                                        <TableRow key={i}>
-                                            <TableCell>{value.id}</TableCell>
-                                            <TableCell>{value.queueNumber}</TableCell>
-                                            <TableCell>{value.name}</TableCell>
-                                            <TableCell className="flex items-center justify-center gap-2">
-                                                <Button onClick={() => handleApprove(value.id, "Approved")}>Setujui</Button>
-                                                <Button onClick={() => handleApprove(value.id, "Canceled")}>Batalkan</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                    :
-                                    <TableRow>
-                                        <TableCell>Tidak Ada Data</TableCell>
+                            {paginatedBooking.length > 0 ? (
+                                paginatedBooking.map((value, i) => (
+                                    <TableRow key={i}>
+                                        <TableCell>{value.id}</TableCell>
+                                        <TableCell>{value.queueNumber}</TableCell>
+                                        <TableCell>{value.name}</TableCell>
+                                        <TableCell className="flex items-center justify-center gap-2">
+                                            <Button onClick={() => handleApprove(value.id, "Approved")}>Setujui</Button>
+                                            <Button onClick={() => handleApprove(value.id, "Canceled")}>Batalkan</Button>
+                                        </TableCell>
                                     </TableRow>
-                            }
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">
+                                        Tidak Ada Data
+                                    </TableCell>
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                 </div>
 
-                <div className="flex justify-center space-x-2 mt-4">
+                <div className="flex flex-wrap justify-center space-x-2 mt-10">
                     <Button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
                         Previous
                     </Button>
-                    {[...Array(totalPages).keys()].map((pageNumber) => (
+                    {Array.from({ length: totalPages }).map((_, pageNumber) => (
                         <Button
                             key={pageNumber}
                             onClick={() => handlePageChange(pageNumber + 1)}
-                            className={currentPage === pageNumber + 1 ? 'bg-purple-500 text-white' : ''}
+                            className={currentPage === pageNumber + 1 ? "underline font-bold" : ""}
                         >
                             {pageNumber + 1}
                         </Button>
@@ -150,6 +157,7 @@ const BookingApprovedPage = () => {
                 </div>
             </section>
         </div>
+
     )
 }
 

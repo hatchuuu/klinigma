@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bell, Check, User } from "lucide-react";
+import { Calendar, Check, House, User } from "lucide-react";
 // import { fetchDataUsers } from "@/data/users";
 import { Link } from "react-router-dom";
 import {
@@ -35,6 +35,7 @@ import SideBarListQueue from "@/components/SideBarListQueue";
 import TokenBoard from "@/components/TokenBoard";
 import { getDoctorById, getDoctorForTeam } from "@/data/doctors";
 import dayjs from "dayjs";
+import { SiderBar } from "@/components/SiderBar";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
@@ -45,6 +46,7 @@ const DashboardPage = () => {
   const { id, role } = jwtDecode(token);
   const [isAdmin] = role.split("-");
   const [doctor, setDoctor] = useState([]);
+  const [message, setMessage] = useState("")
 
   const navigate = useNavigate();
 
@@ -79,10 +81,12 @@ const DashboardPage = () => {
   const fetchDataBookings = async () => {
     try {
       const responseBookings = await getAllDataBooking();
+      console.log({ responseBookings })
       // Filter bookings by userId and add polyName
       const filteredBookingById = responseBookings?.data?.filter(
         (value) => value.userId === id && (value.status == "Approved" || value.status == "Waiting")
       );
+      console.log({ filteredBookingById })
       const { data: polysData } = await fetchDataPolys();
       let filterBookings = [];
       for (let i = 0; i < filteredBookingById.length; i++) {
@@ -90,29 +94,37 @@ const DashboardPage = () => {
         for (let j = 0; j < polysData.length; j++) {
           let poly = polysData[j];
           if (booking.polyclinicId === poly.id) {
-            booking["polyQueue"] = poly.currentQueue;
+            // booking["polyQueue"] = poly.currentQueue;
             booking["polyName"] = poly.polyclinicName;
             break;
           }
         }
         filterBookings.push(booking);
       }
-      setAllBookings(filterBookings);
-      // Find the first unfinished booking
-      const latestBooking = filterBookings.find((value) => {
-        return value.status == "Approved";
-      });
-      setLatestBooking(latestBooking);
-
-      //Find Schedule Hour by Doctor and Day
-      const { doctorId, scheduleDay } = latestBooking;
-      const { data: docData } = await getDoctorById(doctorId);
-      const findSchedulesHour = docData.schedules.find(
-        (value) => value.day == scheduleDay
-      );
-      const openOn = findSchedulesHour.open;
-      setOpenHour(openOn);
-      // const closeOn = findSchedulesHour.close
+      console.log({ filterBookings })
+      //Periksa ada filter ga di ID itu?
+      if (filterBookings.length > 0) {
+        setAllBookings(filterBookings);
+        // Find the first unfinished booking
+        const approvedBookings = filterBookings.find((value) => {
+          return value.status == "Approved";
+        });
+        setLatestBooking(approvedBookings);
+        if (approvedBookings) {
+          //Find Schedule Hour by Doctor and Day
+          const { doctorId, scheduleDay } = approvedBookings;
+          const { data: docData } = await getDoctorById(doctorId);
+          const findSchedulesHour = docData.schedules.find(
+            (value) => value.day == scheduleDay
+          );
+          const openOn = findSchedulesHour.open;
+          setOpenHour(openOn);
+        } else {
+          setMessage("ANTREAN ANDA BELUM AKTIF, LAKUKAN CHECKIN TERLEBIH DAHULU")
+        }
+      } else {
+        setMessage("ANDA BELUM MEMILIKI NOMOR ANTREAN");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -129,10 +141,10 @@ const DashboardPage = () => {
     fetchDoctorForTeam();
   }, [token]); // Re-run effect if token changes
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/login");
-  };
+  // const handleLogout = () => {
+  //   sessionStorage.removeItem("token");
+  //   navigate("/login");
+  // };
 
   const mapUrl = (import.meta.env.VITE_MAP_URL).toString()
 
@@ -193,37 +205,12 @@ const DashboardPage = () => {
       description: "24/7 emergency care.",
     },
   ];
+
   return (
     <div>
       {user ? (
-        <div className="mx-auto">
-          <section className="flex justify-between items-center p-6 md:px-10 md:invisible">
-            <div className="flex gap-5">
-              {/* Avatar with dropdown trigger */}
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer flex justify-center items-center">
-                    <User />
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white shadow-lg rounded-lg p-2 w-48">
-                  <DropdownMenuItem
-                    className="text-sm text-purple-800"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <div>
-                <p className="font-semibold uppercase">{user.name}</p>
-                <p className="text-xs capitalize">
-                  {user.gender}, {calculateAge(user.birthDate)} tahun
-                </p>
-              </div>
-            </div>
-          </section>
-
+        <div className="mx-auto mt-24">
+          {/* Navbar */}
           <section className="mb-5">
             <div className="w-full px-4">
               {/* <input type="text" placeholder="Search Anything" className="w-full p-2 rounded-lg border-2 shadow text-xs" /> */}
@@ -273,13 +260,14 @@ const DashboardPage = () => {
                   </>
                 ) : (
                   <div className="bg-white rounded-lg shadow-lg text-center col-span-2 sm:mb-4">
-                    <div className="bg-purple-500 text-white font-medium py-3 rounded-lg">
+                    <div className="bg-purple-500 text-white font-medium py-5 rounded-lg">
                       <p className="text-lg text-white semibold">
-                        Anda Belum Memiliki Nomor Antrean
+                        {message}
                       </p>
-                      <Link to="/booking">
-                        <Button> Ambil Nomor Antrean</Button>
-                      </Link>
+                    </div>
+                    {/* lihat semua booking */}
+                    <div>
+                      <SideBarListQueue data={allBookings} />
                     </div>
                   </div>
                 )}
@@ -358,7 +346,7 @@ const DashboardPage = () => {
                       className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center border border-gray-300"
                     >
                       <Check size={40} className="text-purple-900 mb-3" />
-                      <span className="text-lg font-medium text-center">
+                      <span className="text-lg font-semibold text-center text-gray-800">
                         Setujui Kunjungan
                       </span>
                     </Link>
@@ -415,7 +403,7 @@ const DashboardPage = () => {
                 Komitmen dalam Pelayanan, Dedikasi dalam Kesehatan
               </h1>
               <p className="text-lg text-gray-600 mt-6 leading-relaxed">
-               Klinigma kami didirikan dengan tujuan untuk memberikan
+                Klinigma kami didirikan dengan tujuan untuk memberikan
                 layanan kesehatan berkualitas tinggi dengan teknologi terkini
                 dan tenaga medis profesional. Dengan berbagai fasilitas modern,
                 kami berkomitmen untuk memenuhi kebutuhan kesehatan Anda dan

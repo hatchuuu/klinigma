@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { calculateAge } from "@/data/service";
 import { getUserById } from "@/data/users";
 import Loader from "./Loader";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -51,6 +52,11 @@ const Navbar = () => {
     return null;
   }
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  };
+
   const items = [
     {
       title: "Beranda",
@@ -73,40 +79,28 @@ const Navbar = () => {
     <>
       <div>
         <div
-          className={`w-full bg-transparent font-roboto ${
-            !token ? "hidden" : "fixed"
-          } bottom-3 px-4 md:hidden `}
-        >
-          <div className="bg-primary w-full py-2 rounded-2xl">
-            <div className="flex justify-evenly items-center">
-              <NavbarButton text="HOME" path="/dashboard">
-                <House size={20} />
-              </NavbarButton>
-              {role === "user" ? (
-                <NavbarButton text="BOOKING" path="/booking">
-                  <Calendar size={20} />
-                </NavbarButton>
-              ) : (
-                <DrawerMenu />
-              )}
-              <NavbarButton text="PROFILE" path="/profile">
-                <User size={20} />
-              </NavbarButton>
-            </div>
-          </div>
-        </div>
-        <div
-          className={` bg-white w-full font-roboto ${
-            !token ? "hidden" : "md:fixed"
-          } top-0`}
+          className={` bg-white w-full font-roboto z-10 ${!token ? "hidden" : "fixed"
+            } top-0`}
         >
           {user ? (
-            <section className="flex justify-between items-center p-6 md:px-8">
+            <section className="flex justify-between items-center p-6 md:px-10 ">
               <div className="flex gap-5">
                 {/* Avatar with dropdown trigger */}
-                <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer flex justify-center items-center">
-                  <User />
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer flex justify-center items-center">
+                      <User />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-white shadow-lg rounded-lg p-2 w-48">
+                    <DropdownMenuItem
+                      className="text-sm text-purple-800"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <div>
                   <p className="font-semibold uppercase">{user.name}</p>
                   <p className="text-xs capitalize">
@@ -114,13 +108,13 @@ const Navbar = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="hidden sm:block">
                 <div className="flex flex-wrap gap-4">
                   {items.map((item, i) => (
                     <p
                       key={i}
                       className="flex items-center justify-center semibold px-4 py-2"
-                      asChild
+                    // asChild
                     >
                       <Link
                         to={item.url}
@@ -132,10 +126,8 @@ const Navbar = () => {
                     </p>
                   ))}
                 </div>
-                <Button variant="ghost" size="rounded">
-                  <Bell />
-                </Button>
               </div>
+              <SiderBar />
             </section>
           ) : (
             <Loader />

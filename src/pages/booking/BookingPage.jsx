@@ -59,7 +59,7 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="mx-auto p-6 md:pt-24">
+    <div className="mx-auto p-6 md:pt-32">
       <div className="flex items-center">
         <BackButton path="/dashboard" />
         <h1 className="font-bold font-sans text-2xl ml-4">Pilih Poli</h1>
