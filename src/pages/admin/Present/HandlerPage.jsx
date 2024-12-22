@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getAllDataBooking, updateBooking } from "@/data/bookings";
-import { getDataPolyById, updateQueuePoly } from "@/data/poly";
+import { getDataPolyById } from "@/data/poly";
 import { Ban, Check, Minus, Plus } from "lucide-react";
 import { BackButton } from "@/components/button/NavigationButton";
 import {
@@ -32,7 +32,6 @@ import "dayjs/locale/id";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { compareTime } from "@/data/service";
 import { Separator } from "@/components/ui/separator";
-import { getAllQueue } from "@/data/queue";
 
 dayjs.locale("id");
 
@@ -173,12 +172,11 @@ const HandlerPage = () => {
       );
       console.log({ findIdBooking });
       if (findIdBooking) {
-        const { status: polyStatus } = await updateQueuePoly(polyId, number);
         const { status: bookingStatus } = await updateBooking(
           findIdBooking.id,
           message
         );
-        if (polyStatus == 200 && bookingStatus == 200) {
+        if (bookingStatus == 200) {
           successToast("Berhasil Memperbarui data!");
           setChange(() => (prev) => !prev);
         } else {

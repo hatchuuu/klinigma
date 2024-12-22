@@ -4,6 +4,7 @@ import { BackButton } from "@/components/button/NavigationButton";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import { jwtDecode } from "jwt-decode";
+import { successToast } from "@/lib/toaster";
 
 dayjs.locale("id");
 
@@ -58,11 +59,12 @@ function BookingDetails() {
       );
       const dataQueue = await responseQueue.json();
 
-      let queueNumber = 1; // Default jika belum ada antrian
-
+      // const biggestNumber = dataQueue.reduce((max, obj) => {
+      //   return obj.currentQueue > max.currentQueue ? obj : max;
+      // }, dataQueue[0]); // Mulai dengan elemen pertama
+      let queueNumber = 1;
       if (dataQueue.length > 0) {
-        // Jika sudah ada antrian, ambil currentQueue dan increment
-        queueNumber = dataQueue[0].currentQueue + 1;
+        queueNumber = Math.max(...dataQueue.map(obj => obj.currentQueue));
       }
 
       // Buat data booking
@@ -74,7 +76,7 @@ function BookingDetails() {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         status: "Waiting",
-        queueNumber: queueNumber,
+        queueNumber: queueNumber + 1,
         scheduleDay: jadwal.hari,
         bookingDate: formattedDate,
       };
@@ -96,7 +98,7 @@ function BookingDetails() {
       }
 
       const newBooking = await responseBooking.json(); // Get the new booking data with ID
-
+      console.log({ newBooking })
       // --- Buat data antrian baru ---
       const createQueueResponse = await fetch("http://localhost:3002/queues", {
         method: "POST",
@@ -104,7 +106,7 @@ function BookingDetails() {
         body: JSON.stringify({
           polyclinicId: poliklinik.id,
           date: formattedDate,
-          currentQueue: queueNumber, // Pastikan queueNumber sudah di-increment
+          currentQueue: queueNumber + 1, // Pastikan queueNumber sudah di-increment
         }),
       });
 
@@ -125,7 +127,7 @@ function BookingDetails() {
 
         if (jadwalIndex !== -1) {
           updatedDokter.schedules[jadwalIndex].booked += 1;
-          updatedDokter.schedules[jadwalIndex].quota -= 1; // Kurangi quota
+          // updatedDokter.schedules[jadwalIndex].quota -= 1; // Kurangi quota
 
           await fetch(`http://localhost:3002/doctors/${dokterTerpilih.id}`, {
             method: "PATCH",

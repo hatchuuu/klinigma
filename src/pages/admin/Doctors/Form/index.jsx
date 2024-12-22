@@ -68,6 +68,7 @@ function FormDoctors() {
           open: dayjs().format("HH:mm"),
           close: dayjs().format("HH:mm"),
           quota: "",
+          booked: 0
         },
       ],
       availableDays: [],
@@ -82,16 +83,19 @@ function FormDoctors() {
     console.log("Available days:", values.availableDays);
 
     console.log(values.quota);
+
     const schedules = values.schedules.map((schedule) => ({
       day: schedule.day,
       open: schedule.open,
       close: schedule.close,
       quota: Number(schedule.quota),
+      booked: schedule.booked !== undefined ? Number(schedule.booked) : 0,
     }));
 
     const availableDays = schedules
       .map((schedule) => schedule.day)
       .filter((day) => day);
+
     const { day, qouta, open, close, ...rest } = values;
     const payload = {
       ...rest,
@@ -163,6 +167,7 @@ function FormDoctors() {
             open: schedule.open,
             close: schedule.close,
             quota: Number(schedule.quota),
+            booked: Number(schedule.booked),
           }));
           const polyclinicName = getPolyNameById(doctorData.polyclinicId);
           console.log("polyname", doctorData.polyName);

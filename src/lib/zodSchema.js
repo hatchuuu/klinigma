@@ -59,34 +59,76 @@ export const registerSchema = loginSchema
     path: ["confirmPassword"],
   });
 
-  export const doctorsSchema = z.object({
-    name: z.string().nonempty({ message: "Name is required" }),
-    gender: z.string().nonempty({ message: "Gender is required" }),
-    email: z.string().email({ message: "Invalid email address" }),
-    // polyName: z.string().email({ message: "Invalid Poly Name address" }),
-    phoneNumber: z.preprocess((val) => Number(val), z.number().positive().int()),
-    descriptions: z.string().nonempty({ message: "Descriptions are required" }),
-    location: z.string().nonempty({ message: "Location is required" }),
-    availableDays: z.array(z.string().nonempty({ message: "Available days are required" })), // Memastikan availableDays adalah array string
-    polyclinicId: z.string().nonempty({ message: "Polyclinic ID is required" }),
-    schedules: z.array(
-      z.object({
-        day: z.string().nonempty({ message: "Day is required" }),
-        open: z.string().nonempty({ message: "Open time is required" }),
-        close: z.string().nonempty({ message: "Close time is required" }),
-        quota: z.preprocess((val) => Number(val), z.number().positive()),
-      })
-    ),
-    // image: z
-    // .instanceof(File) // Memastikan bahwa input adalah instance dari File
-    // .refine((file) => file.type.startsWith('image/'), {
-    //     message: "Uploaded file must be an image",
-    // })
-    // .refine((file) => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024, {
-    //     message: `File size must be less than ${MAX_FILE_SIZE_MB}MB`,
-    // })
-    // .optional(),
-  });
+export const doctorsSchema = z.object({
+  name: z.string().nonempty({ message: "Name is required" }),
+  gender: z.string().nonempty({ message: "Gender is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  // polyName: z.string().nonempty({ message: "Invalid Poly Name address" }),
+  phoneNumber: z
+    .string({
+      invalid_type_error: "Nomor telepon harus berupa angka",
+    })
+    .regex(/^\d+$/, { message: "Nomor telepon hanya boleh berisi angka" })
+    .min(8, { message: "Minimal 8 digit angka" })
+    .max(20, { message: "Maksimal 20 digit angka" }),
+  descriptions: z.string().nonempty({ message: "Descriptions are required" }),
+  location: z.string().nonempty({ message: "Location is required" }),
+  availableDays: z.array(z.string().nonempty({ message: "Available days are required" })), // Memastikan availableDays adalah array string
+  // polyclinicId: z.string().nonempty({ message: "Polyclinic ID is required" }),
+  schedules: z.array(
+    z.object({
+      day: z.string().nonempty({ message: "Day is required" }),
+      open: z.string().nonempty({ message: "Open time is required" }),
+      close: z.string().nonempty({ message: "Close time is required" }),
+      quota: z.preprocess((val) => Number(val), z.number().positive()),
+    })
+  ),
+  // image: z
+  // .instanceof(File) // Memastikan bahwa input adalah instance dari File
+  // .refine((file) => file.type.startsWith('image/'), {
+  //     message: "Uploaded file must be an image",
+  // })
+  // .refine((file) => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024, {
+  //     message: File size must be less than ${MAX_FILE_SIZE_MB}MB,
+  // })
+  // .optional(),
+});
+
+
+// export const doctorsSchema = z.object({
+//   name: z.string().nonempty({ message: "Name is required" }),
+//   gender: z.string().nonempty({ message: "Gender is required" }),
+//   email: z.string().email({ message: "Invalid email address" }),
+//   polyName: z.string().email({ message: "Invalid Poly Name address" }),
+//   phoneNumber: z
+//     .string({
+//       invalid_type_error: "Nomor telepon harus berupa angka",
+//     })
+//     .regex(/^\d+$/, { message: "Nomor telepon hanya boleh berisi angka" })
+//     .min(8, { message: "Minimal 8 digit angka" })
+//     .max(20, { message: "Maksimal 20 digit angka" }),
+//   descriptions: z.string().nonempty({ message: "Descriptions are required" }),
+//   location: z.string().nonempty({ message: "Location is required" }),
+//   availableDays: z.array(z.string().nonempty({ message: "Available days are required" })), // Memastikan availableDays adalah array string
+//   polyclinicId: z.string().nonempty({ message: "Polyclinic ID is required" }),
+//   schedules: z.array(
+//     z.object({
+//       day: z.string().nonempty({ message: "Day is required" }),
+//       open: z.string().nonempty({ message: "Open time is required" }),
+//       close: z.string().nonempty({ message: "Close time is required" }),
+//       quota: z.preprocess((val) => Number(val), z.number().positive()),
+//     })
+//   ),
+//   // image: z
+//   // .instanceof(File) // Memastikan bahwa input adalah instance dari File
+//   // .refine((file) => file.type.startsWith('image/'), {
+//   //     message: "Uploaded file must be an image",
+//   // })
+//   // .refine((file) => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024, {
+//   //     message: `File size must be less than ${MAX_FILE_SIZE_MB}MB`,
+//   // })
+//   // .optional(),
+// });
 
 
 export const EditUsersSchema = z.object({

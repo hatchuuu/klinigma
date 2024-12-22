@@ -92,8 +92,8 @@ const HistoryPage = () => {
     return (
         <div className="min-h-screen flex flex-col p-6 sm:p-12 mt-24 bg-gray-50 w-full">
             <div className="flex flex-col sm:w-3/5 lg:w-4/5 mx-auto bg-white shadow rounded-lg p-6">
-                <section className="flex flex-col items-center gap-2 mb-10">
-                    <h1 className="text-4xl font-bold text-gray-900 uppercase">Riwayat Booking</h1>
+                <section className="flex flex-col items-center gap-2 mb-10 px-20">
+                    <h1 className="sm:text-4xl text-lg font-bold text-gray-900 uppercase">Riwayat Booking</h1>
                     <p className="text-sm text-gray-500">Data pemesanan yang tersedia</p>
                 </section>
 

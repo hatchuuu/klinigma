@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/button/NavigationButton";
 import moment from "moment"; // Make sure you have moment.js installed
 import { Card } from "@/components/ui/card";
+import { successToast } from "@/lib/toaster";
 
 function BookingCreated() {
   const location = useLocation();
@@ -31,11 +32,13 @@ function BookingCreated() {
           }
           const data = await response.json();
           setBookingData(data);
+          // successToast("Booking Berhasil")
           console.log("Booking data:", data);
         } catch (error) {
           console.error("Error fetching booking data:", error);
         } finally {
           setIsLoading(false);
+          console.log("test")
         }
       }
     };

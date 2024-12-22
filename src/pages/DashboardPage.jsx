@@ -148,7 +148,6 @@ const DashboardPage = () => {
 
   const mapUrl = (import.meta.env.VITE_MAP_URL).toString()
 
-  console.log({ latestBooking });
 
   // dummy info dan atikel
   const articles = [
@@ -206,6 +205,11 @@ const DashboardPage = () => {
     },
   ];
 
+  const handleScroll = (id) => {
+    const element = document.getElementById(id);
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
     <div>
       {user ? (
@@ -231,110 +235,89 @@ const DashboardPage = () => {
 
           {/* Section for Latest Booking */}
           {isAdmin !== "admin" && (
-            <section className="p-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
+            // <section className="p-2">
+            //   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5">
+            //     {latestBooking ? (
+            //       <>
+            //         <div className=" rounded-lg shadow-lg text-center">
+            //           <div className=" font-medium py-3 rounded-t-lg">
+            //             <p className="text-lg text-white semibold">
+            //               Jam Beroperasi
+            //             </p>
+            //           </div>
+            //           <div className="p-4">
+            //             <p className="text-2xl text-black semibold">
+            //               {formatDate(latestBooking.bookingDate).fullDate},
+            //               {openHour}
+            //             </p>
+            //             <p>{latestBooking.polyName}</p>
+            //           </div>
+            //         </div>
+
+            //         <div className="">
+            //           <TokenBoard latestBooking={latestBooking} />
+            //         </div>
+
+            //         <div>
+            //           <SideBarListQueue data={allBookings} />
+            //         </div>
+            //       </>
+            //     ) : (
+            //       <div className="bg-white rounded-lg shadow-lg text-center col-span-2 sm:mb-4">
+            //         <div className="bg-purple-500 text-white font-medium py-5 rounded-lg">
+            //           <p className="text-lg text-white semibold">
+            //             {message}
+            //           </p>
+            //         </div>
+            //         {/* lihat semua booking */}
+            //         <div>
+            //           <SideBarListQueue data={allBookings} />
+            //         </div>
+            //       </div>
+            //     )}
+            //   </div>
+            // </section>
+            <section className="p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {latestBooking ? (
                   <>
-                    <div className=" rounded-lg shadow-lg text-center">
-                      <div className=" font-medium py-3 rounded-t-lg">
+                    <div className="rounded-lg shadow-lg border border-gray-200 text-center">
+                      <div className="font-medium py-3 bg-purple-500 rounded-t-lg">
                         <p className="text-lg text-white semibold">
                           Jam Beroperasi
                         </p>
                       </div>
-                      <div className="p-4">
+                      <div className="p-6">
                         <p className="text-2xl text-black semibold">
-                          {formatDate(latestBooking.bookingDate).fullDate},
-                          {openHour}
+                          {formatDate(latestBooking.bookingDate).fullDate}, {openHour}
                         </p>
-                        <p>{latestBooking.polyName}</p>
+                        <p className="text-sm text-gray-600 mt-2">{latestBooking.polyName}</p>
                       </div>
                     </div>
 
-                    <div className="">
+                    <div className="p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
                       <TokenBoard latestBooking={latestBooking} />
                     </div>
 
-                    <div>
+                    <div className="p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 w-full">
                       <SideBarListQueue data={allBookings} />
                     </div>
                   </>
                 ) : (
-                  <div className="bg-white rounded-lg shadow-lg text-center col-span-2 sm:mb-4">
-                    <div className="bg-purple-500 text-white font-medium py-5 rounded-lg">
-                      <p className="text-lg text-white semibold">
-                        {message}
-                      </p>
+                  <div className="bg-white rounded-lg shadow-lg text-center col-span-2">
+                    <div className="bg-purple-500 text-white font-medium py-5 rounded-t-lg">
+                      <p className="sm:text-lg text-sm text-white semibold">{message}</p>
                     </div>
-                    {/* lihat semua booking */}
-                    <div>
+                    <div className="p-4 bg-gray-50 w-full">
                       <SideBarListQueue data={allBookings} />
                     </div>
                   </div>
+
                 )}
               </div>
             </section>
-          )}
 
-          {/* Section for Links */}
-          {/* <section className="sm:order-1 order-2 w-full sm:w-1/2 pb-16">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
-              {
-                isAdmin !== "admin" ?
-                  (<>
-                    {
-                      isAdmin == "superadmin" && (
-                        <Link
-                          to="/admin/approved"
-                          className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                        >
-                          <Check size={40} className="text-purple-900 mb-3" />
-                          <span className="text-lg font-medium text-center">
-                            Setujui Kunjungan
-                          </span>
-                        </Link>
-                      )
-                    }
-                    <Link
-                      to="/booking"
-                      className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                    >
-                      <CalendarDays size={40} className="text-purple-900 mb-3" />
-                      <span className="text-lg font-medium text-center">
-                        Booking Kunjungan
-                      </span>
-                    </Link>
-                  </>)
-                  :
-                  <Link
-                    to="/admin/handler"
-                    className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-                  >
-                    <CalendarDays size={40} className="text-purple-900 mb-3" />
-                    <span className="text-lg font-medium text-center">
-                      Atur Antrean
-                    </span>
-                  </Link>
-              }
-              <Link
-                to="/info"
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-              >
-                <BookOpen size={40} className="text-purple-900 mb-3" />
-                <span className="text-lg font-medium text-center">
-                  Info & Artikel
-                </span>
-              </Link>
-              <Link
-                to="/tanya"
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center"
-              >
-                <MessageCircle size={40} className="text-purple-900 mb-3" />
-                <span className="text-lg font-medium text-center">
-                  Tanya Klinigma
-                </span>
-              </Link>
-            </div>
-          </section> */}
+          )}
 
           <section className="w-full pb-16">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-8">
@@ -372,15 +355,15 @@ const DashboardPage = () => {
                   </span>
                 </Link>
               )}
-              <Link
-                to="/fasilitas-pelayanan"
+              <button onClick={() => handleScroll("fasilitas-pelayanan")}
+
                 className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center border border-gray-300"
               >
                 <ClipboardList size={40} className="text-purple-600 mb-3" />
                 <span className="text-lg font-semibold text-center text-gray-800">
                   Fasilitas Pelayanan
                 </span>
-              </Link>
+              </button>
               <Link
                 to="/doctorsList"
                 className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col items-center justify-center border border-gray-300"
@@ -446,7 +429,7 @@ const DashboardPage = () => {
                   </div>
                 ))}
               </div>
-              <div className="mt-8 flex justify-center">
+              <div className="mt-8 flex justify-center" id="fasilitas-pelayanan">
                 <Link to="/doctorsList">
                   <Button className="text-purple-600 border border-purple-600 bg-white hover:bg-purple-300">
                     See More
@@ -456,7 +439,7 @@ const DashboardPage = () => {
             </div>
           </section>
           {/* service */}
-          <section>
+          <section >
             <div className="py-12 bg-gray-50">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-gray-800">

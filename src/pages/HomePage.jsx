@@ -7,14 +7,9 @@ const HomePage = () => {
             <div className="flex justify-between items-center p-5 mx-0 md:mx-14">
                 <img src="/klinigma.png" alt="Logo Klinigma" className="w-28 md:w-36" />
                 <div className="flex gap-6 justify-center pt-5">
-                    <Link to={"/login"}>
-                        <Button variant="outline">
-                            <h1 className="text-base text-purple-950">Mulai Sekarang</h1>
-                        </Button>
-                    </Link>
                     <Link to={"/register"}>
-                        <Button variant="outline">
-                            <h1 className="text-base text-purple-950">Daftar Disini</h1>
+                        <Button variant="secondary">
+                            <h1 className="text-base text-primary rounded-xl">Daftar Disini</h1>
                         </Button>
                     </Link>
                 </div>
