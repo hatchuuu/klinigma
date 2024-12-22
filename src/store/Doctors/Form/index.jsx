@@ -67,7 +67,7 @@ function FormDoctors() {
           day: "",
           open: dayjs().format("HH:mm"),
           close: dayjs().format("HH:mm"),
-          quota: "",
+          quota: ""
         },
       ],
       availableDays: [],
@@ -82,13 +82,14 @@ function FormDoctors() {
     console.log("Available days:", values.availableDays);
 
     console.log(values.quota);
-    const schedules = values.schedules.map((schedule) => ({
+    const oldSchedules = values.schedules.map((schedule) => ({
       day: schedule.day,
       open: schedule.open,
       close: schedule.close,
       quota: Number(schedule.quota),
     }));
 
+    const schedules = { booked: 0, ...oldSchedules }
     const availableDays = schedules
       .map((schedule) => schedule.day)
       .filter((day) => day);

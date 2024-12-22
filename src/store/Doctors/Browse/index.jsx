@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-const BrowseDoctors = ({ filteredDoctors, poilList, HandleDelete }) => {
+const BrowseDoctors = ({ filteredDoctors, poilList,HandleDelete }) => {
   const daysMap = {
     1: "Senin",
     2: "Selasa",
@@ -48,7 +48,7 @@ const BrowseDoctors = ({ filteredDoctors, poilList, HandleDelete }) => {
 
   const getPolyNameById = (polyId) => {
     const polyclinic = poilList.find(poly => poly.id === polyId);
-    console.log("polyclinic", polyclinic)
+    console.log("polyclinic",polyclinic)
     return polyclinic ? polyclinic.polyclinicName : "Unknown Poly";
   }
 
@@ -88,30 +88,31 @@ const BrowseDoctors = ({ filteredDoctors, poilList, HandleDelete }) => {
           {currentDoctors.map((doctors, index) => (
             <TableRow
               key={index}
-              className={`${index % 2 === 0 ? "bg-purple-100" : "bg-white"
-                } hover:bg-gray-100 transition duration-200`}
+              className={`${
+                index % 2 === 0 ? "bg-purple-100" : "bg-white"
+              } hover:bg-gray-100 transition duration-200`}
             >
               <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.name}
               </TableCell>
               <TableCell className="py-3 px-4 text-gray-600">
-                {getPolyNameById(doctors.polyclinicId)}
+              {getPolyNameById(doctors.polyclinicId)}
               </TableCell>
               <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.schedules && Array.isArray(doctors.schedules)
                   ? doctors.schedules.map((schedule) => (
-                    <div key={schedule.day}>
-                      {schedule.day}: {schedule.open} - {schedule.close}
-                    </div>
-                  ))
+                      <div key={schedule.day}>
+                        {schedule.day}: {schedule.open} - {schedule.close}
+                      </div>
+                    ))
                   : "No available days"}
               </TableCell>
 
               <TableCell className="py-3 px-4 text-gray-600">
                 {doctors.schedules && Array.isArray(doctors.schedules)
                   ? doctors.schedules.map((schedule) => (
-                    <div key={schedule.day}>{schedule.quota}</div>
-                  ))
+                      <div key={schedule.day}>{schedule.quota}</div>
+                    ))
                   : "No available quota"}
               </TableCell>
               <TableCell className="py-3 px-4 text-center right-0 z-10">

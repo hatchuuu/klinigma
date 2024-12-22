@@ -617,6 +617,57 @@
       ],
       "polyName": "Poli Umum",
       "id": 9
+    },
+    {
+      "name": "Ryan Dokter",
+      "gender": "Pria",
+      "email": "ryan12@gmail.com",
+      "phoneNumber": 896232354333,
+      "descriptions": "Dokter Terbaik nih",
+      "location": "Medan",
+      "availableDays": [
+        "Minggu",
+        "Senin"
+      ],
+      "polyclinicId": 1,
+      "schedules": [
+        {
+          "day": "Minggu",
+          "open": "21:14",
+          "close": "12:14",
+          "quota": 12
+        },
+        {
+          "day": "Senin",
+          "open": "21:16",
+          "close": "08:16",
+          "quota": 11
+        }
+      ],
+      "polyName": "Poli Umum",
+      "id": 10
+    },
+    {
+      "name": "Tidak",
+      "gender": "Wanita",
+      "email": "tida@gmail.com",
+      "phoneNumber": 8789783233,
+      "descriptions": "fghfghg",
+      "location": "fdgdf",
+      "availableDays": [
+        "Selasa"
+      ],
+      "polyclinicId": 2,
+      "schedules": [
+        {
+          "day": "Selasa",
+          "open": "21:22",
+          "close": "21:08",
+          "quota": 6
+        }
+      ],
+      "polyName": "Poli Gigi",
+      "id": 11
     }
   ],
   "bookings": [

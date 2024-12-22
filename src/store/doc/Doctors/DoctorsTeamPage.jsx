@@ -22,7 +22,7 @@ const DoctorsPage = () => {
       setDoctors(data);
       console.log(data);
     } catch (error) {
-      setError("Gagal Mendapatkan data");
+      setError("Failed to fetch data.");
       console.log(error);
     }
     setLoading(false);
@@ -36,7 +36,7 @@ const DoctorsPage = () => {
       setPoliList(data)
       console.log(data);
     } catch (error) {
-      setError("Gagal Mendapatkan data");
+      setError("Failed to fetch data.");
       console.log(error);
     }
     setLoading(false);

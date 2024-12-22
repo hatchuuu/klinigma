@@ -146,7 +146,7 @@ function FormDoctors() {
 
   const getPolyNameById = (polyId) => {
     const polyclinic = poilList.find(poly => poly.id === polyId);
-    console.log("polyclinic", polyclinic)
+    console.log("polyclinic",polyclinic)
     return polyclinic ? polyclinic.polyclinicName : "Unknown Poly";
   }
   // fetch data saat edit dan detail
@@ -169,7 +169,7 @@ function FormDoctors() {
           console.log("gender", doctorData.gender);
           reset({
             ...doctorData,
-            polyclinicId: polyclinicName || "",
+            polyclinicId: polyclinicName|| "",
             gender: doctorData.gender,
             availableDays: doctorData.availableDays || "",
             schedules,
@@ -242,8 +242,8 @@ function FormDoctors() {
               {action === "edit"
                 ? "Edit"
                 : action === "detail"
-                  ? "Detail"
-                  : "Add"}{" "}
+                ? "Detail"
+                : "Add"}{" "}
               Doctors
             </h2>
           </div>
@@ -322,7 +322,7 @@ function FormDoctors() {
                 {fields.map((item, index) => (
                   <div
                     key={item.id}
-                    className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-3 mb-3"
+                   className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-3 mb-3"
                   >
                     <FieldSelect
                       control={control}
