@@ -39,8 +39,8 @@ const HandlerPage = () => {
   const socket = io(import.meta.env.VITE_SOCKET_URL);
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
-  const [number, setNumber] = useState(0);
   const [polyId, setPolyId] = useState(0);
+  const [number, setNumber] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [booking, setBooking] = useState([]);
   const [lateBooking, setLateBooking] = useState([]);

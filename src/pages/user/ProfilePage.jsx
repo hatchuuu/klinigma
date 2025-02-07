@@ -8,7 +8,6 @@ import { useAuthStore, useNotif } from "@/store/store";
 import { getFullDate } from "@/utils/dayjs";
 import { getAdminById } from "@/data/admin";
 
-
 const ProfilePage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState();
@@ -63,18 +62,15 @@ const ProfilePage = () => {
     return (
         <div className="w-full pt-36">
             <div className="max-w-3xl mx-auto flex flex-col gap-[2rem]">
-
                 <section className="flex w-full justify-between items-end">
                     <h3 className="text-4xl font-bold text-black mb-1">
                         #Halaman Profil
                     </h3>
                     <img src="/klinigma.png" alt="Klinigma" width={120} />
                 </section>
-
                 <section className="grid grid-cols-2 gap-9 gap-y-8 w-full ">
                     {rowProfile()}
                 </section>
-
                 <section className="flex gap-10 w-full justify-end mt-8">
                     <DialogLogoutButton handleLogout={handleLogout} />
                 </section>

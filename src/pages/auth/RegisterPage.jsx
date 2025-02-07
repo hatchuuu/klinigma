@@ -11,8 +11,6 @@ import FieldSelect from "@/components/form/field/FieldSelect";
 import FieldBirthDate from "@/components/form/field/FieldBirthDate";
 import FieldFile from "@/components/form/field/FieldFile";
 import { useState } from "react";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);

@@ -3,14 +3,12 @@ import { Link } from "react-router-dom"
 
 const HomePage = () => {
     return (
-        <>
+        <div>
             <div className="flex justify-between items-center p-5 mx-0 md:mx-14">
                 <img src="/klinigma.png" alt="Logo Klinigma" className="w-28 md:w-36" />
                 <div className="flex gap-6 justify-center pt-5">
                     <Link to={"/register"}>
-                        <Button variant="secondary">
-                            <h1 className="text-base text-primary rounded-xl">Daftar Disini</h1>
-                        </Button>
+                        <Button>Daftar Disini</Button>
                     </Link>
                 </div>
             </div>
@@ -28,7 +26,7 @@ const HomePage = () => {
                     <img src="/home.svg" alt="" className="w-80" />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

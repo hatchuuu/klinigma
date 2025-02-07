@@ -1,4 +1,4 @@
-import UserListTable from "@/components/table/superadmin/UserListTable";
+import UserListTable from "@/components/table/UserListTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { getAllUsers } from "@/data/users";
@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const AdminQueuePage = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [role, setRole] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
   const [hasNext, setHasNext] = useState(true)

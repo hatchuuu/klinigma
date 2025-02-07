@@ -9,9 +9,7 @@ import FeatureServices from "@/components/dashboard/FeatureServices";
 import FacilityServices from "@/components/dashboard/FacilityServices";
 import Articles from "@/components/dashboard/Articles";
 import Maps from "@/components/dashboard/Maps";
-import { Link } from "react-router-dom";
-import { getPolyclinicById } from "@/data/poly";
-import { getDay, getFullDate, getHour } from "@/utils/dayjs";
+import { getDay, getHour } from "@/utils/dayjs";
 import { getSchedulesByDate } from "@/data/schedule";
 import CardAdminQueue from "@/components/dashboard/CardAdminQueue";
 

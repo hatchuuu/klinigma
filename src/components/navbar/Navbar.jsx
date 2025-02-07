@@ -1,15 +1,15 @@
 import { CircleUserRound, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { navItemAdmins, navItemSuperAdmins, navItemUsers } from "@/utils/arrayNavbar";
 import { useAuthStore } from "@/store/store";
 import { jwtDecode } from "jwt-decode";
-import ToolTipComp from "./reuse-ui/tooltip";
+import ToolTipComp from "../tooltip";
 
-import DropdownNotif from "./navbar/DropdownNotif";
-import { SidebarTrigger } from "./ui/sidebar";
+import DropdownNotif from "./DropdownNotif";
+import { SidebarTrigger } from "../ui/sidebar";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);

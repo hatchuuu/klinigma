@@ -8,7 +8,7 @@ const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 const PresentPage = () => {
   const [number, setNumber] = useState(0);
-  const [data, setData] = useState(null); // Gunakan null untuk awal state
+  const [data, setData] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {

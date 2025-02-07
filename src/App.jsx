@@ -4,13 +4,13 @@ import Middleware from "@/hoc/Middleware";
 import Loader from "@/components/Loader";
 
 //ALL ROUTES
-const NotFound = lazy(() => import("@/pages/NotFound"));
-const HomePage = lazy(() => import("@/pages/HomePage"));
+const NotFound = lazy(() => import("@/pages/user/NotFound"));
+const HomePage = lazy(() => import("@/pages/user/HomePage"));
 const LoginPage = lazy(() => import("@/pages/auth/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"))
-const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
-const ProfilePage = lazy(() => import("@/pages/ProfilePage"))
-const PresentPage = lazy(() => import("@/pages/admin/Present/PresentPage"));
+const DashboardPage = lazy(() => import("@/pages/user/DashboardPage"));
+const ProfilePage = lazy(() => import("@/pages/user/ProfilePage"))
+const PresentPage = lazy(() => import("@/pages/user/PresentPage"));
 
 //USER ROUTES
 const BookingPage = lazy(() => import("@/pages/booking/BookingPage"));
@@ -18,20 +18,18 @@ const BookingSchedule = lazy(() => import("@/pages/booking/BookingSchedule"));
 const BookingCreated = lazy(() => import("@/pages/booking/BookingCreated"));
 
 //ADMIN ROUTES
-const AdminQueuePage = lazy(() => import("@/pages/admin/Queue/AdminQueuePage"))
-const DoctorPage = lazy(() => import("@/pages/admin/Doctors/DoctorPage"));
+const AdminQueuePage = lazy(() => import("@/pages/admin/AdminQueuePage"))
+const DoctorPage = lazy(() => import("@/pages/admin/DoctorPage"));
 
 //SUPERADMIN ROUTES
-const PolyclinicPage = lazy(() => import("@/pages/admin/Polyclinic/PolyclinicPage"))
-const UserPage = lazy(() => import("@/pages/admin/Users/UserPage"));
+const PolyclinicPage = lazy(() => import("@/pages/admin/PolyclinicPage"))
+const UserPage = lazy(() => import("@/pages/admin/UserPage"));
 
 //USER ROUTES
-const QueuePage = lazy(() => import("@/pages/queue/QueuePage"));
+const QueuePage = lazy(() => import("@/pages/user/QueuePage"));
 
 //ADMIN ROUTES
-const HandlerPage = lazy(() => import("@/pages/admin/Present/HandlerPage"));
-
-
+const HandlerPage = lazy(() => import("@/pages/admin/HandlerPage"));
 
 const App = () => {
   const allRoutes = [

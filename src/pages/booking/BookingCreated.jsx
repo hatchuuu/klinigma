@@ -1,14 +1,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { BackButton } from "@/components/button/NavigationButton";
-import moment from "moment"; // Make sure you have moment.js installed
-import { Card } from "@/components/ui/card";
-import { failedToast, successToast } from "@/lib/toaster";
-import { getAllQueue, getAllQueuesByUser } from "@/data/queue";
+import { failedToast } from "@/lib/toaster";
+import { getAllQueuesByUser } from "@/data/queue";
 import { jwtDecode } from "jwt-decode";
-import { getFullDateByQueue } from "@/utils/dayjs";
 
 function BookingCreated() {
   const location = useLocation();
@@ -40,8 +35,6 @@ function BookingCreated() {
     }
     fetchQueueByUser()
   }, []);
-
-  // console.log({ queue })
 
   const messageQueueArray = [
     {

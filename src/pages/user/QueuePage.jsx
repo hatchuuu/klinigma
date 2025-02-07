@@ -73,7 +73,6 @@ const QueuePage = () => {
                 <section>
                     <TableComponent data={filterQueue} refreshPage={setFetch} />
                 </section>
-
                 <section className="flex justify-end gap-2">
                     <Button disabled={page === 1} onClick={() => changePage(page - 1)}>Sebelum</Button>
                     <Button disabled={!hasNext} onClick={() => changePage(page + 1)}>Berikutnya</Button>

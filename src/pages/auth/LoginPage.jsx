@@ -65,16 +65,13 @@ const LoginPage = () => {
             </Button>
           </form>
         </Form>
-
         <p className="w-full text-center mt-8 mb-2 text-slate-500">Belum memiliki akun?</p>
         <Link to="/register">
           <Button type="submit" variant={"auth"} className="bg-main text-center" >
             Daftar
           </Button>
         </Link>
-
       </div>
-
     </div>
   );
 };

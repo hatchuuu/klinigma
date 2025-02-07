@@ -1,4 +1,4 @@
-import PolyListTable from "@/components/table/superadmin/PolyclinicListTable";
+import PolyListTable from "@/components/table/PolyclinicListTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { getAllPolyclinics } from "@/data/polyclinics";
@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const PolyclinicPage = () => {
-    const [searchTerm, setSearchTerm] = useState("");
     const [role, setRole] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
     const [polyList, setPoly] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const [hasNext, setHasNext] = useState(true)

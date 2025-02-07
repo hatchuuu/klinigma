@@ -22,14 +22,3 @@ export const getAllUsers = async (filters) => {
         throw new Error(error.response?.data?.error || error.message)
     }
 }
-
-export const getUsersbyRole = async () => {
-    try {
-        const response = await axiosInstance.get(`/users`);
-        const filteredUsers = response.data.filter(user => user.role === 'user');
-        return filteredUsers;
-    } catch (error) {
-        return { status: 404, message: "Gagal Mendapatkan User", error };
-    }
-};
-

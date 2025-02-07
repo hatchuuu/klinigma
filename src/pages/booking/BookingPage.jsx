@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { ArrowRight, Search } from "lucide-react";
@@ -81,13 +81,10 @@ export default function BookingPage() {
                     <ArrowRight />
                   </div>
                 </div>
-
                 <Separator />
-
                 <p className="text-base text-left text-gray-500 dark:text-gray-400">
                   {poli.descriptions}
                 </p>
-
               </div>
             </Button>
           ))}

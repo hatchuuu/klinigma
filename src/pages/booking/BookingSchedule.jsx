@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { failedToast } from "@/lib/toaster";
 import { getAllDoctors } from "@/data/doctors";
-import { getCurrentISODate, getDateByNumber, getDay, isLateHour } from "@/utils/dayjs";
+import { getCurrentISODate, getDateByNumber, isLateHour } from "@/utils/dayjs";
 import DialogQueueButton from "@/components/button/DetailQueueButton";
 
 function BookingSchedule() {
@@ -111,8 +111,6 @@ function BookingSchedule() {
             }
           </div>
         </section>
-
-
       </div>
     </div>
   )

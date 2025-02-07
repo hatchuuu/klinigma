@@ -1,4 +1,4 @@
-import QueueListTable from "@/components/table/admin/QueueListTable"
+import QueueListTable from "@/components/table/QueueListTable"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { getAllQueuesByUser } from "@/data/queue";
@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const AdminQueuePage = () => {
-    const [searchTerm, setSearchTerm] = useState("");
     const [role, setRole] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
     const [refresh, setRefresh] = useState(false);
     const [queueList, setQueueList] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
