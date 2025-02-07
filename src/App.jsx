@@ -10,7 +10,7 @@ const LoginPage = lazy(() => import("@/pages/auth/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"))
 const DashboardPage = lazy(() => import("@/pages/user/DashboardPage"));
 const ProfilePage = lazy(() => import("@/pages/user/ProfilePage"))
-const PresentPage = lazy(() => import("@/pages/user/PresentPage"));
+// const PresentPage = lazy(() => import("@/pages/user/PresentPage"));
 
 //USER ROUTES
 const BookingPage = lazy(() => import("@/pages/booking/BookingPage"));
@@ -29,7 +29,7 @@ const UserPage = lazy(() => import("@/pages/admin/UserPage"));
 const QueuePage = lazy(() => import("@/pages/user/QueuePage"));
 
 //ADMIN ROUTES
-const HandlerPage = lazy(() => import("@/pages/admin/HandlerPage"));
+// const HandlerPage = lazy(() => import("@/pages/admin/HandlerPage"));
 
 const App = () => {
   const allRoutes = [
@@ -40,7 +40,7 @@ const App = () => {
     { path: "/register", role: ["user", "admin", "superadmin"], element: <RegisterPage /> },
     { path: "/dashboard", role: ["user", "admin", "superadmin"], element: <DashboardPage /> },
     { path: "/profil", role: ["user", "admin", "superadmin"], element: <ProfilePage /> },
-    { path: "/tampil/antrean/:id", role: ["user", "admin", "superadmin"], element: <PresentPage /> },
+    // { path: "/tampil/antrean/:id", role: ["user", "admin", "superadmin"], element: <PresentPage /> },
 
     //USER & SUPERADMIN ROUTES
     { path: "/pendaftaran", role: ["user", "superadmin"], element: <BookingPage /> },
@@ -59,7 +59,7 @@ const App = () => {
     { path: "/antrean", role: ["user"], element: <QueuePage /> },
 
     //ADMIN ROUTES
-    { path: "/admin/antrean/panggilan", role: ["admin"], element: <HandlerPage /> },
+    // { path: "/admin/antrean/panggilan", role: ["admin"], element: <HandlerPage /> },
   ]
 
   return (
