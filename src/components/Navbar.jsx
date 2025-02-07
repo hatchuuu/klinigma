@@ -1,140 +1,93 @@
-import { Bell, Calendar, House, User } from "lucide-react";
-import { jwtDecode } from "jwt-decode";
-import DrawerMenu from "./DrawerMenu";
-import NavbarButton from "./NavbarButton";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { CircleUserRound, Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { SiderBar } from "./SiderBar";
 import { useEffect, useState } from "react";
-import { calculateAge } from "@/data/service";
-import { getUserById } from "@/data/users";
-import Loader from "./Loader";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Input } from "./ui/input";
+import { navItemAdmins, navItemUsers } from "@/utils/arrayNavbar";
+import { useAuthStore } from "@/store/store";
+import { jwtDecode } from "jwt-decode";
+import ToolTipComp from "./reuse-ui/tooltip";
+
+import DropdownNotif from "./navbar/DropdownNotif";
+// import { SidebarTrigger } from "./ui/sidebar";
 
 const Navbar = () => {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const token = sessionStorage.getItem("token");
-  const [user, setUser] = useState("");
-
-  let role = null;
-  let id = null;
-  let name = null;
-  if (token) {
-    try {
-      const decoded = jwtDecode(token);
-      role = decoded.role;
-      id = decoded.id;
-      name = decoded.name;
-    } catch (error) {
-      sessionStorage.removeItem("token");
-      role = null;
-      navigate("/login");
-    }
-  }
-
-  const fetchIdUser = async () => {
-    try {
-      const response = await getUserById(id);
-      setUser(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [user, setUser] = useState(null);
+  const token = useAuthStore((state) => state.token);
 
   useEffect(() => {
     if (token) {
-      fetchIdUser();
+      setUser(jwtDecode(token))
     }
-  }, [token]);
+  }, [token])
 
-  if (pathname.startsWith("/present")) {
-    return null;
+  let array = []
+  if (user?.role == "user" || !token) {
+    array = navItemUsers
+  } else if (user?.role == "admin") {
+    array = navItemAdmins
   }
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/login");
-  };
-
-  const items = [
-    {
-      title: "Beranda",
-      url: "/dashboard",
-      icon: House,
-    },
-    {
-      title: "Antrean",
-      url: "/booking",
-      icon: Calendar,
-    },
-    {
-      title: "Profil",
-      url: "/profile",
-      icon: User,
-    },
-  ];
+  const profileComponent = () => {
+    return (
+      <>
+        <DropdownNotif />
+        <div className="rounded-full w-max p-1 bg-white border-gray-100 border-[1px]">
+          <CircleUserRound size={25} color="#171717" />
+        </div>
+        <div className="flex flex-col">
+          <p className="font-bold uppercase w-max text-base text-white">{user?.name}</p>
+          <p className="text-sm text-gray-200">
+            {user?.email}
+          </p>
+        </div>
+      </>
+    )
+  }
+  const authComponent = () => {
+    return (
+      <>
+        <Link to="/login">
+          <Button>
+            Masuk
+          </Button>
+        </Link>
+        <Link to="/register">
+          <Button className="bg-white">
+            Daftar
+          </Button>
+        </Link>
+      </>
+    )
+  }
 
   return (
-    <>
-      <div>
-        <div
-          className={` bg-white w-full font-roboto z-10 ${!token ? "hidden" : "fixed"
-            } top-0`}
-        >
-          {user ? (
-            <section className="flex justify-between items-center p-6 md:px-10 ">
-              <div className="flex gap-5">
-                {/* Avatar with dropdown trigger */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <div className="rounded-full w-11 h-11 border-2 border-black cursor-pointer flex justify-center items-center">
-                      <User />
-                    </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-white shadow-lg rounded-lg p-2 w-48">
-                    <DropdownMenuItem
-                      className="text-sm text-purple-800"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <div>
-                  <p className="font-semibold uppercase">{user.name}</p>
-                  <p className="text-xs capitalize">
-                    {user.gender}, {calculateAge(user.birthDate)} tahun
-                  </p>
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                <div className="flex flex-wrap gap-4">
-                  {items.map((item, i) => (
-                    <p
-                      key={i}
-                      className="flex items-center justify-center semibold px-4 py-2"
-                    // asChild
-                    >
-                      <Link
-                        to={item.url}
-                        className="flex items-center gap-2 text-[20] semibold hover:text-purple-700"
-                      >
-                        {/* <item.icon className="text-black" /> */}
-                        <span>{item.title}</span>
-                      </Link>
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <SiderBar />
-            </section>
+    <nav className='w-full z-10 top-0 fixed flex justify-between gap-8 items-center py-6 px-10 bg-neon border-b-2'>
+      {/* <SidebarTrigger /> */}
+      <Menu size={40} />
+      <Input className="rounded-xl py-2 w-5/12" placeholder="Cari seputar kesehatan" />
+      <div className="flex gap-12 justify-center w-full ">
+        {array.map((item, i) => (
+          token ? (
+            <Link
+              to={item.url}
+              key={i}
+              className="flex items-center gap-2 text-xl font-semibold hover:text-main text-white transition-all">
+              <span>{item.title}</span>
+            </Link>
           ) : (
-            <Loader />
-          )}
-        </div>
+            <ToolTipComp message="Anda harus login terlebih dahulu" key={i} >
+              <span className="hover:cursor-pointer flex items-center gap-2 text-xl font-semibold hover:text-main text-white transition-all">
+                {item.title}
+              </span>
+            </ToolTipComp>
+          )
+        ))}
       </div>
-    </>
+      <div className="flex justify-center items-center gap-4 px-5">
+        {token ? profileComponent() : authComponent()}
+      </div>
+    </nav>
   );
 };
 

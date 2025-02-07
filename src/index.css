@@ -21,15 +21,15 @@
 
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 270 95.2% 75.3%;
+    --secondary: 82.7 78% 55.5%;
 
     --secondary-foreground: 273.5 86.9% 21%;
 
-    --muted: 270 95.2% 75.3%;
+    --muted: 82.7 78% 55.5%;
 
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 270 95.2% 75.3%;
+    --accent: 82.7 78% 55.5%;
 
     --accent-foreground: 222.2 47.4% 11.2%;
 
@@ -79,6 +79,41 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --main: #e1fa80;
+    --neon: #549100,
+    --overlay: rgba(
+      0,
+      0,
+      0,
+      0.8
+    ); /* background color overlay for alert dialogs, modals, etc. */
+
+    --bg: #e0e7f1;
+    --bw: #fff; /* white and secondary black e.g. utility class variant would be: bg-[#fff] dark:bg-[#212121] */
+    --blank: #000; /* blank black and white */
+    --border: #000;
+    --text: #000;
+    --mtext: #000; /* text that is placed on background with main color e.g. text color of default button */
+    --ring: #000;
+    --ring-offset: #fff;
+
+    --border-radius: 5px;
+    --box-shadow-x: 3px;
+    --box-shadow-y: 3px;
+    --reverse-box-shadow-x: -3px;
+    --reverse-box-shadow-y: -3px;
+    --base-font-weight: 500;
+    --heading-font-weight: 700;
+
+    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
+    
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -153,6 +188,22 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --bg: #2c312b;
+    --bw: #212121;
+    --blank: #fff;
+    --border: #000;
+    --text: #e6e6e6;
+    --mtext: #000;
+    --ring: #fff;
+    --ring-offset: #000;
+
+    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
+  
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 }
 
@@ -164,13 +215,35 @@
     @apply bg-background text-foreground;
   }
 }
+@layer components{
+  .neo-input{
+    @apply transition-all shadow-dark dark:shadow-dark flex w-full rounded-full text-text font-medium selection:bg-main selection:text-text bg-white dark:bg-secondaryBlack px-5 py-[0.8rem] text-lg ring-black ring-2 file:border-0 file:bg-transparent file:text-sm file:font-base disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .neo-hover{
+    @apply hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none;
+  }
+  .neo-focus-input{
+    @apply focus-visible:translate-x-boxShadowX focus-visible:translate-y-boxShadowY focus-visible:shadow-none dark:focus-visible:shadow-none focus-visible:ring-[3px];
+  }
+  .neo-focus-select{
+    @apply focus:translate-x-boxShadowX focus:translate-y-boxShadowY focus:shadow-none dark:focus:shadow-none focus:ring-[3px];
+  }
+  .neo-button{
+    @apply  py-5 rounded-2xl transition-all text-base font-base border-2 border-neon dark:border-black shadow-neon dark:shadow-neon hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none;
+  }
+    .neo-button-hover{
+    @apply transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none;
+
+  }
+}
+
 
 .page-loader {
   width: 50px;
   height: 24px;
-  background: radial-gradient(circle closest-side, #3b0764 90%, #0000) 0% 50%,
-    radial-gradient(circle closest-side, #3b0764 90%, #0000) 50% 50%,
-    radial-gradient(circle closest-side, #3b0764 90%, #0000) 100% 50%;
+  background: radial-gradient(circle closest-side, #1e3104 90%, #0000) 0% 50%,
+    radial-gradient(circle closest-side, #1e3104 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, #1e3104 90%, #0000) 100% 50%;
   background-size: calc(100% / 3) 12px;
   background-repeat: no-repeat;
   animation: d3 1s infinite linear;

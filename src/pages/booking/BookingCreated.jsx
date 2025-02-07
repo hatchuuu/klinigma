@@ -1,4 +1,3 @@
-"use client";
 
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -6,194 +5,97 @@ import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/button/NavigationButton";
 import moment from "moment"; // Make sure you have moment.js installed
 import { Card } from "@/components/ui/card";
-import { successToast } from "@/lib/toaster";
+import { failedToast, successToast } from "@/lib/toaster";
+import { getAllQueue, getAllQueuesByUser } from "@/data/queue";
+import { jwtDecode } from "jwt-decode";
+import { getFullDateByQueue } from "@/utils/dayjs";
 
 function BookingCreated() {
   const location = useLocation();
-  const { bookingId } = location.state;
-  const [bookingData, setBookingData] = useState(null);
-  const [userData, setUserData] = useState(null);
-  const [poliklinikData, setPoliklinikData] = useState(null);
-  const [dokterData, setDokterData] = useState(null);
-  const [antrianData, setAntrianData] = useState(null);
   const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchBookingData = async () => {
-      if (bookingId) {
-        try {
-          const response = await fetch(
-            `http://localhost:3002/bookings/${bookingId}`
-          );
-          if (!response.ok) {
-            throw new Error("Gagal mengambil data booking");
-          }
-          const data = await response.json();
-          setBookingData(data);
-          // successToast("Booking Berhasil")
-          console.log("Booking data:", data);
-        } catch (error) {
-          console.error("Error fetching booking data:", error);
-        } finally {
-          setIsLoading(false);
-          console.log("test")
-        }
-      }
-    };
-
-    fetchBookingData();
-  }, [bookingId]);
+  const [queue, setQueue] = useState([]);
+  const [name, setName] = useState("");
+  const { isSuccess, doctorId } = location.state;
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (bookingId) {
-        setIsLoading(true);
-
-        try {
-          const bookingResponse = await fetch(
-            `http://localhost:3002/bookings/${bookingId}`
-          );
-
-          if (!bookingResponse.ok) {
-            throw new Error("Gagal mengambil data booking!");
-          }
-
-          const bookingData = await bookingResponse.json();
-          setBookingData(bookingData);
-
-          const [
-            userResponse,
-            poliklinikResponse,
-            dokterResponse,
-            antrianResponse,
-          ] = await Promise.all([
-            fetch(`http://localhost:3002/users/${bookingData.userId}`),
-            fetch(
-              `http://localhost:3002/polyclinics/${bookingData.polyclinicId}`
-            ),
-            fetch(`http://localhost:3002/doctors/${bookingData.doctorId}`),
-            fetch(
-              `http://localhost:3002/queues?polyclinicId=${bookingData.polyclinicId}&date=${bookingData.bookingDate}`
-            ),
-          ]);
-
-          if (!userResponse.ok) {
-            throw new Error("Gagal mengambil data user");
-          }
-          if (!poliklinikResponse.ok) {
-            throw new Error("Gagal mengambil data poliklinik");
-          }
-          if (!dokterResponse.ok) {
-            throw new Error("Gagal mengambil data dokter");
-          }
-          if (!antrianResponse.ok) {
-            throw new Error("Gagal mengambil data antrian");
-          }
-
-          const [userData, poliklinikData, dokterData, antrianData] =
-            await Promise.all([
-              userResponse.json(),
-              poliklinikResponse.json(),
-              dokterResponse.json(),
-              antrianResponse.json(),
-            ]);
-
-          setUserData(userData);
-          setPoliklinikData(poliklinikData);
-          setDokterData(dokterData);
-          setAntrianData(antrianData[0]);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setIsLoading(false);
-        }
+    const token = sessionStorage.getItem("token")
+    if (!isSuccess) {
+      return navigate("/pendaftaran");
+    }
+    const fetchQueueByUser = async () => {
+      try {
+        const { id, name } = jwtDecode(token)
+        const response = await getAllQueuesByUser({
+          doctorId: doctorId,
+          userId: id,
+          limit: 1,
+          sort: "desc"
+        })
+        setQueue(response[0])
+        setName(name)
+      } catch (error) {
+        failedToast(error.message)
+        navigate("/dashboard");
       }
-    };
+    }
+    fetchQueueByUser()
+  }, []);
 
-    fetchData();
-  }, [bookingId]);
+  // console.log({ queue })
 
-  const handleDashboard = () => {
-    navigate("/dashboard");
-  };
-
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
-
-  const { queueNumber, scheduleDay, bookingDate } = bookingData;
-  const { name: userName, birthDate } = userData || {};
-  const { polyclinicName } = poliklinikData || {};
-  const { name: dokterName, schedules } = dokterData || {};
-
-  const jadwal = (schedules || []).find((s) => s.day === scheduleDay);
-
+  const messageQueueArray = [
+    {
+      title: "Poliklinik : ",
+      message: queue?.queueNumber
+    },
+    {
+      title: "Nama Dokter : ",
+      message: queue?.queueNumber
+    },
+    {
+      title: "Tanggal : ",
+      message: queue?.queueNumber
+    },
+    {
+      title: "Jam Mulai Pelayanan : ",
+      message: queue?.queueNumber
+    },
+    {
+      title: "Nama :",
+      message: name
+    },
+  ]
   return (
-    <div className="mx-auto p-6">
-      <div className="flex items-center mb-6">
-        <BackButton path="/booking/schedule" />
-        <h1 className="font-bold font-sans text-2xl ml-4">
-          Booking Berhasil Dibuat
-        </h1>
-        <div className="ml-auto">
-          <img src="/klinigma.png" alt="Klinigma" width={90} />
-        </div>
-      </div>
+    <div className="w-full py-36">
+      <div className="max-w-5xl mx-auto flex flex-col gap-[3rem]">
 
-      <main className="bg-neutral-50 p-4">
-        <div className="bg-purple-400 p-4 rounded-lg shadow">
-          <div className="w-full bg-white rounded-lg flex items-center justify-between relative">
-            <div className="w-[24px] h-[24px] bg-purple-400 rounded-lg absolute -left-[12px] top-1/2 -translate-y-1/2"></div>
-            <div className="p-4 w-full text-center">
-              <p className="text-neutral-500 text-sm">Antrian Sekarang</p>
-              <p className="text-primary-500 text-4xl font-title">
-                {antrianData?.currentQueue || "Loading..."}
-              </p>
+        <section className="flex w-full justify-between items-end">
+          <div className="flex flex-col gap-2">
+            <h3 className="text-4xl font-bold text-black mb-1">
+              #Pendaftaran Berhasil
+            </h3>
+            <h3 className="text-xl font-semibold text-gray-500">
+              /Segera menuju poliklinik yang dipilih
+            </h3>
+          </div>
+          <img src="/klinigma.png" alt="Klinigma" width={120} />
+        </section>
+
+        <div className='w-full p-12 bg-secondary rounded-2xl shadow-xl border-gray-200'>
+          <div className="flex w-full justify-center items-center bg-white p-5">
+            <div className="w-full flex flex-col items-center justify-center gap-10 py-5">
+              <div className="flex flex-col items-center justify-center gap-2">
+                <p className="text-3xl font-bold ">Poliklinik Negeri Medan</p>
+                <p className="text-sm text-gray-400">terima kasih sudah menggunakan layanan kami</p>
+              </div>
+              <p className="text-9xl font-extrabold">1</p>
+              <p className="text-base font-semibold">Antrean anda</p>
             </div>
-            <div className="w-[24px] h-[24px] bg-purple-400 rounded-lg absolute -right-[12px] top-1/2 -translate-y-1/2"></div>
-          </div>
-          <div className="mt-4 text-center">
-            <p className="text-neutral-100 text-sm">Nomor Antrian Anda</p>
-            <p className="text-neutral-100 text-4xl font-title">{queueNumber}</p>
+            <div className="w-full">
+              <p className="text-center">1</p>
+            </div>
           </div>
         </div>
-      </main>
-
-      <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
-          Ringkasan Booking:
-        </h3>
-        <p>
-          <strong>Poliklinik:</strong> {polyclinicName}
-        </p>
-        <p>
-          <strong>Dokter:</strong> {dokterName}
-        </p>
-        <p>
-          <strong>Tanggal:</strong> {bookingDate}
-        </p>
-        <p>
-          <strong>Jam Praktik:</strong> {jadwal && jadwal.open} -{" "}
-          {jadwal && jadwal.close}
-        </p>
-        <div>
-          <p>
-            <strong>Nama:</strong> {userName}
-          </p>
-          <p>
-            <strong>ID:</strong> {bookingData.userId}
-          </p>
-          <p>
-            <strong>Umur:</strong>{" "}
-            {moment().diff(moment(birthDate, "DDMMYYYY"), "years")}
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-8">
-        <Button onClick={handleDashboard}>Kembali ke Dashboard</Button>
       </div>
     </div>
   );

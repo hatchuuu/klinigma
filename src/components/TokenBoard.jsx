@@ -5,21 +5,22 @@ const socket = io(import.meta.env.VITE_SOCKET_URL); // Pastikan `VITE_SOCKET_URL
 
 const TokenBoard = ({ latestBooking }) => {
   const [number, setNumber] = useState(latestBooking.polyQueue)
+  // const [number, setNumber] = useState(latestBooking.polyQueue)
 
-  useEffect(() => {
-    let isMounted = true;
+  // useEffect(() => {
+  //   let isMounted = true;
 
-    socket.emit("joinRoom", latestBooking.polyclinicId);
+  //   socket.emit("joinRoom", latestBooking.polyclinicId);
 
-    socket.on("updateQueue", (updatedNumber) => {
-      if (isMounted) setNumber(updatedNumber);
-    });
+  //   socket.on("updateQueue", (updatedNumber) => {
+  //     if (isMounted) setNumber(updatedNumber);
+  //   });
 
-    return () => {
-      isMounted = false;
-      socket.off("updateQueue");
-    };
-  }, [latestBooking.id]);
+  //   return () => {
+  //     isMounted = false;
+  //     socket.off("updateQueue");
+  //   };
+  // }, [latestBooking.id]);
 
   return (
     <section className="py-8 px-4 sm:px-8 lg:px-16">

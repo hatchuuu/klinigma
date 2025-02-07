@@ -1,33 +1,46 @@
 import { useState } from 'react'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Eye, EyeOff } from 'lucide-react'
-import PropTypes from 'prop-types'
+import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
 
-const FieldInput = ({ control, name, label, canHide, disabled }) => {
-    const [visible, setVisible] = useState(!canHide)
+const FieldInput = ({ control, name, label, type = "text", disabled }) => {
+
+    const [visible, setVisible] = useState(type !== "password")
+
+    const setTypeInput = (field) => {
+        return (
+            <Input
+                className={` ${!visible && "pr-12"} relative peer placeholder:text-base`}
+                type={visible ? type : "password"}
+                disabled={disabled}
+                placeholder={`Masukkan ${label} anda`}
+                {...field}
+            />
+        )
+    }
+
+    const setEye = () => {
+        return (
+            <div
+                onClick={() => setVisible((prev) => !prev)}
+                className={`${type !== "password" && "hidden"} transition-all absolute z-10 right-4 bottom-[10px] peer-hover:bottom-[7.5px] peer-hover:right-[10px] peer-focus-visible:bottom-[7.5px] peer-focus-visible:right-[10px]`}
+            >
+                {visible ? <HiOutlineEye size={20} /> : <HiOutlineEyeOff size={20} />}
+            </div>
+        )
+    }
     return (
         <FormField
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className="mb-3">
-                    <FormLabel className="text-md font-semibold text-gray-700"> {label} </FormLabel>
+                <FormItem className="mb-5">
+                    <FormLabel className="ps-3 text-xl font-semibold text-gray-800">{label}</FormLabel>
                     <FormControl>
                         <div className="relative">
-                            <Input
-                                className={` ${!visible && "pe-9"} relative border border-gray-400 focus:outline-none`}
-                                type={visible ? "text" : "password"}
-                                {...field}
-                                disabled={disabled}
-                            />
-                            <div
-                                onClick={() => setVisible((prev) => !prev)}
-                                className={` ${!canHide && "hidden"} absolute z-10 right-3 bottom-[8px]`}
-                            >
-                                {visible ? <Eye size={12} /> : <EyeOff size={12} />}
-                            </div>
+                            {setTypeInput(field)}
+                            {setEye()}
                         </div>
                     </FormControl>
                     <FormMessage />
@@ -36,19 +49,5 @@ const FieldInput = ({ control, name, label, canHide, disabled }) => {
         />
     )
 }
-
-FieldInput.propTypes = {
-    label: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    canHide: PropTypes.bool,
-    control: PropTypes.object,
-    disabled: PropTypes.bool,
-    isTextarea: PropTypes.bool,
-    type: PropTypes.string, // Menambahkan prop untuk tipe input
-};
-
-// FieldInput.defaultProps = {
-//     type: 'text', // Default tipe adalah text
-// };
 
 export default FieldInput;

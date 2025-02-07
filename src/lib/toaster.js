@@ -1,16 +1,16 @@
 import { toast } from "@/hooks/use-toast"
 
-export const successToast = (text = "Berhasil dilakukan") => {
+export const successToast = (text, desc = "Proses berhasil dilakukan") => {
     toast({
         variant: "default",
-        title: "Success",
-        description: text,
+        title: text,
+        description: desc,
     })
 }
-export const failedToast = (text = "Gagal dilakukan") => {
+export const failedToast = (text, desc = "Proses gagal dilakukan") => {
     toast({
         variant: "destructive",
-        title: "Failed",
-        description: text,
+        title: text,
+        description: desc,
     })
 }

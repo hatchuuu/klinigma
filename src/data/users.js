@@ -2,10 +2,12 @@ import { axiosInstance } from "@/lib/axios"
 
 export const getUserById = async (id) => {
     try {
-        const response = await axiosInstance.get(`/users/${id}`)
-        return response
+        const response = await axiosInstance.get(`/v1/users/${id}`)
+        if (response.status == 200) {
+            return response.data
+        }
     } catch (error) {
-        return { status: 404, message: "ID tidak ditemukan", error }
+        throw new Error(error.response.data.error)
     }
 }
 export const getAllUsers = async () => {

@@ -1,123 +1,95 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-// import { Input } from "@/components/ui/input";
-import { ArrowLeft, ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { BackButton } from "@/components/button/NavigationButton";
-import Loader from "@/components/Loader";
-import { successToast } from "@/lib/toaster";
+import { getAllPolyclinics } from "@/data/polyclinics";
+import { failedToast } from "@/lib/toaster";
+import { Button } from "@/components/ui/button";
 
 export default function BookingPage() {
   const navigate = useNavigate();
-  const [dataPoliklinik, setDataPoliklinik] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [polyclinics, setPolyclinics] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const fetchPoliklinik = async () => {
+    const fetchAllPolyclinics = async () => {
       try {
-        const response = await fetch("http://localhost:3002/polyclinics");
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data poliklinik");
-        }
-        const data = await response.json();
-        setDataPoliklinik(data);
+        const response = await getAllPolyclinics()
+        setPolyclinics(response)
       } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
+        failedToast(error.message)
+        navigate(-1);
       }
-    };
+    }
+    fetchAllPolyclinics()
+  }, [])
 
-    fetchPoliklinik();
-  }, []);
-
-  const handlePilihPoli = (poliklinik) => {
-    // Redirect ke halaman PilihJadwal
-    navigate("/booking/schedule", { state: { poliklinik } });
+  const handleSendPolyclinic = (polyclinicId) => {
+    navigate("/pendaftaran/jadwal", { state: { polyclinicId } });
   };
 
-  // Filter poliklinik berdasarkan search term
-  const filteredPoliklinik = dataPoliklinik.filter((poli) => {
+  const filteredPolyclinics = polyclinics.filter((poly) => {
     const search = searchTerm.toLowerCase();
     return (
-      poli.polyclinicName.toLowerCase().includes(search) ||
-      poli.descriptions.toLowerCase().includes(search)
+      poly.polyclinicName.toLowerCase().includes(search) ||
+      poly.descriptions.toLowerCase().includes(search)
     );
   });
 
-  if (isLoading) {
-    return <Loader />
-  }
-
-  if (error) {
-    return <div className="min-h-screen bg-white w-full"> {successToast(error.message)}</div>;
-  }
-
   return (
-    <div className="mx-auto p-6 md:pt-32">
-      <div className="flex items-center">
-        <BackButton path="/dashboard" />
-        <h1 className="font-bold font-sans text-2xl ml-4">Pilih Poli</h1>
-        <div className="ml-auto">
-          <img src="/klinigma.png" alt="Klinigma" width={90} />
-        </div>
-      </div>
+    <div className="w-full py-36">
+      <div className="max-w-6xl mx-auto flex flex-col gap-[3rem]">
+        <section className="flex w-full justify-between items-end">
+          <h3 className="text-4xl font-bold text-black mb-1">
+            #Halaman Pendaftaran
+          </h3>
+          <img src="/klinigma.png" alt="Klinigma" width={120} />
+        </section>
 
-      <section className="pb-14">
-        <div className="relative my-5">
+        <section className="relative mt-10">
           <Input
-            placeholder="Cari nama ..."
-            className="pl-10 h-12 text-lg"
+            placeholder="Cari Poliklinik"
+            className="ps-7 peer"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
-        </div>
+          <Search className="transition-all absolute z-10 right-4 bottom-[10px] peer-hover:bottom-[7.1px] peer-hover:right-[9.5px] peer-focus-visible:bottom-[7.5px] peer-focus-visible:right-[10px]" />
+        </section>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols- lg:gap-6 ">
-          {filteredPoliklinik.map((poli) => (
-            <div
+        <div className="grid grid-cols-2 gap-6 ">
+          {filteredPolyclinics.map((poli) => (
+            <Button
               key={poli.id}
-              className="border rounded-lg shadow-md p-4 bg-white dark:bg-gray-800 cursor-pointer"
-              onClick={() => handlePilihPoli(poli)}
+              className="neo-button neo-button-hover rounded-2xl p-8 bg-white cursor-pointer hover:bg-secondary/40 group"
+              onClick={() => handleSendPolyclinic(poli.id)}
             >
-              <div className="flex flex-wrap justify-between gap-3">
-                {/* Avatar dan Info */}
-                <div className="flex gap-3 items-center">
-                  <Avatar>
+              <div className="w-full flex flex-col gap-4">
+                <div className="flex items-center justify-between">
+                  <Avatar className="w-16 h-16 ">
                     <AvatarImage src={poli.image} alt={poli.polyName} />
-                    <AvatarFallback>{poli.polyclinicName[0]}</AvatarFallback>
+                    <AvatarFallback className="text-xl group-hover:border-neon group-hover:text-2xl transition-all">{poli.polyclinicName[0]}</AvatarFallback>
                   </Avatar>
-                  <div>
-                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                      {poli.polyclinicName}
-                    </h2>
-                    <div className="flex flex-wrap gap-2 items-center text-sm">
-                      {/* <span className="font-semibold">Jadwal Praktik:</span> */}
-                      <span>{poli.schedule}</span> {/* Gunakan poli.schedule */}
-                    </div>
+                  <p className="text-2xl font-semibold text-gray-900 dark:text-gray-200">
+                    {poli.polyclinicName}
+                  </p>
+                  <div className="group-hover:-all">
+                    <ArrowRight />
                   </div>
-                </div>
-                <div className="ml-auto my-auto">
-                  <ArrowRight />
                 </div>
 
                 <Separator />
 
-                {/* Jadwal */}
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-base text-left text-gray-500 dark:text-gray-400">
                   {poli.descriptions}
                 </p>
+
               </div>
-            </div>
+            </Button>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

@@ -1,97 +1,84 @@
-import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
-import { Separator } from "@/components/ui/separator";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { getUserById } from "@/data/users";
-import AlertButton from "@/components/AlertButton";
-import { formatDate } from "@/data/service";
-import { History } from "lucide-react";
-import { getDataPolyById } from "@/data/poly";
+import DialogLogoutButton from "@/components/button/DialogLogoutButton";
+import { failedToast } from "@/lib/toaster";
+import { useAuthStore } from "@/store/store";
+import { getFullDate } from "@/utils/dayjs";
+import { getAdminById } from "@/data/admin";
+
 
 const ProfilePage = () => {
     const navigate = useNavigate();
-    const token = sessionStorage.getItem("token");
-    const jwt = jwtDecode(token);
-    const { name, role, id } = jwt;
-    const [isAdmin, polyId] = role.split("-")
-    const [data, setData] = useState();
-    const [polyName, setPolyName] = useState();
+    const [user, setUser] = useState();
+    const logout = useAuthStore((state) => state.logout)
     const handleLogout = () => {
-        sessionStorage.removeItem("token");
+        logout();
         navigate("/login");
     };
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUserById = async () => {
+            const token = sessionStorage.getItem("token")
+            if (!token) return
             try {
-                const userResponse = await getUserById(id);
-                setData(userResponse.data);
-
-                if (isAdmin === "admin") {
-                    const polyResponse = await getDataPolyById(polyId);
-                    setPolyName(polyResponse.data.polyclinicName);
+                const { id, role } = jwtDecode(token)
+                let response = []
+                if (role == "user") {
+                    response = await getUserById(id);
+                } else {
+                    response = await getAdminById(id);
                 }
+                setUser(response);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                failedToast(error.message);
             }
         };
+        fetchUserById();
+    }, []);
 
-        fetchData();
-    }, [id, polyId, isAdmin]);
+    console.log({ user })
 
     const array = [
-        { title: "Email", data: data?.email },
-        { title: "Tanggal Lahir", data: formatDate(data?.birthDate).fullDate },
-        { title: "Nomor Telepon", data: data?.phoneNumber },
-        { title: "Jenis Kelamin", data: data?.gender }
+        { title: "Nama", data: user?.name },
+        { title: "Email", data: user?.email },
+        { title: "Nomor Telepon", data: user?.phoneNumber },
+        { title: "Tanggal Lahir", data: getFullDate(user?.birthDate) },
+        { title: "Domisili", data: user?.location },
+        { title: "Jenis Kelamin", data: user?.gender }
     ]
 
     const rowProfile = () =>
         array.map((value, i) => (
-            <div key={i}>
-                <div className="flex justify-between mb-7">
-                    <h3 className="sm:text-xl text-sm text-gray-600">{value.title}</h3>
-                    <h3 className="sm:text-xl text-sm">{value.data}</h3>
+            <div key={i} className="w-full flex flex-col gap-2">
+                <h3 className="text-xl text-gray-600 ps-2">{value.title}</h3>
+                <div className="neo-button neo-hover rounded-2xl ps-6">
+                    <h3 className="text-2xl font-semibold">{value.data}</h3>
                 </div>
-                <Separator className="mb-7" />
             </div>
         )
         )
     return (
-        <div className="h-screen items-center flex flex-col p-8 md:pt-40 pt-32">
-            {data ? (
-                <div className={`flex flex-col sm:w-3/5 w-4/5`}>
-                    <section className="flex flex-col justify-center items-center gap-1 mb-20">
-                        <h1 className="sm:text-3xl text-xl font-semibold uppercase">{name}</h1>
-                        <h1 className="sm:text-base text-sm font-semibold capitalize">({isAdmin == "admin" ? "admin " + polyName : role})</h1>
-                    </section>
-                    <div>
-                        {
-                            rowProfile()
-                        }
-                    </div>
-                    <div className={` w-full flex  ${isAdmin != "admin" ? "justify-between" : "justify-end"} mb-5`}>
-                        {
-                            isAdmin != "admin" &&
-                            <Link to="/profile/history">
-                                <Button className="py-4 px-6">
-                                    <History size={15} />
-                                    Riwayat Antrean
-                                </Button>
-                            </Link>
-                        }
-                        <div>
-                            <AlertButton handleLogout={handleLogout} />
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <div className='flex w-full justify-center items-center p-2'>
-                    <p className='page-loader' />
-                </div>
-            )}
-        </div>
+        <div className="w-full pt-36">
+            <div className="max-w-3xl mx-auto flex flex-col gap-[2rem]">
+
+                <section className="flex w-full justify-between items-end">
+                    <h3 className="text-4xl font-bold text-black mb-1">
+                        #Halaman Profil
+                    </h3>
+                    <img src="/klinigma.png" alt="Klinigma" width={120} />
+                </section>
+
+                <section className="grid grid-cols-2 gap-9 gap-y-8 w-full ">
+                    {rowProfile()}
+                </section>
+
+                <section className="flex gap-10 w-full justify-end mt-8">
+                    <DialogLogoutButton handleLogout={handleLogout} />
+                </section>
+            </div>
+        </div >
     );
 };
 
