@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
-import { navItemAdmins, navItemUsers } from "@/utils/arrayNavbar";
+import { navItemAdmins, navItemSuperAdmins, navItemUsers } from "@/utils/arrayNavbar";
 import { useAuthStore } from "@/store/store";
 import { jwtDecode } from "jwt-decode";
 import ToolTipComp from "./reuse-ui/tooltip";
 
 import DropdownNotif from "./navbar/DropdownNotif";
-// import { SidebarTrigger } from "./ui/sidebar";
+import { SidebarTrigger } from "./ui/sidebar";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -26,21 +26,25 @@ const Navbar = () => {
     array = navItemUsers
   } else if (user?.role == "admin") {
     array = navItemAdmins
+  } else {
+    array = navItemSuperAdmins
   }
 
   const profileComponent = () => {
     return (
       <>
         <DropdownNotif />
-        <div className="rounded-full w-max p-1 bg-white border-gray-100 border-[1px]">
-          <CircleUserRound size={25} color="#171717" />
-        </div>
-        <div className="flex flex-col">
-          <p className="font-bold uppercase w-max text-base text-white">{user?.name}</p>
-          <p className="text-sm text-gray-200">
-            {user?.email}
-          </p>
-        </div>
+        <Link to="/profil" className="flex justify-center items-center w-full gap-5 group transition-all">
+          <div className="rounded-full w-max p-1 bg-white border-gray-100 border-[1px]">
+            <CircleUserRound size={25} color="#171717" />
+          </div>
+          <div className="flex flex-col">
+            <p className="font-bold uppercase w-max text-base text-white group-hover:text-main">{user?.name}</p>
+            <p className="text-sm text-gray-200 group-hover:text-main">
+              {user?.email}
+            </p>
+          </div>
+        </Link>
       </>
     )
   }
@@ -63,11 +67,12 @@ const Navbar = () => {
 
   return (
     <nav className='w-full z-10 top-0 fixed flex justify-between gap-8 items-center py-6 px-10 bg-neon border-b-2'>
-      {/* <SidebarTrigger /> */}
-      <Menu size={40} />
+      <div className="w-[340px] flex justify-center items-center">
+        <img src="/klinigma.png" width={85} />
+      </div>
       <Input className="rounded-xl py-2 w-5/12" placeholder="Cari seputar kesehatan" />
       <div className="flex gap-12 justify-center w-full ">
-        {array.map((item, i) => (
+        {array.slice(0, 4).map((item, i) => (
           token ? (
             <Link
               to={item.url}

@@ -16,7 +16,10 @@ export default function BookingPage() {
   useEffect(() => {
     const fetchAllPolyclinics = async () => {
       try {
-        const response = await getAllPolyclinics()
+        const response = await getAllPolyclinics({
+          page: 1,
+          limit: 10
+        })
         setPolyclinics(response)
       } catch (error) {
         failedToast(error.message)

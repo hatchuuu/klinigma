@@ -1,60 +1,31 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
-import { useEffect } from 'react';
+import { useAuthStore } from '@/store/store';
 
 const Middleware = ({ children, role }) => {
-    const token = sessionStorage.getItem("token")
+    const token = useAuthStore(state => state.token)
     const { pathname } = useLocation();
-    let jwtRole = null;
 
-    if (token) {
-        try {
-            const decodedToken = jwtDecode(token)
-            jwtRole = decodedToken.role
-
-        } catch (err) {
-            console.error("Invalid token:", err)
-            sessionStorage.removeItem("token")
-        }
-    }
-    if (!token || !jwtRole) {
-        if (pathname === "/") {
-            return children
-        }
+    if (!token) {
         if (pathname !== "/login" && pathname !== "/register") {
-            return <Navigate to="/" />
+            return <Navigate to="/login" />
         }
         return children
     }
-
-    if (pathname === "/login" || pathname === "/register") {
-        return <Navigate to="/dashboard" />;
-    }
-
-    const [isAdmin, polyId] = jwtRole.split("-") // Match role like "admin-0001"
-
-    // SuperAdmin can access any route
-    if (jwtRole === "superadmin") {
-        return children;
-    }
-    // Admin can access routes for admin and user
-    if (isAdmin == "admin") {
-        if (role === "admin" || role === "user") {
-            return children;
+    else {
+        const { role: jwtRole } = jwtDecode(token)
+        if (pathname === "/login" || pathname === "/register") {
+            return <Navigate to="/dashboard" />;
         }
-        return <Navigate to="/dashboard" />;
-    }
 
-    // User can only access routes for user
-    if (jwtRole === "user") {
-        if (role === "user") {
-            return children;
+        const findRoleByRoute = role.includes(jwtRole)
+        if (findRoleByRoute) {
+            return children
+        } else {
+            return <Navigate to="/dashboard" />;
         }
-        return <Navigate to="/dashboard" />;
     }
-
-    // Default fallback for undefined roles
-    return <Navigate to="/dashboard" />;
 };
+
 
 export default Middleware

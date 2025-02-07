@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import About from "@/components/dashboard/About";
@@ -10,29 +9,53 @@ import FeatureServices from "@/components/dashboard/FeatureServices";
 import FacilityServices from "@/components/dashboard/FacilityServices";
 import Articles from "@/components/dashboard/Articles";
 import Maps from "@/components/dashboard/Maps";
+import { Link } from "react-router-dom";
+import { getPolyclinicById } from "@/data/poly";
+import { getDay, getFullDate, getHour } from "@/utils/dayjs";
+import { getSchedulesByDate } from "@/data/schedule";
+import CardAdminQueue from "@/components/dashboard/CardAdminQueue";
 
 const DashboardPage = () => {
-  const navigate = useNavigate();
-  const [queues, setQueues] = useState([])
+  const [data, setData] = useState(null)
+  const [role, setRole] = useState("")
 
   useEffect(() => {
-    const fetchQueuesByUser = async () => {
+    const fetchMountData = async () => {
       const token = sessionStorage.getItem("token")
       if (!token) return
       try {
-        const { id } = jwtDecode(token)
-        const response = await getAllQueuesByUser({
-          userId: id,
-          limit: 5,
-          status: ["waiting", "progress"]
-        })
-        setQueues(response)
+        const { id, role, polyId } = jwtDecode(token)
+        setRole(role)
+        let response = null
+        if (role == "user") { response = await fetchAllQueues(id) }
+        if (role == "admin") { response = await fetchSchedulesDoctor(polyId) }
+        setData(response)
       } catch (error) {
         failedToast(error.message)
       }
     }
-    fetchQueuesByUser()
+    fetchMountData()
   }, [])
+
+  const fetchAllQueues = async (id) => {
+    const response = await getAllQueuesByUser({
+      userId: id,
+      limit: 5,
+      status: ["waiting", "progress"]
+    })
+    return response
+  }
+
+  const fetchSchedulesDoctor = async (polyId) => {
+    const day = getDay(new Date())
+    const time = getHour(new Date())
+    const response = await getSchedulesByDate({
+      day,
+      time,
+      polyclinicId: polyId
+    })
+    return response
+  }
 
   const handleScroll = (id) => {
     const element = document.getElementById(id);
@@ -41,15 +64,16 @@ const DashboardPage = () => {
 
   return (
     <div className="w-full py-36">
-      <div className="max-w-6xl mx-auto flex flex-col gap-[5rem]">
+      <div className="max-w-6xl mx-auto flex flex-col gap-[3.5rem]">
         <section className="flex w-full justify-between items-end">
           <h3 className="text-4xl font-bold text-black mb-1">
             #Halaman Dashboard
           </h3>
           <img src="/klinigma.png" alt="Klinigma" width={120} />
         </section>
-        <CarouselQueue queue={queues} />
-        <FeatureServices handleScroll={handleScroll} />
+        {role == "admin" && <CardAdminQueue data={data} />}
+        {role == "user" && <CarouselQueue queue={data} />}
+        <FeatureServices handleScroll={handleScroll} role={role} />
         <About />
         <ListDoctor />
         <FacilityServices />

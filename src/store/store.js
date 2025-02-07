@@ -20,6 +20,7 @@ export const useNotif = create((set) => ({
             { notif: [...state.notif, { ...data, id: state.notif.length + 1 }] }
         )
     ),
+    resetNotif: () => set({ notif: [] })
 }))
 
 export const useRefreshSchedules = create((set) => ({

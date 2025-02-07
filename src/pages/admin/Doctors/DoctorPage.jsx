@@ -5,12 +5,13 @@ import { getAllDoctors } from "@/data/doctors";
 import { failedToast } from "@/lib/toaster";
 import { useRefreshSchedules } from "@/store/store";
 import { jwtDecode } from "jwt-decode";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const AdminQueuePage = () => {
+const DoctorPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const [role, setRole] = useState("");
     const [doctorList, setDoctorList] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const [hasNext, setHasNext] = useState(true)
@@ -22,7 +23,8 @@ const AdminQueuePage = () => {
             const token = sessionStorage.getItem("token")
             if (!token) return
             try {
-                const { polyId } = jwtDecode(token)
+                const { polyId, role } = jwtDecode(token)
+                setRole(role)
                 const response = await getAllDoctors({
                     polyclinicId: polyId,
                     page: page,
@@ -41,11 +43,10 @@ const AdminQueuePage = () => {
         const search = searchTerm.toLowerCase();
         return (
             doctor.name.toLowerCase().includes(search) ||
-            doctor.email.toLowerCase().includes(search)
+            doctor.email.toLowerCase().includes(search) ||
+            doctor.polyclinicName.toLowerCase().includes(search)
         );
     });
-
-    console.log({ doctorList })
 
     const changePage = (newPage) => {
         setSearchParams({ page: newPage.toString() })
@@ -53,26 +54,27 @@ const AdminQueuePage = () => {
 
     return (
         <div className="w-full py-36">
-            <div className="max-w-6xl mx-auto flex flex-col gap-[3rem]">
+            <div className="max-w-6xl mx-auto flex flex-col gap-[4rem]">
                 <section className="flex w-full justify-between items-end">
                     <div className="flex flex-col gap-2">
                         <h3 className="text-4xl font-bold text-black mb-1">
                             #Halaman Dokter
                         </h3>
-                        <h3 className="text-2xl font-bold text-gray-400">
-                            / {doctorList[0]?.polyclinicName}
-                        </h3>
+                        {role == "admin" && <h3 className="text-2xl font-bold text-gray-400">/ {doctorList[0]?.polyclinicName}</h3>}
                     </div>
                     <img src="/klinigma.png" alt="Klinigma" width={120} />
                 </section>
-                <section className="relative mt-10">
-                    <Input
-                        placeholder="Cari Nama User, nomor, dan email"
-                        className="ps-7 peer"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <Search className="transition-all absolute z-10 right-4 bottom-[10px] peer-hover:bottom-[7.1px] peer-hover:right-[9.5px] peer-focus-visible:bottom-[7.5px] peer-focus-visible:right-[10px]" />
+                <section className="flex justify-center items-center gap-2 w-full">
+                    <div className="relative w-full">
+                        <Input
+                            placeholder="Cari Nama Dokter, Poliklinik, atau Email"
+                            className="ps-7 pe-16 peer"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <Search className="transition-all absolute z-10 right-4 bottom-[10px] peer-hover:bottom-[7.1px] peer-hover:right-[9.5px] peer-focus-visible:bottom-[7.5px] peer-focus-visible:right-[10px]" />
+                    </div>
+                    {role == "superadmin" && <Button>Tambah Dokter <Plus size={20} /></Button>}
                 </section>
                 <section>
                     <DoctorListTable doctorList={filterDoctors} />
@@ -86,4 +88,4 @@ const AdminQueuePage = () => {
     )
 }
 
-export default AdminQueuePage
+export default DoctorPage

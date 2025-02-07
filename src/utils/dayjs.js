@@ -60,3 +60,6 @@ export const isLateHour = (maxTime) => {
 export const getFullHourDate = (date) => {
     return dayjs(date).format("DD-MM-YYYY HH:mm");
 }
+export const getHour = (date) => {
+    return dayjs(date).format("HH:mm");
+}

@@ -10,12 +10,16 @@ export const getUserById = async (id) => {
         throw new Error(error.response.data.error)
     }
 }
-export const getAllUsers = async () => {
+export const getAllUsers = async (filters) => {
     try {
-        const response = await axiosInstance.get(`/users`)
-        return response
+        const response = await axiosInstance.get(`/v1/users`, {
+            params: filters
+        })
+        if (response.status == 200) {
+            return response.data
+        }
     } catch (error) {
-        return { status: 404, message: "Gagal Mendapatkan User", error }
+        throw new Error(error.response?.data?.error || error.message)
     }
 }
 

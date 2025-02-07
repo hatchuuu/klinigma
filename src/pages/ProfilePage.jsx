@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getUserById } from "@/data/users";
 import DialogLogoutButton from "@/components/button/DialogLogoutButton";
 import { failedToast } from "@/lib/toaster";
-import { useAuthStore } from "@/store/store";
+import { useAuthStore, useNotif } from "@/store/store";
 import { getFullDate } from "@/utils/dayjs";
 import { getAdminById } from "@/data/admin";
 
@@ -13,8 +13,11 @@ const ProfilePage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState();
     const logout = useAuthStore((state) => state.logout)
+    const reset = useNotif((state) => state.resetNotif)
+
     const handleLogout = () => {
         logout();
+        reset();
         navigate("/login");
     };
 
@@ -37,8 +40,6 @@ const ProfilePage = () => {
         };
         fetchUserById();
     }, []);
-
-    console.log({ user })
 
     const array = [
         { title: "Nama", data: user?.name },

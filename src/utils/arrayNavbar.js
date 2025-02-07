@@ -1,4 +1,4 @@
-import { Calendar, House, User } from "lucide-react";
+import { BriefcaseMedical, Calendar, ContactRound, Hospital, House, Phone, Shield, Ticket, User, Users } from "lucide-react";
 
 export const navItemUsers = [
     {
@@ -9,12 +9,12 @@ export const navItemUsers = [
     {
         title: "Pendaftaran",
         url: "/pendaftaran",
-        icon: User,
+        icon: Ticket,
     },
     {
         title: "Antrean",
         url: "/antrean",
-        icon: Calendar,
+        icon: Users,
     },
     {
         title: "Profil",
@@ -32,17 +32,55 @@ export const navItemAdmins = [
     {
         title: "Atur Pemanggilan",
         url: "/admin/antrean/panggilan",
-        icon: User,
-    },
-    {
-        title: "Dokter",
-        url: "/admin/dokter",
-        icon: User,
+        icon: Phone,
     },
     {
         title: "Antrean",
         url: "/admin/antrean",
+        icon: Users,
+    },
+    {
+        title: "Dokter",
+        url: "/admin/dokter",
+        icon: BriefcaseMedical,
+    },
+    {
+        title: "Profil",
+        url: "/profil",
         icon: User,
+    },
+];
+
+export const navItemSuperAdmins = [
+    {
+        title: "Beranda",
+        url: "/dashboard",
+        icon: House,
+    },
+    {
+        title: "Poliklinik",
+        url: "/admin/poliklinik",
+        icon: Hospital,
+    },
+    {
+        title: "Dokter",
+        url: "/admin/dokter",
+        icon: BriefcaseMedical,
+    },
+    {
+        title: "Admin",
+        url: "/admin/admins",
+        icon: Shield,
+    },
+    {
+        title: "User",
+        url: "/admin/user",
+        icon: ContactRound,
+    },
+    {
+        title: "Antrean",
+        url: "/admin/antrean",
+        icon: Users,
     },
     {
         title: "Profil",

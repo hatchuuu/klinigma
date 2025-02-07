@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '../ui/button'
@@ -10,8 +10,12 @@ import { X } from 'lucide-react'
 import { failedToast, successToast } from '@/lib/toaster'
 import { createSchedules } from '@/data/schedule'
 import { useNotif, useRefreshSchedules } from '@/store/store'
+import { jwtDecode } from 'jwt-decode'
 
 const SchedulesForm = ({ data, setIsOpen, doctorId }) => {
+
+    const token = sessionStorage.getItem("token")
+    const { polyId: polyclinicId } = jwtDecode(token)
 
     const refreshSchedules = useRefreshSchedules((state) => state.setRefresh)
     const addNotif = useNotif((state) => state.addNotif)
@@ -46,7 +50,7 @@ const SchedulesForm = ({ data, setIsOpen, doctorId }) => {
     const onSubmit = handleSubmit(async (values) => {
         if (values.schedules.length == 0) return
         try {
-            await createSchedules(values.schedules, doctorId);
+            await createSchedules(values.schedules, doctorId, polyclinicId);
             successToast("Jadwal berhasil ditambahkan");
             refreshSchedules();
             addNotif({

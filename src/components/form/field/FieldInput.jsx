@@ -6,12 +6,14 @@ import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
 const FieldInput = ({ control, name, label, type = "text", disabled }) => {
 
-    const [visible, setVisible] = useState(type !== "password")
+    const isPassword = (type === "password")
+    if (isPassword) type = "text"
+    const [visible, setVisible] = useState(!isPassword)
 
     const setTypeInput = (field) => {
         return (
             <Input
-                className={` ${!visible && "pr-12"} relative peer placeholder:text-base`}
+                className={` ${isPassword && "pr-12"} relative peer placeholder:text-base`}
                 type={visible ? type : "password"}
                 disabled={disabled}
                 placeholder={`Masukkan ${label} anda`}
@@ -24,7 +26,7 @@ const FieldInput = ({ control, name, label, type = "text", disabled }) => {
         return (
             <div
                 onClick={() => setVisible((prev) => !prev)}
-                className={`${type !== "password" && "hidden"} transition-all absolute z-10 right-4 bottom-[10px] peer-hover:bottom-[7.5px] peer-hover:right-[10px] peer-focus-visible:bottom-[7.5px] peer-focus-visible:right-[10px]`}
+                className={`${!isPassword && "hidden"} transition-all absolute z-10 right-4 bottom-[10px] peer-hover:bottom-[7.5px] peer-hover:right-[10px] peer-focus-visible:bottom-[7.5px] peer-focus-visible:right-[10px]`}
             >
                 {visible ? <HiOutlineEye size={20} /> : <HiOutlineEyeOff size={20} />}
             </div>

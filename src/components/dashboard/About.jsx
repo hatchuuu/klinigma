@@ -17,7 +17,7 @@ const About = () => {
                     kami berkomitmen untuk memenuhi kebutuhan kesehatan Anda dan
                     keluarga.
                 </p>
-                <p className="text-lg text-gray-600 mt-4 leading-relaxed">
+                <p className="text-lg text-gray-600 mt-4 leading-relaxed" id="dokter-spesialis">
                     Kami percaya bahwa kesehatan adalah prioritas utama, dan kami
                     hadir untuk memastikan Anda mendapatkan perawatan terbaik, kapan
                     pun Anda membutuhkannya.

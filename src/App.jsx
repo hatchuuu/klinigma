@@ -3,73 +3,65 @@ import { Suspense, lazy } from "react";
 import Middleware from "@/hoc/Middleware";
 import Loader from "@/components/Loader";
 
-//ALL ACCESS
-const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
+//ALL ROUTES
+const NotFound = lazy(() => import("@/pages/NotFound"));
 const HomePage = lazy(() => import("@/pages/HomePage"));
-const ProfilePage = lazy(() => import("@/pages/ProfilePage"))
 const LoginPage = lazy(() => import("@/pages/auth/LoginPage"))
 const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"))
-const NotFound = lazy(() => import("@/pages/NotFound"));
+const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
+const ProfilePage = lazy(() => import("@/pages/ProfilePage"))
+const PresentPage = lazy(() => import("@/pages/admin/Present/PresentPage"));
 
-//USER ACCESS
-const QueuePage = lazy(() => import("@/pages/queue/QueuePage"));
+//USER ROUTES
 const BookingPage = lazy(() => import("@/pages/booking/BookingPage"));
 const BookingSchedule = lazy(() => import("@/pages/booking/BookingSchedule"));
 const BookingCreated = lazy(() => import("@/pages/booking/BookingCreated"));
 
-//ADMIN ACCESS
-// const UsersPage = lazy(() => import("@/pages/admin/Users/UserPage"))
+//ADMIN ROUTES
 const AdminQueuePage = lazy(() => import("@/pages/admin/Queue/AdminQueuePage"))
-const FormUesrs = lazy(() => import("@/pages/admin/Users/Form/Index"))
-const DoctorPageList = lazy(() => import("@/pages/DoctorsPage"))
-const FormDoctors = lazy(() => import("@/pages/admin/Doctors/Form/index"));
-// const DoctorsPage = lazy(() => import("@/pages/admin/Doctors/DoctorsTeamPage"));
 const DoctorPage = lazy(() => import("@/pages/admin/Doctors/DoctorPage"));
-const PresentPage = lazy(() => import("@/pages/admin/Present/PresentPage"));
+
+//SUPERADMIN ROUTES
+const PolyclinicPage = lazy(() => import("@/pages/admin/Polyclinic/PolyclinicPage"))
+const UserPage = lazy(() => import("@/pages/admin/Users/UserPage"));
+
+//USER ROUTES
+const QueuePage = lazy(() => import("@/pages/queue/QueuePage"));
+
+//ADMIN ROUTES
 const HandlerPage = lazy(() => import("@/pages/admin/Present/HandlerPage"));
 
-//SUPERADMIN ACCESS
-const PolyclinicsPage = lazy(() => import("@/pages/PolyclinicsPage"))
-const AdminPage = lazy(() => import("@/pages/admin/AdminPage"));
-const HistoryPage = lazy(() => import("@/pages/HistoryPage"))
-const BookingApprovedPage = lazy(() => import("@/pages/admin/Approved/BookingApprovedPage"))
-// const DoctorsPage = lazy(() => import("./pages/DoctorsPage"))
 
 
 const App = () => {
   const allRoutes = [
-    { path: "*", role: "user", element: <NotFound /> },
-    { path: "/", role: "user", element: <HomePage /> },
+    //ALL ROUTES
+    { path: "*", role: ["user", "admin", "superadmin"], element: <NotFound /> },
+    { path: "/", role: ["user", "admin", "superadmin"], element: <HomePage /> },
+    { path: "/login", role: ["user", "admin", "superadmin"], element: <LoginPage /> },
+    { path: "/register", role: ["user", "admin", "superadmin"], element: <RegisterPage /> },
+    { path: "/dashboard", role: ["user", "admin", "superadmin"], element: <DashboardPage /> },
+    { path: "/profil", role: ["user", "admin", "superadmin"], element: <ProfilePage /> },
+    { path: "/tampil/antrean/:id", role: ["user", "admin", "superadmin"], element: <PresentPage /> },
 
-    { path: "/dashboard", role: "user", element: <DashboardPage /> },
-    { path: "/doctorsList", role: "user", element: <DoctorPageList /> },
-    { path: "/polyclinic-items", role: "user", element: <PolyclinicsPage /> },
-    { path: "/profil", role: "user", element: <ProfilePage /> },
-    { path: "/antrean", role: "user", element: <QueuePage /> },
-    { path: "/profile/history", role: "user", element: <HistoryPage /> },
+    //USER & SUPERADMIN ROUTES
+    { path: "/pendaftaran", role: ["user", "superadmin"], element: <BookingPage /> },
+    { path: "/pendaftaran/jadwal", role: ["user", "superadmin"], element: <BookingSchedule /> },
+    { path: "/pendaftaran/jadwal/detail", role: ["user", "superadmin"], element: <BookingCreated /> },
 
-    // BOOKING
-    { path: "/pendaftaran", role: "user", element: <BookingPage /> },
-    { path: "/pendaftaran/jadwal", role: "user", element: <BookingSchedule /> },
-    { path: "/pendaftaran/jadwal/detail", role: "user", element: <BookingCreated /> },
+    //ADMIN & SUPERADMIN ROUTES 
+    { path: "/admin/dokter", role: ["admin", "superadmin"], element: <DoctorPage /> },
+    { path: "/admin/antrean", role: ["admin", "superadmin"], element: <AdminQueuePage /> },
 
+    //SUPERADMIN ROUTES
+    { path: "/admin/user", role: ["superadmin"], element: <UserPage /> },
+    { path: "/admin/poliklinik", role: ["superadmin"], element: <PolyclinicPage /> },
 
-    { path: "/profile/history", role: "user", element: <HistoryPage /> },
-    { path: "/login", role: "user", element: <LoginPage /> },
-    { path: "/register", role: "user", element: <RegisterPage /> },
+    //USER ROUTES
+    { path: "/antrean", role: ["user"], element: <QueuePage /> },
 
-    //hnya untuk admin & superadmin
-    { path: "/admin/antrean", role: "admin", element: <AdminQueuePage /> },
-    { path: "/admin/dokter", role: "admin", element: <DoctorPage /> },
-    { path: "/addDoctors", role: "admin", element: <FormDoctors /> },
-    { path: "/EditUsers", role: "admin", element: <FormUesrs /> },
-
-    //hanya untuk superadmin
-    { path: "/admin", role: "admin", element: <AdminPage /> },
-    { path: "/admin/approved", role: "superadmin", element: <BookingApprovedPage /> },
-    //hanya untuk admin
-    { path: "/admin/antrean/panggilan", role: "admin", element: <HandlerPage /> },
-    { path: "/present/:id", role: "user", element: <PresentPage /> }
+    //ADMIN ROUTES
+    { path: "/admin/antrean/panggilan", role: ["admin"], element: <HandlerPage /> },
   ]
 
   return (

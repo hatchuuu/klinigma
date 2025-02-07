@@ -3,7 +3,7 @@ import { CalendarDays } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const FeatureServices = ({ handleScroll }) => {
+const FeatureServices = ({ handleScroll, role }) => {
     return (
         <section className="w-full flex flex-col gap-3">
             <div className="text-center mb-8">
@@ -16,12 +16,12 @@ const FeatureServices = ({ handleScroll }) => {
             </div>
             <div className="w-full flex justify-center gap-10">
                 <Link
-                    to="/booking"
+                    to={role === 'user' ? '/pendaftaran' : '/antrean/panggilan'}
                     className="group neo-button py-16 neo-button-hover w-full flex flex-col items-center gap-5 justify-center hover:bg-neon hover:border-gray-800 hover:border-2"
                 >
                     <CalendarDays size={42} className="text-gray-700 group-hover:text-white" />
                     <p className="group-hover:text-white text-xl font-semibold text-center text-gray-800">
-                        PENDAFTARAN ONLINE
+                        {role === 'user' ? 'PENDAFTARAN ONLINE' : 'ATUR ANTREAN'}
                     </p>
                 </Link>
                 {

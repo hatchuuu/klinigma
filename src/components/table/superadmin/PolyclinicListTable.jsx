@@ -6,36 +6,29 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { getFullHourDate } from "@/utils/dayjs";
+import { getDate, getFullHourDate } from "@/utils/dayjs";
 import ChangeSchedulesDialog from "@/components/dialog/ChangeSchedulesDialog";
 
-const DoctorListTable = ({ doctorList }) => {
+const PolyListTable = ({ polyList }) => {
 
     const renderRow = () => {
-        return doctorList.map((value, i) => {
-            const { name, email, schedules, createdAt, polyclinicName } = value;
-
-            let scheduleDay = ""
-            schedules.map(i => {
-                scheduleDay += i.day + ", "
-            })
+        return polyList.map((value, i) => {
+            const { polyclinicName, descriptions } = value;
 
             return (
                 <TableRow key={i} className="h-20">
                     <TableCell className="min-w-10 text-center">{i + 1}</TableCell>
                     <TableCell className="min-w-20 text-center">
                         <p className="p-3 rounded-lg font-bold border bg-yellow-400 shadow inline-block">
-                            {name}
+                            {polyclinicName}
                         </p>
                     </TableCell>
-                    <TableCell className="min-w-20 text-center">{email}</TableCell>
-                    <TableCell className="min-w-20 text-center">{polyclinicName}</TableCell>
-                    <TableCell className="min-w-20 text-center">{scheduleDay || "~"}</TableCell>
-                    <TableCell className="min-w-20 text-center">
+                    <TableCell className="min-w-20 text-center">{descriptions}</TableCell>
+                    {/* <TableCell className="min-w-20 text-center">
                         <ChangeSchedulesDialog data={value}>
                             <button className="p-3 rounded-lg font-bold border bg-yellow-200 shadow inline-block">Ubah Jadwal</button>
                         </ChangeSchedulesDialog>
-                    </TableCell>
+                    </TableCell> */}
                 </TableRow>
             );
         });
@@ -48,15 +41,12 @@ const DoctorListTable = ({ doctorList }) => {
                     <TableRow >
                         <TableHead className="min-w-10 text-center">No</TableHead>
                         <TableHead className="min-w-20 text-center">Nama</TableHead>
-                        <TableHead className="min-w-20 text-center">Email</TableHead>
-                        <TableHead className="min-w-20 text-center">Poliklinik</TableHead>
-                        <TableHead className="min-w-20 text-center">Jadwal Praktik</TableHead>
-                        <TableHead className="min-w-20 text-center">Detail</TableHead>
+                        <TableHead className="min-w-20 text-center">Deskripsi</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody className="text-base">
-                    {doctorList.length > 0 ? (
+                    {polyList.length > 0 ? (
                         renderRow()
                     ) : (
                         <TableRow>
@@ -71,4 +61,4 @@ const DoctorListTable = ({ doctorList }) => {
     );
 };
 
-export default DoctorListTable
+export default PolyListTable

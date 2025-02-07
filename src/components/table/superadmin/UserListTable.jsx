@@ -6,19 +6,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { getFullHourDate } from "@/utils/dayjs";
+import { getDate, getFullHourDate } from "@/utils/dayjs";
 import ChangeSchedulesDialog from "@/components/dialog/ChangeSchedulesDialog";
 
-const DoctorListTable = ({ doctorList }) => {
+const UserListTable = ({ userList }) => {
 
     const renderRow = () => {
-        return doctorList.map((value, i) => {
-            const { name, email, schedules, createdAt, polyclinicName } = value;
-
-            let scheduleDay = ""
-            schedules.map(i => {
-                scheduleDay += i.day + ", "
-            })
+        return userList.map((value, i) => {
+            const { name, email, gender, birthDate, location, createdAt } = value;
 
             return (
                 <TableRow key={i} className="h-20">
@@ -29,13 +24,15 @@ const DoctorListTable = ({ doctorList }) => {
                         </p>
                     </TableCell>
                     <TableCell className="min-w-20 text-center">{email}</TableCell>
-                    <TableCell className="min-w-20 text-center">{polyclinicName}</TableCell>
-                    <TableCell className="min-w-20 text-center">{scheduleDay || "~"}</TableCell>
-                    <TableCell className="min-w-20 text-center">
+                    <TableCell className="min-w-20 text-center">{gender}</TableCell>
+                    <TableCell className="min-w-20 text-center">{getDate(birthDate)}</TableCell>
+                    <TableCell className="min-w-20 text-center">{location}</TableCell>
+                    <TableCell className="min-w-20 text-center">{getFullHourDate(createdAt)}</TableCell>
+                    {/* <TableCell className="min-w-20 text-center">
                         <ChangeSchedulesDialog data={value}>
                             <button className="p-3 rounded-lg font-bold border bg-yellow-200 shadow inline-block">Ubah Jadwal</button>
                         </ChangeSchedulesDialog>
-                    </TableCell>
+                    </TableCell> */}
                 </TableRow>
             );
         });
@@ -49,14 +46,15 @@ const DoctorListTable = ({ doctorList }) => {
                         <TableHead className="min-w-10 text-center">No</TableHead>
                         <TableHead className="min-w-20 text-center">Nama</TableHead>
                         <TableHead className="min-w-20 text-center">Email</TableHead>
-                        <TableHead className="min-w-20 text-center">Poliklinik</TableHead>
-                        <TableHead className="min-w-20 text-center">Jadwal Praktik</TableHead>
-                        <TableHead className="min-w-20 text-center">Detail</TableHead>
+                        <TableHead className="min-w-20 text-center">Jenis Kelamin</TableHead>
+                        <TableHead className="min-w-20 text-center">Tanggal Lahir</TableHead>
+                        <TableHead className="min-w-20 text-center">Domisili</TableHead>
+                        <TableHead className="min-w-20 text-center">Bergabung Pada</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody className="text-base">
-                    {doctorList.length > 0 ? (
+                    {userList.length > 0 ? (
                         renderRow()
                     ) : (
                         <TableRow>
@@ -71,4 +69,4 @@ const DoctorListTable = ({ doctorList }) => {
     );
 };
 
-export default DoctorListTable
+export default UserListTable
