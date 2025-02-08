@@ -8,7 +8,7 @@ import FieldInput from './field/FieldInput'
 import FieldSelect from './field/FieldSelect'
 import { X } from 'lucide-react'
 import { failedToast, successToast } from '@/lib/toaster'
-import { createSchedules } from '@/data/schedule'
+import { createSchedules } from '@/api/schedule'
 import { useNotif, useRefreshSchedules } from '@/store/store'
 import { jwtDecode } from 'jwt-decode'
 

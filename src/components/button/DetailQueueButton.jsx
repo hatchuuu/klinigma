@@ -1,5 +1,5 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
-import { createQueueByUser } from '@/data/queue';
+import { createQueueByUser } from '@/api/queue';
 import { failedToast } from '@/lib/toaster';
 import { useNotif } from '@/store/store';
 import { jwtDecode } from 'jwt-decode';

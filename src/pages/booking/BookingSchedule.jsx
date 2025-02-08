@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { failedToast } from "@/lib/toaster";
-import { getAllDoctors } from "@/data/doctors";
+import { getAllDoctors } from "@/api/doctors";
 import { getCurrentISODate, getDateByNumber, isLateHour } from "@/utils/dayjs";
 import DialogQueueButton from "@/components/button/DetailQueueButton";
 

@@ -1,12 +1,13 @@
 import QueueListTable from "@/components/table/QueueListTable"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
-import { getAllQueuesByUser } from "@/data/queue";
+import { getAllQueuesByUser } from "@/api/queue";
 import { failedToast } from "@/lib/toaster";
 import { jwtDecode } from "jwt-decode";
 import { Plus, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useAuthStore } from "@/store/store";
 
 const AdminQueuePage = () => {
     const [role, setRole] = useState("");
@@ -14,9 +15,10 @@ const AdminQueuePage = () => {
     const [refresh, setRefresh] = useState(false);
     const [queueList, setQueueList] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
-    const [hasNext, setHasNext] = useState(true)
+    const [hasNext, setHasNext] = useState(false)
 
     const page = parseInt(searchParams.get("page")) || 1
+    const polyName = useAuthStore(state => state.polyName)
 
     useEffect(() => {
         const fetchQueuesByUser = async () => {
@@ -46,7 +48,7 @@ const AdminQueuePage = () => {
             queue.doctor.name.toLowerCase().includes(search) ||
             queue.user.name.toLowerCase().includes(search) ||
             queue.status.toLowerCase().includes(search) ||
-            queue.queueNumber.toLowerCase().includes(search)
+            queue.queueNumber.toString().includes(search)
         );
     });
 
@@ -55,14 +57,18 @@ const AdminQueuePage = () => {
     }
 
     return (
-        <div className="w-full py-36">
-            <div className="max-w-6xl mx-auto flex flex-col gap-[3.5rem]">
+        <div className="w-full py-40">
+            <div className="max-w-6xl mx-auto flex flex-col gap-[4rem]">
                 <section className="flex w-full justify-between items-end">
                     <div className="flex flex-col gap-2">
                         <h3 className="text-4xl font-bold text-black mb-1">
                             #Halaman Antrean
                         </h3>
-                        {role == "admin" && <h3 className="text-2xl font-bold text-gray-400">/ {queueList[0]?.polyclinic.polyclinicName}</h3>}
+                        {role == "admin" &&
+                            <h3 className="text-2xl font-bold text-gray-400">
+                                / {polyName}
+                            </h3>
+                        }
                     </div>
                     <img src="/klinigma.png" alt="Klinigma" width={120} />
                 </section>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { ArrowRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { getAllPolyclinics } from "@/data/polyclinics";
+import { getAllPolyclinics } from "@/api/polyclinics";
 import { failedToast } from "@/lib/toaster";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -61,34 +62,58 @@ export default function BookingPage() {
           <Search className="transition-all absolute z-10 right-4 bottom-[10px] peer-hover:bottom-[7.1px] peer-hover:right-[9.5px] peer-focus-visible:bottom-[7.5px] peer-focus-visible:right-[10px]" />
         </section>
 
-        <div className="grid grid-cols-2 gap-6 ">
-          {filteredPolyclinics.map((poli) => (
-            <Button
-              key={poli.id}
-              className="neo-button neo-button-hover rounded-2xl p-8 bg-white cursor-pointer hover:bg-secondary/40 group"
-              onClick={() => handleSendPolyclinic(poli.id)}
-            >
-              <div className="w-full flex flex-col gap-4">
-                <div className="flex items-center justify-between">
-                  <Avatar className="w-16 h-16 ">
-                    <AvatarImage src={poli.image} alt={poli.polyName} />
-                    <AvatarFallback className="text-xl group-hover:border-neon group-hover:text-2xl transition-all">{poli.polyclinicName[0]}</AvatarFallback>
-                  </Avatar>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-gray-200">
-                    {poli.polyclinicName}
-                  </p>
-                  <div className="group-hover:-all">
-                    <ArrowRight />
+
+        <section className="grid grid-cols-2 gap-6 ">
+          {
+            polyclinics.length > 0 ?
+
+              filteredPolyclinics.map((poli) => (
+                <div
+                  key={poli.id}
+                  className="neo-button neo-button-hover rounded-2xl p-8 bg-white cursor-pointer hover:bg-secondary/40 group"
+                  onClick={() => handleSendPolyclinic(poli.id)}
+                >
+                  <div className="w-full flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                      <Avatar className="w-16 h-16 ">
+                        <AvatarImage src={poli.image} alt={poli.polyName} />
+                        <AvatarFallback className="text-xl group-hover:border-neon group-hover:text-2xl transition-all">{poli.polyclinicName[0]}</AvatarFallback>
+                      </Avatar>
+                      <p className="text-2xl font-semibold text-gray-900 dark:text-gray-200">
+                        {poli.polyclinicName}
+                      </p>
+                      <ArrowRight />
+                    </div>
+                    <Separator />
+                    <p className="text-base text-left text-gray-500 dark:text-gray-400 line-clamp-3">
+                      {poli.descriptions}
+                    </p>
                   </div>
                 </div>
-                <Separator />
-                <p className="text-base text-left text-gray-500 dark:text-gray-400">
-                  {poli.descriptions}
-                </p>
-              </div>
-            </Button>
-          ))}
-        </div>
+              ))
+              :
+              Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="neo-button neo-button-hover rounded-2xl p-8 bg-white cursor-pointer hover:bg-secondary/40 group"
+                >
+                  <div className="w-full flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                      <Avatar className="w-16 h-16 ">
+                        <AvatarFallback className="text-xl group-hover:border-neon group-hover:text-2xl transition-all">N</AvatarFallback>
+                      </Avatar>
+                      <Skeleton className="text-2xl font-semibold text-gray-900 dark:text-gray-200 h-12">
+                      </Skeleton>
+                      <ArrowRight />
+                    </div>
+                    <Separator />
+                    <Skeleton className="text-base text-left text-gray-500 dark:text-gray-400 line-clamp-3 h-12">
+                    </Skeleton>
+                  </div>
+                </div>
+              ))
+          }
+        </section>
       </div>
     </div>
   );

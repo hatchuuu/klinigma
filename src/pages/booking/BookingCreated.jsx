@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { failedToast } from "@/lib/toaster";
-import { getAllQueuesByUser } from "@/data/queue";
+import { getAllQueuesByUser } from "@/api/queue";
 import { jwtDecode } from "jwt-decode";
 
 function BookingCreated() {

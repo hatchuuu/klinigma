@@ -1,9 +1,9 @@
 import DoctorListTable from "@/components/table/DoctorListTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
-import { getAllDoctors } from "@/data/doctors";
+import { getAllDoctors } from "@/api/doctors";
 import { failedToast } from "@/lib/toaster";
-import { useRefreshSchedules } from "@/store/store";
+import { useAuthStore, useRefreshSchedules } from "@/store/store";
 import { jwtDecode } from "jwt-decode";
 import { Plus, Search } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -14,9 +14,10 @@ const DoctorPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [doctorList, setDoctorList] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
-    const [hasNext, setHasNext] = useState(true)
+    const [hasNext, setHasNext] = useState(false)
     const refresh = useRefreshSchedules((state) => state.refresh)
     const page = parseInt(searchParams.get("page")) || 1
+    const polyName = useAuthStore(state => state.polyName)
 
     useEffect(() => {
         const fetchDoctorsByPoly = async () => {
@@ -53,14 +54,14 @@ const DoctorPage = () => {
     }
 
     return (
-        <div className="w-full py-36">
+        <div className="w-full py-40">
             <div className="max-w-6xl mx-auto flex flex-col gap-[4rem]">
                 <section className="flex w-full justify-between items-end">
                     <div className="flex flex-col gap-2">
                         <h3 className="text-4xl font-bold text-black mb-1">
                             #Halaman Dokter
                         </h3>
-                        {role == "admin" && <h3 className="text-2xl font-bold text-gray-400">/ {doctorList[0]?.polyclinicName}</h3>}
+                        {role == "admin" && <h3 className="text-2xl font-bold text-gray-400">/ {polyName}</h3>}
                     </div>
                     <img src="/klinigma.png" alt="Klinigma" width={120} />
                 </section>

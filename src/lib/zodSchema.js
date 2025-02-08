@@ -62,18 +62,6 @@ export const registerSchema = loginSchema.extend({
 })
 
 export const userSchema = registerSchema.extend({
-  imageId: z.instanceof(File, "File harus berupa objek file")
-    .refine((file) => file.size <= 5 * 1024 * 1024, "Ukuran file maksimal 5MB")
-    .refine(
-      (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
-      "Format file harus JPEG, PNG, atau WEBP"
-    ),
-  imageSelfie: z.instanceof(File, "File harus berupa objek file")
-    .refine((file) => file.size <= 5 * 1024 * 1024, "Ukuran file maksimal 5MB")
-    .refine(
-      (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
-      "Format file harus JPEG, PNG, atau WEBP"
-    ),
   role: z.enum(["user", "admin", "superadmin"], {
     required_error: "Role dibutuhkan",
     message: "Role tersebut tidak termasuk"

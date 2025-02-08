@@ -1,7 +1,7 @@
 import UserListTable from "@/components/table/UserListTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
-import { getAllUsers } from "@/data/users";
+import { getAllUsers } from "@/api/users";
 import { failedToast } from "@/lib/toaster";
 import { useRefreshSchedules } from "@/store/store";
 import { jwtDecode } from "jwt-decode";

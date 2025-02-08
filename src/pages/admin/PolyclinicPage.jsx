@@ -1,7 +1,7 @@
 import PolyListTable from "@/components/table/PolyclinicListTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
-import { getAllPolyclinics } from "@/data/polyclinics";
+import { getAllPolyclinics } from "@/api/polyclinics";
 import { failedToast } from "@/lib/toaster";
 import { useRefreshSchedules } from "@/store/store";
 import { jwtDecode } from "jwt-decode";

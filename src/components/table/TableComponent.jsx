@@ -11,7 +11,7 @@ import { EllipsisVertical } from "lucide-react";
 import PropTypes from "prop-types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { failedToast, successToast } from "@/lib/toaster";
-import { updateQueueById } from "@/data/queue";
+import { updateQueueById } from "@/api/queue";
 import { useNotif } from "@/store/store";
 
 export const TableComponent = ({ data, refreshPage }) => {

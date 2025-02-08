@@ -1,7 +1,7 @@
 import { TableComponent } from '@/components/table/TableComponent'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { getAllQueuesByUser } from '@/data/queue';
+import { getAllQueuesByUser } from '@/api/queue';
 import { failedToast } from '@/lib/toaster';
 import { jwtDecode } from 'jwt-decode';
 import { Search } from 'lucide-react';
@@ -12,7 +12,7 @@ const QueuePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [queues, setQueues] = useState([])
     const [fetch, setFetch] = useState(false)
-    const [hasNext, setHasNext] = useState(true)
+    const [hasNext, setHasNext] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const page = parseInt(searchParams.get("page")) || 1
 

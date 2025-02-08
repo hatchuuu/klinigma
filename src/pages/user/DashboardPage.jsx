@@ -4,18 +4,19 @@ import About from "@/components/dashboard/About";
 import ListDoctor from "@/components/dashboard/ListDoctor";
 import CarouselQueue from "@/components/dashboard/CarouselQueue";
 import { failedToast } from "@/lib/toaster";
-import { getAllQueuesByUser } from "@/data/queue";
+import { getAllQueuesByUser } from "@/api/queue";
 import FeatureServices from "@/components/dashboard/FeatureServices";
 import FacilityServices from "@/components/dashboard/FacilityServices";
 import Articles from "@/components/dashboard/Articles";
 import Maps from "@/components/dashboard/Maps";
 import { getDay, getHour } from "@/utils/dayjs";
-import { getSchedulesByDate } from "@/data/schedule";
+import { getSchedulesByDate } from "@/api/schedule";
 import CardAdminQueue from "@/components/dashboard/CardAdminQueue";
 
 const DashboardPage = () => {
   const [data, setData] = useState(null)
   const [role, setRole] = useState("")
+  const [poly, setPoly] = useState("")
 
   useEffect(() => {
     const fetchMountData = async () => {
@@ -24,6 +25,7 @@ const DashboardPage = () => {
       try {
         const { id, role, polyId } = jwtDecode(token)
         setRole(role)
+        setPoly(polyId)
         let response = null
         if (role == "user") { response = await fetchAllQueues(id) }
         if (role == "admin") { response = await fetchSchedulesDoctor(polyId) }
@@ -69,7 +71,7 @@ const DashboardPage = () => {
           </h3>
           <img src="/klinigma.png" alt="Klinigma" width={120} />
         </section>
-        {role == "admin" && <CardAdminQueue data={data} />}
+        {role == "admin" && <CardAdminQueue data={data} poly={poly} />}
         {role == "user" && <CarouselQueue queue={data} />}
         <FeatureServices handleScroll={handleScroll} role={role} />
         <About />

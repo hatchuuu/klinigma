@@ -6,11 +6,10 @@ import { Link } from "react-router-dom";
 import { userSchema } from "@/lib/zodSchema";
 import FieldInput from "@/components/form/field/FieldInput";
 import { failedToast, successToast } from "@/lib/toaster";
-import { axiosInstance } from "@/lib/axios";
 import FieldSelect from "@/components/form/field/FieldSelect";
 import FieldBirthDate from "@/components/form/field/FieldBirthDate";
-import FieldFile from "@/components/form/field/FieldFile";
 import { useState } from "react";
+import { createUser } from "@/api/users";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
@@ -23,8 +22,6 @@ const RegisterPage = () => {
       location: "",
       phoneNumber: "",
       gender: "",
-      imageId: null,
-      imageSelfie: null,
       birthDate: "",
       numberKTP: "",
       numberKK: "",
@@ -37,29 +34,12 @@ const RegisterPage = () => {
 
   const onSubmit = handleSubmit(async (value) => {
     setLoading(true);
-    const formData = new FormData();
-    const { imageId, imageSelfie, ...rest } = value;
-    formData.append("imageId", imageId);
-    formData.append("imageSelfie", imageSelfie);
-    Object.entries(rest).forEach(([key, value]) => {
-      formData.append(key, value);
-    })
-
     try {
-      const response = await axiosInstance.post("/auth/register", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      if (response.status == 201) {
-        successToast(response.data.message);
-        reset()
-      } else {
-        throw new Error(response);
-      }
+      const response = await createUser(value);
+      successToast(response.message);
+      reset()
     } catch (error) {
-      console.log(error)
-      failedToast(error.response.data.error);
+      failedToast(error.message);
     }
     finally {
       setLoading(false);
@@ -99,8 +79,8 @@ const RegisterPage = () => {
                 <div className="grid grid-cols-2 gap-x-10">
                   <FieldInput control={control} name="name" label="Nama" />
                   <FieldInput control={control} name="email" label="Email" />
-                  <FieldInput control={control} name="password" label="Password" canHide={true} />
-                  <FieldInput control={control} name="confirmPassword" label="Konfirmasi Password" canHide={true} />
+                  <FieldInput control={control} name="password" label="Password" type="password" />
+                  <FieldInput control={control} name="confirmPassword" label="Konfirmasi Password" type="password" />
                 </div>
               </div>
               <div className="bg-lime-300/50 rounded-xl p-8">
@@ -116,16 +96,6 @@ const RegisterPage = () => {
                   <FieldInput control={control} name="numberKTP" label="Nomor KTP" />
                   <FieldInput control={control} name="numberKK" label="Nomor KK" />
                   <FieldInput control={control} name="numberBPJS" label="Nomor BPJS" />
-                </div>
-              </div>
-              <div className="bg-lime-300/50 rounded-xl p-8">
-                <p className="text-2xl font-semibold text-gray-800 mb-1">/Data Foto</p>
-                <p className="text-base text-gray-600 mb-5">
-                  Data akan digunakan sebagai verifikasi identitas pribadi
-                </p>
-                <div className="grid grid-cols-2 gap-x-10">
-                  <FieldFile control={control} name="imageId" label="Foto KTP" />
-                  <FieldFile control={control} name="imageSelfie" label="Foto Selfie" />
                 </div>
               </div>
             </div>

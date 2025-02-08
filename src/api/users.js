@@ -7,7 +7,7 @@ export const getUserById = async (id) => {
             return response.data
         }
     } catch (error) {
-        throw new Error(error.response.data.error)
+        throw new Error(error.response?.data?.error || error.message)
     }
 }
 export const getAllUsers = async (filters) => {
@@ -20,5 +20,15 @@ export const getAllUsers = async (filters) => {
         }
     } catch (error) {
         throw new Error(error.response?.data?.error || error.message)
+    }
+}
+export const createUser = async (data) => {
+    try {
+        const response = await axiosInstance.post(`/auth/register`, data)
+        if (response.status == 201) {
+            return response.data
+        }
+    } catch (error) {
+        throw new Error(error.response?.data?.error || error.message || "Registrasi gagal")
     }
 }

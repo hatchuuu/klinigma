@@ -12,3 +12,13 @@ export const getAllPolyclinics = async (filters) => {
         throw new Error(error.response?.data?.error || error.message)
     }
 }
+export const getPolyclinicById = async (id) => {
+    try {
+        const response = await axiosInstance.get(`/v1/polyclinics/${id}`)
+        if (response.status == 200) {
+            return response.data
+        }
+    } catch (error) {
+        throw new Error(error.response?.data?.error || error.message)
+    }
+}

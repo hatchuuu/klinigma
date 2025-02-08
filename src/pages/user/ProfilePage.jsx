@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
-import { getUserById } from "@/data/users";
+import { getUserById } from "@/api/users";
 import DialogLogoutButton from "@/components/button/DialogLogoutButton";
 import { failedToast } from "@/lib/toaster";
 import { useAuthStore, useNotif } from "@/store/store";
 import { getFullDate } from "@/utils/dayjs";
-import { getAdminById } from "@/data/admin";
+import { getAdminById } from "@/api/admin";
 
 const ProfilePage = () => {
     const navigate = useNavigate();
@@ -52,9 +52,9 @@ const ProfilePage = () => {
     const rowProfile = () =>
         array.map((value, i) => (
             <div key={i} className="w-full flex flex-col gap-2">
-                <h3 className="text-xl text-gray-600 ps-2">{value.title}</h3>
+                <h3 className="text-xl text-gray-600 ps-2">{value?.title || "..."}</h3>
                 <div className="neo-button neo-hover rounded-2xl ps-6">
-                    <h3 className="text-2xl font-semibold">{value.data}</h3>
+                    <h3 className="text-2xl font-semibold">{value?.data || "..."}</h3>
                 </div>
             </div>
         )

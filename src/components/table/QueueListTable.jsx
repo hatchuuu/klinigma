@@ -15,7 +15,7 @@ import {
 import { getFullHourDate, getTableDate } from "@/utils/dayjs";
 import { EllipsisVertical } from "lucide-react";
 import { failedToast, successToast } from "@/lib/toaster";
-import { updateQueueById } from "@/data/queue";
+import { updateQueueById } from "@/api/queue";
 import { useNotif } from "@/store/store";
 
 const QueueListTable = ({ queueList, refreshPage }) => {

@@ -6,10 +6,14 @@ export const useAuthStore = create((set) => ({
         sessionStorage.setItem("token", newToken);
         set({ token: newToken })
     },
-    user: null,
+    polyName: sessionStorage.getItem("polyName") || null,
+    setPolyName: (newPoly) => {
+        sessionStorage.setItem("polyName", newPoly);
+        set({ polyName: newPoly })
+    },
     logout: () => {
         sessionStorage.removeItem("token");
-        set({ token: null, user: null })
+        set({ token: null, polyName: null })
     },
 }))
 
